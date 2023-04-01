@@ -1,4 +1,4 @@
-# equiprent
+# Equiprent
 Equipment rental management software
 
 This is a system for managing a sports equipment rental business. The system is built using .NET 7 (backend) and Angular (frontend) technologies.
