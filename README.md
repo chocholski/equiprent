@@ -20,7 +20,7 @@ The goal of the project is to create a system that enables management of a sport
 * Run the npm install command in the frontend project folder to install all required dependencies.
 * Run the backend project using dotnet run.
 * Run the frontend project using ng serve.
-* 
+
 ## Authors
 The project was created by:
 Alec Chocholski (*alec.chocholski@gmail.com*)
