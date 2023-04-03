@@ -1,0 +1,121 @@
+{
+    "AppName": "Equiprent",
+    "primeng": {
+        "dayNames": [
+            "Niedziela",
+            "Poniedziałek",
+            "Wtorek",
+            "Środa",
+            "Czwartek",
+            "Piątek",
+            "Sobota"
+        ],
+        "dayNamesShort": [
+            "Nd",
+            "Pon",
+            "Wt",
+            "Śr",
+            "Czw",
+            "Pi",
+            "Sob"
+        ],
+        "dayNamesMin": [
+            "Nd",
+            "Po",
+            "Wt",
+            "Śr",
+            "Cz",
+            "Pi",
+            "So"
+        ],
+        "monthNames": [
+            "Styczeń",
+            "Luty",
+            "Marzec",
+            "Kwiecień",
+            "Maj",
+            "Czerwiec",
+            "Lipiec",
+            "Sierpień",
+            "Wrzesień",
+            "Październik",
+            "Listopad",
+            "Grudzień"
+        ],
+        "monthNamesShort": [
+            "Sty",
+            "Lut",
+            "Mar",
+            "Kwi",
+            "Maj",
+            "Cze",
+            "Lip",
+            "Sie",
+            "Wrz",
+            "Paź",
+            "Lis",
+            "Gru"
+        ],
+        "today": "Dzisiaj",
+        "clear": "Wyczyść",
+        "weekHeader": "Ty"
+    },
+    "General": {
+        "Yes": "Tak",
+        "No": "Nie",
+        "Create": "Utwórz",
+        "Edit": "Edytuj",
+        "Save": "Zapisz",
+        "Delete": "Skasuj",
+        "Cancel": "Anuluj",
+        "ClearFilters": "Wyczyść filtry",
+        "GeneralTab": "Dane ogólne",
+        "Choose": "Wybierz",
+        "All": "-- Wszystkie --",
+        "Add": "Dodaj",
+        "Name": "Nazwa",
+        "Empty": "-- Brak --",
+        "Unassigned": "-- Nieprzypisany --",
+        "File": "Plik",
+        "Details": "Szczegóły",
+        "Filters": "Filtry",
+        "Legend": "Legenda",
+        "Erase": "Wyczyść",
+        "CannotDownloadFile": "Nie można pobrać pliku.",
+        "Loading": "Ładowanie...",
+        "Error": "Błąd",
+        "Welcome": "Witaj",
+        "SignIn": "Zaloguj",
+        "SignInToContinue": "Zaloguj się, aby kontynuować",
+        "RememberMe": "Zapamiętaj mnie",
+        "ForgotPassword": "Nie pamiętasz hasła",
+        "Profile": "Profil",
+        "LogOut": "Wyloguj się",
+        "Send": "Wyślij"
+    },
+    "Messages": {
+        "EnterLoginFirst": "Proszę wprowadzić login.",
+        "AccountIsNotActive": "Konto nieaktywne.",
+        "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
+        "InvalidLoginData": "Nieprawidłowe dane logowania.",
+        "EnterEmailFirst": "Proszę wprowadzić email.",
+        "UserPasswordChanged": "Email zawierający informacje potrzebne do zmiany hasła został wysłany.",
+        "CantChangeUserPassword": "Nie można zmienić hasła użytkownika.",
+        "ProvidedEmailDoesNotExist": "Podany email nie istnieje."
+    },
+    "Menu": {
+        "Title": "Menu",
+        "Administration": "Administracja",
+        "Users": "Użytkownicy",
+        "UserRoles": "Role"
+    },
+    "User": {
+        "Email": "Email",
+        "Login": "Login",
+        "Password": "Hasło",
+        "PasswordChange": "Zmiana hasła"
+    },
+    "Language": {
+        "Plural": "Języki"
+    }
+}

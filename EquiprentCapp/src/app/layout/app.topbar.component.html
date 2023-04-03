@@ -1,0 +1,23 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/logo.png" alt="logo" style="height: 2.5em; margin-right: 1em;">
+        <span>EQUIPRENT</span>
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu"
+        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <div class="formgroup-inline">
+            <p-splitButton class="field p-link" [label]="translate.instant('General.Profile')" icon="fa fa-solid fa-user" [model]="userMenuItems"></p-splitButton>
+        </div>
+    </div>
+
+</div>

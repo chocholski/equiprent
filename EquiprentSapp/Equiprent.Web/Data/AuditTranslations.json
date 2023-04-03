@@ -1,0 +1,94 @@
+﻿[
+  {
+    "DbName": "UserRoleId",
+    "Translation": "Audit.UserRoleId"
+  },
+  {
+    "DbName": "IsActive",
+    "Translation": "Audit.IsActive"
+  },
+  {
+    "DbName": "Password",
+    "Translation": "Audit.Password"
+  },
+  {
+    "DbName": "FirstName",
+    "Translation": "Audit.FirstName"
+  },
+  {
+    "DbName": "LastName",
+    "Translation": "Audit.LastName"
+  },
+  {
+    "DbName": "Login",
+    "Translation": "Audit.Login"
+  },
+  {
+    "DbName": "Email",
+    "Translation": "Audit.Email"
+  },
+  {
+    "DbName": "LanguageId",
+    "Translation": "Audit.LanguageId"
+  },
+  {
+    "DbName": "CreatedOn",
+    "Translation": "Audit.CreatedOn"
+  },
+  {
+    "DbName": "CreatedById",
+    "Translation": "Audit.CreatedById"
+  },
+  {
+    "DbName": "IsDeleted",
+    "Translation": "Audit.IsDeleted"
+  },
+  {
+    "DbName": "DeletedOn",
+    "Translation": "Audit.DeletedOn"
+  },
+  {
+    "DbName": "UserId",
+    "Translation": "Audit.UserId"
+  },
+  {
+    "DbName": "Date",
+    "Translation": "Audit.Date"
+  },
+  {
+    "DbName": "Description",
+    "Translation": "Audit.Description"
+  },
+  {
+    "DbName": "StartedOn",
+    "Translation": "Audit.StartedOn"
+  },
+  {
+    "DbName": "EndedOn",
+    "Translation": "Audit.EndedOn"
+  },
+  {
+    "DbName": "Name",
+    "Translation": "Audit.Name"
+  },
+  {
+    "DbName": "SystemName",
+    "Translation": "Audit.SystemName"
+  },
+  {
+    "DbName": "UserPermissionId",
+    "Translation": "Audit.UserPermissionId"
+  },
+  {
+    "DbName": "ChangePasswordToken",
+    "Translation": "Audit.ChangePasswordToken"
+  },
+  {
+    "DbName": "RefreshToken",
+    "Translation": "Audit.RefreshToken"
+  },
+  {
+    "DbName": "IsTokenRefreshRequired",
+    "Translation": "Audit.IsTokenRefreshRequired"
+  }
+]

@@ -1,0 +1,121 @@
+{
+    "AppName": "Equiprent",
+    "primeng": {
+        "dayNames": [
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+        ],
+        "dayNamesShort": [
+            "Sun",
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+        ],
+        "dayNamesMin": [
+            "Su",
+            "Mo",
+            "Tu",
+            "We",
+            "Th",
+            "Fr",
+            "Sa"
+        ],
+        "monthNames": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ],
+        "monthNamesShort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+        ],
+        "today": "Today",
+        "clear": "Clear",
+        "weekHeader": "Wk"
+    },
+    "General": {
+        "Yes": "Yes",
+        "No": "No",
+        "Create": "Create",
+        "Edit": "Edit",
+        "Save": "Save",
+        "Delete": "Delete",
+        "Cancel": "Cancel",
+        "ClearFilters": "Clear filters",
+        "GeneralTab": "General information",
+        "Choose": "Choose",
+        "All": "-- All --",
+        "Add": "Add",
+        "Name": "Name",
+        "Empty": "-- Empty --",
+        "Unassigned": "-- Unassigned --",
+        "File": "File",
+        "Details": "Details",
+        "Filters": "Filters",
+        "Legend": "Legend",
+        "Erase": "Erase",
+        "CannotDownloadFile": "The file cannot be downloaded.",
+        "Loading": "Loading...",
+        "Error": "Error",
+        "Welcome": "Welcome",
+        "SignIn": "Sign in",
+        "SignInToContinue": "Sign in to continue",
+        "RememberMe": "Remember me",
+        "ForgotPassword": "Forgot password",
+        "Profile": "Profile",
+        "LogOut": "Log out",
+        "Send": "Send"
+    },
+    "Messages": {
+        "EnterLoginFirst": "Please enter login first.",
+        "AccountIsNotActive": "The account is not active.",
+        "PleaseContactAdmin": "Please contact the administrator of the application.",
+        "InvalidLoginData": "Invalid login data.",
+        "EnterEmailFirst": "Please enter email first.",
+        "EmailWithPasswordResetInstructionsSent": "Email with password reset instructions has been sent.",
+        "CantChangeUserPassword": "Cannot change user password.",
+        "ProvidedEmailDoesNotExist": "The email provided does not exist."
+    },
+    "Menu": {
+        "Title": "Menu",
+        "Administration": "Administration",
+        "Users": "Users",
+        "UserRoles": "Roles"
+    },
+    "User": {
+        "Email": "Email",
+        "Login": "Login",
+        "Password": "Password",
+        "PasswordChange": "Password change"
+    },
+    "Language": {
+        "Plural": "Languages"
+    }
+}
