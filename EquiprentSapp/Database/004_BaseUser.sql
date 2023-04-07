@@ -1,2 +1,1 @@
--- Pass: 2023$ALEC!
-INSERT INTO users (Id, Login, Password, FirstName, LastName, IsActive, Email, ChangePasswordToken, IsTokenRefreshRequired, LanguageId, IsDeleted, CreatedOn, CreatedById, UserRoleId, DeletedOn) VALUES (1, 'admin', '278306cb5f199ae1540e9a2cf5c2b5d5e17a59e83cf7d0403807bafb14e47336', 'Admin', 'Admin', 1, NULL, NULL, 0, 1, 0, '2022-06-28 00:00:00', NULL, 1, NULL);
+INSERT INTO users (Id, Login, Password, FirstName, LastName, IsActive, Email, ChangePasswordToken, RefreshToken, IsTokenRefreshRequired, LanguageId, UserRoleId, CreatedOn, CreatedById, IsDeleted, DeletedOn) VALUES (UUID(), 'admin', '278306cb5f199ae1540e9a2cf5c2b5d5e17a59e83cf7d0403807bafb14e47336', 'Admin', 'Admin', 1, NULL, NULL, NULL, 0, 1, 1, '2023-04-07 00:00:00', NULL, 0, NULL);

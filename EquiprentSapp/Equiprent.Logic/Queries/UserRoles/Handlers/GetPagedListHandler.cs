@@ -43,15 +43,9 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                 .Select(x => x.Id)
                 .ToList();
 
-            var userRolesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>(EntityIdsFilterModeEnum.Include, userRolesIdsList);
-
-            foreach (var item in list)
-            {
-                item.Name = userRolesIdsWithNames
-                    .Where(userRoleIdWithName => userRoleIdWithName.Id == item.Id)
-                    .Select(userRoleIdWithName => userRoleIdWithName.Name)
-                    .FirstOrDefault() ?? string.Empty;
-            }
+            await _languageableService.TranslateLanguageableValuesAsync<UserRoleListItemModel, UserRoleToLanguage>(list,
+                idPropertyName: nameof(UserRoleListItemModel.Id),
+                namePropertyName: nameof(UserRoleListItemModel.Name));
 
             var model = new ListModel
             {

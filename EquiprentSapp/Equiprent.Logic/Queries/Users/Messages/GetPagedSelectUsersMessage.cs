@@ -7,9 +7,9 @@ namespace Equiprent.Logic.Queries.Users.Messages
     public record GetPagedSelectUsersMessage : IQuery<SelectListModel> 
     {
         public RequestParameters RequestParameters { get; }
-        public int[] IgnoredUserIds { get; }
+        public Guid[] IgnoredUserIds { get; }
 
-        public GetPagedSelectUsersMessage(RequestParameters requestParameters, int[] ignoredUserIds)
+        public GetPagedSelectUsersMessage(RequestParameters requestParameters, Guid[] ignoredUserIds)
         {
             RequestParameters = requestParameters;
             IgnoredUserIds = ignoredUserIds;

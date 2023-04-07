@@ -15,6 +15,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         public async Task<CommandResult> HandleAsync(ChangeRoleMessage message)
         {
             var validationResult = await Validate(message);
+
             if (validationResult is not CommandResult.OK)
             {
                 return validationResult;

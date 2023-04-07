@@ -1,6 +1,6 @@
 ﻿namespace Equiprent.Entities.EnumTypes
 {
-    public enum ApplicationConfigurationKeyEnum
+    public enum ConfigurationKeyEnum
     {
         SmtpServer = 1,
         SmtpPort = 2,

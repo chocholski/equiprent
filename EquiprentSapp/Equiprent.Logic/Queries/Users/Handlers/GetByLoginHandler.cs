@@ -16,9 +16,11 @@ namespace Equiprent.Logic.Queries.Users.Handlers
         public async Task<DetailsModel?> HandleAsync(GetUserByLoginMessage requestData)
         {
             var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Login == requestData.Login);
+
             if (user != null)
             {
                 var result = user.Adapt<DetailsModel>();
+
                 return result;
             }
 

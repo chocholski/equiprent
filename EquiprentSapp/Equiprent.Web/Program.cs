@@ -47,22 +47,6 @@ namespace EquiprentAPI.Web
                 .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true)
                 .AddEnvironmentVariables();
 
-            builder.Services.Configure<JwtBearerOptions>(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = builder.Configuration["Auth:Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Auth:Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:Jwt:Key"]!)),
-                    ClockSkew = TimeSpan.Zero,
-                    RequireExpirationTime = true
-                };
-            });
-
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: CORS_POLICY_NAME, policyBuilder =>
@@ -129,7 +113,23 @@ namespace EquiprentAPI.Web
             });
 
             builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer();
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = builder.Configuration["Auth:Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Auth:Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:Jwt:Key"]!)),
+                        ClockSkew = TimeSpan.Zero,
+                        // security switches
+                        RequireExpirationTime = true,
+                        ValidateIssuer = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateAudience = true
+                    };
+                });
 
             builder.Services.AddSingleton(builder.Configuration);
             builder.Services.Add(new ServiceDescriptor(typeof(IPasswordHasher), typeof(PasswordHasher), ServiceLifetime.Transient));

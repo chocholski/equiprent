@@ -5,9 +5,9 @@ namespace Equiprent.Logic.Queries.Users.Messages
 {
     public record GetUserLanguageByIdMessage : IQuery<LanguageModel>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
-        public GetUserLanguageByIdMessage(int userId)
+        public GetUserLanguageByIdMessage(Guid userId)
         {
             UserId = userId;
         }

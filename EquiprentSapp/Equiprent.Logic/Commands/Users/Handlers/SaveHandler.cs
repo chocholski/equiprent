@@ -18,6 +18,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         public async Task<CommandResult> HandleAsync(SaveMessage message)
         {
             var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == message.Id);
+
             if (user is not null)
             {
                 if (user.UserRoleId != message.UserRoleId)
@@ -39,6 +40,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
 
                 _dbContext.ApplicationUsers.Update(user);
                 await _dbContext.SaveChangesAsync();
+
                 return CommandResult.OK;
             }
 

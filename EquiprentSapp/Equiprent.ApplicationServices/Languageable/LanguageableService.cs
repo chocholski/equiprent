@@ -13,9 +13,27 @@ namespace Equiprent.ApplicationServices.Languageable
             _userResolverService = userResolverService;
         }
 
-        public async Task<List<LanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(EntityIdsFilterModeEnum? entityIdsFilterMode = null, 
-            List<int>? translatedEntityIds = null, 
-            int? languageId = null) 
+        public async Task TranslateLanguageableValuesAsync<T, U>(List<T> list,
+            string idPropertyName,
+            string namePropertyName,
+            EntityIdsFilterModeEnum? entityIdsFilterMode = null,
+            List<int>? translatedEntityIds = null,
+            int? languageId = null) where U : class, ILanguageable
+        {
+            var entityIdsWithNames = await GetEntityIdsWithNamesInCurrentUserLanguageAsync<U>(entityIdsFilterMode, translatedEntityIds, languageId);
+            var idProperty = typeof(T).GetProperty(idPropertyName);
+            var nameProperty = typeof(T).GetProperty(namePropertyName);
+
+            if (idProperty is not null &&
+                nameProperty is not null)
+            {
+                list.ForEach(item => nameProperty.SetValue(item, entityIdsWithNames.GetNameForId((int)idProperty.GetValue(item)!)));
+            }
+        }
+
+        public async Task<List<LanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(EntityIdsFilterModeEnum? entityIdsFilterMode = null,
+            List<int>? translatedEntityIds = null,
+            int? languageId = null)
             where TEntity : class, ILanguageable
         {
             var result = new List<LanguageableItem>();

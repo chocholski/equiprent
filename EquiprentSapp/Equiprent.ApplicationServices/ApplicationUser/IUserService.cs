@@ -2,7 +2,7 @@
 {
     public interface IUserService
     {
-        public int? GetUserId();
+        public Guid? GetUserId();
         public Task<int?> GetCurrentUserLanguageIdAsync();
     }
 }

@@ -1,0 +1,60 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <p-table #dataTable [value]="users" [columns]="cols" dataKey="Id" sortField="Id" [lazy]="true"
+        (onLazyLoad)="loadUsersLazy($event, dataTable)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+        [totalRecords]="totalRecords" [responsive]="true" [rowHover]="true" styleClass="p-datatable-gridlines"
+        [paginator]="true" responsiveLayout="scroll">
+
+        <ng-template pTemplate="caption">
+          <!-- [TODO] Implement global filtering -->
+          <!-- <div class="flex justify-content-between flex-column sm:flex-row">
+            <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
+              icon="pi pi-filter-slash" (click)="clear(dataTable)"></button>
+            <span class="p-input-icon-left mb-2">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" #filter (input)="onGlobalFilter(dataTable, $event)"
+                [placeholder]="translate.instant('General.SearchKeyword')" class="w-full" />
+            </span>
+          </div> -->
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
+              <div class="flex justify-content-between align-items-center">
+                {{ col.header | translate }}
+                <p-columnFilter *ngSwitchCase="'Id'" type="text" field="id" display="menu"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"></p-columnFilter>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-user let-columns="columns">
+          <tr>
+            <td>
+              {{user.Login}}
+            </td>
+            <td>
+              {{user.FirstName}}
+            </td>
+            <td>
+              {{user.LastName}}
+            </td>
+            <td>
+              {{user.UserRoleName}}
+            </td>
+            <td>
+              <input type="checkbox" [checked]="user.IsActive" disabled />
+            </td>
+            <td>
+              <!-- [TODO] Actions -->
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
+</div>

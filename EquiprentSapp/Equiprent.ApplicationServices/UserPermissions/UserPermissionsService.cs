@@ -16,7 +16,7 @@ namespace Equiprent.ApplicationServices.UserPermissions
             return await _dbContext.UserPermissions.ToListAsync();
         }
 
-        public async Task<List<UserPermission>> GetUserPermissionsForUserAsync(int userId)
+        public async Task<List<UserPermission>> GetUserPermissionsForUserAsync(Guid userId)
         {
             var permissions = new List<UserPermission>();
 

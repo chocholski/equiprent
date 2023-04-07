@@ -65,9 +65,10 @@ namespace Equiprent.Web.Controllers
 
                 if (nameIdentifier != null)
                 {
-                    var currentUserId = Convert.ToInt32(nameIdentifier.Value);
+                    var currentUserId = Guid.TryParse(nameIdentifier.Value, out Guid gCurrentUserId) ? (Guid?)gCurrentUserId : null;
 
-                    if (!await dbContext!.ApplicationUsers.AnyAsync(x => x.Id == currentUserId && x.IsTokenRefreshRequired))
+                    if (currentUserId.HasValue &&
+                        !await dbContext!.ApplicationUsers.AnyAsync(x => x.Id == currentUserId && x.IsTokenRefreshRequired))
                     {
                         await base.OnActionExecutionAsync(context, next);
                     }

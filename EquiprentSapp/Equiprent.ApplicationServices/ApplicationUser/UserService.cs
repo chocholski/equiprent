@@ -14,10 +14,11 @@ namespace Equiprent.Data.Services
             _httpAccessor = httpAccessor;
         }
 
-        public int? GetUserId()
+        public Guid? GetUserId()
         {
             var userId = _httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-            return userId is not null ? Convert.ToInt32(userId.Value) : null;
+
+            return userId is not null && Guid.TryParse(userId.Value, out Guid currentUserId) ? currentUserId : null;
         }
 
         public async Task<int?> GetCurrentUserLanguageIdAsync()

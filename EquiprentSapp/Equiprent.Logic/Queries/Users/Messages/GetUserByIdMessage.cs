@@ -5,8 +5,8 @@ namespace Equiprent.Logic.Queries.Users.Messages
 {
     public record GetUserByIdMessage : IQuery<DetailsModel>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
 
-        public GetUserByIdMessage(int userId) => UserId = userId;
+        public GetUserByIdMessage(Guid userId) => UserId = userId;
     }
 }

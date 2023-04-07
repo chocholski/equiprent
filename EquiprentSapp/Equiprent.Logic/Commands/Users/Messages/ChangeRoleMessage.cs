@@ -4,7 +4,7 @@ namespace Equiprent.Logic.Commands.Users.Messages
 {
     public class ChangeRoleMessage : ICommand
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public int UserRoleId { get; set; }
     }
 }

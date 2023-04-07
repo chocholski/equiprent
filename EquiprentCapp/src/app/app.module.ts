@@ -24,6 +24,7 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SelectOptionsService } from './services/select-options.service';
+import { FilterService } from './services/filter.service';
 
 //Components
 import { UserListComponent } from './components/users/user-list';
@@ -39,6 +40,7 @@ import { ToastModule } from 'primeng/toast';
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { TableModule } from 'primeng/table';
 
 registerLocaleData(localePl, 'pl');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -82,6 +84,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ToastModule,
         SplitButtonModule,
         PanelMenuModule,
+        TableModule
         //[end] primeng Modules
     ],
     providers: [
@@ -103,6 +106,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthGuard,
         MessageService,
         SelectOptionsService,
+        FilterService
         //[end] app services
     ],
     bootstrap: [AppComponent]

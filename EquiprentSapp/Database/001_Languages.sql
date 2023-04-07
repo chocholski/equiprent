@@ -1,2 +1,2 @@
-insert into languages values (1, 'Polski', 'pl');
-insert into languages values (2, 'English', 'en');
+insert into languages values (1, 'pl', 'Polski');
+insert into languages values (2, 'en', 'English');

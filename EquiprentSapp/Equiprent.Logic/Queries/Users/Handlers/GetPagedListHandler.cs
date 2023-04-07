@@ -23,12 +23,11 @@ namespace Equiprent.Logic.Queries.Users.Handlers
 
         public async Task<ListModel?> HandleAsync(GetPagedUsersMessage message)
         {
-            var currentUserId = _userResolverService.GetUserId();
-
             var users = _dbContext.ApplicationUsers
                 .Include(x => x.UserRole)
-                .Where(user => !user.IsDeleted &&
-                               message.UserRoleId.HasValue ? user.UserRoleId == message.UserRoleId.Value : true)
+                .Where(user => user.IsDeleted ||
+                               !message.UserRoleId.HasValue ||
+                               user.UserRoleId == message.UserRoleId.Value)
                 .Select(user => 
                     new ApplicationUserListItemViewModel
                     {
@@ -47,14 +46,16 @@ namespace Equiprent.Logic.Queries.Users.Handlers
                 .Take(message.RequestParameters.PageCount)
                 .ToListAsync();
 
-            var userRolesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>();
-            list.ForEach(userRole => userRole.UserRoleName = userRolesIdsWithNames.GetNameForId(userRole.UserRoleId));
+            await _languageableService.TranslateLanguageableValuesAsync<ApplicationUserListItemViewModel, UserRoleToLanguage>(list,
+                idPropertyName: nameof(ApplicationUserListItemViewModel.UserRoleId),
+                namePropertyName: nameof(ApplicationUserListItemViewModel.UserRoleName));
 
             var model = new ListModel
             {
                 List = list,
                 TotalRowsCount = await users.CountAsync()
             };
+
             return model;
         }
     }

@@ -32,7 +32,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(Guid id)
         {
             var parameters = new GetUserByIdMessage(id);
             var result = await _queryDispatcher.SendQueryAsync<GetUserByIdMessage, DetailsModel>(parameters);
@@ -41,7 +41,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet("getlanguage/{userId}")]
-        public async Task<IActionResult> GetLanguage(int userId)
+        public async Task<IActionResult> GetLanguage(Guid userId)
         {
             var parameters = new GetUserLanguageByIdMessage(userId);
             var result = await _queryDispatcher.SendQueryAsync<GetUserLanguageByIdMessage, LanguageModel>(parameters);
@@ -94,7 +94,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionAuthorize((int)UserPermissionEnum.Users_CanModify)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             var message = new DeleteMessage { Id = id };
             var result = await _commandDispatcher.SendCommandAsync(message);

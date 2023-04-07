@@ -17,11 +17,11 @@ namespace Equiprent.Data
         /// </summary>
         public bool OneTimeIgnoreAuditHandling { get; set; }
 
-        private readonly int? _currentUserId;
+        private readonly Guid? _currentUserId;
 
         #region DbSet - Application
 
-        public DbSet<ApplicationConfigurationKey> ConfigurationKeys { get; set; } = null!;
+        public DbSet<ConfigurationKey> ConfigurationKeys { get; set; } = null!;
         public DbSet<User> ApplicationUsers { get; set; } = null!;
         public DbSet<UserRole> UserRoles { get; set; } = null!;
         public DbSet<Audit> Audits { get; set; } = null!;
@@ -50,16 +50,17 @@ namespace Equiprent.Data
 
         public ApplicationDbContext(DbContextOptions options, IHttpContextAccessor httpAccessor) : this(options)
         {
-            var val = httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
-            _currentUserId = val != null ? Convert.ToInt32(val) : null;
+            var userId = httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            _currentUserId = userId != null && Guid.TryParse(userId, out Guid currentUserId) ? currentUserId : null;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             
-            modelBuilder.Entity<ApplicationConfigurationKey>().ToTable("ApplicationConfigurationKeys");
-            modelBuilder.Entity<ApplicationConfigurationKey>().Property(x => x.Id).ValueGeneratedNever();
+            modelBuilder.Entity<ConfigurationKey>().ToTable("ConfigurationKeys");
+            modelBuilder.Entity<ConfigurationKey>().Property(x => x.Id).ValueGeneratedNever();
 
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<User>().Property(user => user.Id)
@@ -143,7 +144,7 @@ namespace Equiprent.Data
 
                         if (property.Metadata.IsPrimaryKey())
                         {
-                            auditEntry.KeyValue = int.Parse(property!.CurrentValue!.ToString()!);
+                            auditEntry.KeyValue = property!.CurrentValue!.ToString()!;
                             continue;
                         }
 
@@ -316,7 +317,7 @@ namespace Equiprent.Data
                 {
                     if (prop.Metadata.IsPrimaryKey())
                     {
-                        auditEntry.KeyValue = int.Parse(prop?.CurrentValue?.ToString() ?? string.Empty);
+                        auditEntry.KeyValue = prop?.CurrentValue?.ToString() ?? string.Empty;
                     }
                     else
                     {
@@ -335,17 +336,17 @@ namespace Equiprent.Data
 
     internal class AuditEntry
     {
-        private readonly int? _currentUserId;
+        private readonly Guid? _currentUserId;
         public EntityEntry Entry { get; }
         public string TableName { get; set; } = null!;
-        public int KeyValue { get; set; }
+        public string KeyValue { get; set; }
         public Dictionary<string, object?> OldValues { get; } = new Dictionary<string, object?>();
         public Dictionary<string, object?> NewValues { get; } = new Dictionary<string, object?>();
         public List<PropertyEntry> TemporaryProperties { get; } = new List<PropertyEntry>();
 
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 
-        public AuditEntry(EntityEntry entry, int? currentUserId)
+        public AuditEntry(EntityEntry entry, Guid? currentUserId)
         {
             Entry = entry;
             _currentUserId = currentUserId;
@@ -365,7 +366,7 @@ namespace Equiprent.Data
                         CreatedOn = DateTime.Now,
                         KeyValue = KeyValue,
                         FieldName = newValue.Key,
-                        CreatedById = _currentUserId ?? 1
+                        CreatedById = _currentUserId ?? null
                     };
 
                     if (OldValues.Count != 0)

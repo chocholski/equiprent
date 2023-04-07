@@ -4,7 +4,7 @@ namespace Equiprent.Logic.Commands.Users.Messages
 {
     public class ChangeLanguageMessage : ICommand
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public int LanguageId { get; set; }
     }
 }

@@ -19,13 +19,16 @@
               [feedback]="false" inputStyleClass="w-full p-3 md:w-30rem"></p-password>
 
             <div class="flex align-items-center justify-content-between mb-5 gap-5">
-              <div class="flex align-items-center">
+              <!-- [TODO] Remember me -->
+              <!-- <div class="flex align-items-center">
                 <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>
                 <label for="rememberme1">{{ 'General.RememberMe' | translate }}</label>
-              </div>
-              <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)"
+              </div> -->
+
+              <!-- [TODO] Forgot password -->
+              <!-- <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)"
                 [routerLink]="" (click)="resetPassword()">{{
-                'General.ForgotPassword' | translate }}?</a>
+                'General.ForgotPassword' | translate }}?</a> -->
             </div>
             <button pButton pRipple label="{{ 'General.SignIn' | translate }}" class="w-full p-3 text-xl"
               (click)="onSubmit()"></button>

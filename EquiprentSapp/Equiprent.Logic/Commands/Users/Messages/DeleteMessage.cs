@@ -4,6 +4,6 @@ namespace Equiprent.Logic.Commands.Users.Messages
 {
     public class DeleteMessage : ICommand
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

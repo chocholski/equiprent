@@ -10,7 +10,7 @@ using Equiprent.ApplicationServices.Languageable;
 using Equiprent.Entities.Application;
 
 namespace Equiprent.Web.Controllers
-{    
+{
     public class TokenController : BaseApiController
     {
         private readonly IPasswordHasher _passwordHasher;
@@ -243,7 +243,7 @@ namespace Equiprent.Web.Controllers
                 new Claim("userlanguageid", user.LanguageId.ToString()),
                 new Claim("userroleid", user.UserRoleId.ToString()),
                 new Claim("userrolename", userRoleIdWithName.GetNameForId(user.UserRoleId)),
-                new Claim("permissions", await GetUserPermissionsForUserAsString(user.Id)),
+                new Claim("permissions", await GetUserPermissionsForUserAsText(user.Id)),
                 new Claim(ClaimTypes.GivenName, user.GetName())
             };
 
@@ -279,7 +279,7 @@ namespace Equiprent.Web.Controllers
             };
         }
 
-        private async Task<string> GetUserPermissionsForUserAsString(int userId)
+        private async Task<string> GetUserPermissionsForUserAsText(Guid userId)
         {
             var userPermissionsForUser = await _userPermissionsService.GetUserPermissionsForUserAsync(userId);
 

@@ -15,6 +15,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         public async Task<CommandResult> HandleAsync(DeleteMessage message)
         {
             var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == message.Id);
+
             if (user is not null)
             {
                 user.IsDeleted = true;

@@ -17,17 +17,17 @@ export class LoginResetPasswordComponent implements OnInit {
   formValidator: FormValidator;
   token: string;
 
-  constructor(public translate: TranslateService,
+  constructor(private activatedRoute: ActivatedRoute,
     public formBuilder: FormBuilder,
     public messageService: MessageService,
-    private activatedRoute: ActivatedRoute,
-    private http: HttpClient) {
+    public translate: TranslateService) {
 
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
       this.createForm();
       this.formValidator = new FormValidator(this.form);
     });
+
     this.formValidator = new FormValidator(this.form);
   }
 

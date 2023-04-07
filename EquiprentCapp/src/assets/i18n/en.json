@@ -66,6 +66,7 @@
         "Cancel": "Cancel",
         "CannotDownloadFile": "The file cannot be downloaded.",
         "Choose": "Choose",
+        "Clear": "Clear",
         "ClearFilters": "Clear filters",
         "Create": "Create",
         "Delete": "Delete",
@@ -86,6 +87,8 @@
         "Profile": "Profile",
         "RememberMe": "Remember me",
         "Save": "Save",
+        "SearchFor": "Search for",
+        "SearchKeyword": "Wyszukaj po kluczu",
         "Send": "Send",
         "SignIn": "Sign in",
         "SignInToContinue": "Sign in to continue",
@@ -110,10 +113,14 @@
     },
     "User": {
         "Email": "Email",
+        "FirstName": "First name",
+        "IsActive": "Is active",
+        "LastName": "Last name",
         "Login": "Login",
         "Password": "Password",
         "PasswordChange": "Password change",
-        "Plural": "Users"
+        "Plural": "Users",
+        "UserRoleName": "Role"
     },
     "Language": {
         "Plural": "Languages"

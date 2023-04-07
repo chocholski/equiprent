@@ -17,7 +17,7 @@ namespace Equiprent.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Equiprent.Data.CustomQueryTypes.AuditListQueryModel", b =>
@@ -42,33 +42,14 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("AuditListItems");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Application.ApplicationConfigurationKey", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationConfigurationKeys", (string)null);
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Application.Audit", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("CreatedById")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
@@ -77,8 +58,9 @@ namespace Equiprent.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("KeyValue")
-                        .HasColumnType("int");
+                    b.Property<string>("KeyValue")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NewValue")
                         .HasColumnType("longtext");
@@ -95,6 +77,25 @@ namespace Equiprent.Data.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("Audits", (string)null);
+                });
+
+            modelBuilder.Entity("Equiprent.Entities.Application.ConfigurationKey", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConfigurationKeys", (string)null);
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Application.Language", b =>
@@ -120,16 +121,16 @@ namespace Equiprent.Data.Migrations
 
             modelBuilder.Entity("Equiprent.Entities.Application.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("char(36)")
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid?>("ChangePasswordToken")
                         .HasColumnType("char(36)");
 
-                    b.Property<int?>("CreatedById")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
@@ -265,8 +266,8 @@ namespace Equiprent.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CreatedById")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");

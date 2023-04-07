@@ -22,14 +22,14 @@ export class LoginComponent implements OnInit {
   languageId: number;
   languages: SelectItem[];
 
-  constructor(public translate: TranslateService,
-    private formBuilder: FormBuilder,
-    private titleService: Title,
-    private messageService: MessageService,
+  constructor(private app: AppComponent,
     private authenticationService: AuthenticationService,
-    private app: AppComponent,
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
     private router: Router,
-    private selectOptionsService: SelectOptionsService) {
+    private selectOptionsService: SelectOptionsService,
+    private titleService: Title,
+    public translate: TranslateService) {
 
     this.translate.setDefaultLang('pl');
     this.titleService.setTitle(translate.instant("AppName"));
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     this.selectOptionsService.getLanguages().subscribe(options => {
       this.languages = options;
       var languageIdFromStorage = localStorage.getItem('languageId');
+
       if (languageIdFromStorage) {
         this.languageId = Number(languageIdFromStorage);
         this.setLanguage(this.languageId);

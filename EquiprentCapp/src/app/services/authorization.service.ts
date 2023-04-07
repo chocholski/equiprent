@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AuthorizationService {
-  private static _currentUserId?: number;
+  private static _currentUserId?: string;
   private static _currentUserName?: string;
   private static _currentUserLanguageId?: number;
   private static _currentUserRoleId?: number;
@@ -17,7 +17,7 @@ export class AuthorizationService {
   //property let to use static properties.
   AS = AuthorizationService;
 
-  public static get currentUserId(): number | undefined {
+  public static get currentUserId(): string | undefined {
     return this._currentUserId;
   }
 
@@ -67,7 +67,7 @@ export class AuthorizationService {
       permissions.push(Number(str))
     });
 
-    return allowedPermissions.some(r=> permissions.includes(r));
+    return allowedPermissions.some(r => permissions.includes(r));
   }
 
   decodeToken() {
@@ -78,17 +78,17 @@ export class AuthorizationService {
   decodeTokenAndSetData() {
     const decodedToken = this.decodeToken();
     if (decodedToken) {
-      AuthorizationService._currentUserId = Number(decodedToken['sub']);
+      AuthorizationService._currentUserId = decodedToken['sub'];
       AuthorizationService._currentUserName = decodedToken['given_name'];
       AuthorizationService._currentUserLanguageId = decodedToken['userlanguageid'];
       AuthorizationService._currentUserRoleId = decodedToken['userroleid'];
       AuthorizationService._currentUserRoleName = decodedToken['userrolename'];
-      AuthorizationService._currentUserRoles = decodedToken['role'];      
+      AuthorizationService._currentUserRoles = decodedToken['role'];
       AuthorizationService._currentUserPermissions = [];
       var currentUserPermissionsStr = (decodedToken['permissions'] as string).split(',');
       currentUserPermissionsStr.forEach(str => {
         AuthorizationService._currentUserPermissions?.push(Number(str))
-      });      
+      });
     }
     else {
       this.resetAllData();
