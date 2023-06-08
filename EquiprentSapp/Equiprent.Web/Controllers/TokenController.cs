@@ -8,6 +8,8 @@ using Equiprent.Entities.EnumTypes;
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.ApplicationServices.Languageable;
 using Equiprent.Entities.Application;
+using Equiprent.Web.Options.Jwt;
+using System.Text;
 
 namespace Equiprent.Web.Controllers
 {
@@ -75,12 +77,15 @@ namespace Equiprent.Web.Controllers
 
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
+            var jwtOptions = new JwtOptions();
+            Configuration.Bind(nameof(JwtOptions), jwtOptions);
+
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = false,
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"]!)),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key)),
                 ValidateLifetime = false
             };
 
@@ -136,7 +141,9 @@ namespace Equiprent.Web.Controllers
 
         //    if (template is not null)
         //    {
-        //        string angularAppAddress = Configuration["Auth:Jwt:Audience"];
+        //      var jwtOptions = new JwtOptions();
+        //      Configuration.Bind(nameof(JwtOptions, jwtOptions));
+        //        string angularAppAddress = jwtOptions.TokenValidationParameters.Key;
         //        var notification = new Notification
         //        {
         //            Recipients = user.Email,
@@ -247,15 +254,18 @@ namespace Equiprent.Web.Controllers
                 new Claim(ClaimTypes.GivenName, user.GetName())
             };
 
-            var tokenExpirationMins = Configuration.GetValue<int>("Auth:Jwt:TokenExpirationInMinutes");
-            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"]!));
+            var jwtOptions = new JwtOptions();
+            Configuration.Bind(nameof(JwtOptions), jwtOptions);
+
+            var tokenExpirationMins = Configuration.GetValue<int>("Jwt:TokenExpirationInMinutes");
+            var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = now.Add(TimeSpan.FromMinutes(tokenExpirationMins)),
                 SigningCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256Signature),
-                Issuer = Configuration["Auth:Jwt:Issuer"],
-                Audience = Configuration["Auth:Jwt:Audience"],
+                Issuer = jwtOptions.TokenValidationParameters.ValidIssuer,
+                Audience = jwtOptions.TokenValidationParameters.ValidAudience,
                 NotBefore = now
             };
 

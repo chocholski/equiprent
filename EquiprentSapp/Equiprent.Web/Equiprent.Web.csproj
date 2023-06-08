@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <None Include="appsettings.DESKTOP-QHGDHL2.json" />
-    <None Include="appsettings.DESKTOP-VRTU8HG.json" />
   </ItemGroup>
 
   <ItemGroup>

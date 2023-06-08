@@ -1,4 +1,5 @@
-﻿using EquiprentAPI.Web;
+﻿using Equiprent.Web.Options.Jwt;
+using EquiprentAPI.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
@@ -30,6 +31,10 @@ namespace Equiprent.Web.Installers
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 });
 
+            var jwtOptions = new JwtOptions();
+            builder.Configuration.Bind(nameof(JwtOptions), jwtOptions);
+            builder.Services.AddSingleton(jwtOptions);
+
             builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -37,14 +42,15 @@ namespace Equiprent.Web.Installers
                     options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidIssuer = builder.Configuration["Auth:Jwt:Issuer"],
-                        ValidAudience = builder.Configuration["Auth:Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:Jwt:Key"]!)),
+                        ValidateIssuerSigningKey = jwtOptions.TokenValidationParameters.ValidateIssuerSigningKey,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key)),
+                        ValidIssuer = jwtOptions.TokenValidationParameters.ValidIssuer,
+                        ValidateIssuer = jwtOptions.TokenValidationParameters.ValidateIssuer,
+                        ValidAudience = jwtOptions.TokenValidationParameters.ValidAudience,
+                        ValidateAudience = jwtOptions.TokenValidationParameters.ValidateAudience,
+                        ValidateLifetime = jwtOptions.TokenValidationParameters.ValidateLifetime,
                         ClockSkew = TimeSpan.Zero,
-                        RequireExpirationTime = true,
-                        ValidateIssuer = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateAudience = true
+                        RequireExpirationTime = jwtOptions.TokenValidationParameters.RequireExpirationTime
                     };
                 });
         }
