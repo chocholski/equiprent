@@ -8,12 +8,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Logs\" />
-    <Folder Include="wwwroot" />
-    <Folder Include="Printouts\" />
+    <Compile Remove="Logs\**" />
+    <Compile Remove="Printouts\**" />
+    <Content Remove="Logs\**" />
+    <Content Remove="Printouts\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <EmbeddedResource Remove="Printouts\**" />
+    <None Remove="Logs\**" />
+    <None Remove="Printouts\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.DESKTOP-QHGDHL2.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.DESKTOP-QHGDHL2.json" />
     <None Include="appsettings.DESKTOP-VRTU8HG.json" />
   </ItemGroup>
 
@@ -49,15 +63,6 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="Printouts\Request_en.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Printouts\Request_pl.docx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   
 </Project>
