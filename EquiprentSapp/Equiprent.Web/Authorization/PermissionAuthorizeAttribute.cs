@@ -1,4 +1,6 @@
-﻿namespace Equiprent.Web.Authorization
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace Equiprent.Web.Authorization
 {
     public class PermissionAuthorizeAttribute : AuthorizeAttribute
     {
@@ -15,18 +17,14 @@
                     var permissionsIds = Array.ConvertAll(Policy.Substring(POLICY_PREFIX.Length).Split(","), 
                         permissionIdAsString => int.TryParse(permissionIdAsString, out var permissionId) ? permissionId : -1);
 
-                    if (permissionsIds is not null && permissionsIds.Length > 0)
-                    {
+                    if (!permissionsIds.IsNullOrEmpty())
                         return permissionsIds;
-                    }
                 }
 
                 return default!;
             }
-            set
-            {
-                Policy = $"{ POLICY_PREFIX }{ string.Join(',', value) }";
-            }
+
+            set => Policy = $"{ POLICY_PREFIX }{ string.Join(',', value) }";
         }
     }
 }

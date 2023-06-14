@@ -1,4 +1,5 @@
 ﻿using Equiprent.ApplicationServices.UserPermissions;
+using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.UserRoles.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;

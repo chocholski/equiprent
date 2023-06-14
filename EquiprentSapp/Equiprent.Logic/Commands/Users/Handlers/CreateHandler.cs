@@ -3,6 +3,7 @@ using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Infrastructure.CQRS;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {

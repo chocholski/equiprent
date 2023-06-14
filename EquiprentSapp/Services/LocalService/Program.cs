@@ -10,11 +10,11 @@ using Serilog;
 using System;
 using System.Diagnostics;
 using LocalService.ServiceBaseClasses;
-using Equiprent.Data;
 using System.Text;
 using System.Collections.Generic;
 using Equiprent.Data.Services;
 using Equiprent.ApplicationServices.Audit;
+using Equiprent.Data.DbContext;
 
 namespace LocaleService
 {

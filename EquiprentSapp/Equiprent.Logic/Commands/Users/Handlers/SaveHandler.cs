@@ -1,4 +1,5 @@
 ﻿using Equiprent.ApplicationServices.ApplicationUser;
+using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 

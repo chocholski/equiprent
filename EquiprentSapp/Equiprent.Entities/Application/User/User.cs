@@ -36,12 +36,12 @@
         public int UserRoleId { get; set; }
         public virtual UserRole UserRole { get; set; } = null!;       
 
-        public string GetName()
+        public string GetName() => $"{LastName}{(!string.IsNullOrEmpty(FirstName) ? $" {FirstName}" : string.Empty)}";
+
+        public void ChangePassword(string password)
         {
-            if (string.IsNullOrEmpty(FirstName))
-                return LastName;
-            else
-                return $"{LastName} {FirstName}";
+            ChangePasswordToken = null;
+            Password = password;
         }
     }
 }

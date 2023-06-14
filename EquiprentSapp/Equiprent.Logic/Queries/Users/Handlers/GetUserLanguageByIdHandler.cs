@@ -1,6 +1,7 @@
 ﻿using Equiprent.Logic.Queries.Users.Models;
 using Equiprent.Logic.Queries.Users.Messages;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {

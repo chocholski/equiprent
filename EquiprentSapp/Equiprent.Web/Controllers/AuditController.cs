@@ -3,6 +3,7 @@ using Equiprent.Logic.QueryData.Audits;
 using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
 using Equiprent.ApplicationServices.Audit;
 using Equiprent.Entities.EnumTypes;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace Equiprent.Web.Controllers
             if (string.IsNullOrEmpty(sp.SortColumnName) || sp.SortColumnName == "null")
                 sp.SortColumnName = "CreatedOn";
 
-            var auditEntries = await DbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
+            var auditEntries = await _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
                 .Where(DbStatementBuilder.BuildWhereClause(sp.SearchCriteria ?? string.Empty))
                 .OrderBy(DbStatementBuilder.BuildOrderClause(sp.SortColumnName, sp.SortOrder))
                 .Skip(sp.StartRow)
@@ -46,7 +47,7 @@ namespace Equiprent.Web.Controllers
                 model.List.Add(item);
             }
 
-            model.TotalRowsCount = await DbContext.AuditListItems
+            model.TotalRowsCount = await _dbContext.AuditListItems
                 .FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
                 .Where(DbStatementBuilder.BuildWhereClause(sp.SearchCriteria ?? string.Empty))
                 .CountAsync();
@@ -58,7 +59,7 @@ namespace Equiprent.Web.Controllers
         public async Task<ActionResult> GetFieldNames(string entityId, string entityTableName)
         {
             var result = new List<AuditTranslationItemViewModel>();
-            var auditEntries = await DbContext!.AuditListItems
+            var auditEntries = await _dbContext!.AuditListItems
                 .FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
                 .ToListAsync();
 

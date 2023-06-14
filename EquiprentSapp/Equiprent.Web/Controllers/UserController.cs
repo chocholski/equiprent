@@ -5,6 +5,7 @@ using Equiprent.Logic.Queries.Users.Messages;
 using Equiprent.Entities.EnumTypes;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Logic.Infrastructure.CQRS;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {

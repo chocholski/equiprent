@@ -5,6 +5,7 @@ using Equiprent.Data.Services;
 using Equiprent.ApplicationServices.Languageable;
 using Equiprent.Entities.Application;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {

@@ -16,7 +16,7 @@
         Token_LoginOrEmailExists = 200,
         Token_EmptyEmail = 201,
         Token_WrongToken = 202,
-        Token_NotActice = 203,
+        Token_NotActive = 203,
 
         //ApplicationRole
         Role_ExistsInDatabase = 300,

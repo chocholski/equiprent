@@ -7,13 +7,10 @@ namespace Equiprent.Web.Authorization
     {
         const string POLICY_NAME = "permission";
 
-        protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, PermissionRequirement requirement)
         {
             if (context.User is null)
-            {
-                await Task.CompletedTask;
-                return;
-            }
+                return Task.CompletedTask;
 
             var roles = context.User.Claims
                 .Where(x => (x.Type.StartsWith(ClaimTypes.Role, StringComparison.OrdinalIgnoreCase)))
@@ -21,54 +18,48 @@ namespace Equiprent.Web.Authorization
                 .SingleOrDefault();
 
             if (string.IsNullOrEmpty(roles))
-            {
-                await Task.CompletedTask;
-                return;
-            }
+                return Task.CompletedTask;
 
             if (requirement is null)
             {
                 context.Succeed(requirement!);
-                await Task.CompletedTask;
-                return;
+
+                return Task.CompletedTask;
             }
 
             if (!requirement.PermissionIds.Any())
             {
                 context.Succeed(requirement);
-                await Task.CompletedTask;
-                return;
+
+                return Task.CompletedTask;
             }
 
             if (requirement.PermissionIds.Contains((int)UserPermissionEnum.ForAllLoggedIn))
             {
                 context.Succeed(requirement);
-                await Task.CompletedTask;
-                return;
+
+                return Task.CompletedTask;
             }
 
-            var permissions = Array.ConvertAll(
+            var userPermissionsIds = Array.ConvertAll(
                 context.User.Claims
-                    .Where(x => (x.Type.StartsWith(POLICY_NAME, StringComparison.OrdinalIgnoreCase)))
-                    .Select(y => y.Value)
+                    .Where(c => (c.Type.StartsWith(POLICY_NAME, StringComparison.OrdinalIgnoreCase)))
+                    .Select(c => c.Value)
                     .SingleOrDefault()
-                    ?.Split(',') ?? Array.Empty<string>(),
-                permissionIdAsString => int.TryParse(permissionIdAsString, out var permissionId) ? permissionId : -1);
+                    ?.Split(',')
+                    ??
+                    Array.Empty<string>(),
+                permissionIdAsText => int.TryParse(permissionIdAsText, out var permissionId) ? permissionId : -1);
 
-            if (permissions is null)
-            {
-                await Task.CompletedTask;
-                return;
-            }
+            if (userPermissionsIds is null)
+                return Task.CompletedTask;
 
-            var userHasUserPermission = requirement.PermissionIds.Intersect(permissions).ToList().Count == requirement.PermissionIds.Length;
+            var isUserAuthorizedToPerformAction = requirement.PermissionIds.Intersect(userPermissionsIds).ToList().Count == requirement.PermissionIds.Length;
 
-            if (userHasUserPermission)
-            {
+            if (isUserAuthorizedToPerformAction)
                 context.Succeed(requirement);
-                await Task.CompletedTask;
-                return;
-            }
+
+            return Task.CompletedTask;
         }
     }
 }

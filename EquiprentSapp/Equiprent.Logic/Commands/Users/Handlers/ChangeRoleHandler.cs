@@ -1,4 +1,5 @@
-﻿using Equiprent.Logic.Commands.Users.Messages;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers

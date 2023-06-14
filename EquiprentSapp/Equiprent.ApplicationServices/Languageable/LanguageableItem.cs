@@ -1,6 +1,6 @@
 ﻿namespace Equiprent.ApplicationServices.Languageable
 {
-    public class LanguageableItem
+    public record LanguageableItem
     {
         public readonly int Id;
         public readonly string Name;

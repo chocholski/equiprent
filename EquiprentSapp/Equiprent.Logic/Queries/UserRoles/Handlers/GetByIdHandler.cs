@@ -1,4 +1,5 @@
 ﻿using Equiprent.ApplicationServices.UserPermissions;
+using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Queries.UserRoles.Messages;

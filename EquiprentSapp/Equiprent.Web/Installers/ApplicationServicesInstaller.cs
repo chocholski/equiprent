@@ -16,26 +16,26 @@ namespace Equiprent.Web.Installers
         public void InstallServices(WebApplicationBuilder builder)
         {
             builder.Services.AddSingleton(builder.Configuration);
-            builder.Services.Add(new ServiceDescriptor(typeof(IPasswordHasher), typeof(PasswordHasher), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(IHttpContextAccessor), typeof(HttpContextAccessor), ServiceLifetime.Singleton));
-            builder.Services.Add(new ServiceDescriptor(typeof(IAuditMemberTranslatorService), typeof(AuditMemberTranslatorService), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(IKeyAtAuditValueService), typeof(KeyAtAuditValueService), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(IUserService), typeof(UserService), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(IUserPermissionsService), typeof(UserPermissionsService), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(ICreateableService), typeof(CreateableService), ServiceLifetime.Transient));
-            builder.Services.Add(new ServiceDescriptor(typeof(ILanguageableService), typeof(LanguageableService), ServiceLifetime.Transient));
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+            builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+            builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
+            builder.Services.AddTransient<IKeyAtAuditValueService, KeyAtAuditValueService>();
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<IUserPermissionsService, UserPermissionsService>();
+            builder.Services.AddTransient<ICreateableService, CreateableService>();
+            builder.Services.AddTransient<ILanguageableService, LanguageableService>();
+
             builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
             builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
             builder.Services.AddCommandQueryHandler(typeof(IQueryHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
 
             builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
             builder.Services.AddScoped<IQueryDispatcher, QueryDispatcher>();
-
-            builder.Services.Add(new ServiceDescriptor(typeof(ICommandDispatcher), typeof(CommandDispatcher), ServiceLifetime.Scoped));
-            builder.Services.Add(new ServiceDescriptor(typeof(IQueryDispatcher), typeof(QueryDispatcher), ServiceLifetime.Scoped));
-
-            builder.Services.Add(new ServiceDescriptor(typeof(IAuthorizationPolicyProvider), typeof(PermissionPolicyProvider), ServiceLifetime.Singleton));
-            builder.Services.Add(new ServiceDescriptor(typeof(IAuthorizationHandler), typeof(PermissionAuthorizationHandler), ServiceLifetime.Singleton));
+            builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
+            builder.Services.AddScoped<IQueryDispatcher, QueryDispatcher>();
         }
     }
 }

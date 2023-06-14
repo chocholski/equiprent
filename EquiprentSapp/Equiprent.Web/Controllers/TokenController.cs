@@ -9,7 +9,8 @@ using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.ApplicationServices.Languageable;
 using Equiprent.Entities.Application;
 using Equiprent.Web.Options.Jwt;
-using System.Text;
+using Equiprent.Data.DbContext;
+using Equiprent.Web.Authentication.Models;
 
 namespace Equiprent.Web.Controllers
 {
@@ -19,7 +20,12 @@ namespace Equiprent.Web.Controllers
         private readonly IUserPermissionsService _userPermissionsService;
         private readonly ILanguageableService _languageableService;
 
-        public TokenController(ApplicationDbContext context, IConfiguration configuration, IPasswordHasher passwordHasher, IUserPermissionsService userPermissionsService, ILanguageableService languageableService) : base(context, configuration)
+        public TokenController(
+            ApplicationDbContext context,
+            IConfiguration configuration,
+            IPasswordHasher passwordHasher,
+            IUserPermissionsService userPermissionsService,
+            ILanguageableService languageableService) : base(context, configuration)
         {
             _passwordHasher = passwordHasher;
             _userPermissionsService = userPermissionsService;
@@ -32,9 +38,7 @@ namespace Equiprent.Web.Controllers
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
             if (model is null)
-            {
-                return new StatusCodeResult(500);
-            }                
+                return new StatusCodeResult(500);                
 
             return model.grant_type switch
             {
@@ -65,7 +69,7 @@ namespace Equiprent.Web.Controllers
                 return BadRequest("Invalid access token");
             }
 
-            var user = await DbContext!.ApplicationUsers.SingleOrDefaultAsync(x => x.Id.ToString() == userId && x.RefreshToken == tokenModel.RefreshToken);
+            var user = await _dbContext!.ApplicationUsers.SingleOrDefaultAsync(u => u.Id.ToString() == userId && u.RefreshToken == tokenModel.RefreshToken);
 
             if (user is null)
             {
@@ -78,7 +82,7 @@ namespace Equiprent.Web.Controllers
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
             var jwtOptions = new JwtOptions();
-            Configuration.Bind(nameof(JwtOptions), jwtOptions);
+            _configuration.Bind(nameof(JwtOptions), jwtOptions);
 
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -89,8 +93,8 @@ namespace Equiprent.Web.Controllers
                 ValidateLifetime = false
             };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
+            var principal = new JwtSecurityTokenHandler()
+                .ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 
             if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -103,7 +107,10 @@ namespace Equiprent.Web.Controllers
         [HttpGet("isemptypassword")]
         public async Task<ActionResult<bool>> IsEmptyPassword([FromQuery] string login)
         {
-            var user = await DbContext!.ApplicationUsers.FirstOrDefaultAsync(x => x.Login == login);
+            var user = await _dbContext!.ApplicationUsers
+                .Where(u => u.Login == login)
+                .Select(u => new { u.Password })
+                .FirstOrDefaultAsync();
 
             if (user is null)
             {
@@ -113,134 +120,57 @@ namespace Equiprent.Web.Controllers
             return string.IsNullOrEmpty(user.Password);
         }
 
-
-        //[HttpPut("resetpassword")]
-        //public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
-        //{
-        //    var user = await DbContext!.ApplicationUsers.FirstOrDefaultAsync(x => x.Login == model.LoginOrEmail ||
-        //                                                                         x.Email == model.LoginOrEmail);
-
-        //    if (user == null)
-        //        return GetActionResult(CommandGenericResult.Token_LoginOrEmailExists);
-
-        //    if (string.IsNullOrEmpty(user.Email))
-        //        return GetActionResult(CommandGenericResult.Token_EmptyEmail);
-
-        //    user.ChangePasswordToken = Guid.NewGuid();
-
-        //    NotificationTemplate? template = null;
-        //    switch (model.Language.Trim().ToUpper())
-        //    {
-        //        case "PL":
-        //            template = await DbContext.NotificationTemplates.FirstOrDefaultAsync(x => x.Id == (int)NotificationTemplateEnum.ResetPassword_PL);
-        //            break;
-        //        case "EN":
-        //            template = await DbContext.NotificationTemplates.FirstOrDefaultAsync(x => x.Id == (int)NotificationTemplateEnum.ResetPassword_EN);
-        //            break;
-        //    }
-
-        //    if (template is not null)
-        //    {
-        //      var jwtOptions = new JwtOptions();
-        //      Configuration.Bind(nameof(JwtOptions, jwtOptions));
-        //        string angularAppAddress = jwtOptions.TokenValidationParameters.Key;
-        //        var notification = new Notification
-        //        {
-        //            Recipients = user.Email,
-        //            Subject = template?.Subject,
-        //            Body = string.Format(template!.Body, $"{angularAppAddress}{(angularAppAddress.Last() == '/' ? string.Empty : '/')}login/reset-password?token={user.ChangePasswordToken}"),
-        //            NotificationStatusId = (int)NotificationStatusEnum.New,
-        //            CreatedOn = DateTime.Now,
-        //            CreatedById = 1
-        //        };
-
-        //        DbContext.Notifications.Add(notification);
-        //        await DbContext.SaveChangesAsync();
-        //    }
-
-        //    return GetActionResult(CommandGenericResult.Generic_OK);
-        //}
-
         [HttpPut("changepassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
         {
-            var user = await DbContext!.ApplicationUsers.FirstOrDefaultAsync(x => x.ChangePasswordToken == model.Token);
+            var user = await _dbContext!.ApplicationUsers
+                .FirstOrDefaultAsync(u => u.ChangePasswordToken == model.Token);
 
             if (user is null)
-            {
                 return GetActionResult(CommandResult.Token_WrongToken);
-            }
 
-            user.ChangePasswordToken = null;
-            user.Password = _passwordHasher.GetHash(model.Password);
+            user.ChangePassword(password: _passwordHasher.GetHash(model.Password));
 
-            DbContext.ApplicationUsers.Update(user);
-            await DbContext.SaveChangesAsync();
+            await _dbContext.ApplicationUsers.UpdateAsync(user, _dbContext);
 
             return GetActionResult(CommandResult.OK);
         }
 
         private async Task<TokenResponseModel> GetToken(TokenRequestModel model)
         {
-            // check if there's an user with the given username
-            var user = await DbContext!.ApplicationUsers
-                .Include(x => x.UserRole)
-                .SingleOrDefaultAsync(y => y.Login == model.username);
+            var user = await _dbContext!.ApplicationUsers
+                .Include(u => u.UserRole)
+                .SingleOrDefaultAsync(u => u.Login == model.username);
 
             if (user is null)
-            {
-                return new TokenResponseModel()
-                {
-                    token = null,
-                    expiration = 0,
-                    code = (int)HttpStatusCode.Unauthorized
-                };
-            }
+                return CreateToken(code: (int)HttpStatusCode.Unauthorized);
 
             var hashedPassword = _passwordHasher.GetHash(model.password);
 
             if (user.Password.ToLower() != hashedPassword.ToLower())
-            {
-                // user does not exists or password mismatch
-                return new TokenResponseModel()
-                {
-                    token = null,
-                    expiration = 0,
-                    code = (int)HttpStatusCode.Unauthorized
-                };
-            }
+                return CreateToken(code: (int)HttpStatusCode.Unauthorized);
 
             return await GetToken(user);
         }
+
+        private static TokenResponseModel CreateToken(int code, int expiration = 0, string? token = null, Guid? refreshToken = null) => new()
+        {
+            token = token,
+            expiration = expiration,
+            code = code,
+            refreshToken = refreshToken
+        };
+
         private async Task<TokenResponseModel> GetToken(User user)
         {
             if (user is null)
-            {
-                return new TokenResponseModel()
-                {
-                    token = null,
-                    expiration = 0,
-                    code = (int)HttpStatusCode.Unauthorized
-                };
-            }
+                return CreateToken(code: (int)HttpStatusCode.Unauthorized);
 
             if (!user.IsActive)
-            {
-                return new TokenResponseModel()
-                {
-                    token = null,
-                    expiration = 0,
-                    code = (int)CommandResult.Token_NotActice
-                };
-            }
+                return CreateToken(code: (int)CommandResult.Token_NotActive);
 
-            // username & password matches: create and return theJwt token.
-            DateTime now = DateTime.UtcNow;
-
+            var now = DateTime.UtcNow;
             var userRoleIdWithName = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>(EntityIdsFilterModeEnum.Include, new List<int> { user.UserRoleId }, user.LanguageId);
-
-            //add the registered claims for JWT (RFC7519).
-            //For more info, see https: //tools.ietf.org/html/rfc7519#section-4.1
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
@@ -255,9 +185,9 @@ namespace Equiprent.Web.Controllers
             };
 
             var jwtOptions = new JwtOptions();
-            Configuration.Bind(nameof(JwtOptions), jwtOptions);
+            _configuration.Bind(nameof(JwtOptions), jwtOptions);
 
-            var tokenExpirationMins = Configuration.GetValue<int>("Jwt:TokenExpirationInMinutes");
+            var tokenExpirationMins = _configuration.GetValue<int>("Jwt:TokenExpirationInMinutes");
             var issuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -270,23 +200,18 @@ namespace Equiprent.Web.Controllers
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var encodedToken = tokenHandler.WriteToken(token);
+            var encodedToken = tokenHandler.WriteToken(token: tokenHandler.CreateToken(tokenDescriptor));
 
             user.RefreshToken = Guid.NewGuid();
             user.IsTokenRefreshRequired = false;
 
-            DbContext!.ApplicationUsers.Update(user);
-            await DbContext.SaveChangesAsync();
+            await _dbContext!.ApplicationUsers.UpdateAsync(user, _dbContext);
 
-            // build & return the response
-            return new TokenResponseModel()
-            {
-                token = encodedToken,
-                refreshToken = user.RefreshToken,
-                expiration = tokenExpirationMins,
-                code = (int)HttpStatusCode.OK
-            };
+            return CreateToken(
+                code: (int)HttpStatusCode.OK,
+                expiration: tokenExpirationMins,
+                token: encodedToken,
+                refreshToken: user.RefreshToken);
         }
 
         private async Task<string> GetUserPermissionsForUserAsText(Guid userId)
@@ -304,23 +229,5 @@ namespace Equiprent.Web.Controllers
 
             return string.Join(',', userPermissionsForUserIds);
         }
-    }
-
-    public class ResetPasswordModel
-    {
-        public string LoginOrEmail { get; set; } = null!;
-        public string Language { get; set; } = null!;
-    }
-
-    public class ChangePasswordModel
-    {
-        public Guid Token { get; set; }
-        public string Password { get; set; } = null!;
-    }
-
-    public class TokenModel
-    {
-        public string Token { get; set; } = null!;
-        public Guid? RefreshToken { get; set; } = null!;
     }
 }

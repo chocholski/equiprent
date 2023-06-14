@@ -1,4 +1,5 @@
-﻿using Equiprent.Web.Installers;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Web.Installers;
 using Serilog;
 
 namespace EquiprentAPI.Web
@@ -90,10 +91,10 @@ namespace EquiprentAPI.Web
 
             if (serviceScopeFactory is not null)
             {
-                using var serviceScope = serviceScopeFactory.CreateScope();
-                var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                using var serviceScope = serviceScopeFactory.CreateScope() ?? throw new Exception("ServiceScope is null!");
+                var context = serviceScope!.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-                context.Database.Migrate();
+                context!.Database.Migrate();
             }
         }
     }

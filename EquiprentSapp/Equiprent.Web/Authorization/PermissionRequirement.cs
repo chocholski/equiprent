@@ -4,9 +4,6 @@
     {
         public int[] PermissionIds { get; private set; }
 
-        public PermissionRequirement(int[] permissionIds)
-        {
-            PermissionIds = permissionIds;
-        }
+        public PermissionRequirement(int[] permissionIds) => PermissionIds = permissionIds;
     }
 }

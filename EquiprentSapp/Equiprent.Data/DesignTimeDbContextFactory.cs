@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Equiprent.Data.DbContext;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Equiprent.Data

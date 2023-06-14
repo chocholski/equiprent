@@ -1,4 +1,5 @@
-﻿using Equiprent.Data.Services;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Data.Services;
 using Equiprent.Entities.Interfaces;
 
 namespace Equiprent.ApplicationServices.Languageable

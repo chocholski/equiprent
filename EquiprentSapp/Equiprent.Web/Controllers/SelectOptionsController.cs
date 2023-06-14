@@ -2,6 +2,7 @@
 using Equiprent.ApplicationServices.Languageable;
 using Equiprent.Entities.Application;
 using Equiprent.Entities.EnumTypes;
+using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {
@@ -50,7 +51,7 @@ namespace Equiprent.Web.Controllers
         [HttpGet("languagesselectoptions")]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptions()
         {
-            var languages = await DbContext!.Languages
+            var languages = await _dbContext!.Languages
                 .ToListAsync();
 
             var model = languages

@@ -8,9 +8,9 @@ using System.Threading;
 using System.Reflection;
 using Equiprent.Entities.Attributes;
 
-namespace Equiprent.Data
+namespace Equiprent.Data.DbContext
 {
-    public class ApplicationDbContext : DbContext
+    public partial class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         /// <summary>
         /// For anonymize ticket data
@@ -18,31 +18,6 @@ namespace Equiprent.Data
         public bool OneTimeIgnoreAuditHandling { get; set; }
 
         private readonly Guid? _currentUserId;
-
-        #region DbSet - Application
-
-        public DbSet<ConfigurationKey> ConfigurationKeys { get; set; } = null!;
-        public DbSet<User> ApplicationUsers { get; set; } = null!;
-        public DbSet<UserRole> UserRoles { get; set; } = null!;
-        public DbSet<Audit> Audits { get; set; } = null!;
-        public DbSet<Language> Languages { get; set; } = null!;
-        public DbSet<UserPermission> UserPermissions { get; set; } = null!;
-        public DbSet<UserPermissionToRole> UserPermissionToRoles { get; set; } = null!;
-        public DbSet<UserRoleToLanguage> UserRolesToLanguages { get; set; } = null!;
-
-        #endregion
-
-        #region DbSet - Business
-
-        public DbSet<UserPermissionToUserPermission> UserPermissionToUserPermissions { get; set; } = null!;
-
-        #endregion
-
-        #region DbQuery<>
-
-        public DbSet<AuditListQueryModel> AuditListItems { get; set; } = null!;
-
-        #endregion
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -58,7 +33,7 @@ namespace Equiprent.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<ConfigurationKey>().ToTable("ConfigurationKeys");
             modelBuilder.Entity<ConfigurationKey>().Property(x => x.Id).ValueGeneratedNever();
 
@@ -71,7 +46,7 @@ namespace Equiprent.Data
             modelBuilder.Entity<Audit>().Property(audit => audit.CreatedById);
 
             modelBuilder.Entity<AuditListQueryModel>().HasNoKey();
-            
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(entityType => entityType.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
@@ -113,7 +88,7 @@ namespace Equiprent.Data
 
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.Entity is Audit || 
+                if (entry.Entity is Audit ||
                     entry.State == EntityState.Detached ||
                     entry.State == EntityState.Unchanged)
                 {
@@ -171,12 +146,12 @@ namespace Equiprent.Data
             }
 
             return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
-            
+
         }
 
         private void HandleObjectModifications(EntityEntry entry, AuditEntry auditEntry, PropertyEntry property, string propertyName)
         {
-           
+
             if (property.OriginalValue != null && property.CurrentValue != null)
             {
                 if (!property.OriginalValue.Equals(property.CurrentValue))
@@ -221,7 +196,7 @@ namespace Equiprent.Data
                     auditEntry.NewValues[propertyName] = GetCurrentValue(entry, property);
                 }
             }
-            
+
         }
 
         private string? GetCurrentValue(EntityEntry entry, PropertyEntry property)
@@ -293,7 +268,7 @@ namespace Equiprent.Data
                 {
                     translatedPropertyInfo = originalValueObj?.GetType().GetProperty(translatedFieldName);
                 }
-                
+
                 var originalValue = translatedPropertyInfo?.GetValue(originalValueObj);
 
                 return $"{originalValue} (Id: {property.OriginalValue})";
@@ -351,7 +326,7 @@ namespace Equiprent.Data
             Entry = entry;
             _currentUserId = currentUserId;
         }
-        
+
         public List<Audit> ToAudit()
         {
             var audits = new List<Audit>();
@@ -373,7 +348,7 @@ namespace Equiprent.Data
                     {
                         audit.OldValue = OldValues.Any(item => item.Key == newValue.Key) && OldValues[newValue.Key] != null ? OldValues[newValue.Key]?.ToString() : null;
                     }
-                    
+
                     audit.NewValue = newValue.Value?.ToString();
 
                     audits.Add(audit);

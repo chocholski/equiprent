@@ -1,4 +1,5 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Entities.Application;
 
 namespace Equiprent.ApplicationServices.UserPermissions
 {
