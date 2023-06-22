@@ -4,62 +4,60 @@ using Equiprent.Logic.Queries.Users.Messages;
 using Equiprent.Data.Services;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
+using Equiprent.ApplicationServices.Languageables;
+using Equiprent.Entities.Application;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetPagedSelectListHandler : IQueryHandler<GetPagedSelectUsersMessage, SelectListModel>
+    public class GetPagedSelectListHandler : IQueryHandler<GetPagedSelectUsersRequest, SelectListResponse>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserService _userResolverService;
+        private readonly ILanguageableService _languageableService;
 
-        public GetPagedSelectListHandler(ApplicationDbContext dbcontext, IUserService userResolverService)
+        public GetPagedSelectListHandler(ApplicationDbContext dbcontext, IUserService userResolverService, ILanguageableService languageableService)
         {
             _dbContext = dbcontext;
             _userResolverService = userResolverService;
+            _languageableService = languageableService;
         }
 
-        public async Task<SelectListModel?> HandleAsync(GetPagedSelectUsersMessage message)
+        public async Task<SelectListResponse?> HandleAsync(GetPagedSelectUsersRequest request)
         {
             var currentUserLanguageId = await _userResolverService.GetCurrentUserLanguageIdAsync();
 
             if (currentUserLanguageId.HasValue)
             {
-                var userRoles = await _dbContext.UserRolesToLanguages
-                .Where(x => x.LanguageId == currentUserLanguageId)
-                .Select(x => new
-                {
-                    UserRoleId = x.UserRoleId,
-                    Name = x.Name
-                })
-                .ToListAsync();
-
-                var users = _dbContext.ApplicationUsers
-                    .Include(x => x.UserRole)
-                    .Where(y => y.IsActive && !y.IsDeleted)
-                    .Select(user =>
+                var users = _dbContext.Users
+                    .Include(u => u.UserRole)
+                    .Where(u => u.IsActive && !u.IsDeleted)
+                    .Select(u =>
                         new ApplicationUserSelectListItemViewModel
                         {
-                            Id = user.Id,
-                            Login = user.Login,
-                            FirstName = user.FirstName,
-                            LastName = user.LastName,
-                            UserRoleId = user.UserRoleId
+                            Id = u.Id,
+                            Login = u.Login,
+                            FirstName = u.FirstName,
+                            LastName = u.LastName,
+                            UserRoleId = u.UserRoleId
                         })
-                    .Where(DbStatementBuilder.BuildWhereClause(message.RequestParameters.SearchCriteria ?? string.Empty));
+                    .Where(DbStatementBuilder.BuildWhereClause(request.RequestParameters.SearchCriteria ?? string.Empty));
 
-                if (message.IgnoredUserIds != null && message.IgnoredUserIds.Length > 0)
-                    users = users.Where(x => !message.IgnoredUserIds.Contains(x.Id));
+                if (request.IgnoredUserIds is not null && request.IgnoredUserIds.Any())
+                    users = users.Where(u => !request.IgnoredUserIds.Contains(u.Id));
 
-                users = users.OrderBy(DbStatementBuilder.BuildOrderClause(message.RequestParameters.SortColumnName ?? string.Empty, message.RequestParameters.SortOrder));
+                users = users.OrderBy(DbStatementBuilder.BuildOrderClause(request.RequestParameters.SortColumnName ?? string.Empty, request.RequestParameters.SortOrder));
 
                 var list = await users
-                    .Skip(message.RequestParameters.StartRow)
-                    .Take(message.RequestParameters.PageCount)
+                    .Skip(request.RequestParameters.StartRow)
+                    .Take(request.RequestParameters.PageCount)
                     .ToListAsync();
 
-                list.ForEach(x => x.UserRoleName = userRoles.Where(userRole => userRole.UserRoleId == x.UserRoleId).Select(x => x.Name).SingleOrDefault() ?? string.Empty);
+                await _languageableService.TranslateLanguageableValuesAsync<ApplicationUserSelectListItemViewModel, UserRoleToLanguage>(
+                    list,
+                    idPropertyName: nameof(ApplicationUserSelectListItemViewModel.UserRoleId),
+                    namePropertyName: nameof(ApplicationUserSelectListItemViewModel.UserRoleName));
 
-                var model = new SelectListModel
+                var model = new SelectListResponse
                 {
                     List = list,
                     TotalRowsCount = await users.CountAsync()

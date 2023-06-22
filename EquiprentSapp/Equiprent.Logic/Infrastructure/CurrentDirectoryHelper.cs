@@ -32,16 +32,12 @@
                 if (string.IsNullOrEmpty(sitePhysicalPath))
                 {
                     if (GetModuleHandle(AspNetCoreModuleDll) == IntPtr.Zero)
-                    {
                         return;
-                    }
 
                     var configurationData = default(IISConfigurationData);
 
-                    if (GetApplicationProperties(ref configurationData) != 0)
-                    {
+                    if (GetApplicationProperties(ref configurationData) is not 0)
                         return;
-                    }
 
                     sitePhysicalPath = configurationData.pwzFullApplicationPath;
                 }

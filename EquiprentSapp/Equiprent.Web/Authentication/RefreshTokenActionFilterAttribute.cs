@@ -9,7 +9,7 @@ namespace Equiprent.Web.Authentication
     {
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (context.Controller is TokenController)
+            if (context.Controller is IdentityController)
             {
                 await base.OnActionExecutionAsync(context, next);
 
@@ -27,7 +27,7 @@ namespace Equiprent.Web.Authentication
                 var currentUserId = Guid.TryParse(nameIdentifier.Value, out Guid gCurrentUserId) ? (Guid?)gCurrentUserId : null;
 
                 if (currentUserId.HasValue &&
-                    !await dbContext!.ApplicationUsers.AnyAsync(u => u.Id == currentUserId && u.IsTokenRefreshRequired))
+                    !await dbContext!.Users.AnyAsync(u => u.Id == currentUserId && u.IsTokenRefreshRequired))
                 {
                     await base.OnActionExecutionAsync(context, next);
                 }

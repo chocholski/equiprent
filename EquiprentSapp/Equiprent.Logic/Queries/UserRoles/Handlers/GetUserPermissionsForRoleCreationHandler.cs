@@ -1,32 +1,29 @@
 ﻿using Equiprent.ApplicationServices.UserPermissions;
-using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.UserRoles.Messages;
 using Equiprent.Logic.Queries.UserRoles.Models;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 
 namespace Equiprent.Logic.Queries.UserRoles.Handlers
 {
-    public class GetUserPermissionsForRoleCreationHandler : IQueryHandler<GetUserPermissionsForUserRoleCreationMessage, UserPermissionsForUserRoleCreationModel>
+    public class GetUserPermissionsForRoleCreationHandler : IQueryHandler<GetUserPermissionsForUserRoleCreationRequest, UserPermissionsForUserRoleCreationResponse>
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly IUserPermissionsService _userPermissionsService;
+        private readonly IUserPermissionService _userPermissionsService;
 
-        public GetUserPermissionsForRoleCreationHandler(ApplicationDbContext dbContext, IUserPermissionsService userPermissionsService)
+        public GetUserPermissionsForRoleCreationHandler(IUserPermissionService userPermissionsService)
         {
-            _dbContext = dbContext;
             _userPermissionsService = userPermissionsService;
         }
 
-        public async Task<UserPermissionsForUserRoleCreationModel?> HandleAsync(GetUserPermissionsForUserRoleCreationMessage message)
+        public async Task<UserPermissionsForUserRoleCreationResponse?> HandleAsync(GetUserPermissionsForUserRoleCreationRequest message)
         {
             var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync();
 
             var allUserPermissionsInGroups = allUserPermissions
-                .GroupBy(permission => permission.SystemName.Split("_")[0])
-                .Select(group => new
+                .GroupBy(p => p.SystemName.Split("_")[0])
+                .Select(g => new
                 {
-                    GroupName = $"Permissions.{ group.Key }",
-                    PermissionsList = group.ToList()
+                    GroupName = $"Permissions.{g.Key}",
+                    PermissionsList = g.ToList()
                 })
                 .ToList();
 
@@ -34,11 +31,12 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
             foreach (var group in allUserPermissionsInGroups)
             {
-                var groupModel = new UserPermissionForUserRoleCreationListGroupModel();
+                var groupModel = new UserPermissionForUserRoleCreationListGroupModel
+                {
+                    GroupName = group.GroupName
+                };
 
-                groupModel.GroupName = group.GroupName;
-
-                foreach(var permission in group.PermissionsList)
+                foreach (var permission in group.PermissionsList)
                 {
                     groupModel.Permissions.Add(new UserPermissionForUserRoleCreationListItemModel
                     {
@@ -46,34 +44,17 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                         SystemName = permission.SystemName,
                         Name = permission.Name,
                         IsSelected = false,
-                        LinkedUserPermissions = await GetLinkedUserPermissions(permission.Id)
+                        LinkedUserPermissions = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(permission.Id)
                     });
                 }
 
                 listGroupModel.Add(groupModel);
             }
 
-            return new UserPermissionsForUserRoleCreationModel
+            return new UserPermissionsForUserRoleCreationResponse
             {
                 List = listGroupModel
             };
-        }
-
-        private async Task<List<int>> GetLinkedUserPermissions(int userPermissionId)
-        {
-            var result = new List<int>();
-
-            var linkedUserPermissions = await _dbContext.UserPermissionToUserPermissions
-                .Where(permission => permission.UserPermissionId == userPermissionId)
-                .Select(permission => permission.LinkedUserPermissionId)
-                .ToListAsync();
-
-            if (linkedUserPermissions is not null && linkedUserPermissions.Any())
-            {
-                result.AddRange(linkedUserPermissions);
-            }
-
-            return result;
         }
     }
 }

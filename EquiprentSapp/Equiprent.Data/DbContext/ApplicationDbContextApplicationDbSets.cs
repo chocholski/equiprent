@@ -5,7 +5,7 @@ namespace Equiprent.Data.DbContext
     public partial class ApplicationDbContext
     {
         public DbSet<ConfigurationKey> ConfigurationKeys { get; set; } = null!;
-        public DbSet<User> ApplicationUsers { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserRole> UserRoles { get; set; } = null!;
         public DbSet<Audit> Audits { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;

@@ -1,11 +1,12 @@
-﻿using Equiprent.ApplicationServices.ApplicationUser;
+﻿using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.ApplicationServices.Users;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class ChangePasswordHandler : ICommandHandler<ChangePasswordMessage>
+    public class ChangePasswordHandler : ICommandHandler<ChangePasswordRequest>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
@@ -16,21 +17,35 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<CommandResult> HandleAsync(ChangePasswordMessage message)
+        public async Task<CommandResult> HandleAsync(ChangePasswordRequest request)
         {
-            var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == message.Id);
-            if (user != null)
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
+
+            if (user is not null)
             {
-                if (user.Password.ToLower() != _passwordHasher.GetHash(message.OldPassword).ToLower())
+                user.Password = _passwordHasher.GetHash(request.Password);
+
+                await _dbContext.Users.UpdateAsync(user);
+
+                return CommandResult.OK;
+            }
+
+            return CommandResult.BadRequest;
+        }
+
+        public async Task<CommandResult> ValidateAsync(ChangePasswordRequest request)
+        {
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
+
+            if (user is not null)
+            {
+                if (user.Password.ToLower() != _passwordHasher.GetHash(request.OldPassword).ToLower())
                     return CommandResult.User_WrongOldPassword;
 
-                if (string.IsNullOrEmpty(message.Password))
+                if (string.IsNullOrEmpty(request.Password))
                     return CommandResult.BadRequest;
-
-                user.Password = _passwordHasher.GetHash(message.Password);
-
-                _dbContext.ApplicationUsers.Update(user);
-                await _dbContext.SaveChangesAsync();
 
                 return CommandResult.OK;
             }

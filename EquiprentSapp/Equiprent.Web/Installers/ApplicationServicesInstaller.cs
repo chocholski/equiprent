@@ -1,13 +1,14 @@
-﻿using Equiprent.ApplicationServices.ApplicationUser;
-using Equiprent.ApplicationServices.Audit;
-using Equiprent.ApplicationServices.Createable;
-using Equiprent.ApplicationServices.Languageable;
+﻿using Equiprent.ApplicationServices.Users;
+using Equiprent.ApplicationServices.Audits;
+using Equiprent.ApplicationServices.Createables;
+using Equiprent.ApplicationServices.Languageables;
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Web.Infrastructure;
 using EquiprentAPI.Web;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using Equiprent.ApplicationServices.Identities;
 
 namespace Equiprent.Web.Installers
 {
@@ -24,7 +25,7 @@ namespace Equiprent.Web.Installers
             builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
             builder.Services.AddTransient<IKeyAtAuditValueService, KeyAtAuditValueService>();
             builder.Services.AddTransient<IUserService, UserService>();
-            builder.Services.AddTransient<IUserPermissionsService, UserPermissionsService>();
+            builder.Services.AddTransient<IUserPermissionService, UserPermissionService>();
             builder.Services.AddTransient<ICreateableService, CreateableService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
 
@@ -32,6 +33,7 @@ namespace Equiprent.Web.Installers
             builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
             builder.Services.AddCommandQueryHandler(typeof(IQueryHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
 
+            builder.Services.AddScoped<IIdentityService, IdentityService>();
             builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();
             builder.Services.AddScoped<IQueryDispatcher, QueryDispatcher>();
             builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();

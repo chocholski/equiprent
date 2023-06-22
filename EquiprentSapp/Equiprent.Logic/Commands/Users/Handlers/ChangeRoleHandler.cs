@@ -1,10 +1,11 @@
-﻿using Equiprent.Data.DbContext;
+﻿using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class ChangeRoleHandler : ICommandHandler<ChangeRoleMessage>
+    public class ChangeRoleHandler : ICommandHandler<ChangeRoleRequest>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -13,51 +14,38 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<CommandResult> HandleAsync(ChangeRoleMessage message)
+        public async Task<CommandResult> HandleAsync(ChangeRoleRequest request)
         {
-            var validationResult = await Validate(message);
-
-            if (validationResult is not CommandResult.OK)
-            {
-                return validationResult;
-            }
-
-            var user = await _dbContext.ApplicationUsers
-                .Where(user => !user.IsDeleted &&
-                               user.Id == message.UserId)
-                .SingleOrDefaultAsync();
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId);
 
             if (user is not null)
             {
-                user.UserRoleId = message.UserRoleId;
-                user.IsTokenRefreshRequired = true;
+                user.UserRoleId = request.UserRoleId;
 
-                _dbContext.ApplicationUsers.Update(user);
+                user.ChangeRefreshToken();
 
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.Users.UpdateAsync(user);
+
                 return CommandResult.OK;
             }
 
             return CommandResult.BadRequest;
         }
 
-        private async Task<CommandResult> Validate(ChangeRoleMessage message)
+        public async Task<CommandResult> ValidateAsync(ChangeRoleRequest request)
         {
-            if (message is null)
-            {
+            if (request is null)
                 return CommandResult.BadRequest;
-            }
 
-            var userHasUserRoleChosenAlreadyAssigned = await _dbContext.ApplicationUsers
-                .Where(user => !user.IsDeleted &&
-                               user.Id == message.UserId &&
-                               user.UserRoleId == message.UserRoleId)
+            var userHasUserRoleChosenAlreadyAssigned = await _dbContext.Users
+                .Where(u => !u.IsDeleted &&
+                            u.Id == request.UserId &&
+                            u.UserRoleId == request.UserRoleId)
                 .AnyAsync();
 
             if (userHasUserRoleChosenAlreadyAssigned)
-            {
                 return CommandResult.UserRole_UserHasBeenAlreadyAssignedToRole;
-            }
 
             return CommandResult.OK;
         }

@@ -1,15 +1,5 @@
 ﻿namespace Equiprent.Logic.QueryData.Authentication
 {
     [JsonObject(MemberSerialization.OptOut)]
-    public class TokenRequestModel
-    {
-        public string grant_type { get; set; } = null!;
-        public string? client_secret { get; set; }
-        public string username { get; set; } = null!;
-        public string password { get; set; } = null!;
-
-        public TokenRequestModel()
-        {
-        }
-     }
+    public record TokenRequestModel(string grant_type, string? client_secret, string username, string password);
 }

@@ -12,11 +12,6 @@ namespace Equiprent.Data.DbContext
 {
     public partial class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        /// <summary>
-        /// For anonymize ticket data
-        /// </summary>
-        public bool OneTimeIgnoreAuditHandling { get; set; }
-
         private readonly Guid? _currentUserId;
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
@@ -34,44 +29,31 @@ namespace Equiprent.Data.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ConfigurationKey>().ToTable("ConfigurationKeys");
-            modelBuilder.Entity<ConfigurationKey>().Property(x => x.Id).ValueGeneratedNever();
+            modelBuilder.Entity<ConfigurationKey>().ToTable(nameof(ConfigurationKeys));
+            modelBuilder.Entity<ConfigurationKey>().Property(c => c.Id).ValueGeneratedNever();
 
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<User>().Property(user => user.Id)
+            modelBuilder.Entity<User>().ToTable(nameof(Users));
+            modelBuilder.Entity<User>().Property(u => u.Id)
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Audit>().ToTable("Audits");
-            modelBuilder.Entity<Audit>().Property(audit => audit.CreatedById);
+            modelBuilder.Entity<Audit>().ToTable(nameof(Audits));
+            modelBuilder.Entity<Audit>().Property(a => a.CreatedById);
 
             modelBuilder.Entity<AuditListQueryModel>().HasNoKey();
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(entityType => entityType.GetForeignKeys()))
-            {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
-            }
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             try
             {
-                List<AuditEntry>? auditEntries = null;
-
-                if (!OneTimeIgnoreAuditHandling)
-                {
-                    auditEntries = OnBeforeSaveChanges();
-                }
-
+                var auditEntries = OnBeforeSaveChanges();
                 var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
-                if (!OneTimeIgnoreAuditHandling)
-                {
-                    await OnAfterSaveChangesAsync(auditEntries!);
-                }
-
-                OneTimeIgnoreAuditHandling = false;
+                await OnAfterSaveChangesAsync(auditEntries);
 
                 return result;
             }
@@ -84,6 +66,7 @@ namespace Equiprent.Data.DbContext
         private List<AuditEntry> OnBeforeSaveChanges()
         {
             ChangeTracker.DetectChanges();
+
             var auditEntries = new List<AuditEntry>();
 
             foreach (var entry in ChangeTracker.Entries())
@@ -91,9 +74,7 @@ namespace Equiprent.Data.DbContext
                 if (entry.Entity is Audit ||
                     entry.State == EntityState.Detached ||
                     entry.State == EntityState.Unchanged)
-                {
                     continue;
-                }
 
                 var auditEntry = new AuditEntry(entry, _currentUserId)
                 {
@@ -101,9 +82,7 @@ namespace Equiprent.Data.DbContext
                 };
 
                 if (!string.IsNullOrEmpty(auditEntry.TableName))
-                {
                     auditEntries.Add(auditEntry);
-                }
 
                 foreach (var property in entry.Properties)
                 {
@@ -112,6 +91,7 @@ namespace Equiprent.Data.DbContext
                         if (property.IsTemporary)
                         {
                             auditEntry.TemporaryProperties.Add(property);
+
                             continue;
                         }
 
@@ -120,6 +100,7 @@ namespace Equiprent.Data.DbContext
                         if (property.Metadata.IsPrimaryKey())
                         {
                             auditEntry.KeyValue = property!.CurrentValue!.ToString()!;
+
                             continue;
                         }
 
@@ -140,164 +121,97 @@ namespace Equiprent.Data.DbContext
                 }
             }
 
-            foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
-            {
+            foreach (var auditEntry in auditEntries.Where(a => !a.HasTemporaryProperties))
                 Audits.AddRange(auditEntry.ToAudit());
-            }
 
-            return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
+            return auditEntries.Where(a => a.HasTemporaryProperties).ToList();
 
         }
 
         private void HandleObjectModifications(EntityEntry entry, AuditEntry auditEntry, PropertyEntry property, string propertyName)
         {
 
-            if (property.OriginalValue != null && property.CurrentValue != null)
+            if (property.OriginalValue is not null && property.CurrentValue is not null)
             {
                 if (!property.OriginalValue.Equals(property.CurrentValue))
                 {
-                    var entryType = entry.Entity.GetType().BaseType;
-                    CustomAttributeData? translationAuditAttributeData = null;
-
-                    if (entryType is not null)
-                    {
-                        foreach (PropertyInfo p in entryType.GetProperties())
-                        {
-                            if (property.Metadata.Name == p.Name)
-                            {
-                                translationAuditAttributeData = p.CustomAttributes.SingleOrDefault(x => x.AttributeType == typeof(AuditTranslationInfoAttribute));
-                                break;
-                            }
-                        }
-                    }
-
-                    if (translationAuditAttributeData is not null && property.Metadata.Name != "StatusId")
-                    {
-                        auditEntry.OldValues[propertyName] = GetOriginalValue(entry, property);
-                        auditEntry.NewValues[propertyName] = GetCurrentValue(entry, property);
-                    }
-                    else
-                    {
-                        auditEntry.OldValues[propertyName] = property.OriginalValue;
-                        auditEntry.NewValues[propertyName] = property.CurrentValue;
-                    }
-                }
-            }
-            else
-            {
-                if (property.OriginalValue != null && property.CurrentValue == null)
-                {
                     auditEntry.OldValues[propertyName] = GetOriginalValue(entry, property);
-                    auditEntry.NewValues[propertyName] = null;
-                }
-                else if (property.OriginalValue == null && property.CurrentValue != null)
-                {
-                    auditEntry.OldValues[propertyName] = null;
                     auditEntry.NewValues[propertyName] = GetCurrentValue(entry, property);
                 }
             }
+            else if (property.OriginalValue is not null && property.CurrentValue is null)
+            {
+                auditEntry.OldValues[propertyName] = GetOriginalValue(entry, property);
+                auditEntry.NewValues[propertyName] = null;
+            }
+            else if (property.OriginalValue is null && property.CurrentValue is not null)
+            {
+                auditEntry.OldValues[propertyName] = null;
+                auditEntry.NewValues[propertyName] = GetCurrentValue(entry, property);
+            }
 
         }
 
-        private string? GetCurrentValue(EntityEntry entry, PropertyEntry property)
+        private string? GetCurrentValue(EntityEntry entry, PropertyEntry property) => GetValue(entry, property, getCurrentValue: true);
+
+        private string? GetOriginalValue(EntityEntry entry, PropertyEntry property) => GetValue(entry, property, getCurrentValue: false);
+
+        private string? GetValue(EntityEntry entry, PropertyEntry property, bool getCurrentValue)
         {
             var entryType = entry.Entity.GetType().BaseType;
-            CustomAttributeData? translationAuditAttributeData = null;
 
-            if (entryType is not null)
-            {
-                foreach (PropertyInfo p in entryType.GetProperties())
-                {
-                    if (property.Metadata.Name == p.Name)
-                    {
-                        translationAuditAttributeData = p.CustomAttributes.SingleOrDefault(x => x.AttributeType == typeof(AuditTranslationInfoAttribute));
-                        break;
-                    }
-                }
-            }
+            var translationAuditAttributeData = entryType?.GetProperties()
+                .Where(p => p.Name == property.Metadata.Name)
+                .Select(p => p.CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(AuditTranslationInfoAttribute)))
+                .SingleOrDefault();
 
-            if (translationAuditAttributeData is not null && !property.Metadata.Name.Equals("StatusId"))
+            if (translationAuditAttributeData is not null && property.Metadata.Name is not "StatusId")
             {
-                var translatedPropertyType = translationAuditAttributeData.ConstructorArguments.SingleOrDefault(x => x.ArgumentType == typeof(Type)).Value;
-                var typeName = translatedPropertyType is not null ? ((Type)translatedPropertyType).Name : string.Empty;
-                var translatedFieldName = translationAuditAttributeData!.ConstructorArguments.SingleOrDefault(x => x.ArgumentType == typeof(string)).Value?.ToString();
-                var currentValueObj = translatedPropertyType is not null ? Find((Type)translatedPropertyType, property.CurrentValue) : null;
+                var translatedPropertyType = translationAuditAttributeData.ConstructorArguments
+                    .SingleOrDefault(a => a.ArgumentType == typeof(Type))
+                    .Value;
+
+                var typeName = translatedPropertyType is not null
+                    ? ((Type)translatedPropertyType).Name
+                    : string.Empty;
+
+                var translatedFieldName = translationAuditAttributeData.ConstructorArguments
+                    .SingleOrDefault(a => a.ArgumentType == typeof(string))
+                    .Value?
+                    .ToString();
+
+                var valueObj = translatedPropertyType is not null
+                    ? Find((Type)translatedPropertyType, property.OriginalValue)
+                    : null;
+
                 PropertyInfo? translatedPropertyInfo = null;
 
                 if (!string.IsNullOrEmpty(translatedFieldName))
-                {
-                    translatedPropertyInfo = currentValueObj?.GetType().GetProperty(translatedFieldName);
-                }
+                    translatedPropertyInfo = valueObj?.GetType().GetProperty(translatedFieldName);
 
-                var currentValue = translatedPropertyInfo?.GetValue(currentValueObj);
+                var value = translatedPropertyInfo?.GetValue(valueObj);
 
-                return $"{currentValue} (Id: {property.CurrentValue})";
+                return $"{value} (Id: {(getCurrentValue ? property.CurrentValue : property.OriginalValue)})";
             }
             else
-            {
-                return property.CurrentValue?.ToString();
-            }
-        }
-
-        private string? GetOriginalValue(EntityEntry entry, PropertyEntry property)
-        {
-            var entryType = entry.Entity.GetType().BaseType;
-            CustomAttributeData? translationAuditAttributeData = null;
-
-            if (entryType is not null)
-            {
-                foreach (PropertyInfo p in entryType.GetProperties())
-                {
-                    if (property.Metadata.Name == p.Name)
-                    {
-                        translationAuditAttributeData = p.CustomAttributes.SingleOrDefault(x => x.AttributeType == typeof(AuditTranslationInfoAttribute));
-                        break;
-                    }
-                }
-            }
-
-            if (translationAuditAttributeData is not null && !property.Metadata.Name.Equals("StatusId"))
-            {
-                var translatedPropertyType = translationAuditAttributeData.ConstructorArguments.SingleOrDefault(x => x.ArgumentType == typeof(Type)).Value;
-                var typeName = translatedPropertyType is not null ? ((Type)translatedPropertyType).Name : string.Empty;
-                var translatedFieldName = translationAuditAttributeData!.ConstructorArguments.SingleOrDefault(x => x.ArgumentType == typeof(string)).Value?.ToString();
-                var originalValueObj = translatedPropertyType is not null ? Find((Type)translatedPropertyType, property.OriginalValue) : null;
-                PropertyInfo? translatedPropertyInfo = null;
-
-                if (!string.IsNullOrEmpty(translatedFieldName))
-                {
-                    translatedPropertyInfo = originalValueObj?.GetType().GetProperty(translatedFieldName);
-                }
-
-                var originalValue = translatedPropertyInfo?.GetValue(originalValueObj);
-
-                return $"{originalValue} (Id: {property.OriginalValue})";
-            }
-            else
-            {
-                return property.OriginalValue?.ToString();
-            }
+                return getCurrentValue
+                    ? property.CurrentValue?.ToString()
+                    : property.OriginalValue?.ToString();
         }
 
         private async Task<Task> OnAfterSaveChangesAsync(List<AuditEntry> auditEntries)
         {
-            if (auditEntries is null || auditEntries.Count == 0)
-            {
+            if (auditEntries is null || !auditEntries.Any())
                 return Task.CompletedTask;
-            }
 
             foreach (var auditEntry in auditEntries)
             {
                 foreach (var prop in auditEntry.TemporaryProperties)
                 {
                     if (prop.Metadata.IsPrimaryKey())
-                    {
                         auditEntry.KeyValue = prop?.CurrentValue?.ToString() ?? string.Empty;
-                    }
                     else
-                    {
                         auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue;
-                    }
                 }
 
                 Audits.AddRange(auditEntry.ToAudit());
@@ -306,57 +220,6 @@ namespace Equiprent.Data.DbContext
             await SaveChangesAsync();
 
             return Task.CompletedTask;
-        }
-    }
-
-    internal class AuditEntry
-    {
-        private readonly Guid? _currentUserId;
-        public EntityEntry Entry { get; }
-        public string TableName { get; set; } = null!;
-        public string KeyValue { get; set; }
-        public Dictionary<string, object?> OldValues { get; } = new Dictionary<string, object?>();
-        public Dictionary<string, object?> NewValues { get; } = new Dictionary<string, object?>();
-        public List<PropertyEntry> TemporaryProperties { get; } = new List<PropertyEntry>();
-
-        public bool HasTemporaryProperties => TemporaryProperties.Any();
-
-        public AuditEntry(EntityEntry entry, Guid? currentUserId)
-        {
-            Entry = entry;
-            _currentUserId = currentUserId;
-        }
-
-        public List<Audit> ToAudit()
-        {
-            var audits = new List<Audit>();
-
-            if (NewValues.Count != 0)
-            {
-                foreach (var newValue in NewValues)
-                {
-                    var audit = new Audit
-                    {
-                        TableName = TableName,
-                        CreatedOn = DateTime.Now,
-                        KeyValue = KeyValue,
-                        FieldName = newValue.Key,
-                        CreatedById = _currentUserId ?? null
-                    };
-
-                    if (OldValues.Count != 0)
-                    {
-                        audit.OldValue = OldValues.Any(item => item.Key == newValue.Key) && OldValues[newValue.Key] != null ? OldValues[newValue.Key]?.ToString() : null;
-                    }
-
-                    audit.NewValue = newValue.Value?.ToString();
-
-                    audits.Add(audit);
-                }
-
-            }
-
-            return audits;
         }
     }
 }

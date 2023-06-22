@@ -8,48 +8,45 @@ using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 
 namespace Equiprent.Logic.Queries.UserRoles.Handlers
 {
-    public class GetByIdHandler : IQueryHandler<GetUserRoleByIdMessage, DetailsModel>
+    public class GetByIdHandler : IQueryHandler<GetUserRoleByIdRequest, DetailsResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserPermissionsService _userPermissionsService;
+        private readonly IUserPermissionService _userPermissionsService;
         private readonly IUserService _userResolverService;
 
-        public GetByIdHandler(ApplicationDbContext dbcontext, IUserPermissionsService userPermissionsService, IUserService userResolverService)
+        public GetByIdHandler(ApplicationDbContext dbcontext, IUserPermissionService userPermissionsService, IUserService userResolverService)
         {
             _dbContext = dbcontext;
             _userPermissionsService = userPermissionsService;
             _userResolverService = userResolverService;
         }
 
-        public async Task<DetailsModel?> HandleAsync(GetUserRoleByIdMessage message)
+        public async Task<DetailsResponse?> HandleAsync(GetUserRoleByIdRequest request)
         {
             var userRole = await _dbContext.UserRoles
-                .Where(x => !x.IsDeleted)
-                .SingleOrDefaultAsync(x => x.Id == message.RoleId);
+                .SingleOrDefaultAsync(r => !r.IsDeleted && r.Id == request.RoleId);
 
             if (userRole is not null)
             {
                 var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync();
                 var userPermissionsForRole = await _userPermissionsService.GetUserPermissionsForRoleAsync(userRole.Id);
 
-                var userPermissionsForRoleList = new List<UserPermissionForUserRoleListItemModel>();
-                foreach (var permission in allUserPermissions)
-                {
-                    userPermissionsForRoleList.Add(new UserPermissionForUserRoleListItemModel
-                    {
-                        UserPermissionId = permission.Id,
-                        SystemName = permission.SystemName,
-                        Name = permission.Name,
-                        IsSelected = userPermissionsForRole.Contains(permission)
-                    });
-                }
+                var userPermissionsForRoleList = new List<UserPermissionForUserRoleListItemModel>(
+                    allUserPermissions
+                        .Select(p => new UserPermissionForUserRoleListItemModel
+                        {
+                            UserPermissionId = p.Id,
+                            SystemName = p.SystemName,
+                            Name = p.Name,
+                            IsSelected = userPermissionsForRole.Contains(p)
+                        }));
 
                 var userPermissionsInGroups = userPermissionsForRoleList
-                    .GroupBy(permission => permission.SystemName.Split("_")[0])
-                    .Select(group => new
+                    .GroupBy(p => p.SystemName.Split("_")[0])
+                    .Select(g => new
                     {
-                        GroupName = $"Permissions.{group.Key}",
-                        PermissionsList = group.ToList()
+                        GroupName = $"Permissions.{g.Key}",
+                        PermissionsList = g.ToList()
                     })
                     .ToList();
 
@@ -57,9 +54,10 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
                 foreach (var group in userPermissionsInGroups)
                 {
-                    var groupModel = new UserPermissionsForUserRoleListGroupItemModel();
-
-                    groupModel.GroupName = group.GroupName;
+                    var groupModel = new UserPermissionsForUserRoleListGroupItemModel
+                    {
+                        GroupName = group.GroupName
+                    };
 
                     foreach (var permission in group.PermissionsList)
                     {
@@ -69,14 +67,14 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                             SystemName = permission.SystemName,
                             Name = permission.Name,
                             IsSelected = permission.IsSelected,
-                            LinkedUserPermissions = await GetLinkedUserPermissions(permission.UserPermissionId)
+                            LinkedUserPermissions = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(permission.UserPermissionId)
                         });
                     }
 
                     listGroupModel.Add(groupModel);
                 }
 
-                var result = new DetailsModel
+                var result = new DetailsResponse
                 {
                     Id = userRole.Id,
                     UserPermissionsForUserRoleList = listGroupModel
@@ -87,42 +85,22 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                 if (currentUserLanguageId.HasValue)
                 {
                     result.NameInLanguages = await _dbContext.UserRolesToLanguages
-                    .Where(x => x.UserRoleId == userRole.Id)
-                    .Select(y => new NameInLanguage
-                    {
-                        Name = y.Name,
-                        LaguageId = y.LanguageId,
-                        LaguageName = y.Language.Name
-                    })
-                    .ToListAsync();
+                        .Where(x => x.UserRoleId == userRole.Id)
+                        .Select(x => new NameInLanguage(x.Name, x.LanguageId, x.Language.Name))
+                        .ToListAsync();
 
                     result.Name = result.NameInLanguages
-                        .Where(nameInLanguage => nameInLanguage.LaguageId == currentUserLanguageId.Value)
-                        .Select(nameInLanguage => nameInLanguage.Name)
-                        .FirstOrDefault() ?? string.Empty;
+                        .Where(x => x.LanguageId == currentUserLanguageId.Value)
+                        .Select(x => x.Name)
+                        .FirstOrDefault()
+                        ??
+                        string.Empty;
                 }
 
                 return result;
             }
 
             return null;
-        }
-
-        private async Task<List<int>> GetLinkedUserPermissions(int userPermissionId)
-        {
-            var result = new List<int>();
-
-            var linkedUserPermissions = await _dbContext.UserPermissionToUserPermissions
-                .Where(permission => permission.UserPermissionId == userPermissionId)
-                .Select(permission => permission.LinkedUserPermissionId)
-                .ToListAsync();
-
-            if (linkedUserPermissions is not null && linkedUserPermissions.Any())
-            {
-                result.AddRange(linkedUserPermissions);
-            }
-
-            return result;
         }
     }
 }

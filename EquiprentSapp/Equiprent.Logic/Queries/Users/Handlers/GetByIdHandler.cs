@@ -1,31 +1,27 @@
 ﻿using Equiprent.Logic.Queries.Users.Models;
 using Equiprent.Logic.Queries.Users.Messages;
-using Equiprent.Data.Services;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetByIdHandler : IQueryHandler<GetUserByIdMessage, DetailsModel>
+    public class GetByIdHandler : IQueryHandler<GetUserByIdRequest, DetailsResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userResolverService;
 
-        public GetByIdHandler(ApplicationDbContext dbcontext, IUserService userResolverService)
+        public GetByIdHandler(ApplicationDbContext dbcontext)
         {
             _dbContext = dbcontext;
-            _userResolverService = userResolverService;
         }
 
-        public async Task<DetailsModel?> HandleAsync(GetUserByIdMessage message)
+        public async Task<DetailsResponse?> HandleAsync(GetUserByIdRequest request)
         {
-            var user = await _dbContext.ApplicationUsers
-                .SingleOrDefaultAsync(user => user.Id == message.UserId &&
-                                              !user.IsDeleted);
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId);
 
             if (user is not null)
             {
-                var result = user.Adapt<DetailsModel>();
+                var result = user.Adapt<DetailsResponse>();
 
                 return result;
             }

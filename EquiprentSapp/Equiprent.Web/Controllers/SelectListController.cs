@@ -16,10 +16,10 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet("getusers")]
-        public async Task<ActionResult<Logic.Queries.Users.Models.SelectListModel>> GetUsersList([FromQuery] RequestParameters sp, [FromQuery] int[] roleIds, [FromQuery] Guid[] ignoredUserIds)
+        public async Task<ActionResult<Logic.Queries.Users.Models.SelectListResponse>> GetUsersList([FromQuery] RequestParameters sp, [FromQuery] int[] roleIds, [FromQuery] Guid[] ignoredUserIds)
         {
-            var parameters = new GetPagedSelectUsersMessage(sp, ignoredUserIds);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedSelectUsersMessage, Logic.Queries.Users.Models.SelectListModel>(parameters);
+            var parameters = new GetPagedSelectUsersRequest(sp, ignoredUserIds);
+            var result = await _queryDispatcher.SendQueryAsync<GetPagedSelectUsersRequest, Logic.Queries.Users.Models.SelectListResponse>(parameters);
 
             return new JsonResult(result);
         }

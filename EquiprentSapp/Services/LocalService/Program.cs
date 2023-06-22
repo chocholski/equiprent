@@ -13,7 +13,7 @@ using LocalService.ServiceBaseClasses;
 using System.Text;
 using System.Collections.Generic;
 using Equiprent.Data.Services;
-using Equiprent.ApplicationServices.Audit;
+using Equiprent.ApplicationServices.Audits;
 using Equiprent.Data.DbContext;
 
 namespace LocaleService

@@ -1,10 +1,11 @@
-﻿using Equiprent.Data.DbContext;
+﻿using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class ChangeLanguageHandler : ICommandHandler<ChangeLanguageMessage>
+    public class ChangeLanguageHandler : ICommandHandler<ChangeLanguageRequest>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -13,21 +14,19 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _dbContext = dbcontext;
         }
 
-        public async Task<CommandResult> HandleAsync(ChangeLanguageMessage message)
+        public async Task<CommandResult> HandleAsync(ChangeLanguageRequest request)
         {
-            var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == message.Id);
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
             if (user is not null)
             {
-                if (user.LanguageId != message.LanguageId)
-                {
-                    user.IsTokenRefreshRequired = true;
-                }
+                if (user.LanguageId != request.LanguageId)
+                    user.ChangeRefreshToken();                
 
-                user.LanguageId = message.LanguageId;
+                user.LanguageId = request.LanguageId;
 
-                _dbContext.ApplicationUsers.Update(user);
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.Users.UpdateAsync(user);
 
                 return CommandResult.OK;
             }

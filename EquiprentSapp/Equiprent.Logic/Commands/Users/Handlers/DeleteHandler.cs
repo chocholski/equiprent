@@ -1,10 +1,11 @@
-﻿using Equiprent.Data.DbContext;
+﻿using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class DeleteHandler : ICommandHandler<DeleteMessage>
+    public class DeleteHandler : ICommandHandler<DeleteRequest>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -13,17 +14,13 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _dbContext = dbcontext;
         }
 
-        public async Task<CommandResult> HandleAsync(DeleteMessage message)
+        public async Task<CommandResult> HandleAsync(DeleteRequest message)
         {
-            var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Id == message.Id);
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == message.Id);
 
             if (user is not null)
-            {
-                user.IsDeleted = true;
-                _dbContext.ApplicationUsers.Update(user);
-
-                await _dbContext.SaveChangesAsync();
-            }
+                await _dbContext.Users.SoftDeleteAsync(user);
 
             return CommandResult.OK;
         }

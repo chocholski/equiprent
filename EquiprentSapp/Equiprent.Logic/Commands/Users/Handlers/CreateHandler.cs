@@ -1,13 +1,14 @@
-﻿using Equiprent.ApplicationServices.ApplicationUser;
+﻿using Equiprent.ApplicationServices.Users;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
+using Equiprent.ApplicationServices.CommandResults;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class CreateHandler : ICommandHandler<CreateMessage>
+    public class CreateHandler : ICommandHandler<CreateRequest>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
@@ -20,45 +21,34 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _userResolverService = userResolverService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateMessage message)
+        public async Task<CommandResult> HandleAsync(CreateRequest request)
         {
-            var validationResult = await Validate(message);
-            if (validationResult is not CommandResult.OK)
-            {
-                return validationResult;
-            }
-
             var user = new User
             {
-                Login = message.Login,
-                Password = _passwordHasher.GetHash(message.Password),
-                FirstName = message.FirstName,
-                LastName = message.LastName,
-                Email = message.Email,
-                IsActive = message.IsActive,
-                LanguageId = message.LanguageId,
+                Login = request.Login,
+                Password = _passwordHasher.GetHash(request.Password),
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                IsActive = request.IsActive,
+                LanguageId = request.LanguageId,
                 CreatedOn = DateTime.Now,
                 CreatedById = _userResolverService.GetUserId()!.Value,
-                UserRoleId = message.UserRoleId
+                UserRoleId = request.UserRoleId
             };
 
-            _dbContext.ApplicationUsers.Add(user);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Users.AddAsync(user);
 
             return CommandResult.OK;
         }
 
-        private async Task<CommandResult> Validate(CreateMessage message)
+        public async Task<CommandResult> ValidateAsync(CreateRequest request)
         {
-            if (await _dbContext.ApplicationUsers.AnyAsync(x => x.Login == message.Login))
-            {
+            if (await _dbContext.Users.Where(u => u.Login == request.Login).AnyAsync())
                 return CommandResult.User_LoginExists;
-            }
 
-            if (string.IsNullOrEmpty(message.Password))
-            {
+            if (string.IsNullOrEmpty(request.Password))
                 return CommandResult.BadRequest;
-            }
 
             return CommandResult.OK;
         }

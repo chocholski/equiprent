@@ -1,4 +1,4 @@
-﻿using Equiprent.Web.Options.Swagger;
+﻿using Equiprent.ApplicationServices.Options.Swagger;
 using EquiprentAPI.Web;
 using Microsoft.OpenApi.Models;
 

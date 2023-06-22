@@ -1,7 +1,7 @@
 ﻿using Equiprent.Data.CustomQueries;
 using Equiprent.Logic.QueryData.Audits;
 using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
-using Equiprent.ApplicationServices.Audit;
+using Equiprent.ApplicationServices.Audits;
 using Equiprent.Entities.EnumTypes;
 using Equiprent.Data.DbContext;
 

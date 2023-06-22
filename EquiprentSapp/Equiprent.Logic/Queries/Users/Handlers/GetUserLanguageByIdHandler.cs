@@ -5,7 +5,7 @@ using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetUserLanguageByIdHandler : IQueryHandler<GetUserLanguageByIdMessage, LanguageModel>
+    public class GetUserLanguageByIdHandler : IQueryHandler<GetUserLanguageByIdRequest, LanguageResponse>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -14,14 +14,14 @@ namespace Equiprent.Logic.Queries.Users.Handlers
             _dbContext = dbcontext;
         }
 
-        public async Task<LanguageModel?> HandleAsync(GetUserLanguageByIdMessage message)
+        public async Task<LanguageResponse?> HandleAsync(GetUserLanguageByIdRequest request)
         {
-            var userLanguageId = await _dbContext.ApplicationUsers
-                .Where(x => x.Id == message.UserId && !x.IsDeleted)
-                .Select(y => y.LanguageId)
+            var userLanguageId = await _dbContext.Users
+                .Where(u => u.Id == request.UserId && !u.IsDeleted)
+                .Select(u => u.LanguageId)
                 .SingleOrDefaultAsync();
 
-            var result = new LanguageModel
+            var result = new LanguageResponse
             {
                 LanguageId = userLanguageId
             };

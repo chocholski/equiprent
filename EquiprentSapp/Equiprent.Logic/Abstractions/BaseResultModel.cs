@@ -1,8 +1,4 @@
 ﻿namespace Equiprent.Logic.Abstractions
 {
-    public abstract class BaseResultModel
-    {
-        public bool HasSuccess { get; set; }
-        public string? Message { get; set; }
-    }
+    public abstract record BaseResultModel(bool HasSuccess, string? Message);
 }

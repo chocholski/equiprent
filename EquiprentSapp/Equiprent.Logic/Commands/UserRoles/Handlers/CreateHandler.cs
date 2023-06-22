@@ -1,31 +1,29 @@
-﻿using Equiprent.ApplicationServices.UserPermissions;
+﻿using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Commands.UserRoles.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Equiprent.Logic.Commands.UserRoles.Handlers
 {
-    public class CreateHandler : ICommandHandler<CreateMessage>
+    public class CreateHandler : ICommandHandler<CreateRequest>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserPermissionsService _userPermissionsService;        
+        private readonly IUserPermissionService _userPermissionsService;        
 
-        public CreateHandler(ApplicationDbContext dbcontext, IUserPermissionsService userPermissionsService)
+        public CreateHandler(
+            ApplicationDbContext dbcontext,
+            IUserPermissionService userPermissionsService)
         {
             _dbContext = dbcontext;
             _userPermissionsService = userPermissionsService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateMessage message)
+        public async Task<CommandResult> HandleAsync(CreateRequest request)
         {
-            var validationResult = await Validate(message);
-            if (validationResult is not CommandResult.OK)
-            {
-                return validationResult;
-            }
-
             var userRole = new UserRole
             {
                 IsDeleted = false
@@ -33,114 +31,91 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
             _dbContext.UserRoles.Add(userRole);
 
-            await AddUserRoleToLanguages(userRole, message.NameInLanguages);
+            await AddUserRoleToLanguagesAsync(userRole, request.NameInLanguages);
             await _dbContext.SaveChangesAsync();
 
-            await AddUserPermissionsForRole(userRole.Id, message.UserPermissionsForUserRoleList);
+            await AddUserPermissionsForRoleAsync(userRole.Id, request.UserPermissionsForUserRoleList);
             await _dbContext.SaveChangesAsync();
 
             return CommandResult.OK;
         }
 
-        private async Task<CommandResult> Validate(CreateMessage message)
+        public async Task<CommandResult> ValidateAsync(CreateRequest request)
         {
-            if (message is null)
-            {
+            if (request is null)
                 return CommandResult.BadRequest;
-            }
 
             var existingUserRolesNamesInLanguages = await _dbContext.UserRolesToLanguages
-                .GroupBy(x => x.LanguageId)
+                .GroupBy(u => u.LanguageId)
                 .Select(g => new { g.Key, Names = g.ToList().Select(x => x.Name).ToList() })
                 .ToDictionaryAsync(p => p.Key, p => p.Names);
 
-            var roleWithSameDataExists = false;
+            var roleExists = false;
 
-            foreach (var userRole in message.NameInLanguages)
+            foreach (var userRole in request.NameInLanguages)
             {
-                if (existingUserRolesNamesInLanguages
-                    .Any(x => x.Key == userRole.LaguageId &&
-                                x.Value.Contains(userRole.Name)))
+                if (existingUserRolesNamesInLanguages.Any(n => n.Key == userRole.LanguageId && n.Value.Contains(userRole.Name)))
                 {
-                    roleWithSameDataExists = true;
+                    roleExists = true;
+
                     break;
                 }
             }
 
-            if (roleWithSameDataExists)
-            {
-                return CommandResult.Role_ExistsInDatabase;
-            }
+            if (roleExists)
+                return CommandResult.UserRole_ExistsInDatabase;
 
-            if (message.UserPermissionsForUserRoleList is null ||
-                !message.UserPermissionsForUserRoleList.Any())
-            {
-                return CommandResult.Role_NoUserPermissionAssigned;
-            }
+            if (request.UserPermissionsForUserRoleList.IsNullOrEmpty())
+                return CommandResult.UserRole_NoUserPermissionAssigned;
 
             return CommandResult.OK;
         }
 
-        private async Task AddUserRoleToLanguages(UserRole userRole, List<NameInLanguage> namesInLanguages)
+        private async Task AddUserRoleToLanguagesAsync(UserRole userRole, List<NameInLanguage> namesInLanguages)
         {
-            foreach (var item in namesInLanguages)
+            await _dbContext.UserRolesToLanguages.AddAndSaveRangeAsync(namesInLanguages.Select(l => new UserRoleToLanguage
             {
-                _dbContext.UserRolesToLanguages.Add(new UserRoleToLanguage
-                {
-                    UserRole = userRole,
-                    Name = item.Name,
-                    LanguageId = item.LaguageId
-                });
-            }
-
-            await Task.CompletedTask;
+                UserRole = userRole,
+                Name = l.Name,
+                LanguageId = l.LanguageId
+            }));
         }
 
-        private async Task AddUserPermissionsForRole(int roleId, List<CreateMessage.UserPermissionsForUserRoleListItemModel> userPermissionsFromMessage)
+        private async Task AddUserPermissionsForRoleAsync(int roleId, List<CreateRequest.UserPermissionsForUserRoleListItemModel> userPermissionsFromRequest)
         {
             var allUserPermissions = await _userPermissionsService
                 .GetAllUserPermissionsAsync();
 
             var allUserPermissionsIds = allUserPermissions
-                .Select(x => x.Id)
+                .Select(p => p.Id)
                 .ToList();
 
-            var userPermissionIdsFromMessage = userPermissionsFromMessage
-                .Where(x => x.IsSelected &&
-                            allUserPermissionsIds.Contains(x.UserPermissionId))
-                .Select(x => x.UserPermissionId)
+            var userPermissionIdsFromMessage = userPermissionsFromRequest
+                .Where(i => i.IsSelected &&
+                            allUserPermissionsIds.Contains(i.UserPermissionId))
+                .Select(i => i.UserPermissionId)
                 .ToList();
 
-            var userPermissionsIds = await AppendWithLinkedUserPermissionsIfNecessary(userPermissionIdsFromMessage);
+            var userPermissionsIds = await AppendWithLinkedUserPermissionsIfNecessaryAsync(userPermissionIdsFromMessage);
 
-            userPermissionsIds.ForEach(id =>
-                _dbContext.UserPermissionToRoles.Add(new UserPermissionToRole
-                {
-                    UserPermissionId = id,
-                    UserRoleId = roleId
-                }));
+            await _dbContext.UserPermissionToRoles.AddAndSaveRangeAsync(userPermissionsIds.Select(id => new UserPermissionToRole
+            {
+                UserPermissionId = id,
+                UserRoleId = roleId
+            }));
         }
 
-        private async Task<List<int>> AppendWithLinkedUserPermissionsIfNecessary(List<int> userPermissionIds)
+        private async Task<ISet<int>> AppendWithLinkedUserPermissionsIfNecessaryAsync(List<int> userPermissionIds)
         {
-            var resultPermissionIds = new List<int>();
-
-            resultPermissionIds.AddRange(userPermissionIds);
+            var result = new HashSet<int>(userPermissionIds);
 
             foreach (var id in userPermissionIds)
             {
                 var linkedUserPermissionIds = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(id);
 
                 foreach (var linkedUserPermissionId in linkedUserPermissionIds)
-                {
-                    if (!userPermissionIds.Contains(linkedUserPermissionId))
-                    {
-                        resultPermissionIds.Add(linkedUserPermissionId);
-                    }
-                }
+                    result.Add(linkedUserPermissionId);
             }
-
-            var result = resultPermissionIds.Distinct().ToList();
 
             return result;
         }

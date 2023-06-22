@@ -5,7 +5,7 @@ using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetByLoginHandler : IQueryHandler<GetUserByLoginMessage, DetailsModel>
+    public class GetByLoginHandler : IQueryHandler<GetUserByLoginRequest, DetailsResponse>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -14,13 +14,14 @@ namespace Equiprent.Logic.Queries.Users.Handlers
             _dbContext = dbcontext;
         }
 
-        public async Task<DetailsModel?> HandleAsync(GetUserByLoginMessage requestData)
+        public async Task<DetailsResponse?> HandleAsync(GetUserByLoginRequest request)
         {
-            var user = await _dbContext.ApplicationUsers.SingleOrDefaultAsync(x => x.Login == requestData.Login);
+            var user = await _dbContext.Users
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Login == request.Login);
 
-            if (user != null)
+            if (user is not null)
             {
-                var result = user.Adapt<DetailsModel>();
+                var result = user.Adapt<DetailsResponse>();
 
                 return result;
             }

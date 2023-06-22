@@ -1,4 +1,6 @@
-﻿namespace Equiprent.Logic.Infrastructure.CQRS
+﻿using Equiprent.ApplicationServices.CommandResults;
+
+namespace Equiprent.Logic.Infrastructure.CQRS
 {
     public interface ICommand
     {
@@ -10,11 +12,21 @@
 
     public interface ICommandHandler<TCommand> : ICommandHandler where TCommand : ICommand
     {
+        Task<CommandResult> ValidateAsync(TCommand command)
+        {
+            return Task.FromResult(CommandResult.OK);
+        }
+
         Task<CommandResult> HandleAsync(TCommand command);
     }
 
     public interface ICommandHandler<TCommand, TResult> : ICommandHandler where TCommand : ICommand
     {
+        Task<CommandResult> ValidateAsync(TCommand command)
+        {
+            return Task.FromResult(CommandResult.OK);
+        }
+
         Task<TResult?> HandleAsync(TCommand command);
     }
 
@@ -26,22 +38,40 @@
 
     public class CommandDispatcher : ICommandDispatcher
     {
-        private IServiceProvider _serviceProvider;
-        public CommandDispatcher(IServiceProvider serviceProvider)
-        {
-            _serviceProvider = serviceProvider;
-        }
+        private readonly IServiceProvider _serviceProvider;
+
+        public CommandDispatcher(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
         public async Task<CommandResult> SendCommandAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
             var service = _serviceProvider.GetService(typeof(ICommandHandler<TCommand>)) as ICommandHandler<TCommand>;
-            return service is not null ? await service.HandleAsync(command) : CommandResult.BadRequest;
+
+            if (service is not null)
+            {
+                var validationResult = await service.ValidateAsync(command);
+
+                return validationResult is CommandResult.OK
+                    ? await service.HandleAsync(command)
+                    : validationResult;
+            }
+            else
+                return CommandResult.BadRequest;
         }
 
         public async Task<TResult?> SendCommandAsync<TCommand, TResult>(TCommand command) where TCommand : ICommand
         {
-            var service = this._serviceProvider.GetService(typeof(ICommandHandler<TCommand, TResult>)) as ICommandHandler<TCommand, TResult>;
-            return service is not null ? await service.HandleAsync(command) : default;
+            var service = _serviceProvider.GetService(typeof(ICommandHandler<TCommand, TResult>)) as ICommandHandler<TCommand, TResult>;
+
+            if (service is not null)
+            {
+                var validationResult = await service.ValidateAsync(command);
+
+                return validationResult is CommandResult.OK
+                    ? await service.HandleAsync(command)
+                    : default;
+            }
+            else
+                return default;
         }
     }
 }

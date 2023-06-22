@@ -2,56 +2,55 @@
 using Equiprent.Logic.Queries.Users.Models;
 using Equiprent.Logic.Queries.Users.Messages;
 using Equiprent.Data.Services;
-using Equiprent.ApplicationServices.Languageable;
+using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Entities.Application;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetPagedListHandler : IQueryHandler<GetPagedUsersMessage, ListModel>
+    public class GetPagedListHandler : IQueryHandler<GetPagedUsersRequest, ListResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userResolverService;
         private readonly ILanguageableService _languageableService;
 
-        public GetPagedListHandler(ApplicationDbContext dbcontext, IUserService userResolverService, ILanguageableService languageableService)
+        public GetPagedListHandler(ApplicationDbContext dbcontext, ILanguageableService languageableService)
         {
             _dbContext = dbcontext;
-            _userResolverService = userResolverService;
             _languageableService = languageableService;
         }
 
-        public async Task<ListModel?> HandleAsync(GetPagedUsersMessage message)
+        public async Task<ListResponse?> HandleAsync(GetPagedUsersRequest request)
         {
-            var users = _dbContext.ApplicationUsers
-                .Include(x => x.UserRole)
-                .Where(user => user.IsDeleted ||
-                               !message.UserRoleId.HasValue ||
-                               user.UserRoleId == message.UserRoleId.Value)
-                .Select(user => 
+            var users = _dbContext.Users
+                .Include(u => u.UserRole)
+                .Where(u => u.IsDeleted ||
+                            !request.UserRoleId.HasValue ||
+                            u.UserRoleId == request.UserRoleId.Value)
+                .Select(u => 
                     new ApplicationUserListItemViewModel
                     {
-                        Id = user.Id,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        Login = user.Login,
-                        UserRoleId = user.UserRoleId,
-                        IsActive = user.IsActive
+                        Id = u.Id,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        Login = u.Login,
+                        UserRoleId = u.UserRoleId,
+                        IsActive = u.IsActive
                     })
-                .Where(DbStatementBuilder.BuildWhereClause(message.RequestParameters.SearchCriteria ?? string.Empty))
-                .OrderBy(DbStatementBuilder.BuildOrderClause(message.RequestParameters.SortColumnName ?? string.Empty, message.RequestParameters.SortOrder));
+                .Where(DbStatementBuilder.BuildWhereClause(request.RequestParameters.SearchCriteria ?? string.Empty))
+                .OrderBy(DbStatementBuilder.BuildOrderClause(request.RequestParameters.SortColumnName ?? string.Empty, request.RequestParameters.SortOrder));
 
             var list = await users
-                .Skip(message.RequestParameters.StartRow)
-                .Take(message.RequestParameters.PageCount)
+                .Skip(request.RequestParameters.StartRow)
+                .Take(request.RequestParameters.PageCount)
                 .ToListAsync();
 
-            await _languageableService.TranslateLanguageableValuesAsync<ApplicationUserListItemViewModel, UserRoleToLanguage>(list,
+            await _languageableService.TranslateLanguageableValuesAsync<ApplicationUserListItemViewModel, UserRoleToLanguage>(
+                list,
                 idPropertyName: nameof(ApplicationUserListItemViewModel.UserRoleId),
                 namePropertyName: nameof(ApplicationUserListItemViewModel.UserRoleName));
 
-            var model = new ListModel
+            var model = new ListResponse
             {
                 List = list,
                 TotalRowsCount = await users.CountAsync()

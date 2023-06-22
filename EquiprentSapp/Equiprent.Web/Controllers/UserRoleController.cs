@@ -23,10 +23,10 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ListModel>> GetUserRoles([FromQuery] RequestParameters sp)
+        public async Task<ActionResult<ListResponse>> GetUserRoles([FromQuery] RequestParameters sp)
         {
-            var parameters = new GetPagedUserRolesMessage(sp);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedUserRolesMessage, ListModel>(parameters);
+            var parameters = new GetPagedUserRolesRequest(sp);
+            var result = await _queryDispatcher.SendQueryAsync<GetPagedUserRolesRequest, ListResponse>(parameters);
 
             return new JsonResult(result);
         }
@@ -34,8 +34,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserRole(int id)
         {
-            var parameters = new GetUserRoleByIdMessage(id);
-            var result = await _queryDispatcher.SendQueryAsync<GetUserRoleByIdMessage, DetailsModel>(parameters);
+            var parameters = new GetUserRoleByIdRequest(id);
+            var result = await _queryDispatcher.SendQueryAsync<GetUserRoleByIdRequest, DetailsResponse>(parameters);
 
             return result is not null ? Ok(result) : NotFound();
         }
@@ -43,26 +43,26 @@ namespace Equiprent.Web.Controllers
         [HttpGet("getUserPermissionsForRoleCreation")]
         public async Task<IActionResult> GetUserPermissionsForUserRoleCreation(int id)
         {
-            var parameters = new GetUserPermissionsForUserRoleCreationMessage();
-            var result = await _queryDispatcher.SendQueryAsync<GetUserPermissionsForUserRoleCreationMessage, UserPermissionsForUserRoleCreationModel>(parameters);
+            var parameters = new GetUserPermissionsForUserRoleCreationRequest();
+            var result = await _queryDispatcher.SendQueryAsync<GetUserPermissionsForUserRoleCreationRequest, UserPermissionsForUserRoleCreationResponse>(parameters);
 
             return result is not null ? Ok(result) : NotFound();
         }
 
         [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPost]
-        public async Task<IActionResult> SaveUserRole([FromBody] SaveMessage message)
+        public async Task<IActionResult> SaveUserRole([FromBody] SaveRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(message);
+            var result = await _commandDispatcher.SendCommandAsync(request);
 
             return GetActionResult(result);
         }
 
         [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPut]
-        public async Task<IActionResult> CreateUserRole([FromBody] CreateMessage message)
+        public async Task<IActionResult> CreateUserRole([FromBody] CreateRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(message);
+            var result = await _commandDispatcher.SendCommandAsync(request);
 
             return GetActionResult(result);
         }
@@ -71,8 +71,7 @@ namespace Equiprent.Web.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserRole(int id)
         {
-            var message = new DeleteMessage(id);
-            var result = await _commandDispatcher.SendCommandAsync(message);
+            var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
 
             return GetActionResult(result);
         }

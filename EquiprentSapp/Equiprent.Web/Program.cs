@@ -25,6 +25,8 @@ namespace EquiprentAPI.Web
 
     internal static class Extensions
     {
+        private static string GetApplicationJsonName(bool withMachineSpecificName) => $"appsettings{(withMachineSpecificName ? $".{Environment.MachineName}" : string.Empty)}.json";
+
         internal static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
         {
             builder.Host.UseSerilog((context, config) =>
@@ -34,8 +36,8 @@ namespace EquiprentAPI.Web
 
             builder.Configuration
                 .SetBasePath(builder.Environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Environment.MachineName}.json", optional: true)
+                .AddJsonFile(GetApplicationJsonName(withMachineSpecificName: false), optional: true, reloadOnChange: true)
+                .AddJsonFile(GetApplicationJsonName(withMachineSpecificName: true), optional: true)
                 .AddEnvironmentVariables();
 
             builder.InstallServicesInAssembly();
@@ -59,9 +61,7 @@ namespace EquiprentAPI.Web
                 app.UseDeveloperExceptionPage();
             }
             else if (app.Environment.IsProduction())
-            {
                 app.UseHttpsRedirection();
-            }
 
             app.UseSpaStaticFiles();
             app.UseRouting();
