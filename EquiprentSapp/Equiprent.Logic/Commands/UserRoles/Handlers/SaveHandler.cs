@@ -1,6 +1,7 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
+using Equiprent.Data.Services;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.UserRoles.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
@@ -11,11 +12,16 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
     public class SaveHandler : ICommandHandler<SaveRequest>
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IUserService _userService;
         private readonly IUserPermissionService _userPermissionsService;
 
-        public SaveHandler(ApplicationDbContext dbcontext, IUserPermissionService userPermissionsService)
+        public SaveHandler(
+            ApplicationDbContext dbcontext,
+            IUserService userService,
+            IUserPermissionService userPermissionsService)
         {
             _dbContext = dbcontext;
+            _userService = userService;
             _userPermissionsService = userPermissionsService;
         }
 
@@ -32,7 +38,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
                 _dbContext.UserRolesToLanguages.RemoveRange(userRolesToLanguages);
 
-                await UpdateUserPermissionsForRole(userRole.Id, request.UserPermissionsForUserRoleList);
+                await UpdateUserPermissionsForRoleAsync(userRole.Id, request.UserPermissionsForUserRoleList);
 
                 await _dbContext.UserRolesToLanguages.AddAndSaveRangeAsync(request.NameInLanguages
                     .Select(x => new UserRoleToLanguage
@@ -46,10 +52,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                     .Where(u => u.UserRoleId == userRole.Id)
                     .ToListAsync();
 
-                foreach (var user in users)
-                    user.ChangeRefreshToken();
-
-                await _dbContext.Users.UpdateRangeAsync(users);
+                await _userService.SetTokenRefreshRequiredForUsersAsync(users.Select(u => u.Id));
 
                 return CommandResult.OK;
             }
@@ -92,7 +95,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             return CommandResult.OK;
         }
 
-        private async Task UpdateUserPermissionsForRole(int roleId, IEnumerable<UserPermissionsForUserRoleListItemModel> userPermissionsFromRequest)
+        private async Task UpdateUserPermissionsForRoleAsync(int roleId, IEnumerable<UserPermissionsForUserRoleListItemModel> userPermissionsFromRequest)
         {
             var currentPermissions = await _userPermissionsService.GetUserPermissionsForRoleAsync(roleId);
 
@@ -120,7 +123,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .Select(x => x.UserPermissionId)
                 .ToHashSet();
 
-            userPermissionIdsFromRequest = await AppendserPermissionsWithLinkedUserPermissionsIfNecessary(userPermissionIdsFromRequest);
+            userPermissionIdsFromRequest = await AppendserPermissionsWithLinkedUserPermissionsIfNecessaryAsync(userPermissionIdsFromRequest);
 
             await _dbContext.UserPermissionToRoles.AddAndSaveRangeAsync(userPermissionsFromRequest
                 .Select(p => new UserPermissionToRole
@@ -130,7 +133,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 }));
         }
 
-        private async Task<HashSet<int>> AppendserPermissionsWithLinkedUserPermissionsIfNecessary(HashSet<int> userPermissionIds)
+        private async Task<HashSet<int>> AppendserPermissionsWithLinkedUserPermissionsIfNecessaryAsync(HashSet<int> userPermissionIds)
         {
             var result = new HashSet<int>(userPermissionIds);
 

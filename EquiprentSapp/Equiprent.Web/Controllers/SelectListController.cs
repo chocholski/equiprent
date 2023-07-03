@@ -5,7 +5,7 @@ using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 
 namespace Equiprent.Web.Controllers
 {
-    [PermissionAuthorize((int)UserPermissionEnum.ForAllLoggedIn)]
+    [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class SelectListController : BaseApiController
     {
         private readonly IQueryDispatcher _queryDispatcher;

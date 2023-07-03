@@ -71,7 +71,7 @@ export class AuthorizationService {
   }
 
   decodeToken() {
-    const token = localStorage.getItem(environment.auth_key_name);
+    const token = localStorage.getItem(environment.auth_key);
     return this.jwtHelperService.decodeToken(token || '');
   }
 

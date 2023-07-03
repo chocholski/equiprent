@@ -15,7 +15,7 @@ namespace Equiprent.Web.Controllers
             _languageableService = languageableService;
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanList)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet("userrolesselectoptions")]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptions()
         {
@@ -34,7 +34,7 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(model, new JsonSerializerSettings { });
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.ForAllLoggedIn)]
+        [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
         [HttpGet("yesnoselectoptions")]
         public ActionResult<IEnumerable<SelectListItemModel>> GetYesNoSelectOptions()
         {

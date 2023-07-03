@@ -17,9 +17,12 @@ namespace Equiprent.Data.Services
 
         public Guid? GetUserId()
         {
-            var userId = _httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            var userIdClaim = _httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
-            return userId is not null && Guid.TryParse(userId.Value, out Guid currentUserId) ? currentUserId : null;
+            return userIdClaim is not null &&
+                Guid.TryParse(userIdClaim.Value, out Guid userId) 
+                    ? userId 
+                    : null;
         }
 
         public async Task<int?> GetCurrentUserLanguageIdAsync()
@@ -36,6 +39,23 @@ namespace Equiprent.Data.Services
             }
 
             return result;
+        }
+
+        public async Task SetTokenRefreshRequiredForUsersAsync(IEnumerable<Guid> userIds)
+        {
+            foreach (var userId in  userIds)
+            {
+                var refreshToken = await _dbContext.RefreshTokens
+                    .Where(r => r.UserId == userId)
+                    .SingleOrDefaultAsync();
+
+                if (refreshToken is null)
+                    return;
+
+                refreshToken.IsTokenRefreshRequired = true;
+
+                await _dbContext.RefreshTokens.UpdateAsync(refreshToken);
+            }
         }
     }
 }

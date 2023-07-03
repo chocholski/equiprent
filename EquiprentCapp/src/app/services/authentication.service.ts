@@ -20,39 +20,41 @@ export class AuthenticationService {
     login(authData: SignInModel): Observable<string> {
         var url = "token/authenticate";
         var data = {
-            username: authData.Login,
-            password: authData.Password,
+            UserName: authData.Login,
+            Password: authData.Password,
             // required when signing up with username/password
-            grant_type: "password",
+            GrantType: "password",
             // space-separated list of scopes for which the token is issued
-            scope: "offline_access profile email"
+            Scope: "offline_access profile email"
         };
 
-        return this.httpClient.post<TokenResponse>(url, data).pipe(
-            map(res => {
-                let token = res && res.token;
-                if (res.code == CustomResponeCode.NotActice) {
-                    return "NotActice";
-                }
-                else if (res.code != 200) {
-                    return "Error";
-                }
+        return this.httpClient
+            .post<TokenResponse>(url, data)
+            .pipe(
+                map(res => {
+                    const token = res && res.token;
+                    if (res.code == CustomResponeCode.NotActive) {
+                        return "NotActive";
+                    }
+                    else if (res.code != 200) {
+                        return "Error";
+                    }
 
-                // if the token is there, login has been successful
-                if (token) {
-                    // store username and jwt token
-                    this.setAuth(res);
-                    this.authorizationService.decodeTokenAndSetData();
-                    // successful login
-                    return "OK";
-                }
-                return "Error";
-                // failed login
-            }),
-            catchError(error => {
-                console.log(error);
-                return new Observable<any>(error);
-            }));
+                    // if the token is there, login has been successful
+                    if (token) {
+                        // store username and jwt token
+                        this.setAuth(res);
+                        this.authorizationService.decodeTokenAndSetData();
+                        // successful login
+                        return "OK";
+                    }
+                    return "Error";
+                    // failed login
+                }),
+                catchError(error => {
+                    console.log(error);
+                    return new Observable<any>(error);
+                }));
     }
 
     // performs the logout
@@ -64,7 +66,7 @@ export class AuthenticationService {
 
     refreshToken(): Observable<string> {
         var url = "token/refreshToken";
-        const tokenData = JSON.parse(localStorage.getItem(environment.auth_key_name) || '') as TokenResponse;
+        const tokenData = JSON.parse(localStorage.getItem(environment.auth_key) || '') as TokenResponse;
 
         var data = {
             Token: tokenData.token,
@@ -88,12 +90,12 @@ export class AuthenticationService {
         if (isPlatformBrowser(this.platformId)) {
             if (auth) {
                 localStorage.setItem(
-                    environment.auth_key_name,
+                    environment.auth_key,
                     JSON.stringify(auth));
                 this.isLoggedIn$ = of(true);
             }
             else {
-                localStorage.removeItem(environment.auth_key_name);
+                localStorage.removeItem(environment.auth_key);
                 this.isLoggedIn$ = of(false);
             }
         }
@@ -103,9 +105,10 @@ export class AuthenticationService {
     // Retrieves the auth JSON object (or NULL if none)
     getAuth(): TokenResponse | null {
         if (isPlatformBrowser(this.platformId)) {
-            var i = localStorage.getItem(environment.auth_key_name);
-            if (i) {
-                return JSON.parse(i);
+            var key = localStorage.getItem(environment.auth_key);
+
+            if (key) {
+                return JSON.parse(key);
             }
         }
         return null;
@@ -114,43 +117,10 @@ export class AuthenticationService {
     // Returns TRUE if the user is logged in, FALSE otherwise.
     isLoggedIn(): boolean {
         if (isPlatformBrowser(this.platformId)) {
-            return localStorage.getItem(environment.auth_key_name) != null;
+            return localStorage.getItem(environment.auth_key) != null;
         }
         return false;
     }
-
-    // refreshToken(): Observable<boolean> {
-    //     var url = "api/token/authenticate";
-    //     var data = {
-    //         client_id: this.clientId,
-    //         // required when signing up with username/password
-    //         grant_type: "refresh_token",
-    //         refresh_token: this.getAuth()!.refresh_token,
-    //         // space-separated list of scopes for which the token is issued
-    //         scope: "offline_access profile email"
-    //     };
-    //     return this.getAuthFromServer(url, data);
-    // }
-
-    // // retrieve the access & refresh tokens from the server
-    // getAuthFromServer(url: string, data: any): Observable<boolean> {
-    //     return this.httpClient.post<TokenResponse>(url, data)
-    //         .map((res) => {
-    //             let token = res && res.token;
-    //             // if the token is there, login has been successful
-    //             if (token) {
-    //                 // store username and jwt token
-    //                 this.setAuth(res);
-    //                 // successful login
-    //                 return true;
-    //             }
-    //             // failed login
-    //             return Observable.throw('Unauthorized');
-    //         })
-    //         .catch(error => {
-    //             return new Observable<any>(error);
-    //         });
-    // }
 }
 
 interface TokenResponse {
@@ -161,5 +131,5 @@ interface TokenResponse {
 }
 
 enum CustomResponeCode {
-    NotActice = 165
+    NotActive = 165
 }

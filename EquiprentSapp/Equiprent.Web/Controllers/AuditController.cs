@@ -7,7 +7,7 @@ using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {
-    [PermissionAuthorize((int)UserPermissionEnum.ForAllLoggedIn)]
+    [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class AuditController : BaseApiController
     {
         private readonly IAuditMemberTranslatorService _auditMemberTranslatorService;

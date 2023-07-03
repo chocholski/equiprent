@@ -9,7 +9,7 @@ using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {
-    [PermissionAuthorize((int)UserPermissionEnum.ForAllLoggedIn)]
+    [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class UserController : BaseApiController
     {
         private readonly IQueryDispatcher _queryDispatcher;
@@ -22,7 +22,7 @@ namespace Equiprent.Web.Controllers
             _commandDispatcher = commandDispatcher;
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanList)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet]
         public async Task<ActionResult<ListResponse>> GetUsersList([FromQuery] RequestParameters sp, [FromQuery] int? userRoleId)
         {
@@ -50,7 +50,7 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateRequest request)
         {
@@ -59,7 +59,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPut]
         public async Task<IActionResult> SaveUser([FromBody] SaveRequest request)
         {
@@ -84,7 +84,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost("changerole")]
         public async Task<IActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {
@@ -93,7 +93,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.Users_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {

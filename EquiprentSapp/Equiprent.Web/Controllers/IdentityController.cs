@@ -25,44 +25,24 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpPost(ApiRoutes.Identity.Authenticate)]
-        public async Task<IActionResult> Authenticate([FromBody] TokenRequestModel model)
+        public async Task<IActionResult> Authenticate([FromBody] AuthenticationRequest request)
         {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
-            if (model is null)
+            if (request is null)
                 return new StatusCodeResult(500);                
 
-            return model.grant_type switch
+            return request.GrantType switch
             {
-                "password" => new JsonResult(await _identityService.GetTokenAsync(model.grant_type, model.client_secret, model.username, model.password)),
+                "password" => new JsonResult(await _identityService.GetTokenAsync(request.GrantType, request.ClientSecret, request.UserName, request.Password)),
                 _ => new UnauthorizedResult(),// not supported - return a HTTP 401 (Unauthorized)
             };
         }
 
         [HttpPost(ApiRoutes.Identity.RefreshToken)]
-        public async Task<IActionResult> RefreshToken(TokenModel tokenModel)
+        public async Task<IActionResult> Refresh(RefreshTokenRequest request)
         {
-            if (tokenModel is null)
-                return BadRequest("Invalid client request");
-
-            var principal = _identityService.GetPrincipalFromToken(tokenModel.Token);
-
-            if (principal is null)
-                return BadRequest("Invalid access token or refresh token");
-
-            var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(userId))
-                return BadRequest("Invalid access token");
-
-            var user = await _dbContext!.Users
-                .SingleOrDefaultAsync(u => u.Id.ToString() == userId &&
-                                           u.RefreshToken == tokenModel.RefreshToken);
-
-            if (user is null)
-                return BadRequest("Invalid access token or refresh token");
-
-            return new JsonResult(await _identityService.GetTokenAsync(user));
+            return new JsonResult(await _identityService.RefreshTokenAsync(request.Token, request.RefreshToken));
         }
 
         [HttpGet(ApiRoutes.Identity.IsEmptyPassword)]
@@ -86,7 +66,7 @@ namespace Equiprent.Web.Controllers
                 .FirstOrDefaultAsync(u => u.ChangePasswordToken == model.Token);
 
             if (user is null)
-                return GetActionResult(CommandResult.Token_WrongToken);
+                return GetActionResult(CommandResult.Token_Invalid);
 
             user.ChangePassword(password: _passwordHasher.GetHash(model.Password));
 

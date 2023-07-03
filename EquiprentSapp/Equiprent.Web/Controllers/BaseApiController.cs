@@ -26,8 +26,8 @@ namespace Equiprent.Web.Controllers
 
                 return userRoleClaim is not null &&
                     Enum.TryParse(userRoleClaim.Value, out UserRoleEnum userRole) 
-                    ? userRole 
-                    : null;
+                        ? userRole 
+                        : null;
             }
         }
 

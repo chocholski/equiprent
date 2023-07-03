@@ -9,7 +9,7 @@ using Equiprent.Data.DbContext;
 
 namespace Equiprent.Web.Controllers
 {
-    [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanList)]
+    [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanList)]
     public class UserRoleController : BaseApiController
     {
         private readonly IQueryDispatcher _queryDispatcher;
@@ -49,7 +49,7 @@ namespace Equiprent.Web.Controllers
             return result is not null ? Ok(result) : NotFound();
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPost]
         public async Task<IActionResult> SaveUserRole([FromBody] SaveRequest request)
         {
@@ -58,7 +58,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPut]
         public async Task<IActionResult> CreateUserRole([FromBody] CreateRequest request)
         {
@@ -67,7 +67,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [PermissionAuthorize((int)UserPermissionEnum.UserRoles_CanModify)]
+        [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserRole(int id)
         {

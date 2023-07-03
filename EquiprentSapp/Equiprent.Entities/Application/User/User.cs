@@ -24,10 +24,6 @@
 
         public Guid? ChangePasswordToken { get; set; }
 
-        public Guid? RefreshToken { get; private set; }
-
-        public bool IsTokenRefreshRequired { get; private set; }
-
         [ForeignKey("Language")]
         public int LanguageId { get; set; }
         public virtual Language Language { get; set; } = null!;
@@ -42,16 +38,6 @@
         {
             ChangePasswordToken = null;
             Password = password;
-        }
-
-        public void ChangeRefreshToken(Guid? refreshToken = null)
-        {
-            if (RefreshToken is not null) 
-            {
-                RefreshToken = refreshToken;
-            }
-
-            IsTokenRefreshRequired = refreshToken is null;
         }
     }
 }

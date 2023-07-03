@@ -24,10 +24,8 @@ namespace Equiprent.Web.Authentication
 
             if (nameIdentifier is not null)
             {
-                var currentUserId = Guid.TryParse(nameIdentifier.Value, out Guid gCurrentUserId) ? (Guid?)gCurrentUserId : null;
-
-                if (currentUserId.HasValue &&
-                    !await dbContext!.Users.AnyAsync(u => u.Id == currentUserId && u.IsTokenRefreshRequired))
+                if (Guid.TryParse(nameIdentifier.Value, out Guid currentUserId) &&
+                    !await dbContext!.RefreshTokens.AnyAsync(r => r.UserId == currentUserId && r.IsTokenRefreshRequired))
                 {
                     await base.OnActionExecutionAsync(context, next);
                 }

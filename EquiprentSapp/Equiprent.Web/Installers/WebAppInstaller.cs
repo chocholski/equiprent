@@ -32,26 +32,31 @@ namespace Equiprent.Web.Installers
                 });
 
             var jwtOptions = new JwtOptions();
+
             builder.Configuration.Bind(nameof(JwtOptions), jwtOptions);
             builder.Services.AddSingleton(jwtOptions);
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = jwtOptions.TokenValidationParameters.ValidateIssuerSigningKey,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key)),
+                ValidIssuer = jwtOptions.TokenValidationParameters.ValidIssuer,
+                ValidateIssuer = jwtOptions.TokenValidationParameters.ValidateIssuer,
+                ValidAudience = jwtOptions.TokenValidationParameters.ValidAudience,
+                ValidateAudience = jwtOptions.TokenValidationParameters.ValidateAudience,
+                ValidateLifetime = jwtOptions.TokenValidationParameters.ValidateLifetime,
+                ClockSkew = TimeSpan.Zero,
+                RequireExpirationTime = jwtOptions.TokenValidationParameters.RequireExpirationTime
+            };
+
+            builder.Services.AddSingleton(tokenValidationParameters);
 
             builder.Services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = jwtOptions.TokenValidationParameters.ValidateIssuerSigningKey,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key)),
-                        ValidIssuer = jwtOptions.TokenValidationParameters.ValidIssuer,
-                        ValidateIssuer = jwtOptions.TokenValidationParameters.ValidateIssuer,
-                        ValidAudience = jwtOptions.TokenValidationParameters.ValidAudience,
-                        ValidateAudience = jwtOptions.TokenValidationParameters.ValidateAudience,
-                        ValidateLifetime = jwtOptions.TokenValidationParameters.ValidateLifetime,
-                        ClockSkew = TimeSpan.Zero,
-                        RequireExpirationTime = jwtOptions.TokenValidationParameters.RequireExpirationTime
-                    };
+                    options.TokenValidationParameters = tokenValidationParameters;
                 });
         }
     }

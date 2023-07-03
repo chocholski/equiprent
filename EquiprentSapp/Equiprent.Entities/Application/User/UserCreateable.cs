@@ -4,7 +4,7 @@
     {
         public DateTime CreatedOn { get; set; }
 
-        [ForeignKey("CreatedByUser")]
+        [ForeignKey(nameof(CreatedByUser))]
         public Guid? CreatedById { get; set; }
         public virtual User? CreatedByUser { get; set; }
     }

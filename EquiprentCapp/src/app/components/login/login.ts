@@ -67,19 +67,21 @@ export class LoginComponent implements OnInit {
     data.Login = this.form.value.Login;
     data.Password = this.form.value.Password;
 
-    this.authenticationService.login(data).subscribe((result) => {
-      if (result == "OK") {
-        this.app.isUserLoggedIn = true;
-        this.router.navigate(['home']);
-      }
-      else if (result == "NotActive") {
-        this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.AccountNotActive') });
-        this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.PleaseContactAdmin') });
-      }
-      else {
-        this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.InvalidLoginData') });
-      }
-    });
+    this.authenticationService
+      .login(data)
+      .subscribe((result) => {
+        if (result == "OK") {
+          this.app.isUserLoggedIn = true;
+          this.router.navigate(['home']);
+        }
+        else if (result == "NotActive") {
+          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.AccountNotActive') });
+          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.PleaseContactAdmin') });
+        }
+        else {
+          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.InvalidLoginData') });
+        }
+      });
   }
 
   setLanguage(languageId: number) {

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:61869/api/',
-  auth_key_name: "Equiprent"
+  auth_key: "Equiprent"
 };
 
 /*

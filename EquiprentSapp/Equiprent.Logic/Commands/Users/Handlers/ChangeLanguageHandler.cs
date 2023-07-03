@@ -1,5 +1,6 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.Data.DbContext;
+using Equiprent.Data.Services;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
@@ -8,10 +9,14 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     public class ChangeLanguageHandler : ICommandHandler<ChangeLanguageRequest>
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IUserService _userService;
 
-        public ChangeLanguageHandler(ApplicationDbContext dbcontext)
+        public ChangeLanguageHandler(
+            ApplicationDbContext dbcontext,
+            IUserService userService)
         {
             _dbContext = dbcontext;
+            _userService = userService;
         }
 
         public async Task<CommandResult> HandleAsync(ChangeLanguageRequest request)
@@ -22,7 +27,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (user is not null)
             {
                 if (user.LanguageId != request.LanguageId)
-                    user.ChangeRefreshToken();                
+                    await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });           
 
                 user.LanguageId = request.LanguageId;
 

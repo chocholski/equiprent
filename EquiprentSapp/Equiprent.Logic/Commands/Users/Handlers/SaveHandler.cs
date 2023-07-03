@@ -1,6 +1,7 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.ApplicationServices.Users;
 using Equiprent.Data.DbContext;
+using Equiprent.Data.Services;
 using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Logic.Infrastructure.CQRS;
 
@@ -10,11 +11,16 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IUserService _userService;
 
-        public SaveHandler(ApplicationDbContext dbcontext, IPasswordHasher passwordHasher)
+        public SaveHandler(
+            ApplicationDbContext dbcontext,
+            IPasswordHasher passwordHasher,
+            IUserService userService)
         {
             _dbContext = dbcontext;
             _passwordHasher = passwordHasher;
+            _userService = userService;
         }
 
         public async Task<CommandResult> HandleAsync(SaveRequest request)
@@ -25,7 +31,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (user is not null)
             {
                 if (user.UserRoleId != request.UserRoleId)
-                    user.ChangeRefreshToken();
+                    await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
 
                 user.Login = request.Login;
                 user.FirstName = request.FirstName;

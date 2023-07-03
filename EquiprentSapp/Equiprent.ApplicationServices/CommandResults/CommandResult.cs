@@ -13,10 +13,11 @@
         User_WrongOldPassword = 101,
 
         //Token
-        Token_LoginOrEmailExists = 200,
-        Token_EmptyEmail = 201,
-        Token_WrongToken = 202,
-        Token_NotActive = 203,
+        Token_Invalid = 200,
+        Token_NotActive = 201,
+        Token_DoesNotExist = 202,
+        Token_Used = 203,
+        Token_DoesNotMatchJWT = 204,
 
         //UserRole
         UserRole_ExistsInDatabase = 300,

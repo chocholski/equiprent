@@ -114,7 +114,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 export class AppModule { }
 
 export function jwtTokenGetter() {
-    return localStorage.getItem(environment.auth_key_name);
+    return localStorage.getItem(environment.auth_key);
 }
 
 export function HttpLoaderFactory(http: HttpClient) {

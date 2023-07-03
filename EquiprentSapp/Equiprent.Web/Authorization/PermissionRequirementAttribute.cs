@@ -2,11 +2,11 @@
 
 namespace Equiprent.Web.Authorization
 {
-    public class PermissionAuthorizeAttribute : AuthorizeAttribute
+    public class PermissionRequirementAttribute : AuthorizeAttribute
     {
         const string POLICY_PREFIX = "permissions";
 
-        public PermissionAuthorizeAttribute(params int[] permissionsIds) => Ids = permissionsIds;
+        public PermissionRequirementAttribute(params int[] permissionsIds) => Ids = permissionsIds;
 
         public int[] Ids
         {
@@ -14,8 +14,9 @@ namespace Equiprent.Web.Authorization
             {
                 if (Policy is not null)
                 {
-                    var permissionsIds = Array.ConvertAll(Policy.Substring(POLICY_PREFIX.Length).Split(","), 
-                        permissionIdAsString => int.TryParse(permissionIdAsString, out var permissionId) ? permissionId : -1);
+                    var permissionsIds = Array.ConvertAll(
+                        array: Policy[POLICY_PREFIX.Length..].Split(","), 
+                        converter: permissionIdAsString => int.TryParse(permissionIdAsString, out var permissionId) ? permissionId : -1);
 
                     if (!permissionsIds.IsNullOrEmpty())
                         return permissionsIds;
