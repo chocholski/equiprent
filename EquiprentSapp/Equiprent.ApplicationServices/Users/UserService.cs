@@ -54,7 +54,7 @@ namespace Equiprent.Data.Services
 
                 refreshToken.IsTokenRefreshRequired = true;
 
-                await _dbContext.RefreshTokens.UpdateAsync(refreshToken);
+                await _dbContext.RefreshTokens.UpdateAndSaveAsync(refreshToken);
             }
         }
     }

@@ -25,7 +25,8 @@ namespace Equiprent.Web.Installers
                 options.RootPath = Program.ConfigRootPath;
             });
 
-            builder.Services.AddControllers()
+            builder.Services
+                .AddControllers()
                 .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.ContractResolver = new DefaultContractResolver();

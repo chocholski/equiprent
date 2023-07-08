@@ -1,6 +1,6 @@
 ﻿using Equiprent.Logic.Infrastructure.CQRS;
 
-namespace Equiprent.Logic.Commands.Users.Messages
+namespace Equiprent.Logic.Commands.Users.Requests.Save
 {
     public record SaveRequest(
         Guid Id,
@@ -10,10 +10,6 @@ namespace Equiprent.Logic.Commands.Users.Messages
         string LastName,
         string? Email,
         int UserRoleId,
-        int DepartmentId,
-        int PositionId,
-        int? ManagerId,
-        int CaslendarTypeAssignedId,
         bool IsActive,
         bool IsDeleted) : ICommand;
 }

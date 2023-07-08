@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
-using Equiprent.Logic.Commands.UserRoles.Messages;
+using Equiprent.Logic.Commands.UserRoles.Requests.Delete;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.UserRoles.Handlers
@@ -26,7 +26,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             {
                 await DeleteUserPermissionsForRoleAsync(userRole.Id);
 
-                await _dbContext.UserRoles.SoftDeleteAsync(userRole);
+                await _dbContext.UserRoles.SoftDeleteAndSaveAsync(userRole);
             }
 
             return CommandResult.OK;
@@ -60,7 +60,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .Where(x => x.UserRoleId == roleId)
                 .ToListAsync();
 
-            _dbContext.RemoveRange(userPermissionsForRole);
+            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsForRole);
         }
     }
 }

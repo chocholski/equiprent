@@ -3,7 +3,7 @@ using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
 using Equiprent.Entities.Application;
-using Equiprent.Logic.Commands.UserRoles.Messages;
+using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Microsoft.IdentityModel.Tokens;
 
@@ -36,11 +36,11 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                     .Where(x => x.UserRoleId == userRole.Id)
                     .ToListAsync();
 
-                _dbContext.UserRolesToLanguages.RemoveRange(userRolesToLanguages);
+                await _dbContext.UserRolesToLanguages.RemoveRangeAndSaveAsync(userRolesToLanguages);
 
                 await UpdateUserPermissionsForRoleAsync(userRole.Id, request.UserPermissionsForUserRoleList);
 
-                await _dbContext.UserRolesToLanguages.AddAndSaveRangeAsync(request.NameInLanguages
+                await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(request.NameInLanguages
                     .Select(x => new UserRoleToLanguage
                     {
                         UserRoleId = userRole.Id,
@@ -108,7 +108,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                             x.UserRoleId == roleId)
                 .ToListAsync();
 
-            await _dbContext.UserPermissionToRoles.RemoveRangeAsync(userPermissionsToUserRolesToRemove);
+            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsToUserRolesToRemove);
 
             var allUserPermissions = await _userPermissionsService
                 .GetAllUserPermissionsAsync();
@@ -125,7 +125,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
             userPermissionIdsFromRequest = await AppendserPermissionsWithLinkedUserPermissionsIfNecessaryAsync(userPermissionIdsFromRequest);
 
-            await _dbContext.UserPermissionToRoles.AddAndSaveRangeAsync(userPermissionsFromRequest
+            await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionsFromRequest
                 .Select(p => new UserPermissionToRole
                 {
                     UserPermissionId = p.UserPermissionId,

@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.ApplicationServices.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Logic.Commands.Users.Messages;
+using Equiprent.Logic.Commands.Users.Requests.ChangePassword;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
@@ -26,7 +26,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             {
                 user.Password = _passwordHasher.GetHash(request.Password);
 
-                await _dbContext.Users.UpdateAsync(user);
+                await _dbContext.Users.UpdateAndSaveAsync(user);
 
                 return CommandResult.OK;
             }

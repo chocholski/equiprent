@@ -1,7 +1,7 @@
 ﻿using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Infrastructure.CQRS;
 
-namespace Equiprent.Logic.Commands.UserRoles.Messages
+namespace Equiprent.Logic.Commands.UserRoles.Requests.Create
 {
     public record CreateRequest : NameInLanguagesBase, ICommand
     {

@@ -39,8 +39,17 @@ namespace Equiprent.Web.Controllers
 
         public BaseApiController(IConfiguration configuration) => _configuration = configuration;
 
-        protected ActionResult GetActionResult(CommandResult result, string? message = null) =>
-            new JsonResult(string.IsNullOrEmpty(message) ? result.ToString().Split('_')[1] : message);
+        protected ActionResult GetActionResult(CommandResult result, string? message = null)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                var splitCommandResult = result.ToString().Split('_');
+
+                message = splitCommandResult[splitCommandResult.Length > 1 ? 1 : 0];
+            }
+
+            return new JsonResult(message);
+        }
     }
 }
 

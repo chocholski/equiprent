@@ -3,7 +3,7 @@ using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Abstractions;
-using Equiprent.Logic.Commands.UserRoles.Messages;
+using Equiprent.Logic.Commands.UserRoles.Requests.Create;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Microsoft.IdentityModel.Tokens;
 
@@ -73,7 +73,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
         private async Task AddUserRoleToLanguagesAsync(UserRole userRole, List<NameInLanguage> namesInLanguages)
         {
-            await _dbContext.UserRolesToLanguages.AddAndSaveRangeAsync(namesInLanguages.Select(l => new UserRoleToLanguage
+            await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(namesInLanguages.Select(l => new UserRoleToLanguage
             {
                 UserRole = userRole,
                 Name = l.Name,
@@ -98,7 +98,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
             var userPermissionsIds = await AppendWithLinkedUserPermissionsIfNecessaryAsync(userPermissionIdsFromMessage);
 
-            await _dbContext.UserPermissionToRoles.AddAndSaveRangeAsync(userPermissionsIds.Select(id => new UserPermissionToRole
+            await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionsIds.Select(id => new UserPermissionToRole
             {
                 UserPermissionId = id,
                 UserRoleId = roleId

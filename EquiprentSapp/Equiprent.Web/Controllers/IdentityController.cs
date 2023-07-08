@@ -70,7 +70,7 @@ namespace Equiprent.Web.Controllers
 
             user.ChangePassword(password: _passwordHasher.GetHash(model.Password));
 
-            await _dbContext.Users.UpdateAsync(user);
+            await _dbContext.Users.UpdateAndSaveAsync(user);
 
             return GetActionResult(CommandResult.OK);
         }

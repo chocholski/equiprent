@@ -2,7 +2,7 @@
 using Equiprent.ApplicationServices.Users;
 using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
-using Equiprent.Logic.Commands.Users.Messages;
+using Equiprent.Logic.Commands.Users.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
@@ -43,7 +43,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 if (!string.IsNullOrEmpty(request.Password))
                     user.Password = _passwordHasher.GetHash(request.Password);
 
-                await _dbContext.Users.UpdateAsync(user);
+                await _dbContext.Users.UpdateAndSaveAsync(user);
 
                 return CommandResult.OK;
             }

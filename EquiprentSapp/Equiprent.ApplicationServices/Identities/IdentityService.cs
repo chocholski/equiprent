@@ -89,7 +89,7 @@ namespace Equiprent.ApplicationServices.Identities
 
             storedRefreshToken.Used = true;
 
-            await _dbContext.RefreshTokens.UpdateAsync(storedRefreshToken);
+            await _dbContext.RefreshTokens.UpdateAndSaveAsync(storedRefreshToken);
 
             var userId = validatedToken.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 

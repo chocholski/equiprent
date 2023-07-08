@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Logic.Commands.Users.Messages;
+using Equiprent.Logic.Commands.Users.Requests.Delete;
 using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
@@ -20,7 +20,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == message.Id);
 
             if (user is not null)
-                await _dbContext.Users.SoftDeleteAsync(user);
+                await _dbContext.Users.SoftDeleteAndSaveAsync(user);
 
             return CommandResult.OK;
         }

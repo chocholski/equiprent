@@ -1,10 +1,10 @@
 ﻿using Equiprent.ApplicationServices.Users;
 using Equiprent.Entities.Application;
-using Equiprent.Logic.Commands.Users.Messages;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
 using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.Logic.Commands.Users.Requests.Create;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
@@ -37,7 +37,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 UserRoleId = request.UserRoleId
             };
 
-            await _dbContext.Users.AddAsync(user);
+            await _dbContext.Users.AddAndSaveAsync(user);
 
             return CommandResult.OK;
         }

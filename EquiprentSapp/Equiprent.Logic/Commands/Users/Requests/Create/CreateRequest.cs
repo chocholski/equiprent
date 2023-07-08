@@ -1,6 +1,6 @@
 ﻿using Equiprent.Logic.Infrastructure.CQRS;
 
-namespace Equiprent.Logic.Commands.Users.Messages
+namespace Equiprent.Logic.Commands.Users.Requests.Create
 {
     public record CreateRequest(
         string Login,
@@ -8,10 +8,6 @@ namespace Equiprent.Logic.Commands.Users.Messages
         string LastName,
         string? Email,
         int UserRoleId,
-        int DepartmentId,
-        int PositionId,
-        int? ManagerId,
-        int CalendarTypeAssignedId,
         bool IsActive,
         int LanguageId,
         string Password) : ICommand;
