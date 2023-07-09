@@ -150,6 +150,8 @@ namespace Equiprent.ApplicationServices.Identities
                 IsTokenRefreshRequired = false
             };
 
+            await _dbContext.RefreshTokens.AddAndSaveAsync(refreshToken);
+
             return GetAuthenticationResult(
                 code: (int)HttpStatusCode.OK,
                 expiration: (int)tokenLifetime.TotalMinutes,

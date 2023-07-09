@@ -6,8 +6,8 @@
         {
             public const string Authenticate = "authenticate";
             public const string RefreshToken = "refreshToken";
-            public const string IsEmptyPassword = "isemptypassword";
-            public const string ChangePassword = "changepassword";
+            public const string IsEmptyPassword = "isEmptyPassword";
+            public const string ChangePassword = "changePassword";
         }
     }
 }

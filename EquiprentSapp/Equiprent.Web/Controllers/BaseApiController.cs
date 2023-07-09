@@ -2,7 +2,7 @@
 using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.EnumTypes;
-using Equiprent.Web.Authentication;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {

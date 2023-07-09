@@ -3,7 +3,7 @@ using Equiprent.Web.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Security.Claims;
 
-namespace Equiprent.Web.Authentication
+namespace Equiprent.Web.Filters
 {
     public class RefreshTokenActionFilterAttribute : ActionFilterAttribute
     {

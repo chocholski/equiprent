@@ -1,8 +1,6 @@
-﻿using System.Security.Claims;
-using Equiprent.ApplicationServices.Users;
+﻿using Equiprent.ApplicationServices.Users;
 using Equiprent.Logic.QueryData.Authentication;
 using Equiprent.Data.DbContext;
-using Equiprent.Web.Authentication.Models;
 using Equiprent.Web.Contracts;
 using Equiprent.ApplicationServices.Identities;
 using Equiprent.ApplicationServices.CommandResults;
@@ -60,7 +58,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpPut(ApiRoutes.Identity.ChangePassword)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel model)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
         {
             var user = await _dbContext!.Users
                 .FirstOrDefaultAsync(u => u.ChangePasswordToken == model.Token);
