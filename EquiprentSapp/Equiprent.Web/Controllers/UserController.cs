@@ -11,9 +11,11 @@ using Equiprent.Logic.Commands.Users.Requests.ChangeRole;
 using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Logic.Commands.Users.Requests.Save;
 using Equiprent.Logic.Commands.Users.Requests.Delete;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
+    [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class UserController : BaseApiController
     {

@@ -3,9 +3,11 @@ using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Entities.Application;
 using Equiprent.Entities.EnumTypes;
 using Equiprent.Data.DbContext;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
+    [ApiKeyFilter]
     public class SelectOptionsController : BaseApiController
     {
         private readonly ILanguageableService _languageableService;

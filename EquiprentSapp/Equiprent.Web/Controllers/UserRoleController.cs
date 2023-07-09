@@ -8,9 +8,11 @@ using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.UserRoles.Requests.Create;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Commands.UserRoles.Requests.Delete;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
+    [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanList)]
     public class UserRoleController : BaseApiController
     {

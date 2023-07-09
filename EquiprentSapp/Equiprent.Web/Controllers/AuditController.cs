@@ -4,9 +4,11 @@ using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
 using Equiprent.ApplicationServices.Audits;
 using Equiprent.Entities.EnumTypes;
 using Equiprent.Data.DbContext;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
+    [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class AuditController : BaseApiController
     {

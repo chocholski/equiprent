@@ -2,9 +2,11 @@
 using Equiprent.Logic.Queries.Users.Messages;
 using Equiprent.Entities.EnumTypes;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
+    [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class SelectListController : BaseApiController
     {
