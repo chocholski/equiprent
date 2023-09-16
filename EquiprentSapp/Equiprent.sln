@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.Logic", "Equipren
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalService", "Services\LocalService\LocalService.csproj", "{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equiprent.Sdk", "Equiprent.Sdk\Equiprent.Sdk.csproj", "{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.Sdk", "Equiprent.Sdk\Equiprent.Sdk.csproj", "{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equiprent.Extensions", "Equiprent.Extensions\Equiprent.Extensions.csproj", "{813DF628-1223-41BC-A449-2F47A112E61B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{813DF628-1223-41BC-A449-2F47A112E61B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{813DF628-1223-41BC-A449-2F47A112E61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{813DF628-1223-41BC-A449-2F47A112E61B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{813DF628-1223-41BC-A449-2F47A112E61B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
 ﻿using Equiprent.ApplicationServices.Options.Swagger;
-using EquiprentAPI.Web;
 using Microsoft.OpenApi.Models;
 
 namespace Equiprent.Web.Installers

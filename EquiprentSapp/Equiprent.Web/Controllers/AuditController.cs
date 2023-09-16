@@ -5,6 +5,7 @@ using Equiprent.ApplicationServices.Audits;
 using Equiprent.Entities.EnumTypes;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Filters;
+using Equiprent.Data.CustomQueryTypes;
 
 namespace Equiprent.Web.Controllers
 {
@@ -14,7 +15,10 @@ namespace Equiprent.Web.Controllers
     {
         private readonly IAuditMemberTranslatorService _auditMemberTranslatorService;
 
-        public AuditController(ApplicationDbContext context, IConfiguration configuration, IAuditMemberTranslatorService auditMemberTranslatorService) : base(context, configuration)
+        public AuditController(
+            ApplicationDbContext context,
+            IConfiguration configuration,
+            IAuditMemberTranslatorService auditMemberTranslatorService) : base(context, configuration)
         {
             _auditMemberTranslatorService = auditMemberTranslatorService;
         }
@@ -22,37 +26,12 @@ namespace Equiprent.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetObjectHistory([FromQuery]RequestParameters sp, string entityId, string entityTableName)
         {
-            if (string.IsNullOrEmpty(sp.SortColumnName) || sp.SortColumnName == "null")
+            if (string.IsNullOrEmpty(sp.SortColumnName) || sp.SortColumnName is "null")
                 sp.SortColumnName = "CreatedOn";
 
-            var auditEntries = await _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
-                .Where(DbStatementBuilder.BuildWhereClause(sp.SearchCriteria ?? string.Empty))
-                .OrderBy(DbStatementBuilder.BuildOrderClause(sp.SortColumnName, sp.SortOrder))
-                .Skip(sp.StartRow)
-                .Take(sp.PageCount)
-                .ToListAsync();
-
-            var model = new AuditListViewModel();
-
-            foreach (var entry in auditEntries)
-            {
-                var item = new AuditListItemModel
-                {
-                    CreatedOn = entry.CreatedOn,
-                    UserName = entry.UserName,
-                    FieldName = entry.FieldName,
-                    Translation = _auditMemberTranslatorService.Translate(entry.FieldName),
-                    OldValue = entry.OldValue,
-                    NewValue = entry.NewValue
-                };
-
-                model.List.Add(item);
-            }
-
-            model.TotalRowsCount = await _dbContext.AuditListItems
-                .FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
-                .Where(DbStatementBuilder.BuildWhereClause(sp.SearchCriteria ?? string.Empty))
-                .CountAsync();
+            var model = await ListViewModelBuilder.GetListViewModelAsync<AuditListViewModel, AuditListQueryModel, AuditListItemViewModel>(
+                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName)),
+                requestParameters: sp);
 
             return new JsonResult(model);
         }

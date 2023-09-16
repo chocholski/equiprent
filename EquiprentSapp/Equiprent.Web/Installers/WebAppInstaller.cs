@@ -1,5 +1,4 @@
 ﻿using Equiprent.ApplicationServices.Options.Jwt;
-using EquiprentAPI.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;

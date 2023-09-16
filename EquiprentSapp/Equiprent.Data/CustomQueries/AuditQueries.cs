@@ -15,8 +15,10 @@
 	                Audits a
                 INNER JOIN 
                     Users u ON u.Id = a.CreatedById
-                where
-                    a.TableName = '{tableName}' and a.KeyValue = '{id}'
+                WHERE
+                    a.TableName = '{tableName}'
+                    AND
+                    a.KeyValue = '{id}'
                 ";
         }
     }

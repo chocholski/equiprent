@@ -1,5 +1,4 @@
 ﻿using Equiprent.Data.DbContext;
-using EquiprentAPI.Web;
 
 namespace Equiprent.Web.Installers
 {

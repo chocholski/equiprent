@@ -74,9 +74,6 @@ namespace Equiprent.Logic.Infrastructure.RequestParamsHelpers
             return "1 = 1";
         }
 
-        public static string BuildOrderClause(string columnName, int sortOrder)
-        {
-            return $"{columnName} {(sortOrder == 1 ? "asc" : "desc")}";
-        }
+        public static string BuildOrderClause(string columnName, int sortOrder) => $"{columnName} {(sortOrder == 1 ? "asc" : "desc")}";
     }
 }

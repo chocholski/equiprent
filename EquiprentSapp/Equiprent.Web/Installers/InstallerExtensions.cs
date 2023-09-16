@@ -1,6 +1,4 @@
-﻿using EquiprentAPI.Web;
-
-namespace Equiprent.Web.Installers
+﻿namespace Equiprent.Web.Installers
 {
     public static class InstallerExtensions
     {

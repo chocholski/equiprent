@@ -1,21 +1,22 @@
-﻿using System.Reflection;
+﻿using Equiprent.Web.Infrastructure.Models;
 
 namespace Equiprent.Web.Infrastructure
 {
-    public static class DependencyRegistrator
+    public static class DependencyRegistrar
     {
-        public static void AddCommandQueryHandler(this IServiceCollection services, Type handlerInterface, Assembly assembly)
+        public static void AddCommandQueryHandler(this IServiceCollection services, Type dependencyInterfaceType)
         {
-            var handlers = assembly
+            var dependencies = dependencyInterfaceType.Assembly
                 .GetTypes()
-                .Where(type => type.GetInterfaces()
-                .Any(type => type.IsGenericType && type.GetGenericTypeDefinition() == handlerInterface)
-            );
+                .Where(type => type
+                    .GetInterfaces()
+                    .Any(type =>
+                        type.IsGenericType &&
+                        type.GetGenericTypeDefinition() == dependencyInterfaceType))
+                .Select(type => new DependencyModel(interfaceType: dependencyInterfaceType, interfaceImplementerType: type));
 
-            foreach (var handler in handlers)
-            {
-                services.AddScoped(handler.GetInterfaces().First(type => type.IsGenericType && type.GetGenericTypeDefinition() == handlerInterface), handler);
-            }
+            foreach (var dependency in dependencies)
+                services.AddScoped(dependency.InterfaceType, dependency.InterfaceImplementerType);
         }
     }
 }

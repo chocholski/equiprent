@@ -6,7 +6,6 @@ using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.Services;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Web.Infrastructure;
-using EquiprentAPI.Web;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.ApplicationServices.Identities;
 
@@ -29,9 +28,9 @@ namespace Equiprent.Web.Installers
             builder.Services.AddTransient<ICreateableService, CreateableService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
 
-            builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
-            builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
-            builder.Services.AddCommandQueryHandler(typeof(IQueryHandler<,>), AppDomain.CurrentDomain.Load($"{Program.AppName}.Logic"));
+            builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<>));
+            builder.Services.AddCommandQueryHandler(typeof(ICommandHandler<,>));
+            builder.Services.AddCommandQueryHandler(typeof(IQueryHandler<,>));
 
             builder.Services.AddScoped<IIdentityService, IdentityService>();
             builder.Services.AddScoped<ICommandDispatcher, CommandDispatcher>();

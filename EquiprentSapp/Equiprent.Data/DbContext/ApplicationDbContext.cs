@@ -20,9 +20,13 @@ namespace Equiprent.Data.DbContext
 
         public ApplicationDbContext(DbContextOptions options, IHttpContextAccessor httpAccessor) : this(options)
         {
-            var userId = httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = httpAccessor?.HttpContext?.User?.Claims
+                .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?
+                .Value;
 
-            _currentUserId = userId != null && Guid.TryParse(userId, out Guid currentUserId) ? currentUserId : null;
+            _currentUserId = userId is not null && Guid.TryParse(userId, out Guid currentUserId)
+                ? currentUserId
+                : null;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -130,7 +134,6 @@ namespace Equiprent.Data.DbContext
 
         private void HandleObjectModifications(EntityEntry entry, AuditEntry auditEntry, PropertyEntry property, string propertyName)
         {
-
             if (property.OriginalValue is not null && property.CurrentValue is not null)
             {
                 if (!property.OriginalValue.Equals(property.CurrentValue))
@@ -211,7 +214,7 @@ namespace Equiprent.Data.DbContext
                     if (prop.Metadata.IsPrimaryKey())
                         auditEntry.KeyValue = prop?.CurrentValue?.ToString() ?? string.Empty;
                     else
-                        auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue;
+                        auditEntry.NewValues[prop.Metadata.Name] = prop?.CurrentValue;
                 }
 
                 Audits.AddRange(auditEntry.ToAudit());

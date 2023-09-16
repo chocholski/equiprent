@@ -48,6 +48,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Equiprent.Extensions\Equiprent.Extensions.csproj" />
     <ProjectReference Include="..\Equiprent.Logic\Equiprent.Logic.csproj" />
   </ItemGroup>
   
