@@ -123,7 +123,8 @@
         "Password": "Password",
         "PasswordChange": "Password change",
         "Plural": "Users",
-        "UserRoleName": "Role"
+        "UserRoleName": "Role",
+        "UserRolePicker": "Role picker"
     },
     "UserRole": {
         "Id": "Id",

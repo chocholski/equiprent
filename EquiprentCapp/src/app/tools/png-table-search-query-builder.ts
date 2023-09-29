@@ -1,5 +1,5 @@
 import { PngTableColumn } from '../interfaces/png';
-import { LazyLoadEvent } from 'primeng/api';
+import { FilterMetadata, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { StringBuilder } from './stringBuilder';
 
 export class PngTableSearchQueryBuilder {
@@ -20,12 +20,32 @@ export class PngTableSearchQueryBuilder {
         let whereBuilder = new StringBuilder();
 
         for (const column of this.columns) {
-            const filter = this.event.filters?.[column.field];
+            const filtersGroup = this.event.filters?.[column.field];
 
-            if (filter !== undefined) {
+            if (filtersGroup !== undefined) {
                 const replaceWith = column.replaceWith ?? column.field;
+                const filters = filtersGroup as FilterMetadata[];
 
-                whereBuilder.append(`${replaceWith}|${filter.value}|${column.operator}||`);
+                for (const filter of filters) {
+                    if (filter.value == null)
+                        continue;
+
+                    let value = new StringBuilder();
+
+                    if (Array.isArray(filter.value)) {
+                        const filterValues = filter.value as SelectItem[];
+
+                        filterValues.forEach(fv => value.append(`${fv.value},`));
+
+                        if (value.length() > 0)
+                            value.removeFromEnd(1);
+                    }
+                    else {
+                        value = filter.value;
+                    }
+
+                    whereBuilder.append(`${replaceWith}|${filter.matchMode}|${value.toString()}|${filter.operator}||`);
+                }
             }
         }
 
@@ -33,7 +53,7 @@ export class PngTableSearchQueryBuilder {
             whereBuilder.removeFromEnd(2);
         }
 
-        // this.resultUriBuilder.append(`&f=${whereBuilder.toString()}`);
+        this.resultUriBuilder.append(`&f=${whereBuilder.toString()}`);
     }
 
     buildBaseUri() {

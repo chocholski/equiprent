@@ -1,6 +1,6 @@
 //Angular
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
@@ -22,7 +22,7 @@ import { AuthorizationService } from './services/authorization.service';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectOptionsService } from './services/select-options.service';
 import { FilterService } from './services/filter.service';
 
@@ -33,15 +33,16 @@ import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
 //primeng
+import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { PasswordModule } from 'primeng/password';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
-import { SplitButtonModule } from 'primeng/splitbutton';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { PasswordModule } from 'primeng/password';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 registerLocaleData(localePl, 'pl');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -61,7 +62,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     imports: [
         //[start] app modules
         AppLayoutModule,
+        AppRoutingModule,
         BrowserModule,
+        CommonModule,
+        FormsModule,
         HttpClientModule,
         JwtModule.forRoot({
             config: {
@@ -69,6 +73,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
             }
         }),
         NgxMaskModule.forRoot(options),
+        ReactiveFormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -76,25 +81,21 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule,
-        ReactiveFormsModule,
         //[end] app modules
         //[start] primeng Modules
         ButtonModule,
         CheckboxModule,
-        PasswordModule,
-        ToastModule,
-        SplitButtonModule,
+        MultiSelectModule,
         PanelMenuModule,
+        PasswordModule,
+        SplitButtonModule,
         TableModule,
+        ToastModule,
         //[end] primeng Modules
     ],
     providers: [
         //[start] app services
         { provide: LocationStrategy, useClass: HashLocationStrategy },
-        MenuService,
-        AuthorizationService,
-        AuthenticationService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
@@ -105,10 +106,13 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
             useClass: ApiUrlInterceptor,
             multi: true
         },
+        AuthenticationService,
         AuthGuard,
-        MessageService,
-        SelectOptionsService,
+        AuthorizationService,
         FilterService,
+        MessageService,
+        MenuService,
+        SelectOptionsService,
         //[end] app services
     ],
     bootstrap: [AppComponent]

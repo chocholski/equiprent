@@ -15,6 +15,10 @@ export class SelectOptionsService {
     return this.getOptions("selectoptions/languagesselectoptions", false);
   }
 
+  getUserRoles(): Observable<SelectItem[]> {
+    return this.getOptions("selectoptions/userrolesselectoptions", false);
+  }
+
   getYesNoOptions(): Observable<SelectItem[]> {
     return this.getOptions("selectoptions/yesnoselectoptions", true);
   }

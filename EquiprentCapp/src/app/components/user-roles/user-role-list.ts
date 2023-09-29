@@ -29,9 +29,9 @@ export class UserRoleListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      <PngTableColumn>{ field: 'Id', header: 'UserRole.Id', width: '10%', operator: SearchOperatorEnum.Like },
-      <PngTableColumn>{ field: 'Name', header: 'UserRole.Name', width: '70%', operator: SearchOperatorEnum.Like },
-      <PngTableColumn>{ field: 'Actions', header: '', width: '20%', operator: SearchOperatorEnum.None }
+      <PngTableColumn>{ field: 'Id', header: 'UserRole.Id', width: '10%' },
+      <PngTableColumn>{ field: 'Name', header: 'UserRole.Name', width: '70%' },
+      <PngTableColumn>{ field: 'Actions', header: '', width: '20%' }
     ];
   }
 

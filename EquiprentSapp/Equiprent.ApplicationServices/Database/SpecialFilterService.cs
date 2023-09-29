@@ -1,4 +1,6 @@
-﻿namespace Equiprent.ApplicationServices.Database
+﻿using Equiprent.ApplicationServices.Database.Models;
+
+namespace Equiprent.ApplicationServices.Database
 {
     public class SpecialFilterService : ISpecialFilterService
     {

@@ -38,9 +38,26 @@
                   [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
                   field="LastName">
                 </p-columnFilter>
-                <p-columnFilter *ngSwitchCase="'UserRoleName'" pInputText type="text"
+                <p-columnFilter *ngSwitchCase="'UserRoleName'"
                   [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
-                  field="UserRoleName">
+                  field="UserRoleName" matchMode="in" [showMatchModes]="false" [showOperator]="false"
+                  [showAddButton]="false">
+                  <ng-template pTemplate="header">
+                    <div>
+                      <span class="font-bold">{{translate.instant('User.UserRolePicker')}}</span>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-multiSelect [ngModel]="value" [options]="userRoleOptions"
+                      [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"
+                      (onChange)="filter($event.value)" optionLabel="label">
+                      <ng-template let-option pTemplate="item">
+                        <div class="p-multiselect-representative-option">
+                          <span class="ml-1">{{option.label}}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
                 </p-columnFilter>
                 <p-columnFilter *ngSwitchCase="'IsActive'" type="boolean" display="menu" field="IsActive">
                 </p-columnFilter>

@@ -1,4 +1,6 @@
-﻿using Equiprent.Extensions;
+﻿using DocumentFormat.OpenXml.Presentation;
+using Equiprent.ApplicationServices.Database.Models;
+using Equiprent.Extensions;
 
 namespace Equiprent.ApplicationServices.Database
 {
@@ -27,23 +29,42 @@ namespace Equiprent.ApplicationServices.Database
 
             foreach (var criterion in criteria!)
             {
-                var condition = criterion.Operator switch
-                {
-                    WhereClauseOperatorEnum.Like => $"{criterion!.FieldName}.Contains(\"{criterion.FieldValue}\") && ",
-                    WhereClauseOperatorEnum.StringEqual => $"{criterion!.FieldName} == \"{criterion.FieldValue}\" && ",
-                    WhereClauseOperatorEnum.DateEqual => GetDateEqualCondition(criterion!),
-                    WhereClauseOperatorEnum.NumberEqual => GetNumberEqualCondition(criterion!),
-                    WhereClauseOperatorEnum.BoolEqual => GetBoolEqualCondition(criterion!),
-                    WhereClauseOperatorEnum.Special => await _specialFilterService.CreateSpecialConditionAsync(criteria, criterion!.FieldName, criterion!.FieldValue),
-                    WhereClauseOperatorEnum.Ignore => null,
-                    _ => throw new NotImplementedException($"{criterion!.Operator} is not implemented")
-                };
+                var conditionBuilder = new StringBuilder(
+                    criterion!.Mode switch
+                    {
+                        MatchModeEnum.Contains =>
+                            $"{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.EndsWith =>
+                            $"{criterion.FieldName}.EndsWith(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.Equals =>
+                            $"{criterion.FieldName}.Equals(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.In =>
+                            $"new[] {{ {string.Join(",", criterion.FieldValue!.Split(",").Select(value => $"\"{value}\""))} }}.Contains({criterion.FieldName}.ToString())",
+                        MatchModeEnum.NotContains =>
+                            $"!{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.NotEquals =>
+                            $"!{criterion.FieldName}.Equals(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.StartsWith =>
+                            $"{criterion.FieldName}.StartsWith(\"{criterion.FieldValue}\")",
+                        _ => string.Empty
+                    });
 
-                if (condition is not null)
-                    resultBuilder.Append(condition);
+                if (conditionBuilder.Length > 0)
+                {
+                    conditionBuilder.Append(
+                        criterion!.Operator switch
+                        {
+                            SearchOperatorEnum.And => " && ",
+                            SearchOperatorEnum.Or => " || ",
+                            _ => " && "
+                        });
+
+                    resultBuilder.Append(conditionBuilder);
+                }
             }
 
             resultBuilder.RemoveFromEnd(" && ");
+            resultBuilder.RemoveFromEnd(" || ");
 
             if (resultBuilder.Length == 0)
                 return "1 = 1";
