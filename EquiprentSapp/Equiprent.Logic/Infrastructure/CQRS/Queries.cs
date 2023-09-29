@@ -18,7 +18,8 @@
 
         public class QueryDispatcher : IQueryDispatcher
         {
-            private IServiceProvider _serviceProvider;
+            private readonly IServiceProvider _serviceProvider;
+
             public QueryDispatcher(IServiceProvider serviceProvider)
             {
                 _serviceProvider = serviceProvider;
@@ -26,7 +27,8 @@
 
             public async Task<TResult?> SendQueryAsync<TQuery, TResult>(TQuery query) where TQuery : IQuery<TResult>
             {
-                var service = this._serviceProvider.GetService(typeof(IQueryHandler<TQuery, TResult>)) as IQueryHandler<TQuery, TResult>;
+                var service = _serviceProvider.GetService(typeof(IQueryHandler<TQuery, TResult>)) as IQueryHandler<TQuery, TResult>;
+
                 return service is not null ? await service.HandleAsync(query) : default;
             }
         }

@@ -1,7 +1,4 @@
-﻿using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
-using Equiprent.Logic.Queries.UserRoles.Models;
-using Equiprent.Logic.Queries.UserRoles.Messages;
-using Equiprent.Entities.EnumTypes;
+﻿using Equiprent.Entities.Enums;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
@@ -9,6 +6,10 @@ using Equiprent.Logic.Commands.UserRoles.Requests.Create;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Commands.UserRoles.Requests.Delete;
 using Equiprent.Web.Filters;
+using Equiprent.Logic.Queries.UserRoles.Requests;
+using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
+using Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById;
+using Equiprent.Logic.Queries.UserRoles.Responses.UserRolePermissionsForCreation;
 
 namespace Equiprent.Web.Controllers
 {
@@ -19,7 +20,11 @@ namespace Equiprent.Web.Controllers
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public UserRoleController(ApplicationDbContext context, IConfiguration configuration, IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
+        public UserRoleController(
+            ApplicationDbContext context,
+            IConfiguration configuration,
+            IQueryDispatcher queryDispatcher,
+            ICommandDispatcher commandDispatcher)
                   : base(context, configuration)
         {
             _queryDispatcher = queryDispatcher;
@@ -27,10 +32,10 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ListResponse>> GetUserRoles([FromQuery] RequestParameters sp)
+        public async Task<ActionResult<PagedUserRolesListResponse>> GetUserRoles([FromQuery] RequestParameters requestParameters)
         {
-            var parameters = new GetPagedUserRolesRequest(sp);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedUserRolesRequest, ListResponse>(parameters);
+            var parameters = new GetPagedUserRolesListRequest(requestParameters);
+            var result = await _queryDispatcher.SendQueryAsync<GetPagedUserRolesListRequest, PagedUserRolesListResponse>(parameters);
 
             return new JsonResult(result);
         }
@@ -39,7 +44,7 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> GetUserRole(int id)
         {
             var parameters = new GetUserRoleByIdRequest(id);
-            var result = await _queryDispatcher.SendQueryAsync<GetUserRoleByIdRequest, DetailsResponse>(parameters);
+            var result = await _queryDispatcher.SendQueryAsync<GetUserRoleByIdRequest, UserRoleByIdResponse>(parameters);
 
             return result is not null ? Ok(result) : NotFound();
         }
@@ -47,8 +52,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet("getUserPermissionsForRoleCreation")]
         public async Task<IActionResult> GetUserPermissionsForUserRoleCreation(int id)
         {
-            var parameters = new GetUserPermissionsForUserRoleCreationRequest();
-            var result = await _queryDispatcher.SendQueryAsync<GetUserPermissionsForUserRoleCreationRequest, UserPermissionsForUserRoleCreationResponse>(parameters);
+            var parameters = new GetUserRolePermissionsForCreationRequest();
+            var result = await _queryDispatcher.SendQueryAsync<GetUserRolePermissionsForCreationRequest, UserRolePermissionsForCreationResponse>(parameters);
 
             return result is not null ? Ok(result) : NotFound();
         }

@@ -27,9 +27,10 @@ import { SelectOptionsService } from './services/select-options.service';
 import { FilterService } from './services/filter.service';
 
 //Components
-import { UserListComponent } from './components/users/user-list';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
+import { UserListComponent } from './components/users/user-list';
+import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
 //primeng
 import { ButtonModule } from 'primeng/button';
@@ -52,8 +53,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[end] app components
         //[start] custom components
         LoginComponent,
-        UserListComponent,
         LoginResetPasswordComponent,
+        UserListComponent,
+        UserRoleListComponent
         //[end] custom components
     ],
     imports: [
@@ -84,7 +86,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ToastModule,
         SplitButtonModule,
         PanelMenuModule,
-        TableModule
+        TableModule,
         //[end] primeng Modules
     ],
     providers: [
@@ -106,7 +108,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthGuard,
         MessageService,
         SelectOptionsService,
-        FilterService
+        FilterService,
         //[end] app services
     ],
     bootstrap: [AppComponent]

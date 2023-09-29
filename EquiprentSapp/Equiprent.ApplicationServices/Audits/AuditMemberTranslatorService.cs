@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Equiprent.ApplicationServices.Audits.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace Equiprent.ApplicationServices.Audits
@@ -9,44 +10,24 @@ namespace Equiprent.ApplicationServices.Audits
 
         public AuditMemberTranslatorService(IConfiguration configuration)
         {
-            var filePath = configuration["AuditTranslationPath"];
+            var filePath = configuration["Paths:AuditTranslation"];
 
-            if (!string.IsNullOrEmpty(filePath) )
+            if (!string.IsNullOrEmpty(filePath))
             {
                 if (File.Exists(filePath))
                 {
                     using var file = File.OpenText(filePath);
                     var serializer = new JsonSerializer();
 
-                    _translations = (List<TranslationItem>)serializer.Deserialize(file, typeof(List<TranslationItem>))!;
+                    _translations = ((List<TranslationItem>)serializer.Deserialize(file, typeof(List<TranslationItem>))!)
+                        .Distinct()
+                        .ToList();
                 }
             }
         }
 
-        public string Translate(string dbName)
-        {
-            if (_translations is null)
-            {
-                return dbName;
-            }
+        public string Translate(string dbName) => _translations?.Find(item => item.DbName == dbName)?.Translation ?? dbName;
 
-            return _translations.Find(x => x.DbName == dbName)?.Translation ?? dbName;
-        }
-
-        public string GetDbName(string translation)
-        {
-            if (_translations is null)
-            {
-                return translation;
-            }
-
-            return _translations.SingleOrDefault(x => x.Translation == translation)?.DbName ?? translation;
-        }
-
-        private class TranslationItem
-        {
-            public string DbName { get; set; } = null!;
-            public string Translation { get; set; } = null!;
-        }
+        public string GetDbName(string translation) => _translations?.SingleOrDefault(x => x.Translation == translation)?.DbName ?? translation;
     }
 }

@@ -1,13 +1,11 @@
 ﻿using Equiprent.Logic.QueryData.UIModels;
 using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Entities.Application;
-using Equiprent.Entities.EnumTypes;
+using Equiprent.Entities.Enums;
 using Equiprent.Data.DbContext;
-using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
 {
-    [ApiKeyFilter]
     public class SelectOptionsController : BaseApiController
     {
         private readonly ILanguageableService _languageableService;
@@ -21,17 +19,14 @@ namespace Equiprent.Web.Controllers
         [HttpGet("userrolesselectoptions")]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptions()
         {
-            var model = new List<SelectListItemModel>();
             var userRolesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>();
-            var userRoles = userRolesIdsWithNames
+            var model = userRolesIdsWithNames
                 .Select(userRoleIdWithName => new SelectListItemModel
                 {
                     Value = userRoleIdWithName.Id,
                     Name = userRoleIdWithName.Name
                 })
                 .ToList();
-
-            model.AddRange(userRoles);
 
             return new JsonResult(model, new JsonSerializerSettings { });
         }

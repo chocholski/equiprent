@@ -20,9 +20,7 @@ namespace Equiprent.Data.Services
             var userIdClaim = _httpAccessor.HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
 
             return userIdClaim is not null &&
-                Guid.TryParse(userIdClaim.Value, out Guid userId) 
-                    ? userId 
-                    : null;
+                Guid.TryParse(userIdClaim.Value, out Guid userId) ? userId : null;
         }
 
         public async Task<int?> GetCurrentUserLanguageIdAsync()
@@ -33,8 +31,8 @@ namespace Equiprent.Data.Services
             if (currentUserId.HasValue)
             {
                 result = await _dbContext.Users
-                    .Where(user => user.Id == currentUserId.Value)
-                    .Select(user => (int?)user.LanguageId)
+                    .Where(u => u.Id == currentUserId.Value)
+                    .Select(u => (int?)u.LanguageId)
                     .SingleOrDefaultAsync();
             }
 
@@ -46,7 +44,7 @@ namespace Equiprent.Data.Services
             foreach (var userId in  userIds)
             {
                 var refreshToken = await _dbContext.RefreshTokens
-                    .Where(r => r.UserId == userId)
+                    .Where(token => token.UserId == userId)
                     .SingleOrDefaultAsync();
 
                 if (refreshToken is null)

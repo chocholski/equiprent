@@ -52,7 +52,7 @@ export class LoginResetPasswordComponent implements OnInit {
     };
 
     //[TODO]
-    // this.http.put<string>(`token/resetpassword`, model).subscribe(result => {
+    // this.http.put<string>(`identity/resetpassword`, model).subscribe(result => {
     //   if (result == "OK") {
     //     this.messageService.add({ key: 'tst', severity: 'success', summary: this.translate.instant("Messages.EmailWithPasswordResetInstructionsSent") });
     //   }

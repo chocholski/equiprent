@@ -1,4 +1,6 @@
-﻿using Equiprent.Entities.Interfaces;
+﻿using Equiprent.ApplicationServices.Languageables.Enums;
+using Equiprent.ApplicationServices.Languageables.Models;
+using Equiprent.Entities.Interfaces;
 
 namespace Equiprent.ApplicationServices.Languageables
 {
@@ -9,7 +11,9 @@ namespace Equiprent.ApplicationServices.Languageables
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             List<int>? translatedEntityIds = null,
-            int? languageId = null) where U : class, ILanguageable;
+            int? languageId = null)
+                where T : class
+                where U : class, ILanguageable;
 
         public Task<List<LanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
@@ -19,9 +23,12 @@ namespace Equiprent.ApplicationServices.Languageables
 
     public static class Extension
     {
-        public static string GetNameForId(this IEnumerable<LanguageableItem> items, int id)
-        {
-            return items.Where(item => item.Id == id).Select(item => item.Name).SingleOrDefault() ?? string.Empty;
-        }
+        public static string GetNameForId(this IEnumerable<LanguageableItem> items, int id) => 
+            items
+                .Where(item => item.Id == id)
+                .Select(item => item.Name)
+                .SingleOrDefault()
+            ??
+                string.Empty;
     }
 }

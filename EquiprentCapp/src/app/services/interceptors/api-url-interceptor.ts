@@ -6,18 +6,13 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ApiUrlInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        var apiReq = undefined;
-        if (req.url.includes('assets/i18n')) {
-            if (location.protocol == 'https:') {
-                apiReq = req.clone({ url: `https://${window.location.host}${req.url}` });
-            }
-            else {
-                apiReq = req.clone({ url: `http://${window.location.host}${req.url}` });
-            }
-        }
-        else {
-            apiReq = req.clone({ url: `${environment.apiUrl}${req.url}` });
-        }
-        return next.handle(apiReq);
+
+        const baseAddress = req.url.includes('assets/i18n')
+            ? `${location.protocol === 'https:' ? 'https' : 'http'}://${window.location.host}`
+            : environment.apiUrl;
+
+        const apiRequest = req.clone({ url: `${baseAddress}${req.url}` });
+
+        return next.handle(apiRequest);
     }
 }

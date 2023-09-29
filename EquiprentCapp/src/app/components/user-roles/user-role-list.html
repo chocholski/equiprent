@@ -1,0 +1,56 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <p-table #dataTable [value]="userRoles" [columns]="cols" dataKey="Id" sortField="Id" [lazy]="true"
+        (onLazyLoad)="loadUserRolesLazy($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+        [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+            <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
+              icon="pi pi-filter-slash" (click)="filterService.onClearFilters(dataTable)"></button>
+            <div class="grid formgrid">
+              <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+                <span class="p-input-icon-right">
+                  <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                  <input type="text" pInputText #filter id="filter"
+                    (input)="filterService.onGlobalFilter(dataTable, cols, userRoles, $event)"
+                    [placeholder]="translate.instant('General.SearchKeyword')" />
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
+              <div class="flex justify-content-between align-items-center">
+                {{ col.header | translate }}
+                <p-columnFilter *ngSwitchCase="'Id'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu" field="Id">
+                </p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'Name'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                  field="Name">
+                </p-columnFilter>
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-userRole let-columns="columns">
+          <tr>
+            <td>
+              {{userRole.Id}}
+            </td>
+            <td>
+              {{userRole.Name}}
+            </td>
+            <td>
+              <!-- [TODO] Actions -->
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

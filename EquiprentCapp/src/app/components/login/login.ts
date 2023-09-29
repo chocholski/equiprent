@@ -60,32 +60,38 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (!this.form.value.Login) {
       this.messageService.add({ key: 'tst', severity: 'error', summary: this.translate.instant('General.Error'), detail: this.translate.instant('Messages.EnterLoginFirst') });
+
       return;
     }
 
-    var data = <SignInModel>{};
-    data.Login = this.form.value.Login;
-    data.Password = this.form.value.Password;
+    const data = <SignInModel>{
+      Login: this.form.value.Login,
+      Password: this.form.value.Password
+    };
 
     this.authenticationService
       .login(data)
       .subscribe((result) => {
-        if (result == "OK") {
-          this.app.isUserLoggedIn = true;
-          this.router.navigate(['home']);
-        }
-        else if (result == "NotActive") {
-          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.AccountNotActive') });
-          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.PleaseContactAdmin') });
-        }
-        else {
-          this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.InvalidLoginData') });
+        switch (result) {
+          case "OK":
+            this.app.isUserLoggedIn = true;
+            this.router.navigate(['home']);
+            break;
+
+          case "NotActive":
+            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.AccountNotActive') });
+            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.PleaseContactAdmin') });
+            break;
+
+          default:
+            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.InvalidLoginData') });
+            break;
         }
       });
   }
 
   setLanguage(languageId: number) {
-    var lang = this.getLanguageCodeById(languageId);
+    const lang = this.getLanguageCodeById(languageId);
 
     this.translate.use(lang).subscribe(x => {
       this.titleService.setTitle(this.translate.instant("AppName"));

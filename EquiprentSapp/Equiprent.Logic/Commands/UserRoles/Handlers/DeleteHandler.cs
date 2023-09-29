@@ -11,30 +11,35 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserService _userResolverService;
 
-        public DeleteHandler(ApplicationDbContext dbcontext, IUserService userResolverService)
+        public DeleteHandler(
+            ApplicationDbContext dbContext,
+            IUserService userResolverService)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _userResolverService = userResolverService;
         }
 
         public async Task<CommandResult> HandleAsync(DeleteRequest request)
         {
             var userRole = await _dbContext.UserRoles
-                .SingleOrDefaultAsync(r => r.Id == request.Id);
+                .SingleOrDefaultAsync(role => role.Id == request.Id);
 
-            if (userRole is not null)
-            {
-                await DeleteUserPermissionsForRoleAsync(userRole.Id);
+            if (userRole is null)
+                return CommandResult.BadRequest;
 
-                await _dbContext.UserRoles.SoftDeleteAndSaveAsync(userRole);
-            }
+            await DeleteUserRolePermissionsAsync(userRole.Id);
+
+            await _dbContext.UserRoles.SoftDeleteAndSaveAsync(userRole);
 
             return CommandResult.OK;
         }
 
         public async Task<CommandResult> ValidateAsync(DeleteRequest message)
         {
-            var userId = _userResolverService.GetUserId().GetValueOrDefault();
+            var userId = _userResolverService.GetUserId();
+
+            if (!userId.HasValue)
+                return CommandResult.BadRequest;
 
             var userRoleId = await _dbContext.Users
                 .Where(u => u.Id == userId)
@@ -45,8 +50,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 return CommandResult.UserRole_TheOnlyAssignedRoleDeletionAttempt;
 
             var isUserRoleAssigned = await _dbContext.Users
-                .Where(u => u.UserRoleId == message.Id)
-                .AnyAsync();
+                .AnyAsync(u => u.UserRoleId == message.Id);
 
             if (isUserRoleAssigned)
                 return CommandResult.UserRole_AssignedRoleDeletionAttempt;
@@ -54,13 +58,13 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             return CommandResult.OK;
         }
 
-        private async Task DeleteUserPermissionsForRoleAsync(int roleId)
+        private async Task DeleteUserRolePermissionsAsync(int roleId)
         {
-            var userPermissionsForRole = await _dbContext.UserPermissionToRoles
-                .Where(x => x.UserRoleId == roleId)
+            var userRolePermissions = await _dbContext.UserPermissionToRoles
+                .Where(permissionToRole => permissionToRole.UserRoleId == roleId)
                 .ToListAsync();
 
-            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsForRole);
+            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userRolePermissions);
         }
     }
 }

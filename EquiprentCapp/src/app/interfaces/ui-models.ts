@@ -1,13 +1,13 @@
 export class Menu {
-    Permissions?: number[];
-    Label: string;
     Icon?: string;
-    RouterLink?: string[];
     Items?: Menu[];
+    Label: string;
+    Permissions?: number[];
+    RouterLink?: string[];
 }
 
 export interface SelectOption {
-    Value: number;
-    Name: string;
     IsSelected: boolean;
+    Name: string;
+    Value: number | string;
 }

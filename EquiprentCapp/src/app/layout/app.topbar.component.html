@@ -13,10 +13,11 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu"
+    <div #topbarmenu class="layout-topbar-menu" style="margin-right: 1.5em;"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <div class="formgroup-inline">
-            <p-splitButton class="field p-link" [label]="translate.instant('General.Profile')" icon="fa fa-solid fa-user" [model]="userMenuItems"></p-splitButton>
+            <p-splitButton class="field p-link" [label]="translate.instant('General.Profile')"
+                icon="fa fa-solid fa-user" [model]="userMenuItems"></p-splitButton>
         </div>
     </div>
 

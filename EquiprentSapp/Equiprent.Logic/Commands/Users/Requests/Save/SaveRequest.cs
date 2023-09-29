@@ -2,14 +2,16 @@
 
 namespace Equiprent.Logic.Commands.Users.Requests.Save
 {
-    public record SaveRequest(
-        Guid Id,
-        string Login,
-        string? Password,
-        string FirstName,
-        string LastName,
-        string? Email,
-        int UserRoleId,
-        bool IsActive,
-        bool IsDeleted) : ICommand;
+    public record SaveRequest : ICommand
+    {
+        public string? Email { get; set; }
+        public string FirstName { get; set; } = null!;
+        public Guid Id { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
+        public string LastName { get; set; } = null!;
+        public string Login { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public int UserRoleId { get; set; }
+    }
 }

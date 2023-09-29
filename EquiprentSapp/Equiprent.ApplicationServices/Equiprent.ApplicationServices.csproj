@@ -19,6 +19,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Equiprent.Data\Equiprent.Data.csproj" />
     <ProjectReference Include="..\Equiprent.Entities\Equiprent.Entities.csproj" />
+    <ProjectReference Include="..\Equiprent.Extensions\Equiprent.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Identities\Models\" />
   </ItemGroup>
 
 </Project>

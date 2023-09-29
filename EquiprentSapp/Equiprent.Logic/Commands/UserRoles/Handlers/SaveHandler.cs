@@ -16,11 +16,11 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
         private readonly IUserPermissionService _userPermissionsService;
 
         public SaveHandler(
-            ApplicationDbContext dbcontext,
+            ApplicationDbContext dbContext,
             IUserService userService,
             IUserPermissionService userPermissionsService)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _userService = userService;
             _userPermissionsService = userPermissionsService;
         }
@@ -28,36 +28,34 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
         public async Task<CommandResult> HandleAsync(SaveRequest request)
         {
             var userRole = await _dbContext.UserRoles
-                .SingleOrDefaultAsync(r => r.Id == request.Id);
+                .SingleOrDefaultAsync(role => role.Id == request.Id);
 
-            if (userRole is not null)
-            {
-                var userRolesToLanguages = await _dbContext.UserRolesToLanguages
-                    .Where(x => x.UserRoleId == userRole.Id)
-                    .ToListAsync();
+            if (userRole is null)
+                return CommandResult.BadRequest;
 
-                await _dbContext.UserRolesToLanguages.RemoveRangeAndSaveAsync(userRolesToLanguages);
+            var userRolesToLanguages = await _dbContext.UserRolesToLanguages
+                .Where(roleToLanguage => roleToLanguage.UserRoleId == userRole.Id)
+                .ToListAsync();
 
-                await UpdateUserPermissionsForRoleAsync(userRole.Id, request.UserPermissionsForUserRoleList);
+            await _dbContext.UserRolesToLanguages.RemoveRangeAndSaveAsync(userRolesToLanguages);
 
-                await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(request.NameInLanguages
-                    .Select(x => new UserRoleToLanguage
-                    {
-                        UserRoleId = userRole.Id,
-                        Name = x.Name,
-                        LanguageId = x.LanguageId
-                    }));
+            await UpdateUserRolePermissionsAsync(userRole.Id, request.UserPermissionsForUserRoleList);
 
-                var users = await _dbContext.Users
-                    .Where(u => u.UserRoleId == userRole.Id)
-                    .ToListAsync();
+            await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(request.NameInLanguages
+                .Select(x => new UserRoleToLanguage
+                {
+                    UserRoleId = userRole.Id,
+                    Name = x.Name,
+                    LanguageId = x.LanguageId
+                }));
 
-                await _userService.SetTokenRefreshRequiredForUsersAsync(users.Select(u => u.Id));
+            var users = await _dbContext.Users
+                .Where(u => u.UserRoleId == userRole.Id)
+                .ToListAsync();
 
-                return CommandResult.OK;
-            }
+            await _userService.SetTokenRefreshRequiredForUsersAsync(users.Select(u => u.Id));
 
-            return CommandResult.BadRequest;
+            return CommandResult.OK;
         }
 
         public async Task<CommandResult> ValidateAsync(SaveRequest request)
@@ -70,15 +68,16 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             foreach (var userRole in request.NameInLanguages)
             {
                 var existingUserRolesInLanguage = await _dbContext.UserRolesToLanguages
-                    .Where(x => x.LanguageId == userRole.LanguageId)
+                    .Where(roleToLanguage => roleToLanguage.LanguageId == userRole.LanguageId)
                     .ToListAsync();
 
-                var userRoleWithSameNameExists = existingUserRolesInLanguage
-                    .Where(r => r.Name == userRole.Name &&
-                                r.UserRoleId != request.Id)
+                var equallyNamedUserRoleExists = existingUserRolesInLanguage
+                    .Where(existingRole =>
+                        existingRole.Name == userRole.Name &&
+                        existingRole.UserRoleId != request.Id)
                     .Any();
 
-                if (userRoleWithSameNameExists)
+                if (equallyNamedUserRoleExists)
                 {
                     userRoleExists = true;
 
@@ -95,17 +94,18 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             return CommandResult.OK;
         }
 
-        private async Task UpdateUserPermissionsForRoleAsync(int roleId, IEnumerable<UserPermissionsForUserRoleListItemModel> userPermissionsFromRequest)
+        private async Task UpdateUserRolePermissionsAsync(int roleId, IEnumerable<UserRolePermissionsListItemModel> userPermissionsFromRequest)
         {
-            var currentPermissions = await _userPermissionsService.GetUserPermissionsForRoleAsync(roleId);
+            var currentPermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId);
 
             var userPermissionsToUserRolesToRemoveIds = currentPermissions
                 .Select(p => p.Id)
                 .ToList();
 
             var userPermissionsToUserRolesToRemove = await _dbContext.UserPermissionToRoles
-                .Where(x => userPermissionsToUserRolesToRemoveIds.Contains(x.UserPermissionId) &&
-                            x.UserRoleId == roleId)
+                .Where(permissionToRole =>
+                    userPermissionsToUserRolesToRemoveIds.Contains(permissionToRole.UserPermissionId) &&
+                    permissionToRole.UserRoleId == roleId)
                 .ToListAsync();
 
             await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsToUserRolesToRemove);
@@ -118,12 +118,13 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .ToList();
 
             var userPermissionIdsFromRequest = userPermissionsFromRequest
-                .Where(x => x.IsSelected &&
-                            allUserPermissionsIds.Contains(x.UserPermissionId))
-                .Select(x => x.UserPermissionId)
-                .ToHashSet();
+                .Where(model =>
+                    model.IsSelected &&
+                    allUserPermissionsIds.Contains(model.UserPermissionId))
+                .Select(model => model.UserPermissionId)
+                .ToList();
 
-            userPermissionIdsFromRequest = await AppendserPermissionsWithLinkedUserPermissionsIfNecessaryAsync(userPermissionIdsFromRequest);
+            userPermissionIdsFromRequest = await AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest);
 
             await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionsFromRequest
                 .Select(p => new UserPermissionToRole
@@ -133,22 +134,18 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 }));
         }
 
-        private async Task<HashSet<int>> AppendserPermissionsWithLinkedUserPermissionsIfNecessaryAsync(HashSet<int> userPermissionIds)
+        private async Task<List<int>> AppendPermissionsWithLinkedUserPermissionsAsync(List<int> userPermissionIds)
         {
-            var result = new HashSet<int>(userPermissionIds);
+            var result = userPermissionIds;
 
             foreach (var id in userPermissionIds)
             {
                 var linkedUserPermissionIds = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(id);
 
-                foreach (var linkedUserPermissionId in linkedUserPermissionIds)
-                {
-                    if (!result.Contains(linkedUserPermissionId))
-                        result.Add(linkedUserPermissionId);
-                }
+                result.AddRange(linkedUserPermissionIds.Where(id => !result.Contains(id)));
             }
 
-            return result;
+            return result.Distinct().ToList();
         }
     }
 }

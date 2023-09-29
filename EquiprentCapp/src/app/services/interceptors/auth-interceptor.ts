@@ -12,33 +12,34 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private injector: Injector) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        var auth = this.injector.get(AuthenticationService);
+        const authenticationService = this.injector.get(AuthenticationService);
 
-        var token = (auth.isLoggedIn())
-            ? auth.getAuth()!.token
+        const token = (authenticationService.isLoggedIn())
+            ? authenticationService.getAuth()!.Token
             : null;
 
         if (token) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
+                    ApiKey: '5f97f178-1fb8-4a24-a71c-0b145a3709c4'
                 }
             });
         }
 
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
-                if (error.status == 401 && !this.isRefreshingToken) {
+                if (error.status === 401 && !this.isRefreshingToken) {
                     this.isRefreshingToken = true;
 
                     console.log("refreshing token...");
 
-                    auth.refreshToken().subscribe(result => {
+                    authenticationService.refreshToken().subscribe(result => {
                         console.log(`token refreshed with result: ${result}`);
 
-                        this.isRefreshingToken = false;
+                        if (result === "OK") {
+                            this.isRefreshingToken = false;
 
-                        if (result == "OK") {
                             window.location.reload();
 
                             return tap(() => "OK");

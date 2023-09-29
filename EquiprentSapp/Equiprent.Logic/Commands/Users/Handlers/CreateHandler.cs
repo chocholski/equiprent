@@ -14,9 +14,12 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUserService _userResolverService;
 
-        public CreateHandler(ApplicationDbContext dbcontext, IPasswordHasher passwordHasher, IUserService userResolverService)
+        public CreateHandler(
+            ApplicationDbContext dbContext,
+            IPasswordHasher passwordHasher,
+            IUserService userResolverService)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _passwordHasher = passwordHasher;
             _userResolverService = userResolverService;
         }

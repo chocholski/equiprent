@@ -1,4 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
+using Equiprent.Extensions;
 
 namespace Equiprent.ApplicationServices.UserPermissions
 {
@@ -18,22 +19,19 @@ namespace Equiprent.ApplicationServices.UserPermissions
 
         public async Task<List<Entities.Application.UserPermission>> GetUserPermissionsForUserAsync(Guid userId)
         {
-            var permissions = new List<Entities.Application.UserPermission>();
-
             var userRoleId = await _dbContext.Users
-                .Where(user => user.Id == userId)
-                .Select(user => user.UserRoleId)
+                .Where(u => u.Id == userId)
+                .Select(u => u.UserRoleId)
                 .SingleOrDefaultAsync();
 
-            permissions.AddRange(await GetUserPermissionsForRoleAsync(userRoleId));
+            var permissions = new List<Entities.Application.UserPermission>()
+                .AppendRange(await GetUserRolePermissionsAsync(userRoleId));
 
-            return permissions;
+            return permissions!;
         }
 
-        public async Task<List<Entities.Application.UserPermission>> GetUserPermissionsForRoleAsync(int roleId)
+        public async Task<List<Entities.Application.UserPermission>> GetUserRolePermissionsAsync(int roleId)
         {
-            var permissions = new List<Entities.Application.UserPermission>();
-
             var userPermissionsForRole = await _dbContext.UserPermissionToRoles
                 .Include(userPermissionToRole => userPermissionToRole.UserPermission)
                 .Where(userPermissionToRole => userPermissionToRole.UserRoleId == roleId &&
@@ -41,9 +39,10 @@ namespace Equiprent.ApplicationServices.UserPermissions
                 .Select(userPermissionToRole => userPermissionToRole.UserPermission)
                 .ToListAsync();
 
-            permissions.AddRange(userPermissionsForRole);
+            var permissions = new List<Entities.Application.UserPermission>()
+                .AppendRange(userPermissionsForRole);
 
-            return permissions;
+            return permissions!;
         }
 
         public async Task<List<int>> GetAllLinkedPermissionsIdsAsync(int permissionId)
@@ -60,8 +59,9 @@ namespace Equiprent.ApplicationServices.UserPermissions
             var result = new List<int>();
 
             var permissionBeingCheckedId = await _dbContext.UserPermissions
-                .Where(permission => !permission.IsDeleted &&
-                                     permission.Id == permissionId)
+                .Where(permission =>
+                    !permission.IsDeleted &&
+                    permission.Id == permissionId)
                 .Select(permission => permission.Id)
                 .SingleOrDefaultAsync();
 
@@ -70,24 +70,21 @@ namespace Equiprent.ApplicationServices.UserPermissions
                 var linkedPermissionsIds = await _dbContext.UserPermissionToUserPermissions
                     .Include(item => item.UserPermission)
                     .Include(item => item.LinkedUserPermission)
-                    .Where(item => !item.UserPermission.IsDeleted &&
-                                   !item.LinkedUserPermission.IsDeleted &&
-                                   item.UserPermissionId == permissionBeingCheckedId)
+                    .Where(item =>
+                        !item.UserPermission.IsDeleted &&
+                        !item.LinkedUserPermission.IsDeleted &&
+                        item.UserPermissionId == permissionBeingCheckedId)
                     .Select(item => item.LinkedUserPermissionId)
                     .ToListAsync();
 
                 foreach (var id in linkedPermissionsIds)
                 {
                     if (!result.Any(permissionId => permissionId == id))
-                    {
                         result.AddRange(await GetNotNormalizedAllLinkedPermissionsIdsAsync(id));
-                    }
                 }
 
                 if (!result.Any(permissionId => permissionId == permissionBeingCheckedId))
-                {
                     result.Add(permissionBeingCheckedId);
-                }
             }
             else
             {
@@ -102,9 +99,10 @@ namespace Equiprent.ApplicationServices.UserPermissions
             return await _dbContext.UserPermissionToUserPermissions
                 .Include(item => item.UserPermission)
                 .Include(item => item.LinkedUserPermission)
-                .Where(item => !item.UserPermission.IsDeleted &&
-                                     !item.LinkedUserPermission.IsDeleted &&
-                                     item.UserPermissionId == permissionId)
+                .Where(item =>
+                    !item.UserPermission.IsDeleted &&
+                    !item.LinkedUserPermission.IsDeleted &&
+                    item.UserPermissionId == permissionId)
                 .AnyAsync();
         }
 
@@ -113,9 +111,7 @@ namespace Equiprent.ApplicationServices.UserPermissions
             permissionsIdsToNormalize = permissionsIdsToNormalize.Distinct().ToList();
 
             if (permissionsIdsToNormalize.Contains(mainPermissionId))
-            {
                 permissionsIdsToNormalize.Remove(mainPermissionId);
-            }
         }
     }
 }

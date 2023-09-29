@@ -24,18 +24,16 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             var user = await _dbContext.Users
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId);
 
-            if (user is not null)
-            {
-                await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
+            if (user is null)
+                return CommandResult.BadRequest;
 
-                user.UserRoleId = request.UserRoleId;
+            await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
 
-                await _dbContext.Users.UpdateAndSaveAsync(user);
+            user.UserRoleId = request.UserRoleId;
 
-                return CommandResult.OK;
-            }
+            await _dbContext.Users.UpdateAndSaveAsync(user);
 
-            return CommandResult.BadRequest;
+            return CommandResult.OK;
         }
 
         public async Task<CommandResult> ValidateAsync(ChangeRoleRequest request)
@@ -44,9 +42,10 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 return CommandResult.BadRequest;
 
             var userHasUserRoleChosenAlreadyAssigned = await _dbContext.Users
-                .Where(u => !u.IsDeleted &&
-                            u.Id == request.UserId &&
-                            u.UserRoleId == request.UserRoleId)
+                .Where(u =>
+                    !u.IsDeleted &&
+                    u.Id == request.UserId &&
+                    u.UserRoleId == request.UserRoleId)
                 .AnyAsync();
 
             if (userHasUserRoleChosenAlreadyAssigned)

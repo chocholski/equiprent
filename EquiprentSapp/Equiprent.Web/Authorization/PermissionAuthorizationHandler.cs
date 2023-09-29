@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.EnumTypes;
+﻿using Equiprent.Entities.Enums;
 using System.Security.Claims;
 
 namespace Equiprent.Web.Authorization

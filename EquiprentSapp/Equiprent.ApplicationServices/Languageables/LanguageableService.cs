@@ -1,4 +1,6 @@
-﻿using Equiprent.Data.DbContext;
+﻿using Equiprent.ApplicationServices.Languageables.Enums;
+using Equiprent.ApplicationServices.Languageables.Models;
+using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
 using Equiprent.Entities.Interfaces;
 
@@ -19,17 +21,16 @@ namespace Equiprent.ApplicationServices.Languageables
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             List<int>? translatedEntityIds = null,
-            int? languageId = null) where U : class, ILanguageable
+            int? languageId = null)
+                where T : class
+                where U : class, ILanguageable
         {
             var entityIdsWithNames = await GetEntityIdsWithNamesInCurrentUserLanguageAsync<U>(entityIdsFilterMode, languageId, translatedEntityIds?.ToArray());
             var idProperty = typeof(T).GetProperty(idPropertyName);
             var nameProperty = typeof(T).GetProperty(namePropertyName);
 
-            if (idProperty is not null &&
-                nameProperty is not null)
-            {
+            if (idProperty is not null && nameProperty is not null)
                 list.ForEach(item => nameProperty.SetValue(item, entityIdsWithNames.GetNameForId((int)idProperty.GetValue(item)!)));
-            }
         }
 
         public async Task<List<LanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(
@@ -39,52 +40,47 @@ namespace Equiprent.ApplicationServices.Languageables
         {
             var result = new List<LanguageableItem>();
 
+            languageId ??= await _userResolverService.GetCurrentUserLanguageIdAsync();
+
             if (!languageId.HasValue)
-            {
-                languageId = await _userResolverService.GetCurrentUserLanguageIdAsync();
-            }
+                return result;
 
-            if (languageId.HasValue)
-            {
-                var rows = await _dbContext.Set<TEntity>()
-                    .Where(languageableItem => languageableItem.LanguageId == languageId.Value)
-                    .Select(languageableItem => new
-                    {
-                        Id = languageableItem.GetTranslatedEntityId(),
-                        languageableItem.Name
-                    })
-                    .ToListAsync();
-
-                var IdsWithNames = rows
-                    .Where(entity =>
-                    {
-                        if (entityIdsFilterMode is not null &&
-                            translatedEntityIds is not null)
-                        {
-                            if (entityIdsFilterMode == EntityIdsFilterModeEnum.Include)
-                            {
-                                return translatedEntityIds.Contains(entity.Id);
-                            }
-                            if (entityIdsFilterMode == EntityIdsFilterModeEnum.Exclude)
-                            {
-                                return !translatedEntityIds.Contains(entity.Id);
-                            }
-                        }
-
-                        return true;
-                    })
-                    .Select(entity => new
-                    {
-                        EntityId = entity.Id,
-                        entity.Name
-                    })
-                    .ToList();
-
-                foreach (var idWithName in IdsWithNames)
+            var rows = await _dbContext.Set<TEntity>()
+                .Where(languageableItem => languageableItem.LanguageId == languageId.Value)
+                .Select(languageableItem => new
                 {
-                    result.Add(new LanguageableItem(idWithName.EntityId, idWithName.Name));
-                }
-            }
+                    Id = languageableItem.GetTranslatedEntityId(),
+                    languageableItem.Name
+                })
+                .ToListAsync();
+
+            var IdsWithNames = rows
+                .Where(entity =>
+                {
+                    if (entityIdsFilterMode is not null && translatedEntityIds is not null)
+                    {
+                        if (entityIdsFilterMode == EntityIdsFilterModeEnum.Include)
+                        {
+                            return translatedEntityIds.Contains(entity.Id);
+                        }
+                        if (entityIdsFilterMode == EntityIdsFilterModeEnum.Exclude)
+                        {
+                            return !translatedEntityIds.Contains(entity.Id);
+                        }
+                    }
+
+                    return true;
+                })
+                .Select(entity => new
+                {
+                    EntityId = entity.Id,
+                    entity.Name
+                })
+                .ToList();
+
+            foreach (var idWithName in IdsWithNames)
+                result.Add(new LanguageableItem(idWithName.EntityId, idWithName.Name));
+
 
             return result;
         }

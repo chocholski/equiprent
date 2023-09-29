@@ -11,9 +11,11 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
 
-        public ChangePasswordHandler(ApplicationDbContext dbcontext, IPasswordHasher passwordHasher)
+        public ChangePasswordHandler(
+            ApplicationDbContext dbContext,
+            IPasswordHasher passwordHasher)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _passwordHasher = passwordHasher;
         }
 
@@ -22,16 +24,14 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             var user = await _dbContext.Users
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
-            if (user is not null)
-            {
-                user.Password = _passwordHasher.GetHash(request.Password);
+            if (user is null)
+                return CommandResult.BadRequest;
 
-                await _dbContext.Users.UpdateAndSaveAsync(user);
+            user.Password = _passwordHasher.GetHash(request.Password);
 
-                return CommandResult.OK;
-            }
+            await _dbContext.Users.UpdateAndSaveAsync(user);
 
-            return CommandResult.BadRequest;
+            return CommandResult.OK;
         }
 
         public async Task<CommandResult> ValidateAsync(ChangePasswordRequest request)
@@ -39,18 +39,16 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             var user = await _dbContext.Users
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
-            if (user is not null)
-            {
-                if (user.Password.ToLower() != _passwordHasher.GetHash(request.OldPassword).ToLower())
-                    return CommandResult.User_WrongOldPassword;
+            if (user is null)
+                return CommandResult.BadRequest;
 
-                if (string.IsNullOrEmpty(request.Password))
-                    return CommandResult.BadRequest;
+            if (user.Password.ToLower() != _passwordHasher.GetHash(request.OldPassword).ToLower())
+                return CommandResult.User_WrongOldPassword;
 
-                return CommandResult.OK;
-            }
+            if (string.IsNullOrEmpty(request.Password))
+                return CommandResult.BadRequest;
 
-            return CommandResult.BadRequest;
+            return CommandResult.OK;
         }
     }
 }

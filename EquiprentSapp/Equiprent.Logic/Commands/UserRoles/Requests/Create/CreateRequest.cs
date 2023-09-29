@@ -3,10 +3,8 @@ using Equiprent.Logic.Infrastructure.CQRS;
 
 namespace Equiprent.Logic.Commands.UserRoles.Requests.Create
 {
-    public record CreateRequest : NameInLanguagesBase, ICommand
+    public record CreateRequest : NameInLanguagesBaseResponse, ICommand
     {
-        public List<UserPermissionsForUserRoleListItemModel> UserPermissionsForUserRoleList { get; set; } = new List<UserPermissionsForUserRoleListItemModel>();
-
-        public record UserPermissionsForUserRoleListItemModel(int UserPermissionId, bool IsSelected);
+        public List<UserRolePermissionsListItemModel> UserPermissionsForUserRoleList { get; set; } = new();
     }
 }

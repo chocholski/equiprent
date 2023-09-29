@@ -1,7 +1,4 @@
-﻿using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
-using Equiprent.Logic.Queries.Users.Models;
-using Equiprent.Logic.Queries.Users.Messages;
-using Equiprent.Entities.EnumTypes;
+﻿using Equiprent.Entities.Enums;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
@@ -12,6 +9,10 @@ using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Logic.Commands.Users.Requests.Save;
 using Equiprent.Logic.Commands.Users.Requests.Delete;
 using Equiprent.Web.Filters;
+using Equiprent.Logic.Queries.Users.Requests;
+using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
+using Equiprent.Logic.Queries.Users.Responses.UserById;
+using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
 
 namespace Equiprent.Web.Controllers
 {
@@ -22,8 +23,11 @@ namespace Equiprent.Web.Controllers
         private readonly IQueryDispatcher _queryDispatcher;
         private readonly ICommandDispatcher _commandDispatcher;
 
-        public UserController(ApplicationDbContext context, IConfiguration configuration, IQueryDispatcher queryDispatcher, ICommandDispatcher commandDispatcher)
-                  : base(context, configuration)
+        public UserController(
+            ApplicationDbContext context,
+            IConfiguration configuration,
+            IQueryDispatcher queryDispatcher,
+            ICommandDispatcher commandDispatcher) : base(context, configuration)
         {
             _queryDispatcher = queryDispatcher;
             _commandDispatcher = commandDispatcher;
@@ -31,28 +35,28 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet]
-        public async Task<ActionResult<ListResponse>> GetUsersList([FromQuery] RequestParameters sp, [FromQuery] int? userRoleId)
+        public async Task<ActionResult<PagedUsersListResponse>> GetPagedUsersList([FromQuery] RequestParameters requestParameters, [FromQuery] int? userRoleId)
         {
-            var parameters = new GetPagedUsersRequest(sp, userRoleId);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedUsersRequest, ListResponse>(parameters);
+            var parameters = new GetPagedUsersListRequest(requestParameters, userRoleId);
+            var result = await _queryDispatcher.SendQueryAsync<GetPagedUsersListRequest, PagedUsersListResponse>(parameters);
 
             return new JsonResult(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(Guid id)
+        public async Task<IActionResult> GetUserById(Guid id)
         {
             var parameters = new GetUserByIdRequest(id);
-            var result = await _queryDispatcher.SendQueryAsync<GetUserByIdRequest, DetailsResponse>(parameters);
+            var result = await _queryDispatcher.SendQueryAsync<GetUserByIdRequest, UserByIdResponse>(parameters);
 
             return result is not null ? Ok(result) : NotFound();
         }
 
         [HttpGet("getlanguage/{userId}")]
-        public async Task<IActionResult> GetLanguage(Guid userId)
+        public async Task<IActionResult> GetUserLanguageById(Guid userId)
         {
             var parameters = new GetUserLanguageByIdRequest(userId);
-            var result = await _queryDispatcher.SendQueryAsync<GetUserLanguageByIdRequest, LanguageResponse>(parameters);
+            var result = await _queryDispatcher.SendQueryAsync<GetUserLanguageByIdRequest, UserLanguageByIdResponse>(parameters);
 
             return new JsonResult(result);
         }

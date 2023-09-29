@@ -12,10 +12,10 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         private readonly IUserService _userService;
 
         public ChangeLanguageHandler(
-            ApplicationDbContext dbcontext,
+            ApplicationDbContext dbContext,
             IUserService userService)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
             _userService = userService;
         }
 
@@ -24,19 +24,17 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             var user = await _dbContext.Users
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
-            if (user is not null)
-            {
-                if (user.LanguageId != request.LanguageId)
-                    await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });           
+            if (user is null)
+                return CommandResult.BadRequest;
 
-                user.LanguageId = request.LanguageId;
+            if (user.LanguageId != request.LanguageId)
+                await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });           
 
-                await _dbContext.Users.UpdateAndSaveAsync(user);
+            user.LanguageId = request.LanguageId;
 
-                return CommandResult.OK;
-            }
+            await _dbContext.Users.UpdateAndSaveAsync(user);
 
-            return CommandResult.BadRequest;
+            return CommandResult.OK;
         }
     }
 }

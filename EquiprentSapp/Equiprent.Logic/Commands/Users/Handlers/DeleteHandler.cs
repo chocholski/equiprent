@@ -9,18 +9,20 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     {
         private readonly ApplicationDbContext _dbContext;
 
-        public DeleteHandler(ApplicationDbContext dbcontext)
+        public DeleteHandler(ApplicationDbContext dbContext)
         {
-            _dbContext = dbcontext;
+            _dbContext = dbContext;
         }
 
-        public async Task<CommandResult> HandleAsync(DeleteRequest message)
+        public async Task<CommandResult> HandleAsync(DeleteRequest request)
         {
             var user = await _dbContext.Users
-                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == message.Id);
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
-            if (user is not null)
-                await _dbContext.Users.SoftDeleteAndSaveAsync(user);
+            if (user is null)
+                return CommandResult.BadRequest;
+
+            await _dbContext.Users.SoftDeleteAndSaveAsync(user);
 
             return CommandResult.OK;
         }

@@ -1,13 +1,13 @@
-export class SignInModel {
-    Login: string;
-    Password: string;
-}
-
 export class AuthUserModel {
-    Login: string;
-    Roles: Array<string>;
     FirstName: string;
     LastName: string;
+    Login: string;
+    Roles: Array<string>;
+}
+
+export interface ChangePasswordModel {
+    Password: string;
+    Token: string;
 }
 
 export interface ResetPasswordModel {
@@ -15,7 +15,7 @@ export interface ResetPasswordModel {
     Language: string;
 }
 
-export interface ChangePasswordModel {
-    Token: string;
+export class SignInModel {
+    Login: string;
     Password: string;
 }

@@ -2,5 +2,10 @@
 
 namespace Equiprent.Logic.Commands.Users.Requests.ChangePassword
 {
-    public record ChangePasswordRequest(Guid Id, string OldPassword, string Password) : ICommand;
+    public record ChangePasswordRequest : ICommand
+    {
+        public Guid Id { get; set; }
+        public string OldPassword { get; set; } = null!;
+        public string Password { get; set; } = null!;
+    }
 }

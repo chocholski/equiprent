@@ -5,30 +5,15 @@ namespace Equiprent.ApplicationServices.Audits
     {
         public string GetKeyFromValue(string value)
         {
-            if (value.Contains(')') && value.IndexOf(')') == value.Length - 1)
+            if (value.Contains('(') && value.EndsWith(')'))
             {
-                if (value.Contains('('))
-                {
-                    var indexOfBrace = value.IndexOf('(');
-                    var valueString = value[(indexOfBrace + 1)..];
-
-                    if (valueString.StartsWith("Id: "))
-                    {
-                        return valueString[4..^1];
-                    }
-                }
+                if (value[(value.IndexOf('(') + 1)..].StartsWith("Id: "))
+                    return value[(value.IndexOf(':') + 2)..^1];
             }
+
             return value;
         }
 
-        public string CreateIdentityPartOfValueForComparison(int identity)
-        {
-            return $"(Id: {identity})";
-        }
-
-        public static string CreateIdentityPartOfValueTemplateForComparison()
-        {
-            return "(Id: {0})";
-        }
+        public string CreateIdentityPartOfValueForComparison(int identity) => $"(Id: {identity})";
     }
 }

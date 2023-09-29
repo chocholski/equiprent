@@ -16,6 +16,26 @@ export class MenuService {
     this.initializeMenuItems();
   }
 
+  getFirstMenuItemUserIsAuthorizedFor(): Menu | undefined {
+
+    var firstMenuUserIsAuthorizedFor = undefined;
+
+    for (const menu of this.menu) {
+      for (const menuItem of menu.Items || []) {
+        if (this.authorizationService.isAuthorized(menuItem.Permissions || [])) {
+          firstMenuUserIsAuthorizedFor = menu;
+          break;
+        }
+      }
+    }
+
+    return firstMenuUserIsAuthorizedFor;
+  }
+
+  getMenu(): Menu[] {
+    return this.menu;
+  }
+
   initializeMenu() {
 
     //MENU
@@ -52,26 +72,5 @@ export class MenuService {
       Icon: 'fa fa-solid fa-users',
       RouterLink: [`${MenuService.ALL_MENU_URL_PREFIX}/administration/user-roles`]
     });
-  }
-
-  getMenu(): Menu[] {
-    return this.menu;
-  }
-
-  getFirstMenuItemUserIsAuthorizedFor(): Menu | undefined {
-
-    var firstMenuUserIsAuthorizedFor = undefined;
-
-    for (const menu of this.menu) {
-      for (const menuItem of menu.Items || [])
-      {
-        if (this.authorizationService.isAuthorized(menuItem.Permissions || [])) {
-          firstMenuUserIsAuthorizedFor = menu;
-          break;
-        }
-      }
-    }
-
-    return firstMenuUserIsAuthorizedFor;
   }
 }

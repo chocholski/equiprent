@@ -1,11 +1,10 @@
-﻿using Equiprent.Data.CustomQueries;
-using Equiprent.Logic.QueryData.Audits;
-using Equiprent.Logic.Infrastructure.RequestParamsHelpers;
-using Equiprent.ApplicationServices.Audits;
-using Equiprent.Entities.EnumTypes;
-using Equiprent.Data.DbContext;
+﻿using Equiprent.Data.DbContext;
 using Equiprent.Web.Filters;
-using Equiprent.Data.CustomQueryTypes;
+using Equiprent.Logic.Queries.Audits.Requests;
+using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using Equiprent.Entities.Enums;
+using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
+using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;
 
 namespace Equiprent.Web.Controllers
 {
@@ -13,48 +12,30 @@ namespace Equiprent.Web.Controllers
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class AuditController : BaseApiController
     {
-        private readonly IAuditMemberTranslatorService _auditMemberTranslatorService;
+        private readonly IQueryDispatcher _queryDispatcher;
 
         public AuditController(
             ApplicationDbContext context,
             IConfiguration configuration,
-            IAuditMemberTranslatorService auditMemberTranslatorService) : base(context, configuration)
+            IQueryDispatcher queryDispatcher) : base(context, configuration)
         {
-            _auditMemberTranslatorService = auditMemberTranslatorService;
+            _queryDispatcher = queryDispatcher;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetObjectHistory([FromQuery]RequestParameters sp, string entityId, string entityTableName)
+        public async Task<IActionResult> GetObjectHistory([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
         {
-            if (string.IsNullOrEmpty(sp.SortColumnName) || sp.SortColumnName is "null")
-                sp.SortColumnName = "CreatedOn";
+            var request = new GetObjectHistoryRequest(requestParameters, entityId, entityTableName);
+            var result = await _queryDispatcher.SendQueryAsync<GetObjectHistoryRequest, ObjectHistoryResponse>(request);
 
-            var model = await ListViewModelBuilder.GetListViewModelAsync<AuditListViewModel, AuditListQueryModel, AuditListItemViewModel>(
-                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName)),
-                requestParameters: sp);
-
-            return new JsonResult(model);
+            return new JsonResult(result);
         }
 
         [HttpGet("getfieldnames")]
         public async Task<ActionResult> GetFieldNames(string entityId, string entityTableName)
         {
-            var result = new List<AuditTranslationItemViewModel>();
-            var auditEntries = await _dbContext!.AuditListItems
-                .FromSqlRaw(AuditQueries.GetAudit(entityId, entityTableName))
-                .ToListAsync();
-
-            foreach (var entry in auditEntries)
-            {
-                if (result.All(x => x.DbName != entry.FieldName))
-                {
-                    result.Add(new AuditTranslationItemViewModel
-                    {
-                        Translation = _auditMemberTranslatorService.Translate(entry.FieldName),
-                        DbName = entry.FieldName
-                    });
-                }
-            }
+            var request = new GetFieldNamesRequest(entityId, entityTableName);
+            var result = await _queryDispatcher.SendQueryAsync<GetFieldNamesRequest, FieldNamesResponse>(request);
 
             return new JsonResult(result);
         }

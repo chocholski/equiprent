@@ -1,36 +1,53 @@
 <div class="grid">
   <div class="col-12">
     <div class="card">
-      <p-table #dataTable [value]="users" [columns]="cols" dataKey="Id" sortField="Id" [lazy]="true"
-        (onLazyLoad)="loadUsersLazy($event, dataTable)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [totalRecords]="totalRecords" [responsive]="true" [rowHover]="true" styleClass="p-datatable-gridlines"
-        [paginator]="true" responsiveLayout="scroll">
-
+      <p-table #dataTable [value]="users" [columns]="cols" dataKey="Id" sortField="Login" [lazy]="true"
+        (onLazyLoad)="loadUsersLazy($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+        [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+        responsiveLayout="scroll">
         <ng-template pTemplate="caption">
-          <!-- [TODO] Implement global filtering -->
-          <!-- <div class="flex justify-content-between flex-column sm:flex-row">
+          <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
             <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
-              icon="pi pi-filter-slash" (click)="clear(dataTable)"></button>
-            <span class="p-input-icon-left mb-2">
-              <i class="pi pi-search"></i>
-              <input pInputText type="text" #filter (input)="onGlobalFilter(dataTable, $event)"
-                [placeholder]="translate.instant('General.SearchKeyword')" class="w-full" />
-            </span>
-          </div> -->
+              icon="pi pi-filter-slash" (click)="filterService.onClearFilters(dataTable)"></button>
+            <div class="grid formgrid">
+              <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+                <span class="p-input-icon-right">
+                  <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                  <input type="text" pInputText #filter id="filter"
+                    (input)="filterService.onGlobalFilter(dataTable, cols, users, $event)"
+                    [placeholder]="translate.instant('General.SearchKeyword')" />
+                </span>
+              </div>
+            </div>
+          </div>
         </ng-template>
-
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
               <div class="flex justify-content-between align-items-center">
                 {{ col.header | translate }}
-                <p-columnFilter *ngSwitchCase="'Id'" type="text" field="id" display="menu"
-                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"></p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'Login'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                  field="Login">
+                </p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'FirstName'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                  field="FirstName">
+                </p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'LastName'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                  field="LastName">
+                </p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'UserRoleName'" pInputText type="text"
+                  [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                  field="UserRoleName">
+                </p-columnFilter>
+                <p-columnFilter *ngSwitchCase="'IsActive'" type="boolean" display="menu" field="IsActive">
+                </p-columnFilter>
               </div>
             </th>
           </tr>
         </ng-template>
-
         <ng-template pTemplate="body" let-user let-columns="columns">
           <tr>
             <td>
@@ -53,7 +70,6 @@
             </td>
           </tr>
         </ng-template>
-
       </p-table>
     </div>
   </div>

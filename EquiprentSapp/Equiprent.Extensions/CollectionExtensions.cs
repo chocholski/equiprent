@@ -1,4 +1,7 @@
-﻿namespace Equiprent.Extensions
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Equiprent.Extensions
 {
     public static class CollectionExtensions
     {

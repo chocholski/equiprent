@@ -1,35 +1,42 @@
 import { PngTableColumn } from '../interfaces/png';
 import { LazyLoadEvent } from 'primeng/api';
+import { StringBuilder } from './stringBuilder';
+
 export class PngTableSearchQueryBuilder {
-    resultUri: string;
+
+    resultUriBuilder = new StringBuilder();
+
     constructor(private event: LazyLoadEvent, private columns: PngTableColumn[]) { }
-    build() {
+
+    create() {
         this.buildBaseUri();
         this.addFilters();
 
-        return this.resultUri;
+        return this.resultUriBuilder.toString();
     }
 
+    //TODO - adjust to PrimeNG menu filtering
     addFilters() {
-        let where = '';
+        let whereBuilder = new StringBuilder();
 
         for (const column of this.columns) {
-            const f = this.event.filters?.[column.field];
+            const filter = this.event.filters?.[column.field];
 
-            if (f !== undefined) {
+            if (filter !== undefined) {
                 const replaceWith = column.replaceWith ?? column.field;
-                where += `${replaceWith}|${f.value}|${column.operator}||`;
+
+                whereBuilder.append(`${replaceWith}|${filter.value}|${column.operator}||`);
             }
         }
 
-        if (where.length > 1) {
-            where = where.slice(0, -2);
+        if (whereBuilder.length() > 1) {
+            whereBuilder.removeFromEnd(2);
         }
 
-        this.resultUri += `&f=${where}`;
+        // this.resultUriBuilder.append(`&f=${whereBuilder.toString()}`);
     }
 
     buildBaseUri() {
-        this.resultUri = `?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`;
+        this.resultUriBuilder.append(`?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`);
     }
 }

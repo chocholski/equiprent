@@ -2,5 +2,9 @@
 
 namespace Equiprent.Logic.Commands.Users.Requests.ChangeLanguage
 {
-    public record ChangeLanguageRequest(Guid Id, int LanguageId) : ICommand;
+    public record ChangeLanguageRequest : ICommand
+    {
+        public Guid Id { get; set; }
+        public int LanguageId { get; set; }
+    }
 }

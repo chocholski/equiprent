@@ -9,11 +9,11 @@ export interface UserListModel {
 }
 
 export interface UserListItemModel {
-  Id: string;
-  Login: string;
   FirstName: string;
+  Id: string;
+  IsActive: boolean;
   LastName: string;
+  Login: string;
   UserRoleId: number;
   UserRoleName: string;
-  IsActive: boolean;
 }

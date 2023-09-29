@@ -25,15 +25,13 @@ namespace Equiprent.Web.Controllers
         [HttpPost(ApiRoutes.Identity.Authenticate)]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticationRequest request)
         {
-            // return a generic HTTP Status 500 (Server Error)
-            // if the client payload is invalid.
             if (request is null)
                 return new StatusCodeResult(500);                
 
             return request.GrantType switch
             {
                 "password" => new JsonResult(await _identityService.GetTokenAsync(request.GrantType, request.ClientSecret, request.UserName, request.Password)),
-                _ => new UnauthorizedResult(),// not supported - return a HTTP 401 (Unauthorized)
+                _ => new UnauthorizedResult()
             };
         }
 

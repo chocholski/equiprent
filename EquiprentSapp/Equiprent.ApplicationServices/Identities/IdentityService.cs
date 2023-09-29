@@ -3,13 +3,15 @@ using Equiprent.ApplicationServices.Users;
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application;
-using Equiprent.Entities.EnumTypes;
+using Equiprent.Entities.Enums;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using Equiprent.ApplicationServices.Options.Jwt;
 using Equiprent.Entities.Application.RefreshToken;
+using Equiprent.Extensions;
+using Equiprent.ApplicationServices.Languageables.Enums;
 
 namespace Equiprent.ApplicationServices.Identities
 {
@@ -165,6 +167,8 @@ namespace Equiprent.ApplicationServices.Identities
 
             try
             {
+                _tokenValidationParameters.ValidateLifetime = false;
+
                 var principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
 
                 if (!IsJwtWithValidSecurityAlgorithm(validatedToken))
@@ -186,16 +190,13 @@ namespace Equiprent.ApplicationServices.Identities
         {
             var userPermissionsForUser = await _userPermissionService.GetUserPermissionsForUserAsync(userId);
 
-            var userPermissionsForUserIds = new List<int>
-            {
-                (int)UserPermissionEnum.ForAllLoggedIn
-            };
+            var userPermissionsForUserIds = new List<int> { (int)UserPermissionEnum.ForAllLoggedIn }
+                .AppendRange(
+                    userPermissionsForUser
+                        .Select(userPermission => userPermission.Id)
+                        .ToList());
 
-            userPermissionsForUserIds.AddRange(userPermissionsForUser
-                .Select(userPermission => userPermission.Id)
-                .ToList());
-
-            return string.Join(',', userPermissionsForUserIds);
+            return string.Join(',', userPermissionsForUserIds!);
         }
     }
 }
