@@ -14,7 +14,7 @@
                 <span class="p-input-icon-right">
                   <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
                   <input type="text" pInputText #filter id="filter"
-                    (input)="filterService.onGlobalFilter(dataTable, cols, users, $event)"
+                    (input)="filterService.onFilterGlobal(dataTable, filter.value)"
                     [placeholder]="translate.instant('General.SearchKeyword')" />
                 </span>
               </div>

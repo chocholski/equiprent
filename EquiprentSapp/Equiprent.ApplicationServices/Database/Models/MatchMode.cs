@@ -5,9 +5,17 @@
         private static readonly Dictionary<string, MatchModeEnum> Values = new()
         {
             { "contains", MatchModeEnum.Contains },
+            { "dateIs", MatchModeEnum.DateIs },
+            { "dateAfter", MatchModeEnum.DateIsAfter },
+            { "dateBefore", MatchModeEnum.DateIsBefore },
+            { "dateIsNot", MatchModeEnum.DateIsNot },
             { "endsWith", MatchModeEnum.EndsWith },
             { "equals", MatchModeEnum.Equals },
+            { "gt", MatchModeEnum.GreaterThan },
+            { "gte", MatchModeEnum.GreaterThanOrEqualTo },
             { "in", MatchModeEnum.In },
+            { "lt", MatchModeEnum.LessThan },
+            { "lte", MatchModeEnum.LessThanOrEqualTo },
             { "notContains", MatchModeEnum.NotContains },
             { "notEquals", MatchModeEnum.NotEquals },
             { "startsWith", MatchModeEnum.StartsWith }

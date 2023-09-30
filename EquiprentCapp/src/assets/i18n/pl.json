@@ -1,6 +1,19 @@
 {
     "AppName": "Equiprent",
     "primeng": {
+        "accept": "Zaakceptuj",
+        "addRule": "Dodaj regułę",
+        "after": "Po",
+        "apply": "Zastosuj",
+        "before": "Przed",
+        "cancel": "Wróć",
+        "choose": "Wybierz",
+        "contains": "Zawiera",
+        "clear": "Wyczyść",
+        "dateIs": "Równe",
+        "dateIsAfter": "Po",
+        "dateIsBefore": "Przed",
+        "dateIsNot": "Nie równe",
         "dayNames": [
             "Niedziela",
             "Poniedziałek",
@@ -28,6 +41,19 @@
             "Pi",
             "So"
         ],
+        "emptyFilterMessage": "Nie znaleziono wyników",
+        "emptyMessage": "Nie znaleziono wyników",
+        "endsWith": "Kończy się na",
+        "equals": "Równe",
+        "gt": "Większe niż",
+        "gte": "Większe niż lub równe",
+        "is": "Równe",
+        "isNot": "Nie równe",
+        "lt": "Mniejsze niż",
+        "lte": "Mniejsze niż lub równe",
+        "matchAll": "Dopasuj całość",
+        "matchAny": "Dopasuj dowolny",
+        "medium": "Średnie",
         "monthNames": [
             "Styczeń",
             "Luty",
@@ -56,9 +82,18 @@
             "Lis",
             "Gru"
         ],
-        "clear": "Wyczyść",
+        "noFilter": "Bez filtrowania",
+        "notContains": "Nie zawiera",
+        "notEquals": "Nie równe",
+        "passwordPrompt": "Wpisz hasło",
+        "reject": "Odrzuć",
+        "removeRule": "Usuń regułę",
+        "startsWith": "Zaczyna się na",
+        "strong": "Mocne",
         "today": "Dzisiaj",
-        "weekHeader": "Ty"
+        "upload": "Wgraj",
+        "weak": "Słabe",
+        "weekHeader": "Tydz"
     },
     "General": {
         "Add": "Dodaj",
@@ -128,6 +163,7 @@
     },
     "UserRole": {
         "Id": "Id",
-        "Name": "Nazwa"
+        "Name": "Nazwa",
+        "UserRolePicker": "Wybór roli"
     }
 }

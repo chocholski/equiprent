@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { PngTableColumn } from "../interfaces/png";
+import { FilterMatchMode } from "primeng/api";
 import { Table } from "primeng/table";
 
 @Injectable()
@@ -19,8 +19,8 @@ export class FilterService {
     dataTable.reset();
   }
 
-  onGlobalFilter<T>(dataTable: Table, columns: PngTableColumn[], rows: T[], event: Event) {
-    //TODO implement
+  onFilterGlobal(dataTable: Table, filterValue: string) {
+    dataTable.filterGlobal(filterValue, FilterMatchMode.CONTAINS);
   }
 
   public shouldHideIcon(filterValue: string): boolean {

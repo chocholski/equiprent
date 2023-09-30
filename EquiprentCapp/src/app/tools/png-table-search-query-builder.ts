@@ -1,8 +1,12 @@
 import { PngTableColumn } from '../interfaces/png';
-import { FilterMetadata, LazyLoadEvent, SelectItem } from 'primeng/api';
+import { FilterMatchMode, FilterMetadata, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { StringBuilder } from './stringBuilder';
+import { PrimeNgHelper } from './primeNgHelper';
+import { SearchOperatorEnum } from '../enums/searchOperatorEnum';
 
 export class PngTableSearchQueryBuilder {
+
+    static dateMatchModes = [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_AFTER, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_IS_NOT];
 
     resultUriBuilder = new StringBuilder();
 
@@ -15,39 +19,15 @@ export class PngTableSearchQueryBuilder {
         return this.resultUriBuilder.toString();
     }
 
-    //TODO - adjust to PrimeNG menu filtering
-    addFilters() {
+    public buildBaseUri() {
+        this.resultUriBuilder.append(`?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`);
+    }
+
+    private addFilters() {
         let whereBuilder = new StringBuilder();
 
-        for (const column of this.columns) {
-            const filtersGroup = this.event.filters?.[column.field];
-
-            if (filtersGroup !== undefined) {
-                const replaceWith = column.replaceWith ?? column.field;
-                const filters = filtersGroup as FilterMetadata[];
-
-                for (const filter of filters) {
-                    if (filter.value == null)
-                        continue;
-
-                    let value = new StringBuilder();
-
-                    if (Array.isArray(filter.value)) {
-                        const filterValues = filter.value as SelectItem[];
-
-                        filterValues.forEach(fv => value.append(`${fv.value},`));
-
-                        if (value.length() > 0)
-                            value.removeFromEnd(1);
-                    }
-                    else {
-                        value = filter.value;
-                    }
-
-                    whereBuilder.append(`${replaceWith}|${filter.matchMode}|${value.toString()}|${filter.operator}||`);
-                }
-            }
-        }
+        this.addGlobalFilters(whereBuilder);
+        this.addLocalFilters(whereBuilder);
 
         if (whereBuilder.length() > 1) {
             whereBuilder.removeFromEnd(2);
@@ -56,7 +36,62 @@ export class PngTableSearchQueryBuilder {
         this.resultUriBuilder.append(`&f=${whereBuilder.toString()}`);
     }
 
-    buildBaseUri() {
-        this.resultUriBuilder.append(`?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`);
+    private addGlobalFilters(whereBuilder: StringBuilder) {
+        if (this.event.globalFilter) {
+            const globalFilterColumns = this.columns.filter(c => c.applyGlobalFiltering === true);
+
+            for (const column of globalFilterColumns) {
+                const replaceWith = column.replaceWith ?? column.field;
+
+                let value: string = this.event.globalFilter;
+                let matchMode = FilterMatchMode.CONTAINS;
+
+                if (column.options) {
+                    value = column.options.filter(o => o.label?.toLowerCase().includes(value.toLowerCase())).map(o => o.value).join(", ");
+                    matchMode = FilterMatchMode.IN;
+                }
+
+                whereBuilder.append(`${replaceWith}|${matchMode}|${value}|${SearchOperatorEnum.MatchAny}|${column.filterType}||`);
+            }
+        }
+    }
+
+    private addLocalFilters(whereBuilder: StringBuilder) {
+        for (const column of this.columns) {
+            const filtersGroup = this.event.filters?.[column.field];
+
+            if (filtersGroup === undefined)
+                continue;
+
+            const replaceWith = column.replaceWith ?? column.field;
+            const filters = filtersGroup as FilterMetadata[];
+
+            for (const filter of filters) {
+                if (filter.value == null)
+                    continue;
+
+                let value = undefined;
+
+                if (Array.isArray(filter.value)) {
+                    const filterValues = filter.value as SelectItem[];
+                    const valueBuilder = new StringBuilder();
+
+                    filterValues.forEach(fv => valueBuilder.append(`${fv.value},`));
+
+                    if (valueBuilder.length() > 0)
+                        valueBuilder.removeFromEnd(1);
+
+                    value = valueBuilder.toString();
+                }
+                else {
+                    value = filter.value;
+                }
+
+                if (PngTableSearchQueryBuilder.dateMatchModes.find(mode => mode == filter.matchMode))
+                    value = PrimeNgHelper.getDateFromCalendarAsString(value);
+
+                whereBuilder.append(`${replaceWith}|${filter.matchMode}|${value}|${filter.operator}|${column.filterType}||`);
+            }
+        }
     }
 }

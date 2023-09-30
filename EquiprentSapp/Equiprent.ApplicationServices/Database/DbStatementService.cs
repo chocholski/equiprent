@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Presentation;
-using Equiprent.ApplicationServices.Database.Models;
+﻿using Equiprent.ApplicationServices.Database.Models;
 using Equiprent.Extensions;
 
 namespace Equiprent.ApplicationServices.Database
@@ -8,6 +7,9 @@ namespace Equiprent.ApplicationServices.Database
     public class DbStatementService : IDbStatementService
     {
         private readonly ISpecialFilterService _specialFilterService;
+
+        private TimeSpan startOfDay => TimeSpan.Zero;
+        private TimeSpan endOfDay => TimeSpan.FromHours(23) + TimeSpan.FromMinutes(59) + TimeSpan.FromSeconds(59);
 
         public DbStatementService(ISpecialFilterService specialFilterService)
         {
@@ -33,17 +35,33 @@ namespace Equiprent.ApplicationServices.Database
                     criterion!.Mode switch
                     {
                         MatchModeEnum.Contains =>
-                            $"{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
+                            GetContainsCondition(criterion!),
+                        MatchModeEnum.DateIs =>
+                            GetDateIsCondition(criterion!),
+                        MatchModeEnum.DateIsAfter =>
+                            GetDateIsAfterCondition(criterion!),
+                        MatchModeEnum.DateIsBefore =>
+                            GetDateIsBeforeCondition(criterion!),
+                        MatchModeEnum.DateIsNot =>
+                            GetDateIsNotCondition(criterion!),
                         MatchModeEnum.EndsWith =>
                             $"{criterion.FieldName}.EndsWith(\"{criterion.FieldValue}\")",
                         MatchModeEnum.Equals =>
-                            $"{criterion.FieldName}.Equals(\"{criterion.FieldValue}\")",
+                            $"({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
+                        MatchModeEnum.GreaterThan =>
+                            GetNumberGreaterThanCondition(criterion!),
+                        MatchModeEnum.GreaterThanOrEqualTo =>
+                            GetNumberGreaterThanOrEqualToCondition(criterion!),
                         MatchModeEnum.In =>
                             $"new[] {{ {string.Join(",", criterion.FieldValue!.Split(",").Select(value => $"\"{value}\""))} }}.Contains({criterion.FieldName}.ToString())",
+                        MatchModeEnum.LessThan =>
+                            GetNumberLessThanCondition(criterion!),
+                        MatchModeEnum.LessThanOrEqualTo =>
+                            GetNumberLessThanOrEqualToCondition(criterion!),
                         MatchModeEnum.NotContains =>
                             $"!{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
                         MatchModeEnum.NotEquals =>
-                            $"!{criterion.FieldName}.Equals(\"{criterion.FieldValue}\")",
+                            $"!({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
                         MatchModeEnum.StartsWith =>
                             $"{criterion.FieldName}.StartsWith(\"{criterion.FieldValue}\")",
                         _ => string.Empty
@@ -72,23 +90,57 @@ namespace Equiprent.ApplicationServices.Database
             return resultBuilder.ToString();
         }
 
-        private string GetDateAsText(DateTime date) => $"{date.Year}-{date.Month}-{date.Day} {date.TimeOfDay}";
+        private string GetContainsCondition(WhereClauseCriteria criteria) =>
+            criteria.FieldValue is "true" or "false"
+                ? $"{criteria.FieldName} == {criteria.FieldValue is "true"}"
+                : $"{criteria.FieldName}.Contains(\"{criteria.FieldValue}\")";
 
-        private string GetDateEqualCondition(WhereClauseCriteria criteria)
-        {
-            var date = DateTime.Parse(criteria.FieldValue!);
+        private string GetDateAsText(DateTime date, bool? withStartOfDay = null) =>
+            $"{date.Year}-{date.Month}-{date.Day} {(withStartOfDay.HasValue ? (withStartOfDay.Value ? startOfDay : endOfDay) : date.TimeOfDay)}";
 
-            return $"({criteria.FieldName!} >= \"{GetDateAsText(date)}\" && {criteria.FieldName!} < \"{GetDateAsText(date.AddDays(1))}\") && ";
-        }
+        private string GetDateIsCondition(WhereClauseCriteria criteria) =>
+            DateTime.TryParse(criteria.FieldValue, out var date)
+                ? $"({criteria.FieldName} >= \"{GetDateAsText(date)}\" && {criteria.FieldName} < \"{GetDateAsText(date.AddDays(1))}\")"
+                : string.Empty;
 
-        private string GetNumberEqualCondition(WhereClauseCriteria criteria) =>
-            int.TryParse(criteria.FieldValue, out var number) && number != -1
-                ? $"({criteria.FieldName!} == {number}) && "
+        private string GetDateIsAfterCondition(WhereClauseCriteria criteria) =>
+            DateTime.TryParse(criteria.FieldValue, out var date)
+                ? $"{criteria.FieldName} >= \"{GetDateAsText(date.AddDays(1), withStartOfDay: true)}\""
+                : string.Empty;
+
+        private string GetDateIsBeforeCondition(WhereClauseCriteria criteria) =>
+            DateTime.TryParse(criteria.FieldValue, out var date)
+                ? $"{criteria.FieldName} < \"{GetDateAsText(date, withStartOfDay: true)}\""
+                : string.Empty; 
+
+        private string GetDateIsNotCondition(WhereClauseCriteria criteria) =>
+            DateTime.TryParse(criteria.FieldValue, out var date)
+                ? $"({criteria.FieldName} < \"{GetDateAsText(date, withStartOfDay: true)}\" && {criteria.FieldName} > \"{GetDateAsText(date, withStartOfDay: false)}\")"
+                : string.Empty;
+
+        private string GetNumberGreaterThanCondition(WhereClauseCriteria criteria) =>
+            int.TryParse(criteria.FieldValue, out var number)
+                ? $"({criteria.FieldName!} > {number})"
+                : string.Empty;
+
+        private string GetNumberGreaterThanOrEqualToCondition(WhereClauseCriteria criteria) =>
+            int.TryParse(criteria.FieldValue, out var number)
+                ? $"({criteria.FieldName!} >= {number})"
+                : string.Empty;
+
+        private string GetNumberLessThanCondition(WhereClauseCriteria criteria) =>
+            int.TryParse(criteria.FieldValue, out var number)
+                ? $"({criteria.FieldName!} < {number})"
+                : string.Empty;
+
+        private string GetNumberLessThanOrEqualToCondition(WhereClauseCriteria criteria) =>
+            int.TryParse(criteria.FieldValue, out var number)
+                ? $"({criteria.FieldName!} <= {number})"
                 : string.Empty;
 
         private string GetBoolEqualCondition(WhereClauseCriteria criteria) =>
             int.TryParse(criteria.FieldValue, out var boolean) && boolean >= 0
-                ? $"({criteria.FieldName!} == {Convert.ToBoolean(boolean)}) && "
+                ? $"({criteria.FieldName!} == {Convert.ToBoolean(boolean)})"
                 : string.Empty;
     }
 #pragma warning restore CA1822 // Mark members as static

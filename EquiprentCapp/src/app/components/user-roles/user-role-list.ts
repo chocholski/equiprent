@@ -5,9 +5,10 @@ import { Table } from 'primeng/table';
 import { PngTableColumn } from 'src/app/interfaces/png';
 import { UserRoleListItemModel, UserRoleListModel } from 'src/app/interfaces/user-role';
 import { FilterService } from 'src/app/services/filter.service';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { PngTableSearchQueryBuilder } from 'src/app/tools/png-table-search-query-builder';
-import { SearchOperatorEnum } from 'src/app/enums/searchOperatorEnum';
+import { SelectOptionsService } from 'src/app/services/select-options.service';
+import { FilterTypeEnum } from 'src/app/enums/filterTypeEnum';
 
 @Component({
   selector: "user-role-list",
@@ -18,21 +19,25 @@ export class UserRoleListComponent implements OnInit {
   cols: PngTableColumn[];
   tempLazyLoadEvent: LazyLoadEvent;
   totalRecords: number;
+  userRoleOptions: SelectItem[];
   userRoles: UserRoleListItemModel[];
 
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(public filterService: FilterService,
     private httpClient: HttpClient,
+    public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
   }
 
   ngOnInit(): void {
     this.cols = [
-      <PngTableColumn>{ field: 'Id', header: 'UserRole.Id', width: '10%' },
-      <PngTableColumn>{ field: 'Name', header: 'UserRole.Name', width: '70%' },
+      <PngTableColumn>{ field: 'Id', header: 'UserRole.Id', width: '10%', filterType: FilterTypeEnum.Numeric },
+      <PngTableColumn>{ field: 'Name', header: 'UserRole.Name', width: '70%', replaceWith: "Id" },
       <PngTableColumn>{ field: 'Actions', header: '', width: '20%' }
     ];
+
+    this.populateMultiSelects();
   }
 
   getData(event: LazyLoadEvent) {
@@ -54,5 +59,17 @@ export class UserRoleListComponent implements OnInit {
     setTimeout(() => {
       this.getData(event);
     }, 0);
+  }
+
+  populateMultiSelects() {
+    this.selectOptionsService.getUserRoles().subscribe(options => {
+      this.userRoleOptions = options;
+
+      const userRoleField = this.cols.find(c => c.field == "UserRoleName");
+
+      if (userRoleField) {
+        userRoleField.options = this.userRoleOptions;
+      }
+    });
   }
 }

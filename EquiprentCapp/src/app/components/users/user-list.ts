@@ -19,7 +19,6 @@ export class UserListComponent implements OnInit {
   tempLazyLoadEvent: LazyLoadEvent;
   totalRecords: number;
   userRoleOptions: SelectItem[];
-  userRoleSelected: SelectItem;
   users: UserListItemModel[];
 
   @ViewChild('dataTable') dataTable: Table;
@@ -32,12 +31,41 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
-      <PngTableColumn>{ field: 'Login', header: 'User.Login', width: '10%' },
-      <PngTableColumn>{ field: 'FirstName', header: 'User.FirstName', width: '20%' },
-      <PngTableColumn>{ field: 'LastName', header: 'User.LastName', width: '20%' },
-      <PngTableColumn>{ field: 'UserRoleName', header: 'User.UserRoleName', width: '20%', replaceWith: 'UserRoleId' },
-      <PngTableColumn>{ field: 'IsActive', header: 'User.IsActive', width: '10%' },
-      <PngTableColumn>{ field: 'Actions', header: '', width: '20%' }
+      <PngTableColumn>{
+        field: 'Login',
+        header: 'User.Login',
+        width: '10%',
+        applyGlobalFiltering: true
+      },
+      <PngTableColumn>{
+        field: 'FirstName',
+        header: 'User.FirstName',
+        width: '20%',
+        applyGlobalFiltering: true
+      },
+      <PngTableColumn>{
+        field: 'LastName',
+        header: 'User.LastName',
+        width: '20%',
+        applyGlobalFiltering: true
+      },
+      <PngTableColumn>{
+        field: 'UserRoleName',
+        header: 'User.UserRoleName',
+        width: '20%',
+        applyGlobalFiltering: true,
+        replaceWith: 'UserRoleId'
+      },
+      <PngTableColumn>{
+        field: 'IsActive',
+        header: 'User.IsActive',
+        width: '10%'
+      },
+      <PngTableColumn>{
+        field: 'Actions',
+        header: '',
+        width: '20%'
+      }
     ];
 
     this.populateMultiSelects();
@@ -64,9 +92,15 @@ export class UserListComponent implements OnInit {
     }, 0);
   }
 
-  private populateMultiSelects() {
+  populateMultiSelects() {
     this.selectOptionsService.getUserRoles().subscribe(options => {
       this.userRoleOptions = options;
+
+      const userRoleField = this.cols.find(c => c.field == "UserRoleName");
+
+      if (userRoleField) {
+        userRoleField.options = this.userRoleOptions;
+      }
     });
   }
 }

@@ -14,7 +14,7 @@
                 <span class="p-input-icon-right">
                   <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
                   <input type="text" pInputText #filter id="filter"
-                    (input)="filterService.onGlobalFilter(dataTable, cols, userRoles, $event)"
+                    (input)="filterService.onFilterGlobal(dataTable, filter.value)"
                     [placeholder]="translate.instant('General.SearchKeyword')" />
                 </span>
               </div>
@@ -26,12 +26,28 @@
             <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
               <div class="flex justify-content-between align-items-center">
                 {{ col.header | translate }}
-                <p-columnFilter *ngSwitchCase="'Id'" pInputText type="text"
+                <p-columnFilter *ngSwitchCase="'Id'" pInputText type="numeric"
                   [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu" field="Id">
                 </p-columnFilter>
-                <p-columnFilter *ngSwitchCase="'Name'" pInputText type="text"
+                <p-columnFilter *ngSwitchCase="'Name'"
                   [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
-                  field="Name">
+                  field="Name" matchMode="in" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
+                  <ng-template pTemplate="header">
+                    <div>
+                      <span class="font-bold">{{translate.instant('UserRole.UserRolePicker')}}</span>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                    <p-multiSelect [ngModel]="value" [options]="userRoleOptions"
+                      [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"
+                      (onChange)="filter($event.value)" optionLabel="label">
+                      <ng-template let-option pTemplate="item">
+                        <div class="p-multiselect-representative-option">
+                          <span class="ml-1">{{option.label}}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
                 </p-columnFilter>
               </div>
             </th>

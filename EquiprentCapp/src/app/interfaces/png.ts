@@ -1,10 +1,13 @@
-import { SearchOperatorEnum } from "../enums/searchOperatorEnum";
+import { SelectItem } from "primeng/api";
+import { FilterTypeEnum } from "../enums/filterTypeEnum";
 
-export interface PngTableColumn {
+export class PngTableColumn {
+  applyGlobalFiltering: boolean;
   field: string;
   filterMatchMode?: string;
   header: string;
-  operator: SearchOperatorEnum;
+  options?: SelectItem[];
   replaceWith?: string;
+  filterType: FilterTypeEnum = FilterTypeEnum.Text;
   width?: string;
 }

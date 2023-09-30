@@ -1,6 +1,19 @@
 {
     "AppName": "Equiprent",
     "primeng": {
+        "accept": "Accept",
+        "addRule": "Add rule",
+        "after": "After",
+        "apply": "Apply",
+        "before": "Before",
+        "cancel": "Cancel",
+        "choose": "Choose",
+        "contains": "Contains",
+        "clear": "Clear",
+        "dateIs": "Date is",
+        "dateIsAfter": "Date is after",
+        "dateIsBefore": "Date is before",
+        "dateIsNot": "Date is not",
         "dayNames": [
             "Sunday",
             "Monday",
@@ -28,6 +41,19 @@
             "Fr",
             "Sa"
         ],
+        "emptyFilterMessage": "No results found",
+        "emptyMessage": "No results found",
+        "endsWith": "Ends with",
+        "equals": "Equals",
+        "gt": "Greater than",
+        "gte": "Greater than or equal to",
+        "is": "Is",
+        "isNot": "Is not",
+        "lt": "Less than",
+        "lte": "Less than or equal to",
+        "matchAll": "Match all",
+        "matchAny": "Match any",
+        "medium": "Medium",
         "monthNames": [
             "January",
             "February",
@@ -56,8 +82,17 @@
             "Nov",
             "Dec"
         ],
-        "clear": "Clear",
+        "noFilter": "No filter",
+        "notContains": "Not contains",
+        "notEquals": "Not equals",
+        "passwordPrompt": "Enter a password",
+        "reject": "Reject",
+        "removeRule": "Remove rule",
+        "startsWith": "Starts with",
+        "strong": "Strong",
         "today": "Today",
+        "upload": "Upload",
+        "weak": "Weak",
         "weekHeader": "Wk"
     },
     "General": {
@@ -128,6 +163,7 @@
     },
     "UserRole": {
         "Id": "Id",
-        "Name": "Name"
+        "Name": "Name",
+        "UserRolePicker": "Role picker"
     }
 }
