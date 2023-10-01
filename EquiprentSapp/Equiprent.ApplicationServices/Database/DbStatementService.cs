@@ -1,4 +1,7 @@
 ﻿using Equiprent.ApplicationServices.Database.Models;
+using Equiprent.ApplicationServices.Database.Models.FilterTypes;
+using Equiprent.ApplicationServices.Database.Models.MatchModes;
+using Equiprent.ApplicationServices.Database.Models.SearchOperators;
 using Equiprent.Extensions;
 
 namespace Equiprent.ApplicationServices.Database

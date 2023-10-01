@@ -13,11 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.ApplicationServic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.Logic", "Equiprent.Logic\Equiprent.Logic.csproj", "{8B8F270C-1127-41A4-89CF-83F4BD63043F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalService", "Services\LocalService\LocalService.csproj", "{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.Sdk", "Equiprent.Sdk\Equiprent.Sdk.csproj", "{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Equiprent.Extensions", "Equiprent.Extensions\Equiprent.Extensions.csproj", "{813DF628-1223-41BC-A449-2F47A112E61B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Equiprent.Extensions", "Equiprent.Extensions\Equiprent.Extensions.csproj", "{813DF628-1223-41BC-A449-2F47A112E61B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,14 +41,6 @@ Global
 		{8B8F270C-1127-41A4-89CF-83F4BD63043F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B8F270C-1127-41A4-89CF-83F4BD63043F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B8F270C-1127-41A4-89CF-83F4BD63043F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BF3B724-CD1B-4FB9-9E1A-8AF0C176DDEC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83B079B2-F1E5-4A23-8A5E-A3C4BC13D85A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{813DF628-1223-41BC-A449-2F47A112E61B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{813DF628-1223-41BC-A449-2F47A112E61B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{813DF628-1223-41BC-A449-2F47A112E61B}.Release|Any CPU.ActiveCfg = Release|Any CPU

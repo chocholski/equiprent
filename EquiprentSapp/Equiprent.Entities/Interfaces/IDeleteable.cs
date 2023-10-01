@@ -2,8 +2,9 @@
 {
     public interface IDeleteable
     {
-        bool IsDeleted { get; set; }
         DateTime? DeletedOn { get; set; }
+
+        bool IsDeleted { get; set; }
 
         void Delete()
         {

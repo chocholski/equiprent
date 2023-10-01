@@ -2,7 +2,8 @@
 {
     public interface ICreateable
     {
-        DateTime CreatedOn { get; set; }
         Guid? CreatedById { get; set; }
+
+        DateTime CreatedOn { get; set; }
     }
 }

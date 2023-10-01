@@ -13,7 +13,7 @@ namespace Equiprent.Entities.Application
 
         public List<int> GetPermissionsIds()
         {
-            return UserPermissionToRoles.Select(x => x.UserPermissionId).ToList();
+            return UserPermissionToRoles.Select(permissionToRole => permissionToRole.UserPermissionId).ToList();
         }
     }
 }

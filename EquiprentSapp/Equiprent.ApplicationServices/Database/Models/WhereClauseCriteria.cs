@@ -1,4 +1,8 @@
-﻿namespace Equiprent.ApplicationServices.Database.Models
+﻿using Equiprent.ApplicationServices.Database.Models.FilterTypes;
+using Equiprent.ApplicationServices.Database.Models.MatchModes;
+using Equiprent.ApplicationServices.Database.Models.SearchOperators;
+
+namespace Equiprent.ApplicationServices.Database.Models
 {
     public class WhereClauseCriteria
     {

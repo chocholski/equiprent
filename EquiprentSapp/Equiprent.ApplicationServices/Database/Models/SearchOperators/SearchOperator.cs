@@ -1,4 +1,4 @@
-﻿namespace Equiprent.ApplicationServices.Database.Models
+﻿namespace Equiprent.ApplicationServices.Database.Models.SearchOperators
 {
     public static class SearchOperator
     {

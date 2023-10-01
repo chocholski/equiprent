@@ -1,4 +1,4 @@
-﻿namespace Equiprent.ApplicationServices.Database.Models
+﻿namespace Equiprent.ApplicationServices.Database.Models.MatchModes
 {
     public enum MatchModeEnum
     {

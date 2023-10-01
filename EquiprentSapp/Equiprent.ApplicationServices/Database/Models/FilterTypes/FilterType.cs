@@ -1,4 +1,4 @@
-﻿namespace Equiprent.ApplicationServices.Database.Models
+﻿namespace Equiprent.ApplicationServices.Database.Models.FilterTypes
 {
     public static class FilterType
     {

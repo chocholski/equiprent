@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Attributes;
+﻿using System.Linq;
 using System.Reflection;
 
 namespace Equiprent.Entities.Interfaces
@@ -13,43 +13,25 @@ namespace Equiprent.Entities.Interfaces
     {
         public static int GetTranslatedEntityId(this ILanguageable languageableEntity)
         {
-            PropertyInfo[] properties = languageableEntity.GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
-            {
-                object[] attributes = property.GetCustomAttributes(true);
-                foreach (object attribute in attributes)
-                {
-                    if (attribute is TranslatedEntityAttribute)
-                    {
-                        return Convert.ToInt32(property.GetValue(languageableEntity) ?? -1);
-                    }
-                }
-            }
-
-            return -1;
+            return languageableEntity
+                .GetType()
+                .GetProperties()
+                .Where(p => p.GetCustomAttribute<TranslatedEntityAttribute>(inherit: true) != null)
+                .Select(p => int.TryParse(p.GetValue(languageableEntity)?.ToString(), out var translatedEntityId) ? translatedEntityId : (int?)null)
+                .SingleOrDefault()
+                ??
+                -1;
         }
 
         public static object? GetTranslatedEntity(this ILanguageable languageableEntity)
         {
-            PropertyInfo[] properties = languageableEntity.GetType().GetProperties();
-            foreach (PropertyInfo property in properties)
-            {
-                object[] attributes = property.GetCustomAttributes(true);
-                foreach (object attribute in attributes)
-                {
-                    if (attribute is TranslatedEntityAttribute translatedEntityAttribute)
-                    {
-                        var translatedEntityProperty = languageableEntity.GetType().GetProperty(translatedEntityAttribute.TranslatedEntityPropertyName);
-
-                        if (translatedEntityProperty != null)
-                        {
-                            return translatedEntityProperty.GetValue(languageableEntity) ?? null;
-                        }
-                    }
-                }
-            }
-
-            return null;
+            return languageableEntity
+                .GetType()
+                .GetProperties()
+                .Select(p => p.GetCustomAttribute<TranslatedEntityAttribute>(inherit: true))
+                .Where(a => a != null)
+                .Select(a => languageableEntity.GetType().GetProperty(a!.TranslatedEntityPropertyName)?.GetValue(languageableEntity))
+                .SingleOrDefault();
         }
     }
 }

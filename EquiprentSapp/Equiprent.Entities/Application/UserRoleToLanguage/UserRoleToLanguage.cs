@@ -8,8 +8,8 @@
         [MaxLength(50)]
         public string Name { get; set; } = null!;
 
-        [ForeignKey("UserRole")]
-        [TranslatedEntity("UserRole")]
+        [ForeignKey(nameof(UserRole))]
+        [TranslatedEntity(nameof(UserRole))]
         public int UserRoleId { get; set; }
         public virtual UserRole UserRole { get; set; } = null!;
     }
