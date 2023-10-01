@@ -7,6 +7,7 @@ import { Observable, of } from "rxjs";
 import { map, catchError } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import { TokenResponse } from '../interfaces/identity';
+import { ApiRoutes } from '../api-routes';
 
 @Injectable()
 export class AuthenticationService {
@@ -37,7 +38,6 @@ export class AuthenticationService {
 
     // performs the login
     login(authData: SignInModel): Observable<string> {
-        const url = "identity/authenticate";
         const data = {
             UserName: authData.Login,
             Password: authData.Password,
@@ -48,7 +48,7 @@ export class AuthenticationService {
         };
 
         return this.httpClient
-            .post<TokenResponse>(url, data)
+            .post<TokenResponse>(ApiRoutes.identity.authenticate, data)
             .pipe(
                 map(res => {
                     const token = res && res.Token;
@@ -84,7 +84,6 @@ export class AuthenticationService {
     }
 
     refreshToken(): Observable<string> {
-        const url = "identity/refreshToken";
         const tokenData = JSON.parse(localStorage.getItem(environment.auth_key) || '') as TokenResponse;
 
         const data = {
@@ -93,7 +92,7 @@ export class AuthenticationService {
         };
 
         return this.httpClient
-            .post<TokenResponse>(url, data)
+            .post<TokenResponse>(ApiRoutes.identity.refreshToken, data)
             .pipe(
                 map(res => {
                     this.setAuth(res);

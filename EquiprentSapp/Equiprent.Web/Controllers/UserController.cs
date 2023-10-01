@@ -13,6 +13,7 @@ using Equiprent.Logic.Queries.Users.Requests;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using Equiprent.Logic.Queries.Users.Responses.UserById;
 using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
+using Equiprent.Web.Contracts;
 
 namespace Equiprent.Web.Controllers
 {
@@ -52,7 +53,7 @@ namespace Equiprent.Web.Controllers
             return result is not null ? Ok(result) : NotFound();
         }
 
-        [HttpGet("getlanguage/{userId}")]
+        [HttpGet($"{ApiRoutes.User.GetLanguage}/{{userId}}")]
         public async Task<IActionResult> GetUserLanguageById(Guid userId)
         {
             var parameters = new GetUserLanguageByIdRequest(userId);
@@ -79,7 +80,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [HttpPut("changepassword")]
+        [HttpPut(ApiRoutes.User.ChangePassword)]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
@@ -87,7 +88,7 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [HttpPut("changelanguage")]
+        [HttpPut(ApiRoutes.User.ChangeLanguage)]
         public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
@@ -96,7 +97,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
-        [HttpPost("changerole")]
+        [HttpPost(ApiRoutes.User.ChangeRole)]
         public async Task<IActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);

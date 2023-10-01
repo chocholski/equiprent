@@ -5,9 +5,9 @@ import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
 import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { PngTableSearchQueryBuilder } from 'src/app/tools/png-table-search-query-builder';
 import { FilterService } from '../../services/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
+import { ApiRoutes } from 'src/app/api-routes';
 
 @Component({
   selector: "user-list",
@@ -77,7 +77,7 @@ export class UserListComponent implements OnInit {
     }
 
     this.httpClient
-      .get<UserListModel>(`user${new PngTableSearchQueryBuilder(event, this.cols).create()}`)
+      .get<UserListModel>(ApiRoutes.user.getAll(event, this.cols))
       .subscribe(result => {
         this.totalRecords = result.TotalRowsCount;
         this.users = result.List;

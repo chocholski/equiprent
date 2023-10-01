@@ -12,6 +12,7 @@ import { AppSidebarComponent } from './app.sidebar.component';
 import { AuthorizationService } from '../services/authorization.service';
 import { UserChangeLanguageModel } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
+import { ApiRoutes } from '../api-routes';
 
 @Component({
     selector: 'app-topbar',
@@ -80,7 +81,7 @@ export class AppTopBarComponent {
         model.LanguageId = this.languageId;
 
         this.httpClient
-            .put<string>(`user/changelanguage`, model)
+            .put<string>(ApiRoutes.user.changeLanguage, model)
             .subscribe(
                 result => {
                     if (result == "OK") {

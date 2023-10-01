@@ -4,6 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { Observable, catchError, map } from "rxjs";
 import { SelectOption } from "../interfaces/ui-models";
+import { ApiRoutes } from "../api-routes";
 
 @Injectable()
 export class SelectOptionsService {
@@ -12,15 +13,15 @@ export class SelectOptionsService {
   }
 
   getLanguages(): Observable<SelectItem[]> {
-    return this.getOptions("selectoptions/languagesselectoptions", false);
+    return this.getOptions(ApiRoutes.selectOptions.languages, false);
   }
 
   getUserRoles(): Observable<SelectItem[]> {
-    return this.getOptions("selectoptions/userrolesselectoptions", false);
+    return this.getOptions(ApiRoutes.selectOptions.userRoles, false);
   }
 
   getYesNoOptions(): Observable<SelectItem[]> {
-    return this.getOptions("selectoptions/yesnoselectoptions", true);
+    return this.getOptions(ApiRoutes.selectOptions.yesNoOptions, true);
   }
 
   private getOptions(url: string, insertAllOption: boolean): Observable<SelectItem[]> {

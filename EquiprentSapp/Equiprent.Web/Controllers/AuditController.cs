@@ -5,6 +5,7 @@ using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Entities.Enums;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
 using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;
+using Equiprent.Web.Contracts;
 
 namespace Equiprent.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(result);
         }
 
-        [HttpGet("getfieldnames")]
+        [HttpGet(ApiRoutes.Audit.GetFieldNames)]
         public async Task<ActionResult> GetFieldNames(string entityId, string entityTableName)
         {
             var request = new GetFieldNamesRequest(entityId, entityTableName);

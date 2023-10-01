@@ -3,6 +3,7 @@ using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Entities.Application;
 using Equiprent.Entities.Enums;
 using Equiprent.Data.DbContext;
+using Equiprent.Web.Contracts;
 
 namespace Equiprent.Web.Controllers
 {
@@ -15,8 +16,25 @@ namespace Equiprent.Web.Controllers
             _languageableService = languageableService;
         }
 
+        [HttpGet(ApiRoutes.SelectOptions.Languages)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptions()
+        {
+            var languages = await _dbContext!.Languages
+                .ToListAsync();
+
+            var model = languages
+                .Select(language => new SelectListItemModel
+                {
+                    Value = language.Id,
+                    Name = language.Name
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
-        [HttpGet("userrolesselectoptions")]
+        [HttpGet(ApiRoutes.SelectOptions.UserRoles)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptions()
         {
             var userRolesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>();
@@ -32,7 +50,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
-        [HttpGet("yesnoselectoptions")]
+        [HttpGet(ApiRoutes.SelectOptions.YesNoOptions)]
         public ActionResult<IEnumerable<SelectListItemModel>> GetYesNoSelectOptions()
         {
             var model = new List<SelectListItemModel>
@@ -40,24 +58,6 @@ namespace Equiprent.Web.Controllers
                 new SelectListItemModel { Value = 0, Name = "Nie" },
                 new SelectListItemModel { Value = 1, Name = "Tak" }
             };
-
-            return new JsonResult(model, new JsonSerializerSettings { });
-        }
-
-        
-        [HttpGet("languagesselectoptions")]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptions()
-        {
-            var languages = await _dbContext!.Languages
-                .ToListAsync();
-
-            var model = languages
-                .Select(language => new SelectListItemModel
-                {
-                    Value = language.Id,
-                    Name = language.Name
-                })
-                .ToList();
 
             return new JsonResult(model, new JsonSerializerSettings { });
         }

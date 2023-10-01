@@ -10,6 +10,7 @@ using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
 using Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById;
 using Equiprent.Logic.Queries.UserRoles.Responses.UserRolePermissionsForCreation;
+using Equiprent.Web.Contracts;
 
 namespace Equiprent.Web.Controllers
 {
@@ -49,8 +50,8 @@ namespace Equiprent.Web.Controllers
             return result is not null ? Ok(result) : NotFound();
         }
 
-        [HttpGet("getUserPermissionsForRoleCreation")]
-        public async Task<IActionResult> GetUserPermissionsForUserRoleCreation(int id)
+        [HttpGet(ApiRoutes.UserRole.GetUserRolePermissionsForCreation)]
+        public async Task<IActionResult> GetUserRolePermissionsForCreation()
         {
             var parameters = new GetUserRolePermissionsForCreationRequest();
             var result = await _queryDispatcher.SendQueryAsync<GetUserRolePermissionsForCreationRequest, UserRolePermissionsForCreationResponse>(parameters);

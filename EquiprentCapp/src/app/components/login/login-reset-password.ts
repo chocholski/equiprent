@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
+import { ApiRoutes } from 'src/app/api-routes';
 import { ResetPasswordModel } from 'src/app/interfaces/authentication';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
 
@@ -52,7 +53,7 @@ export class LoginResetPasswordComponent implements OnInit {
     };
 
     //[TODO]
-    // this.http.put<string>(`identity/resetpassword`, model).subscribe(result => {
+    // this.http.put<string>(ApiRoutes.identity.resetPassword, model).subscribe(result => {
     //   if (result == "OK") {
     //     this.messageService.add({ key: 'tst', severity: 'success', summary: this.translate.instant("Messages.EmailWithPasswordResetInstructionsSent") });
     //   }

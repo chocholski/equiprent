@@ -9,6 +9,7 @@ import { LazyLoadEvent, SelectItem } from 'primeng/api';
 import { PngTableSearchQueryBuilder } from 'src/app/tools/png-table-search-query-builder';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { FilterTypeEnum } from 'src/app/enums/filterTypeEnum';
+import { ApiRoutes } from 'src/app/api-routes';
 
 @Component({
   selector: "user-role-list",
@@ -46,7 +47,7 @@ export class UserRoleListComponent implements OnInit {
     }
 
     this.httpClient
-      .get<UserRoleListModel>(`userRole${new PngTableSearchQueryBuilder(event, this.cols).create()}`)
+      .get<UserRoleListModel>(ApiRoutes.userRole.getAll(event, this.cols))
       .subscribe(result => {
         this.totalRecords = result.TotalRowsCount;
         this.userRoles = result.List;
