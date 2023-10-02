@@ -136,6 +136,9 @@
         "CantChangeUserPassword": "Nie można zmienić hasła użytkownika.",
         "EnterEmailFirst": "Proszę wprowadzić email.",
         "EnterLoginFirst": "Proszę wprowadzić login.",
+        "FieldInvalid": "Pole ma niepoprawną wartość.",
+        "FieldMustContainCharacters": "Pole musi zawierać {{numberOfCharacters}} znaków, min. jeden znak specjalny oraz liczbę.",
+        "FieldRequired": "Pole jest wymagane.",
         "InvalidLoginData": "Nieprawidłowe dane logowania.",
         "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
         "ProvidedEmailDoesNotExist": "Podany email nie istnieje."
@@ -150,6 +153,7 @@
         "Plural": "Języki"
     },
     "User": {
+        "CreatedOn": "Data utworzenia",
         "Email": "Email",
         "FirstName": "Imię",
         "IsActive": "Aktywny",
@@ -158,6 +162,8 @@
         "Password": "Hasło",
         "PasswordChange": "Zmiana hasła",
         "Plural": "Użytkownicy",
+        "SelectUserRole": "Wybierz rolę",
+        "UserRole": "Rola",
         "UserRoleName": "Rola",
         "UserRolePicker": "Wybór roli"
     },

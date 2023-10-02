@@ -136,6 +136,9 @@
         "CantChangeUserPassword": "Cannot change user password.",
         "EnterEmailFirst": "Please enter email first.",
         "EnterLoginFirst": "Please enter login first.",
+        "FieldInvalid": "Field has an invalid value.",
+        "FieldMustContainCharacters": "Field must contain {{numberOfCharacters}} characters, min. one special character and number.",
+        "FieldRequired": "The field is required.",
         "InvalidLoginData": "Invalid login data.",
         "PleaseContactAdmin": "Please contact the administrator of the application.",
         "ProvidedEmailDoesNotExist": "The email provided does not exist."
@@ -150,6 +153,7 @@
         "Plural": "Languages"
     },
     "User": {
+        "CreatedOn": "Creation date",
         "Email": "Email",
         "FirstName": "First name",
         "IsActive": "Is active",
@@ -158,6 +162,8 @@
         "Password": "Password",
         "PasswordChange": "Password change",
         "Plural": "Users",
+        "SelectUserRole": "Select user role",
+        "UserRole": "Role",
         "UserRoleName": "Role",
         "UserRolePicker": "Role picker"
     },

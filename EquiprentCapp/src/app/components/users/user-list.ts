@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FilterService } from '../../services/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { ApiRoutes } from 'src/app/api-routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "user-list",
@@ -25,6 +26,7 @@ export class UserListComponent implements OnInit {
 
   constructor(public filterService: FilterService,
     private httpClient: HttpClient,
+    private router: Router,
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
   }
@@ -90,6 +92,10 @@ export class UserListComponent implements OnInit {
     setTimeout(() => {
       this.getData(event);
     }, 0);
+  }
+
+  onEdit(user: UserListItemModel) {
+    this.router.navigate([`home/users/edit/${user.Id}`]);
   }
 
   populateMultiSelects() {

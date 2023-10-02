@@ -82,8 +82,9 @@
             <td>
               <input type="checkbox" [checked]="user.IsActive" disabled />
             </td>
-            <td>
-              <!-- [TODO] Actions -->
+            <td class="items-centered">
+              <button pButton pRipple class="col-12 col:md-12" type="button" class=""
+                [label]="translate.instant('General.Edit')" class="p-button-raised" (click)="onEdit(user)"></button>
             </td>
           </tr>
         </ng-template>

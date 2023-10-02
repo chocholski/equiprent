@@ -29,6 +29,7 @@ import { FilterService } from './services/filter.service';
 //Components
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
+import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
@@ -36,12 +37,15 @@ import { UserRoleListComponent } from './components/user-roles/user-role-list';
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DropdownModule } from 'primeng/dropdown';
+import { MessageModule } from 'primeng/message';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
+import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 
 registerLocaleData(localePl, 'pl');
@@ -55,6 +59,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[start] custom components
         LoginComponent,
         LoginResetPasswordComponent,
+        UserDetailsComponent,
         UserListComponent,
         UserRoleListComponent
         //[end] custom components
@@ -85,11 +90,14 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[start] primeng Modules
         ButtonModule,
         CheckboxModule,
+        DropdownModule,
+        MessageModule,
         MultiSelectModule,
         PanelMenuModule,
         PasswordModule,
         SplitButtonModule,
         TableModule,
+        TabViewModule,
         ToastModule,
         //[end] primeng Modules
     ],
