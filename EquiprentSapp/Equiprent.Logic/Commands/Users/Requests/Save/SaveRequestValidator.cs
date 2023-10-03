@@ -6,12 +6,6 @@ namespace Equiprent.Logic.Commands.Users.Requests.Save
     {
         public SaveRequestValidator() 
         {
-            RuleFor(r => r.Login)
-                .NotEmpty();
-
-            RuleFor(r => r.Password)
-                .NotEmpty();
-
             RuleFor(r => r.FirstName)
                 .NotEmpty();
 

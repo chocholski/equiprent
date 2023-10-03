@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { SelectItem } from "primeng/api";
+import { Message, MessageService, SelectItem } from "primeng/api";
 import { ApiRoutes } from "src/app/api-routes";
 import { UserPermissionEnum } from "src/app/enums/userPermissionEnum";
 import { UserDetailsModel } from "src/app/interfaces/user";
@@ -12,34 +12,36 @@ import { SelectOptionsService } from "src/app/services/select-options.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { FormValidator } from "src/app/ui-controls/form-validator";
+import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
 
 @Component({
   selector: "user-details",
   templateUrl: "./user-details.html"
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent
+  extends ButtonAccessComponent
+  implements OnInit {
 
-  form: FormGroup;
-  formValidator: FormValidator;
-  isDisabled: boolean;
   user: UserDetailsModel;
   userId: string;
-  userRoles: SelectItem[];
-  selectedUserRole: SelectItem;
+  userRoles: SelectItem<number>[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private buttonAccessService: ButtonAccessService,
+    protected override buttonAccessService: ButtonAccessService,
     private formBuilder: FormBuilder,
     private httpClient: HttpClient,
+    private messageService: MessageService,
+    private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
+
+    super(buttonAccessService, [UserPermissionEnum.Users_CanModify]);
 
     this.userId = this.activatedRoute.snapshot.params["id"];
     this.isDisabled = true;
     this.createForm();
     this.formValidator = new FormValidator(this.form);
-    this.buttonAccessService.assignPermissions([UserPermissionEnum.Users_CanModify]);
     this.loadUser();
   }
 
@@ -68,7 +70,7 @@ export class UserDetailsComponent implements OnInit {
       .get<UserDetailsModel>(ApiRoutes.user.getById(this.userId))
       .subscribe(result => {
         this.user = result;
-        this.buttonAccessService.setAccess(this.form, this.isDisabled);
+        this.setAccess();
 
         this.updateForm();
 
@@ -76,6 +78,46 @@ export class UserDetailsComponent implements OnInit {
           this.formValidator.updateAllControlsToTouched();
         }
       })
+  }
+
+  onBack() {
+    this.router.navigate(['home/users']);
+  }
+
+  onSubmit() {
+    this.isExecuting = true;
+
+    const user = <UserDetailsModel>{
+      Email: this.form.value.Email,
+      FirstName: this.form.value.FirstName,
+      Id: this.user.Id,
+      LastName: this.form.value.LastName,
+      UserRoleId: this.form.value.UserRoleId
+    };
+
+    if (this.form.value.Password.length > 0) {
+      user.Password = this.form.value.Password;
+    }
+
+    this.httpClient
+      .put<string>(ApiRoutes.user.put, user)
+      .subscribe(
+        {
+          next: result => {
+            if (result == "OK") {
+              this.router.navigate(['home/users']);
+              this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Updated'), life: 5000 });
+            }
+
+            this.isExecuting = false;
+
+            console.log(`User has been updated with result: ${result}`);
+          },
+          error: e => {
+            this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error'), life: 2000 });
+            this.isExecuting = false
+          }
+        });
   }
 
   private populateDropdowns() {

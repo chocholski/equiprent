@@ -131,6 +131,15 @@
         "Welcome": "Welcome",
         "Yes": "Yes"
     },
+    "Language": {
+        "Plural": "Languages"
+    },
+    "Menu": {
+        "Administration": "Administration",
+        "Title": "Menu",
+        "UserRoles": "Roles",
+        "Users": "Users"
+    },
     "Messages": {
         "AccountIsNotActive": "The account is not active.",
         "CantChangeUserPassword": "Cannot change user password.",
@@ -143,15 +152,6 @@
         "PleaseContactAdmin": "Please contact the administrator of the application.",
         "ProvidedEmailDoesNotExist": "The email provided does not exist."
     },
-    "Menu": {
-        "Administration": "Administration",
-        "Title": "Menu",
-        "UserRoles": "Roles",
-        "Users": "Users"
-    },
-    "Language": {
-        "Plural": "Languages"
-    },
     "User": {
         "CreatedOn": "Creation date",
         "Email": "Email",
@@ -163,6 +163,7 @@
         "PasswordChange": "Password change",
         "Plural": "Users",
         "SelectUserRole": "Select user role",
+        "Updated": "The user has been updated.",
         "UserRole": "Role",
         "UserRoleName": "Role",
         "UserRolePicker": "Role picker"

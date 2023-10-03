@@ -17,6 +17,7 @@ import { AppFooterComponent } from './app.footer.component';
 import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
+import { MessagesModule } from 'primeng/messages';
 
 //primeng
 import { SplitButtonModule } from 'primeng/splitbutton';
@@ -46,7 +47,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
         AppConfigModule,
         //primeng
         SplitButtonModule,
-        PanelMenuModule
+        PanelMenuModule,
+        MessagesModule
     ],
     exports: [AppLayoutComponent]
 })

@@ -131,6 +131,15 @@
         "Welcome": "Witaj",
         "Yes": "Tak"
     },
+    "Language": {
+        "Plural": "Języki"
+    },
+    "Menu": {
+        "Administration": "Administracja",
+        "Title": "Menu",
+        "UserRoles": "Role",
+        "Users": "Użytkownicy"
+    },
     "Messages": {
         "AccountIsNotActive": "Konto nieaktywne.",
         "CantChangeUserPassword": "Nie można zmienić hasła użytkownika.",
@@ -143,15 +152,6 @@
         "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
         "ProvidedEmailDoesNotExist": "Podany email nie istnieje."
     },
-    "Menu": {
-        "Administration": "Administracja",
-        "Title": "Menu",
-        "UserRoles": "Role",
-        "Users": "Użytkownicy"
-    },
-    "Language": {
-        "Plural": "Języki"
-    },
     "User": {
         "CreatedOn": "Data utworzenia",
         "Email": "Email",
@@ -163,6 +163,7 @@
         "PasswordChange": "Zmiana hasła",
         "Plural": "Użytkownicy",
         "SelectUserRole": "Wybierz rolę",
+        "Updated": "Użytkownik został zaktualizowany.",
         "UserRole": "Rola",
         "UserRoleName": "Rola",
         "UserRolePicker": "Wybór roli"

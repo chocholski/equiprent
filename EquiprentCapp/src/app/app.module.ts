@@ -39,6 +39,7 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelMenuModule } from 'primeng/panelmenu';
@@ -92,6 +93,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         CheckboxModule,
         DropdownModule,
         MessageModule,
+        MessagesModule,
         MultiSelectModule,
         PanelMenuModule,
         PasswordModule,

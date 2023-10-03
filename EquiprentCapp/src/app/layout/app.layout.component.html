@@ -4,8 +4,11 @@
         <app-sidebar #appSidebar></app-sidebar>
     </div>
     <div class="layout-main-container">
-        <div class="layout-main">
+        <div class="layout-main" style="width: 100%;">
             <router-outlet></router-outlet>
+        </div>
+        <div class="col-12 mb-2">
+            <p-messages [style]="{ 'position': 'absolute', 'right': 0, 'width': '20%' }"></p-messages>
         </div>
         <app-footer></app-footer>
     </div>

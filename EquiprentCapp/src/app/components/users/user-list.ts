@@ -94,6 +94,10 @@ export class UserListComponent implements OnInit {
     }, 0);
   }
 
+  onCreate() {
+    this.router.navigate(['home/users/create']);
+  }
+
   onEdit(user: UserListItemModel) {
     this.router.navigate([`home/users/edit/${user.Id}`]);
   }

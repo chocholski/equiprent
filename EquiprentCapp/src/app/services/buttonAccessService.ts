@@ -37,15 +37,4 @@ export class ButtonAccessService {
 
     return this.translate.instant(label);
   }
-
-  setAccess(form: FormGroup, isDisabled: boolean) {
-    if (this.hasAccessToButtons) {
-      form.enable();
-    }
-    else {
-      form.disable();
-    }
-
-    isDisabled = !this.hasAccessToButtons;
-  }
 }
