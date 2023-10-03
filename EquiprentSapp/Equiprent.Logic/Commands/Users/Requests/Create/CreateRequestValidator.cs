@@ -6,6 +6,23 @@ namespace Equiprent.Logic.Commands.Users.Requests.Create
     {
         public CreateRequestValidator() 
         {
+            RuleFor(r => r.Email)
+                .EmailAddress()
+                    .When(r => !string.IsNullOrEmpty(r.Email));
+
+            RuleFor(r => r.FirstName)
+                .NotEmpty()
+                .Length(1, 200)
+                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
+
+            RuleFor(r => r.LanguageId)
+                .NotEmpty();
+
+            RuleFor(r => r.LastName)
+                .NotEmpty()
+                .Length(1, 200)
+                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
+
             RuleFor(r => r.Login)
                 .NotEmpty()
                 .Matches("[a-z]+");
@@ -14,18 +31,8 @@ namespace Equiprent.Logic.Commands.Users.Requests.Create
                 .NotEmpty()
                 .Length(8, 100);
 
-            RuleFor(r => r.FirstName)
-                .NotEmpty()
-                .Length(1, 200)
-                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
-
-            RuleFor(r => r.LastName)
-                .NotEmpty()
-                .Length(1, 200)
-                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
-
-            RuleFor(r => r.Email)
-                .EmailAddress();
+            RuleFor(r => r.UserRoleId)
+                .NotEmpty();
         }
     }
 }

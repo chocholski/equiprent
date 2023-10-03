@@ -26,6 +26,12 @@ namespace Equiprent.Logic.Commands.Users.Handlers
 
         public async Task<CommandResult> HandleAsync(CreateRequest request)
         {
+            var loginExists = await _dbContext.Users
+                .AnyAsync(u => u.Login == request.Login);
+
+            if (loginExists)
+                return CommandResult.User_LoginExists;
+
             var user = new User
             {
                 Login = request.Login,

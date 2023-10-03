@@ -153,15 +153,18 @@
         "ProvidedEmailDoesNotExist": "The email provided does not exist."
     },
     "User": {
+        "Created": "The user has been created.",
         "CreatedOn": "Creation date",
         "Email": "Email",
         "FirstName": "First name",
         "IsActive": "Is active",
+        "Language": "Language",
         "LastName": "Last name",
         "Login": "Login",
         "Password": "Password",
         "PasswordChange": "Password change",
         "Plural": "Users",
+        "SelectLanguage": "Select language",
         "SelectUserRole": "Select user role",
         "Updated": "The user has been updated.",
         "UserRole": "Role",

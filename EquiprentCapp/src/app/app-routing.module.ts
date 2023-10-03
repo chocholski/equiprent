@@ -8,6 +8,7 @@ import { LoginResetPasswordComponent } from './components/login/login-reset-pass
 import { AuthGuard } from './services/auth-guard.service';
 import { UserPermissionEnum } from './enums/userPermissionEnum';
 import { UserDetailsComponent } from './components/users/user-details';
+import { UserCreationComponent } from './components/users/user-create';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { UserDetailsComponent } from './components/users/user-details';
                 path: 'home', component: AppLayoutComponent,
                 children: [
                     { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanList] } },
+                    { path: "users/create", component: UserCreationComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanModify] } },
                     { path: "users/edit/:id", component: UserDetailsComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanModify] } },
                     { path: 'administration/user-roles', component: UserRoleListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.UserRoles_CanList] } }
                 ]

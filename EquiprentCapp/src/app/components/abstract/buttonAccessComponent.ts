@@ -1,13 +1,15 @@
 import { ButtonAccessService } from "src/app/services/buttonAccessService";
 import { FormComponent } from "./formComponent";
+import { FormBuilder } from "@angular/forms";
 
 export abstract class ButtonAccessComponent extends FormComponent {
 
   constructor(
     protected buttonAccessService: ButtonAccessService,
+    protected override formBuilder: FormBuilder,
     public userPermissions: number[]) {
 
-    super();
+    super(formBuilder);
     this.buttonAccessService.assignPermissions(userPermissions);
   }
 

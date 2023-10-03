@@ -28,8 +28,8 @@ export class AuthInterceptor implements HttpInterceptor {
         }
 
         return next.handle(request).pipe(
-            catchError((error: HttpErrorResponse) => {
-                if (error.status === 401 && !this.isRefreshingToken) {
+            catchError((errorResponse: HttpErrorResponse) => {
+                if (errorResponse.status === 401 && !this.isRefreshingToken) {
                     this.isRefreshingToken = true;
 
                     console.log("refreshing token...");
@@ -45,16 +45,16 @@ export class AuthInterceptor implements HttpInterceptor {
                             return tap(() => "OK");
                         }
                         else {
-                            console.error(error);
+                            console.error(errorResponse);
 
-                            return throwError(error.message);
+                            return throwError(() => errorResponse.error);
                         }
                     });
                 }
 
-                console.error(error);
+                console.error(errorResponse);
 
-                return throwError(error.message);
+                return throwError(() => errorResponse.error);
             })
         );
     }

@@ -3,6 +3,17 @@ export class UserChangeLanguageModel {
   LanguageId: number;
 }
 
+export class UserCreationModel {
+  Email?: string;
+  FirstName: string;
+  IsActive: boolean;
+  LanguageId: number;
+  LastName: string;
+  Login: string;
+  Password: string;
+  UserRoleId: number;
+}
+
 export class UserDetailsModel {
   CreatedById?: string;
   CreatedOn?: string;

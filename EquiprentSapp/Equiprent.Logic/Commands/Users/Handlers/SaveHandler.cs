@@ -36,6 +36,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
 
             user.Email = request.Email;
             user.FirstName = request.FirstName;
+            user.IsActive = request.IsActive;
             user.LastName = request.LastName;
             user.UserRoleId = request.UserRoleId;
 

@@ -29,6 +29,7 @@ import { FilterService } from './services/filter.service';
 //Components
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
+import { UserCreationComponent } from './components/users/user-create';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
@@ -60,6 +61,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[start] custom components
         LoginComponent,
         LoginResetPasswordComponent,
+        UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,
         UserRoleListComponent

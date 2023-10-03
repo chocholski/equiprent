@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Message, MessageService, SelectItem } from "primeng/api";
@@ -11,7 +11,6 @@ import { ButtonAccessService } from "src/app/services/buttonAccessService";
 import { SelectOptionsService } from "src/app/services/select-options.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
-import { FormValidator } from "src/app/ui-controls/form-validator";
 import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
 
 @Component({
@@ -29,28 +28,18 @@ export class UserDetailsComponent
   constructor(
     private activatedRoute: ActivatedRoute,
     protected override buttonAccessService: ButtonAccessService,
-    private formBuilder: FormBuilder,
+    protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private messageService: MessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
 
-    super(buttonAccessService, [UserPermissionEnum.Users_CanModify]);
+    super(buttonAccessService, formBuilder, [UserPermissionEnum.Users_CanModify]);
 
     this.userId = this.activatedRoute.snapshot.params["id"];
     this.isDisabled = true;
-    this.createForm();
-    this.formValidator = new FormValidator(this.form);
-    this.loadUser();
-  }
-
-  ngOnInit() {
-    this.populateDropdowns();
-  }
-
-  private createForm() {
-    this.form = this.formBuilder.group({
+    this.createForm({
       CreatedOn: [{ value: '', disabled: true }],
       Email: ['', Validators.pattern(RegexPatterns.emailPattern)],
       FirstName: ['', Validators.required],
@@ -60,6 +49,11 @@ export class UserDetailsComponent
       UserRoleId: null,
       Password: ['', Validators.pattern(RegexPatterns.passwordPattern)]
     });
+    this.loadUser();
+  }
+
+  ngOnInit() {
+    this.populateDropdowns();
   }
 
   private loadUser() {
@@ -91,6 +85,7 @@ export class UserDetailsComponent
       Email: this.form.value.Email,
       FirstName: this.form.value.FirstName,
       Id: this.user.Id,
+      IsActive: this.form.value.IsActive,
       LastName: this.form.value.LastName,
       UserRoleId: this.form.value.UserRoleId
     };
@@ -115,7 +110,7 @@ export class UserDetailsComponent
           },
           error: e => {
             this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error'), life: 2000 });
-            this.isExecuting = false
+            this.isExecuting = false;
           }
         });
   }
