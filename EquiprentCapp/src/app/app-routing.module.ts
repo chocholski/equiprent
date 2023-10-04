@@ -18,7 +18,7 @@ import { UserCreationComponent } from './components/users/user-create';
                 children: [
                     { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanList] } },
                     { path: "users/create", component: UserCreationComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanModify] } },
-                    { path: "users/edit/:id", component: UserDetailsComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanModify] } },
+                    { path: "users/edit/:id", component: UserDetailsComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanList] } },
                     { path: 'administration/user-roles', component: UserRoleListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.UserRoles_CanList] } }
                 ]
             },

@@ -13,7 +13,7 @@ namespace Equiprent.Logic.Commands.Users.Requests.Create
             RuleFor(r => r.FirstName)
                 .NotEmpty()
                 .Length(1, 200)
-                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
+                .Matches(RegexPatterns.NamePattern);
 
             RuleFor(r => r.LanguageId)
                 .NotEmpty();
@@ -21,7 +21,7 @@ namespace Equiprent.Logic.Commands.Users.Requests.Create
             RuleFor(r => r.LastName)
                 .NotEmpty()
                 .Length(1, 200)
-                .Matches("[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð]+");
+                .Matches(RegexPatterns.NamePattern);
 
             RuleFor(r => r.Login)
                 .NotEmpty()

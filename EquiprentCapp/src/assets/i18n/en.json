@@ -155,6 +155,9 @@
     "User": {
         "Created": "The user has been created.",
         "CreatedOn": "Creation date",
+        "Deleted": "The user has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete user",
         "Email": "Email",
         "FirstName": "First name",
         "IsActive": "Is active",

@@ -6,14 +6,26 @@ namespace Equiprent.Logic.Commands.Users.Requests.Save
     {
         public SaveRequestValidator() 
         {
+            RuleFor(r => r.Email)
+                .EmailAddress()
+                    .When(r => !string.IsNullOrEmpty(r.Email));
+
             RuleFor(r => r.FirstName)
-                .NotEmpty();
+                .NotEmpty()
+                .Length(1, 200)
+                .Matches(RegexPatterns.NamePattern);
 
             RuleFor(r => r.LastName)
-                .NotEmpty();
+                .NotEmpty()
+                .Length(1, 200)
+                .Matches(RegexPatterns.NamePattern);
 
-            RuleFor(r => r.Email)
-                .EmailAddress();
+            RuleFor(r => r.Password)
+                .Length(8, 100)
+                    .When(r => !string.IsNullOrEmpty(r.Password));
+
+            RuleFor(r => r.UserRoleId)
+                .NotEmpty();
         }
     }
 }

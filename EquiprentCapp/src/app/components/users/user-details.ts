@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { Message, MessageService, SelectItem } from "primeng/api";
+import { Confirmation, ConfirmationService, Message, MessageService, SelectItem } from "primeng/api";
 import { ApiRoutes } from "src/app/api-routes";
 import { UserPermissionEnum } from "src/app/enums/userPermissionEnum";
 import { UserDetailsModel } from "src/app/interfaces/user";
@@ -12,6 +12,7 @@ import { SelectOptionsService } from "src/app/services/select-options.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
+import { StringBuilder } from "src/app/tools/stringBuilder";
 
 @Component({
   selector: "user-details",
@@ -28,6 +29,7 @@ export class UserDetailsComponent
   constructor(
     private activatedRoute: ActivatedRoute,
     protected override buttonAccessService: ButtonAccessService,
+    private confirmationService: ConfirmationService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private messageService: MessageService,
@@ -78,6 +80,38 @@ export class UserDetailsComponent
     this.router.navigate(['home/users']);
   }
 
+  onDelete() {
+    this.confirmationService.confirm(<Confirmation>{
+      key: 'deleteUser',
+      message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(this.user.LastName).append(' ').append(this.user.FirstName).toString()}'?`,
+      accept: () => {
+        this.isExecuting = true;
+
+        this.httpClient
+          .delete<string>(ApiRoutes.user.delete(this.user.Id))
+          .subscribe({
+            next: result => {
+              if (result === "OK") {
+                this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Deleted') });
+                this.router.navigate(['home/users']);
+              }
+              else {
+                this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+              }
+
+              this.isExecuting = false;
+
+              console.log(`The user has been deleted with result: ${result}`);
+            },
+            error: e => {
+              this.isExecuting = false;
+              this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+            }
+          });
+      }
+    });
+  }
+
   onSubmit() {
     this.isExecuting = true;
 
@@ -101,7 +135,7 @@ export class UserDetailsComponent
           next: result => {
             if (result == "OK") {
               this.router.navigate(['home/users']);
-              this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Updated'), life: 5000 });
+              this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Updated'), life: 3000 });
             }
 
             this.isExecuting = false;

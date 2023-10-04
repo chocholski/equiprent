@@ -1,4 +1,5 @@
-﻿using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
+﻿using Equiprent.Entities.Application;
+using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 
 namespace Equiprent.Logic.Queries.Users.Requests
@@ -15,7 +16,7 @@ namespace Equiprent.Logic.Queries.Users.Requests
             if (string.IsNullOrEmpty(RequestParameters.SortColumnName) ||
                 RequestParameters.SortColumnName == "null")
             {
-                RequestParameters.SortColumnName = "FirstName";
+                RequestParameters.SortColumnName = nameof(User.FirstName);
             }
             
             UserRoleId = userRoleId;

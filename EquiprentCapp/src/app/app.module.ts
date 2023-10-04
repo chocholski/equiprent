@@ -38,6 +38,8 @@ import { UserRoleListComponent } from './components/user-roles/user-role-list';
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
@@ -93,6 +95,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[start] primeng Modules
         ButtonModule,
         CheckboxModule,
+        ConfirmDialogModule,
         DropdownModule,
         MessageModule,
         MessagesModule,
@@ -121,6 +124,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthenticationService,
         AuthGuard,
         AuthorizationService,
+        ConfirmationService,
         FilterService,
         MessageService,
         MenuService,

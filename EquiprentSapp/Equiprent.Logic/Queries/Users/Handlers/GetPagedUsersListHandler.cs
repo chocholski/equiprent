@@ -33,9 +33,11 @@ namespace Equiprent.Logic.Queries.Users.Handlers
                     _dbContext.Users
                     .Include(u => u.UserRole)
                     .Where(u =>
-                        u.IsDeleted ||
-                        !request.UserRoleId.HasValue ||
-                        u.UserRoleId == request.UserRoleId.Value));
+                        !u.IsDeleted &&
+                        (
+                            !request.UserRoleId.HasValue ||
+                            u.UserRoleId == request.UserRoleId.Value)
+                        ));
 
             if (response is not null)
             {

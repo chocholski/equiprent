@@ -34,7 +34,7 @@
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
 
-                    <div class="flex-wrap mb-3">
+                    <div *ngIf="buttonAccessService.hasAccessToButtons" class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Password' | translate
                         }}</label>
                       <input pInputText class="p-inputtext mb-2" id="password" formControlName="Password"
@@ -87,10 +87,16 @@
                 <div class="p-formgrid grid">
                   <div class="field col-12 items-centered mb-0">
                     <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
-                      [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
+                      icon="pi pi-save" [label]="translate.instant('General.Save')"
+                      class="p-button-raised p-button-success mr-2"
                       [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
-                    <button pButton pRipple type="button" [label]="translate.instant('General.Cancel')"
-                      class="p-button-raised" [disabled]="isExecuting" (click)="onBack()"></button>
+                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
+                      icon="pi pi-trash" [label]="translate.instant('General.Delete')"
+                      class="p-button-raised p-button-danger mr-2"
+                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
                   </div>
                 </div>
               </div>
@@ -103,5 +109,10 @@
         </p-tabPanel> -->
       </p-tabView>
     </div>
+
+    <p-confirmDialog [header]="translate.instant('User.Deletion')" key="deleteUser" icon="pi pi-exclamation-triangle"
+      [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text"
+      [acceptLabel]="translate.instant('General.Yes')" [rejectLabel]="translate.instant('General.No')">
+    </p-confirmDialog>
   </div>
 </div>

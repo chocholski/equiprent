@@ -22,6 +22,8 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (user is null)
                 return CommandResult.BadRequest;
 
+            user.IsActive = false;
+
             await _dbContext.Users.SoftDeleteAndSaveAsync(user);
 
             return CommandResult.OK;

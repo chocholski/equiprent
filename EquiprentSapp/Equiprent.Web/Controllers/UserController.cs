@@ -44,6 +44,7 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(result);
         }
 
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {

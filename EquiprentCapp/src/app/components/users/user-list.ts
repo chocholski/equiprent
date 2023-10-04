@@ -3,12 +3,15 @@ import { PngTableColumn } from '../../interfaces/png';
 import { UserListItemModel, UserListModel } from 'src/app/interfaces/user';
 import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
-import { LazyLoadEvent, SelectItem } from 'primeng/api';
+import { Confirmation, ConfirmationService, LazyLoadEvent, Message, MessageService, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { FilterService } from '../../services/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { ApiRoutes } from 'src/app/api-routes';
 import { Router } from '@angular/router';
+import { StringBuilder } from 'src/app/tools/stringBuilder';
+import { ButtonAccessService } from 'src/app/services/buttonAccessService';
+import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
 
 @Component({
   selector: "user-list",
@@ -24,11 +27,17 @@ export class UserListComponent implements OnInit {
 
   @ViewChild('dataTable') dataTable: Table;
 
-  constructor(public filterService: FilterService,
+  constructor(
+    public buttonAccessService: ButtonAccessService,
+    private confirmationService: ConfirmationService,
+    public filterService: FilterService,
     private httpClient: HttpClient,
+    private messageService: MessageService,
     private router: Router,
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
+
+    this.buttonAccessService.assignPermissions([UserPermissionEnum.Users_CanModify]);
   }
 
   ngOnInit() {
@@ -96,6 +105,33 @@ export class UserListComponent implements OnInit {
 
   onCreate() {
     this.router.navigate(['home/users/create']);
+  }
+
+  onDelete(user: UserListItemModel) {
+    this.confirmationService.confirm(<Confirmation>{
+      key: 'deleteUser',
+      message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(user.LastName).append(' ').append(user.FirstName).toString()}'?`,
+      accept: () => {
+        this.httpClient
+          .delete<string>(ApiRoutes.user.delete(user.Id))
+          .subscribe({
+            next: result => {
+              if (result === "OK") {
+                this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Deleted') });
+                this.getData(this.tempLazyLoadEvent);
+              }
+              else {
+                this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+              }
+
+              console.log(`The user has been deleted with result: ${result}`);
+            },
+            error: e => {
+              this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+            }
+          });
+      }
+    });
   }
 
   onEdit(user: UserListItemModel) {

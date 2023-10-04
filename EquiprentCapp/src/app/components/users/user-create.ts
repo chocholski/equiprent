@@ -71,7 +71,7 @@ export class UserCreationComponent
         next: result => {
           if (result == "OK") {
             this.router.navigate(['home/users']);
-            this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Created'), life: 5000 });
+            this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Created'), life: 3000 });
           }
           else if (result == "LoginExists") {
             this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('User.LoginAlreadyExist') });
