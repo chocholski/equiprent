@@ -24,6 +24,7 @@ import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectOptionsService } from './services/select-options.service';
+import { ErrorService } from './services/error.service';
 import { FilterService } from './services/filter.service';
 
 //Components
@@ -125,6 +126,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthGuard,
         AuthorizationService,
         ConfirmationService,
+        ErrorService,
         FilterService,
         MessageService,
         MenuService,

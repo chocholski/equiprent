@@ -109,7 +109,15 @@
         "Edit": "Edytuj",
         "Empty": "-- Brak --",
         "Erase": "Wyczyść",
-        "Error": "Błąd",
+        "Error": {
+            "Global": "Błąd",
+            "HasIncorrectLength": "ma nieprawidłową długość. Długość powinna mieścić się w przedziale pomiędzy {minLength} a {maxLength}",
+            "IsEmpty": "powinna być uzupełniona",
+            "IsNotMatchingAllowedLetters": "zawiera niedozwolone znaki",
+            "IsNotMatchingSmallLetters": "powinna zawierać tylko małe litery",
+            "IsNotValidEmail": "nie jest prawidłowym adresem email"
+        },
+        "Field": "Pole",
         "File": "Plik",
         "Filters": "Filtry",
         "ForgotPassword": "Nie pamiętasz hasła",
@@ -150,7 +158,8 @@
         "FieldRequired": "Pole jest wymagane.",
         "InvalidLoginData": "Nieprawidłowe dane logowania.",
         "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
-        "ProvidedEmailDoesNotExist": "Podany email nie istnieje."
+        "ProvidedEmailDoesNotExist": "Podany email nie istnieje.",
+        "TheValueOfTheField": "Wartość pola"
     },
     "User": {
         "Created": "Użytkownik został utworzony.",
@@ -162,6 +171,7 @@
         "FirstName": "Imię",
         "IsActive": "Aktywny",
         "Language": "Język",
+        "LanguageId": "Język",
         "LastName": "Nazwisko",
         "Login": "Login",
         "Password": "Hasło",
@@ -171,6 +181,7 @@
         "SelectUserRole": "Wybierz rolę",
         "Updated": "Użytkownik został zaktualizowany.",
         "UserRole": "Rola",
+        "UserRoleId": "Rola",
         "UserRoleName": "Rola",
         "UserRolePicker": "Wybór roli"
     },

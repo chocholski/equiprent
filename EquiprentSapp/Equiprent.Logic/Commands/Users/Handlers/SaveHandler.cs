@@ -28,7 +28,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             var user = await _dbContext.Users
                 .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.Id);
 
-            if (user is null)
+            if (user is null || !request.UserRoleId.HasValue)
                 return CommandResult.BadRequest;
 
             if (user.UserRoleId != request.UserRoleId)
@@ -38,7 +38,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             user.FirstName = request.FirstName;
             user.IsActive = request.IsActive;
             user.LastName = request.LastName;
-            user.UserRoleId = request.UserRoleId;
+            user.UserRoleId = request.UserRoleId.Value;
 
             if (!string.IsNullOrEmpty(request.Password))
                 user.Password = _passwordHasher.GetHash(request.Password);

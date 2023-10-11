@@ -9,6 +9,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { UserCreationModel } from "src/app/interfaces/user";
 import { ApiRoutes } from "src/app/api-routes";
+import { ErrorService } from "src/app/services/error.service";
 
 @Component({
   selector: "user-create",
@@ -22,6 +23,7 @@ export class UserCreationComponent
   userRoles: SelectItem<number>[];
 
   constructor(
+    private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private messageService: MessageService,
@@ -69,12 +71,15 @@ export class UserCreationComponent
       .post<string>(ApiRoutes.user.post, user)
       .subscribe({
         next: result => {
-          if (result == "OK") {
+          if (result === "OK") {
             this.router.navigate(['home/users']);
             this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Created'), life: 3000 });
           }
-          else if (result == "LoginExists") {
+          else if (result === "LoginExists") {
             this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('User.LoginAlreadyExist') });
+          }
+          else {
+            this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() })
           }
 
           this.isExecuting = false;
@@ -82,7 +87,7 @@ export class UserCreationComponent
           console.log(`User has been created with result: ${result}`);
         },
         error: e => {
-          this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error'), life: 2000 });
+          this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e), life: 2000 });
           this.isExecuting = false;
         }
       });

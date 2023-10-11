@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ApiRoutes } from 'src/app/api-routes';
 import { ResetPasswordModel } from 'src/app/interfaces/authentication';
+import { ErrorService } from 'src/app/services/error.service';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
 
 @Component({
@@ -19,6 +20,7 @@ export class LoginResetPasswordComponent implements OnInit {
   token: string;
 
   constructor(private activatedRoute: ActivatedRoute,
+    private errorService: ErrorService,
     public formBuilder: FormBuilder,
     public messageService: MessageService,
     public translate: TranslateService) {
@@ -43,7 +45,7 @@ export class LoginResetPasswordComponent implements OnInit {
 
   onSubmit(): void {
     if (!this.form.value.Email) {
-      this.messageService.add({ key: 'tst', severity: 'error', summary: this.translate.instant('General.Error'), detail: this.translate.instant('Messages.EnterEmailFirst') });
+      this.messageService.add({ key: 'tst', severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterEmailFirst') });
       return;
     }
 

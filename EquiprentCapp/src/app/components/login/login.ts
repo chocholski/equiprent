@@ -8,6 +8,7 @@ import { AppComponent } from 'src/app/app.component';
 import { LanguageCodeEnum } from 'src/app/enums/languageCodeEnum';
 import { SignInModel } from 'src/app/interfaces/authentication';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ErrorService } from 'src/app/services/error.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private app: AppComponent,
     private authenticationService: AuthenticationService,
+    private errorService: ErrorService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private router: Router,
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (!this.form.value.Login) {
-      this.messageService.add({ key: 'tst', severity: 'error', summary: this.translate.instant('General.Error'), detail: this.translate.instant('Messages.EnterLoginFirst') });
+      this.messageService.add({ key: 'tst', severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterLoginFirst') });
 
       return;
     }

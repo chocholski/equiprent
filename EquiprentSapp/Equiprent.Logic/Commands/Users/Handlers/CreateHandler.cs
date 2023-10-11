@@ -32,18 +32,27 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (loginExists)
                 return CommandResult.User_LoginExists;
 
+            var createdById = _userResolverService.GetUserId();
+
+            if (!createdById.HasValue ||
+                !request.LanguageId.HasValue ||
+                !request.UserRoleId.HasValue)
+            {
+                return CommandResult.BadRequest;
+            }
+
             var user = new User
             {
+                CreatedById = createdById.Value,
+                CreatedOn = DateTime.Now,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                IsActive = request.IsActive,
+                LanguageId = request.LanguageId.Value,
+                LastName = request.LastName,
                 Login = request.Login,
                 Password = _passwordHasher.GetHash(request.Password),
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                IsActive = request.IsActive,
-                LanguageId = request.LanguageId,
-                CreatedOn = DateTime.Now,
-                CreatedById = _userResolverService.GetUserId()!.Value,
-                UserRoleId = request.UserRoleId
+                UserRoleId = request.UserRoleId.Value
             };
 
             await _dbContext.Users.AddAndSaveAsync(user);

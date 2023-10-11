@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { StringBuilder } from 'src/app/tools/stringBuilder';
 import { ButtonAccessService } from 'src/app/services/buttonAccessService';
 import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: "user-list",
@@ -30,6 +31,7 @@ export class UserListComponent implements OnInit {
   constructor(
     public buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
+    private errorService: ErrorService,
     public filterService: FilterService,
     private httpClient: HttpClient,
     private messageService: MessageService,
@@ -121,13 +123,13 @@ export class UserListComponent implements OnInit {
                 this.getData(this.tempLazyLoadEvent);
               }
               else {
-                this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+                this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
               }
 
               console.log(`The user has been deleted with result: ${result}`);
             },
             error: e => {
-              this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+              this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
             }
           });
       }

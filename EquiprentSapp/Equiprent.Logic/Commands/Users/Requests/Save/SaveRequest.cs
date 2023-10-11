@@ -10,6 +10,6 @@ namespace Equiprent.Logic.Commands.Users.Requests.Save
         public bool IsActive { get; set; }
         public string LastName { get; set; } = null!;
         public string? Password { get; set; }
-        public int UserRoleId { get; set; }
+        public int? UserRoleId { get; set; }
     }
 }

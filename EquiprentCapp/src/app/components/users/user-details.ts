@@ -13,6 +13,7 @@ import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
 import { StringBuilder } from "src/app/tools/stringBuilder";
+import { ErrorService } from "src/app/services/error.service";
 
 @Component({
   selector: "user-details",
@@ -30,6 +31,7 @@ export class UserDetailsComponent
     private activatedRoute: ActivatedRoute,
     protected override buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
+    private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
     private messageService: MessageService,
@@ -96,7 +98,7 @@ export class UserDetailsComponent
                 this.router.navigate(['home/users']);
               }
               else {
-                this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+                this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
               }
 
               this.isExecuting = false;
@@ -105,7 +107,7 @@ export class UserDetailsComponent
             },
             error: e => {
               this.isExecuting = false;
-              this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error') });
+              this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e) });
             }
           });
       }
@@ -143,7 +145,7 @@ export class UserDetailsComponent
             console.log(`User has been updated with result: ${result}`);
           },
           error: e => {
-            this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('General.Error'), life: 2000 });
+            this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e), life: 2000 });
             this.isExecuting = false;
           }
         });

@@ -109,7 +109,15 @@
         "Edit": "Edit",
         "Empty": "-- Empty --",
         "Erase": "Erase",
-        "Error": "Error",
+        "Error": {
+            "Global": "Error",
+            "HasIncorrectLength": "has an incorrect length. The length should be between {minLength} and {maxLength}",
+            "IsEmpty": "should not be empty",
+            "IsNotMatchingAllowedLetters": "is containing unallowed characters",
+            "IsNotMatchingSmallLetters": "should be written in small letters only",
+            "IsNotValidEmail": "is not a valid email address"
+        },
+        "Field": "Field",
         "File": "File",
         "Filters": "Filters",
         "ForgotPassword": "Forgot password",
@@ -150,7 +158,8 @@
         "FieldRequired": "The field is required.",
         "InvalidLoginData": "Invalid login data.",
         "PleaseContactAdmin": "Please contact the administrator of the application.",
-        "ProvidedEmailDoesNotExist": "The email provided does not exist."
+        "ProvidedEmailDoesNotExist": "The email provided does not exist.",
+        "TheValueOfTheField": "The value of the field"
     },
     "User": {
         "Created": "The user has been created.",
@@ -162,6 +171,7 @@
         "FirstName": "First name",
         "IsActive": "Is active",
         "Language": "Language",
+        "LanguageId": "Language",
         "LastName": "Last name",
         "Login": "Login",
         "Password": "Password",
@@ -171,6 +181,7 @@
         "SelectUserRole": "Select user role",
         "Updated": "The user has been updated.",
         "UserRole": "Role",
+        "UserRoleId": "Role",
         "UserRoleName": "Role",
         "UserRolePicker": "Role picker"
     },
