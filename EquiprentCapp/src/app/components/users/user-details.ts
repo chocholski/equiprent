@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { Confirmation, ConfirmationService, Message, MessageService, SelectItem } from "primeng/api";
+import { Confirmation, ConfirmationService, SelectItem } from "primeng/api";
 import { ApiRoutes } from "src/app/api-routes";
 import { UserPermissionEnum } from "src/app/enums/userPermissionEnum";
 import { UserDetailsModel } from "src/app/interfaces/user";
@@ -14,6 +14,8 @@ import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
 import { StringBuilder } from "src/app/tools/stringBuilder";
 import { ErrorService } from "src/app/services/error.service";
+import { DialogMessageService } from "src/app/services/dialog-message.service";
+import { ConsoleMessageService } from "src/app/services/console-message.service";
 
 @Component({
   selector: "user-details",
@@ -31,10 +33,11 @@ export class UserDetailsComponent
     private activatedRoute: ActivatedRoute,
     protected override buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
+    private consoleMessageService: ConsoleMessageService,
     private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private messageService: MessageService,
+    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
@@ -88,28 +91,7 @@ export class UserDetailsComponent
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(this.user.LastName).append(' ').append(this.user.FirstName).toString()}'?`,
       accept: () => {
         this.isExecuting = true;
-
-        this.httpClient
-          .delete<string>(ApiRoutes.user.delete(this.user.Id))
-          .subscribe({
-            next: result => {
-              if (result === "OK") {
-                this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Deleted') });
-                this.router.navigate(['home/users']);
-              }
-              else {
-                this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
-              }
-
-              this.isExecuting = false;
-
-              console.log(`The user has been deleted with result: ${result}`);
-            },
-            error: e => {
-              this.isExecuting = false;
-              this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e) });
-            }
-          });
+        this.deleteUser();
       }
     });
   }
@@ -126,35 +108,67 @@ export class UserDetailsComponent
       UserRoleId: this.form.value.UserRoleId
     };
 
-    if (this.form.value.Password.length > 0) {
+    if (this.isPasswordFieldFilled()) {
       user.Password = this.form.value.Password;
     }
 
+    this.putUser(user);
+  }
+
+  private deleteUser() {
     this.httpClient
-      .put<string>(ApiRoutes.user.put, user)
-      .subscribe(
-        {
-          next: result => {
-            if (result == "OK") {
-              this.router.navigate(['home/users']);
-              this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Updated'), life: 3000 });
-            }
-
-            this.isExecuting = false;
-
-            console.log(`User has been updated with result: ${result}`);
-          },
-          error: e => {
-            this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e), life: 2000 });
-            this.isExecuting = false;
+      .delete<string>(ApiRoutes.user.delete(this.user.Id))
+      .subscribe({
+        next: result => {
+          if (result === "OK") {
+            this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
+            this.router.navigate(['home/users']);
           }
-        });
+          else {
+            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+          }
+
+          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('User', result));
+        },
+        error: e => {
+          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
+        },
+        complete: () => {
+          this.isExecuting = false;
+        }
+      });
+  }
+
+  private isPasswordFieldFilled() {
+    return this.form.value.Password.length > 0;
   }
 
   private populateDropdowns() {
     this.selectOptionsService.getUserRoles().subscribe(options => {
       this.userRoles = options;
     });
+  }
+
+  private putUser(user: UserDetailsModel) {
+    this.httpClient
+      .put<string>(ApiRoutes.user.put, user)
+      .subscribe(
+        {
+          next: result => {
+            if (result === "OK") {
+              this.router.navigate(['home/users']);
+              this.dialogMessageService.addSuccess(this.translate.instant('User.Updated'));
+            }
+
+            console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterUpdate('User', result));
+          },
+          error: e => {
+            this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
+          },
+          complete: () => {
+            this.isExecuting = false;
+          }
+        });
   }
 
   private updateForm() {

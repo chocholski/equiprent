@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import { TokenResponse } from '../interfaces/identity';
 import { ApiRoutes } from '../api-routes';
+import { ApiResultEnum } from '../enums/apiResultEnum';
 
 @Injectable()
 export class AuthenticationService {
@@ -54,10 +55,10 @@ export class AuthenticationService {
                     const token = res && res.Token;
 
                     if (res.Code == 165) {
-                        return "NotActive";
+                        return ApiResultEnum[ApiResultEnum.NotActive];
                     }
                     else if (res.Code !== 200) {
-                        return "Error";
+                        return ApiResultEnum[ApiResultEnum.Error];
                     }
 
                     if (token) {
@@ -65,7 +66,7 @@ export class AuthenticationService {
                         this.setAuth(res);
                         this.authorizationService.decodeTokenAndSetData();
 
-                        return "OK";
+                        return ApiResultEnum[ApiResultEnum.OK];
                     }
 
                     return "Error";
@@ -98,7 +99,7 @@ export class AuthenticationService {
                     this.setAuth(res);
                     this.authorizationService.decodeTokenAndSetData();
 
-                    return "OK";
+                    return ApiResultEnum[ApiResultEnum.OK];
                 }),
                 catchError(error => {
                     console.log(error);

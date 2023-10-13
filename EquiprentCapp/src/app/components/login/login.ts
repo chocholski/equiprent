@@ -3,14 +3,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { SelectItem } from 'primeng/api';
 import { AppComponent } from 'src/app/app.component';
 import { LanguageCodeEnum } from 'src/app/enums/languageCodeEnum';
 import { SignInModel } from 'src/app/interfaces/authentication';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ErrorService } from 'src/app/services/error.service';
+import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
+import { ApiResultEnum } from 'src/app/enums/apiResultEnum';
 
 @Component({
   selector: "login",
@@ -27,14 +29,14 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private errorService: ErrorService,
     private formBuilder: FormBuilder,
-    private messageService: MessageService,
+    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     private titleService: Title,
     public translate: TranslateService) {
 
     this.translate.setDefaultLang('pl');
-    this.titleService.setTitle(translate.instant("AppName"));
+    this.titleService.setTitle(translate.instant('AppName'));
 
     this.createForm();
     this.formValidator = new FormValidator(this.form);
@@ -52,16 +54,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  createForm() {
-    this.form = this.formBuilder.group({
-      Login: ['', Validators.required],
-      Password: ['', Validators.required]
-    });
-  }
-
   onSubmit() {
     if (!this.form.value.Login) {
-      this.messageService.add({ key: 'tst', severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterLoginFirst') });
+      this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
 
       return;
     }
@@ -75,36 +70,31 @@ export class LoginComponent implements OnInit {
       .login(data)
       .subscribe((result) => {
         switch (result) {
-          case "OK":
+          case ApiResultEnum[ApiResultEnum.OK]:
             this.app.isUserLoggedIn = true;
             this.router.navigate(['home']);
             break;
 
-          case "NotActive":
-            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.AccountNotActive') });
-            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.PleaseContactAdmin') });
+          case ApiResultEnum[ApiResultEnum.NotActive]:
+            this.dialogMessageService.addError(this.translate.instant('Messages.AccountNotActive'));
+            this.dialogMessageService.addError(this.translate.instant('Messages.PleaseContactAdmin'));
             break;
 
           default:
-            this.messageService.add({ severity: 'error', summary: this.translate.instant('Messages.InvalidLoginData') });
+            this.dialogMessageService.addError(this.translate.instant('Messages.InvalidLoginData'));
             break;
         }
       });
   }
 
-  setLanguage(languageId: number) {
-    const lang = this.getLanguageCodeById(languageId);
-
-    this.translate.use(lang).subscribe(x => {
-      this.titleService.setTitle(this.translate.instant("AppName"));
+  private createForm() {
+    this.form = this.formBuilder.group({
+      Login: ['', Validators.required],
+      Password: ['', Validators.required]
     });
   }
 
-  resetPassword() {
-    this.router.navigate(['login/reset-password'], { queryParams: { 'token': '' } });
-  }
-
-  getLanguageCodeById(id: number): string {
+  private getLanguageCodeById(id: number): string {
     switch (id) {
       case LanguageCodeEnum.Pl.valueOf():
         return "pl";
@@ -113,5 +103,17 @@ export class LoginComponent implements OnInit {
       default:
         return "---";
     }
+  }
+
+  private resetPassword() {
+    this.router.navigate(['login/reset-password'], { queryParams: { 'token': '' } });
+  }
+
+  private setLanguage(languageId: number) {
+    const lang = this.getLanguageCodeById(languageId);
+
+    this.translate.use(lang).subscribe(x => {
+      this.titleService.setTitle(this.translate.instant('AppName'));
+    });
   }
 }

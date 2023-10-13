@@ -23,9 +23,11 @@ import { AuthenticationService } from './services/authentication.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthGuard } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SelectOptionsService } from './services/select-options.service';
+import { ConsoleMessageService } from './services/console-message.service';
+import { DialogMessageService } from './services/dialog-message.service';
 import { ErrorService } from './services/error.service';
 import { FilterService } from './services/filter.service';
+import { SelectOptionsService } from './services/select-options.service';
 
 //Components
 import { LoginComponent } from './components/login/login';
@@ -126,6 +128,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthGuard,
         AuthorizationService,
         ConfirmationService,
+        ConsoleMessageService,
+        DialogMessageService,
         ErrorService,
         FilterService,
         MessageService,

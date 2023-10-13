@@ -94,7 +94,7 @@ export class AppTopBarComponent {
     private setLanguage(languageId: number) {
         var lang = this.getLanguageCodeById(languageId);
         this.translate.use(lang).subscribe(x => {
-            this.titleService.setTitle(this.translate.instant("AppName"));
+            this.titleService.setTitle(this.translate.instant('AppName'));
             this.appSidebar?.appMenu?.buildMenu();
             this.translate.get('primeng').subscribe(res => this.config.setTranslation(res));
         });

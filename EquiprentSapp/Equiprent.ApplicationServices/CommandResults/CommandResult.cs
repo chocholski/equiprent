@@ -8,7 +8,7 @@
         BadRequest = 2,
         NotFound = 3,
 
-        //ApplicationUser
+        //User
         User_LoginExists = 100,
         User_WrongOldPassword = 101,
 

@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormComponent } from "../abstract/formComponent";
 import { FormBuilder, Validators } from "@angular/forms";
-import { Message, MessageService, SelectItem } from "primeng/api";
+import { SelectItem } from "primeng/api";
 import { Router } from "@angular/router";
 import { SelectOptionsService } from "src/app/services/select-options.service";
 import { TranslateService } from "@ngx-translate/core";
@@ -10,6 +10,9 @@ import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { UserCreationModel } from "src/app/interfaces/user";
 import { ApiRoutes } from "src/app/api-routes";
 import { ErrorService } from "src/app/services/error.service";
+import { DialogMessageService } from "src/app/services/dialog-message.service";
+import { ConsoleMessageService } from "src/app/services/console-message.service";
+import { ApiResultEnum } from "src/app/enums/apiResultEnum";
 
 @Component({
   selector: "user-create",
@@ -23,10 +26,11 @@ export class UserCreationComponent
   userRoles: SelectItem<number>[];
 
   constructor(
+    private consoleMessageService: ConsoleMessageService,
     private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private messageService: MessageService,
+    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
@@ -67,30 +71,7 @@ export class UserCreationComponent
       UserRoleId: this.form.value.UserRoleId
     };
 
-    this.httpClient
-      .post<string>(ApiRoutes.user.post, user)
-      .subscribe({
-        next: result => {
-          if (result === "OK") {
-            this.router.navigate(['home/users']);
-            this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Created'), life: 3000 });
-          }
-          else if (result === "LoginExists") {
-            this.messageService.add(<Message>{ severity: 'error', summary: this.translate.instant('User.LoginAlreadyExist') });
-          }
-          else {
-            this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() })
-          }
-
-          this.isExecuting = false;
-
-          console.log(`User has been created with result: ${result}`);
-        },
-        error: e => {
-          this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getFirstTranslatedErrorMessage(e), life: 2000 });
-          this.isExecuting = false;
-        }
-      });
+    this.postUser(user);
   }
 
   private populateDropdowns() {
@@ -102,5 +83,34 @@ export class UserCreationComponent
     this.selectOptionsService.getUserRoles().subscribe(options => {
       this.userRoles = options;
     });
+  }
+
+  private postUser(user: UserCreationModel) {
+    this.httpClient
+      .post<string>(ApiRoutes.user.post, user)
+      .subscribe({
+        next: result => {
+          switch (result) {
+            case ApiResultEnum[ApiResultEnum.OK]:
+              this.router.navigate(['home/users']);
+              this.dialogMessageService.addSuccess(this.translate.instant('User.Created'));
+              break;
+            case ApiResultEnum[ApiResultEnum.LoginExists]:
+              this.dialogMessageService.addError(this.translate.instant('User.LoginAlreadyExists'));
+              break;
+            default:
+              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+              break;
+          }
+
+          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterCreation('User', result));
+        },
+        error: e => {
+          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
+        },
+        complete: () => {
+          this.isExecuting = false;
+        }
+      });
   }
 }

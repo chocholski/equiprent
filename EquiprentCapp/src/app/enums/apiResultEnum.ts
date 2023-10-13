@@ -1,0 +1,23 @@
+export enum ApiResultEnum {
+  //Generic
+  BadRequest,
+  Error,
+  None,
+  NotFound,
+  OK,
+  //Token
+  DoesNotExist,
+  DoesNotMatchJWT,
+  Invalid,
+  NotActive,
+  Used,
+  //User
+  LoginExists,
+  WrongOldPassword,
+  //UserRole
+  AssignedRoleDeletionAttempt,
+  ExistsInDatabase,
+  NoUserPermissionAssigned,
+  TheOnlyAssignedRoleDeletionAttempt,
+  UserHasBeenAlreadyAssignedToRole
+}

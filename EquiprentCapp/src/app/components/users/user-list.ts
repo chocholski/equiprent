@@ -3,7 +3,7 @@ import { PngTableColumn } from '../../interfaces/png';
 import { UserListItemModel, UserListModel } from 'src/app/interfaces/user';
 import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
-import { Confirmation, ConfirmationService, LazyLoadEvent, Message, MessageService, SelectItem } from 'primeng/api';
+import { Confirmation, ConfirmationService, LazyLoadEvent, Message, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { FilterService } from '../../services/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
@@ -13,6 +13,8 @@ import { StringBuilder } from 'src/app/tools/stringBuilder';
 import { ButtonAccessService } from 'src/app/services/buttonAccessService';
 import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
 import { ErrorService } from 'src/app/services/error.service';
+import { DialogMessageService } from 'src/app/services/dialog-message.service';
+import { ConsoleMessageService } from 'src/app/services/console-message.service';
 
 @Component({
   selector: "user-list",
@@ -31,10 +33,11 @@ export class UserListComponent implements OnInit {
   constructor(
     public buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
+    private consoleMessageService: ConsoleMessageService,
     private errorService: ErrorService,
     public filterService: FilterService,
     private httpClient: HttpClient,
-    private messageService: MessageService,
+    private dialogMessageService: DialogMessageService,
     private router: Router,
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
@@ -114,24 +117,7 @@ export class UserListComponent implements OnInit {
       key: 'deleteUser',
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(user.LastName).append(' ').append(user.FirstName).toString()}'?`,
       accept: () => {
-        this.httpClient
-          .delete<string>(ApiRoutes.user.delete(user.Id))
-          .subscribe({
-            next: result => {
-              if (result === "OK") {
-                this.messageService.add(<Message>{ severity: 'success', summary: this.translate.instant('User.Deleted') });
-                this.getData(this.tempLazyLoadEvent);
-              }
-              else {
-                this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
-              }
-
-              console.log(`The user has been deleted with result: ${result}`);
-            },
-            error: e => {
-              this.messageService.add(<Message>{ severity: 'error', summary: this.errorService.getDefaultErrorMessage() });
-            }
-          });
+        this.deleteUser(user);
       }
     });
   }
@@ -140,11 +126,32 @@ export class UserListComponent implements OnInit {
     this.router.navigate([`home/users/edit/${user.Id}`]);
   }
 
-  populateMultiSelects() {
+  private deleteUser(user: UserListItemModel) {
+    this.httpClient
+      .delete<string>(ApiRoutes.user.delete(user.Id))
+      .subscribe({
+        next: result => {
+          if (result === "OK") {
+            this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
+            this.getData(this.tempLazyLoadEvent);
+          }
+          else {
+            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+          }
+
+          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('User', result));
+        },
+        error: () => {
+          this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+        }
+      });
+  }
+
+  private populateMultiSelects() {
     this.selectOptionsService.getUserRoles().subscribe(options => {
       this.userRoleOptions = options;
 
-      const userRoleField = this.cols.find(c => c.field == "UserRoleName");
+      const userRoleField = this.cols.find(c => c.field === "UserRoleName");
 
       if (userRoleField) {
         userRoleField.options = this.userRoleOptions;
