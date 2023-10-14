@@ -14,6 +14,7 @@ using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using Equiprent.Logic.Queries.Users.Responses.UserById;
 using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
 using Equiprent.Web.Contracts;
+using Equiprent.Logic.Commands.Users.Requests.ChangeTheme;
 
 namespace Equiprent.Web.Controllers
 {
@@ -63,6 +64,15 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(result);
         }
 
+        [HttpGet($"{ApiRoutes.User.GetTheme}/{{userId}}")]
+        public async Task<IActionResult> GetUserThemeById(Guid userId)
+        {
+            var parameters = new GetUserThemeByIdRequest(userId);
+            var result = await _queryDispatcher.SendQueryAsync<GetUserThemeByIdRequest, bool>(parameters);
+
+            return new JsonResult(result);
+        }
+
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] CreateRequest request)
@@ -81,16 +91,16 @@ namespace Equiprent.Web.Controllers
             return GetActionResult(result);
         }
 
-        [HttpPut(ApiRoutes.User.ChangePassword)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+        [HttpPut(ApiRoutes.User.ChangeLanguage)]
+        public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
 
             return GetActionResult(result);
         }
 
-        [HttpPut(ApiRoutes.User.ChangeLanguage)]
-        public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
+        [HttpPut(ApiRoutes.User.ChangePassword)]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
 
@@ -100,6 +110,14 @@ namespace Equiprent.Web.Controllers
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost(ApiRoutes.User.ChangeRole)]
         public async Task<IActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
+        {
+            var result = await _commandDispatcher.SendCommandAsync(request);
+
+            return GetActionResult(result);
+        }
+
+        [HttpPost(ApiRoutes.User.ChangeTheme)]
+        public async Task<IActionResult> ChangeTheme([FromBody] ChangeThemeRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
 

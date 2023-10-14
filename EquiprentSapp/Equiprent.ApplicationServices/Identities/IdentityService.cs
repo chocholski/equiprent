@@ -12,6 +12,7 @@ using Equiprent.ApplicationServices.Options.Jwt;
 using Equiprent.Entities.Application.RefreshToken;
 using Equiprent.Extensions;
 using Equiprent.ApplicationServices.Languageables.Enums;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Equiprent.ApplicationServices.Identities
 {
@@ -69,29 +70,8 @@ namespace Equiprent.ApplicationServices.Identities
             var expiryDateUnix = long.Parse(validatedToken.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Exp).Value);
             var expiryDateUtc = DateTime.UnixEpoch.AddSeconds(expiryDateUnix);
 
-            if (expiryDateUtc > DateTime.UtcNow)
-                return GetAuthenticationResult(code: (int)HttpStatusCode.OK, token: token, refreshToken: refreshToken);
-
-            var jti = validatedToken.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
-
             var storedRefreshToken = await _dbContext.RefreshTokens
                 .SingleOrDefaultAsync(r => r.Token == refreshToken);
-
-            if (storedRefreshToken is null)
-                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_DoesNotExist);
-
-            if (storedRefreshToken.Invalidated)
-                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_Invalid);
-
-            if (storedRefreshToken.Used)
-                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_Used);
-
-            if (storedRefreshToken.JwtId != jti)
-                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_DoesNotMatchJWT);
-
-            storedRefreshToken.Used = true;
-
-            await _dbContext.RefreshTokens.UpdateAndSaveAsync(storedRefreshToken);
 
             var userId = validatedToken.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -103,6 +83,45 @@ namespace Equiprent.ApplicationServices.Identities
 
             if (user is null)
                 return GetAuthenticationResult(code: (int)HttpStatusCode.BadRequest, token: token, refreshToken: refreshToken);
+
+            if (storedRefreshToken is null)
+                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_DoesNotExist);
+
+            if (expiryDateUtc > DateTime.UtcNow)
+            {
+                var userStoredRefreshTokens = await _dbContext.RefreshTokens
+                    .Where(token => token.UserId == user.Id)
+                    .ToListAsync();
+
+                if (userStoredRefreshTokens.Any())
+                {
+                    foreach (var userRefreshToken in userStoredRefreshTokens)
+                    {
+                        userRefreshToken.IsTokenRefreshRequired = false;
+
+                        _dbContext.RefreshTokens.Update(userRefreshToken);
+                    }
+                }
+
+                await _dbContext.RefreshTokens.UpdateAndSaveAsync(storedRefreshToken);
+
+                return GetAuthenticationResult(code: (int)HttpStatusCode.OK, token: token, refreshToken: refreshToken);
+            }
+
+            if (storedRefreshToken.Invalidated)
+                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_Invalid);
+
+            if (storedRefreshToken.Used)
+                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_Used);
+
+            var jti = validatedToken.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Jti).Value;
+
+            if (storedRefreshToken.JwtId != jti)
+                return GetAuthenticationResult(code: (int)CommandResults.CommandResult.Token_DoesNotMatchJWT);
+
+            storedRefreshToken.Used = true;
+
+            await _dbContext.RefreshTokens.UpdateAndSaveAsync(storedRefreshToken);
 
             return await GenerateAuthenticationResultForUserAsync(user);
         }

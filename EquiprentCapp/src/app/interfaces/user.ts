@@ -3,6 +3,10 @@ export class UserChangeLanguageModel {
   LanguageId: number;
 }
 
+export class UserChangeThemeModel {
+  Id: string;
+}
+
 export class UserCreationModel {
   Email?: string;
   FirstName: string;

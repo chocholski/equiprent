@@ -45,7 +45,8 @@ namespace Equiprent.Data.Services
             {
                 var refreshToken = await _dbContext.RefreshTokens
                     .Where(token => token.UserId == userId)
-                    .SingleOrDefaultAsync();
+                    .OrderByDescending(token => token.CreatedOn)
+                    .FirstOrDefaultAsync();
 
                 if (refreshToken is null)
                     return;

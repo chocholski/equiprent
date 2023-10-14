@@ -3,6 +3,7 @@ import { HttpHandler, HttpEvent, HttpInterceptor, HttpRequest, HttpErrorResponse
 import { AuthenticationService } from "../authentication.service";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
+import { ApiResultEnum } from "src/app/enums/apiResultEnum";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -37,12 +38,12 @@ export class AuthInterceptor implements HttpInterceptor {
                     authenticationService.refreshToken().subscribe(result => {
                         console.log(`token refreshed with result: ${result}`);
 
-                        if (result === "OK") {
+                        if (result === ApiResultEnum[ApiResultEnum.OK]) {
                             this.isRefreshingToken = false;
 
                             window.location.reload();
 
-                            return tap(() => "OK");
+                            return tap(() => ApiResultEnum[ApiResultEnum.OK]);
                         }
                         else {
                             console.error(errorResponse);

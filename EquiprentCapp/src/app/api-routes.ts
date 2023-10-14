@@ -22,10 +22,12 @@ export const ApiRoutes = {
     changeLanguage: "user/changeLanguage",
     changePassword: "user/changePassword",
     changeRole: "user/changeRole",
+    changeTheme: "user/changeTheme",
     delete: (userId: string) => `user/${userId}`,
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `user${new PngTableSearchQueryBuilder(event, columns).create()}`,
     getById: (userId: string) => `user/${userId}`,
     getLanguage: (userId: string) => `user/getLanguage/${userId}`,
+    getTheme: (userId: string) => `user/getTheme/${userId}`,
     post: "user",
     put: "user"
   },

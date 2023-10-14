@@ -23,9 +23,7 @@ namespace Equiprent.Logic.Queries.Users.Handlers
                 .Select(u => u.LanguageId)
                 .SingleOrDefaultAsync();
 
-            var result = new UserLanguageByIdResponse { LanguageId = userLanguageId };
-
-            return result;
+            return new UserLanguageByIdResponse { LanguageId = userLanguageId };
         }
     }
 }

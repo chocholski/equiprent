@@ -13,6 +13,8 @@
         [Key]
         public Guid Id { get; set; }
 
+        public bool HasDarkModeThemeSelected { get; set; }
+
         public bool IsActive { get; set; }
 
         [ForeignKey(nameof(Language))]

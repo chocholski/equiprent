@@ -13,6 +13,7 @@ import { AuthorizationService } from '../services/authorization.service';
 import { UserChangeLanguageModel } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { ApiRoutes } from '../api-routes';
+import { ApiResultEnum } from '../enums/apiResultEnum';
 
 @Component({
     selector: 'app-topbar',
@@ -20,10 +21,11 @@ import { ApiRoutes } from '../api-routes';
 })
 export class AppTopBarComponent {
 
+    darkModeOn: boolean = false;
     items!: MenuItem[];
-    userMenuItems: MenuItem[] = [];
-    languageItems: MenuItem[] = [];
     languageId: number;
+    languageItems: MenuItem[] = [];
+    userMenuItems: MenuItem[] = [];
 
     @Input('appSidebar') appSidebar!: AppSidebarComponent;
 
@@ -31,17 +33,18 @@ export class AppTopBarComponent {
     @ViewChild('topbarmenubutton') topbarMenuButton!: ElementRef;
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,
+    constructor(
         public app: AppComponent,
-        public translate: TranslateService,
-        public authService: AuthenticationService,
+        public authenticationService: AuthenticationService,
+        private config: PrimeNGConfig,
+        private httpClient: HttpClient,
+        public layoutService: LayoutService,
         private router: Router,
         private selectOptionsService: SelectOptionsService,
         private titleService: Title,
-        private config: PrimeNGConfig,
-        private httpClient: HttpClient) {
+        public translate: TranslateService) {
 
-        selectOptionsService.getLanguages().subscribe(languages => {
+        this.selectOptionsService.getLanguages().subscribe(languages => {
             this.userMenuItems = [
                 {
                     label: this.translate.instant('Language.Plural'),
@@ -51,7 +54,8 @@ export class AppTopBarComponent {
                 { label: this.translate.instant('General.LogOut'), icon: 'fa fa-power-off', command: () => this.logout() }
             ];
 
-            var languageIdFromStorage = localStorage.getItem('languageId');
+            const languageIdFromStorage = localStorage.getItem('languageId');
+
             if (languageIdFromStorage) {
                 this.languageId = Number(languageIdFromStorage);
                 this.setLanguage(this.languageId);
@@ -59,48 +63,21 @@ export class AppTopBarComponent {
         });
     }
 
-    private logout(): void {
-        if (this.authService.logout()) {
-            this.router.navigate(['login']);
-        }
-    }
+    setTheme(withDarkMode: boolean) {
+        const theme = withDarkMode ? 'arya-blue' : 'saga-orange';
+        const colorScheme = withDarkMode ? 'dark' : 'light';
+        const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
+        const newHref = themeLink.getAttribute('href')!.replace(this.layoutService.config.theme, theme);
 
-    private onLanguageChange(id: number) {
-        var currentUserId = AuthorizationService.currentUserId;
-        if (!currentUserId) {
-            return;
-        }
-
-        this.languageId = Number(id);
-        this.setLanguage(this.languageId);
-        localStorage.setItem('languageId', this.languageId.toString());
-
-        var model = new UserChangeLanguageModel();
-
-        model.Id = currentUserId;
-        model.LanguageId = this.languageId;
-
-        this.httpClient
-            .put<string>(ApiRoutes.user.changeLanguage, model)
-            .subscribe(
-                result => {
-                    if (result == "OK") {
-                        this.setLanguage(this.languageId);
-                    }
-                }
-            );
-    }
-
-    private setLanguage(languageId: number) {
-        var lang = this.getLanguageCodeById(languageId);
-        this.translate.use(lang).subscribe(x => {
-            this.titleService.setTitle(this.translate.instant('AppName'));
-            this.appSidebar?.appMenu?.buildMenu();
-            this.translate.get('primeng').subscribe(res => this.config.setTranslation(res));
+        this.layoutService.config.colorScheme
+        this.replaceThemeLink(newHref, () => {
+            this.layoutService.config.theme = theme;
+            this.layoutService.config.colorScheme = colorScheme;
+            this.layoutService.onConfigUpdate();
         });
     }
 
-    getLanguageCodeById(id: number): string {
+    private getLanguageCodeById(id: number): string {
         switch (id) {
             case LanguageCodeEnum.Pl.valueOf():
                 return "pl";
@@ -109,5 +86,68 @@ export class AppTopBarComponent {
             default:
                 return "---";
         }
+    }
+
+    private logout(): void {
+        if (this.authenticationService.logout()) {
+            this.router.navigate(['login']);
+        }
+    }
+
+    private onLanguageChange(id: number) {
+        const currentUserId = AuthorizationService.currentUserId;
+
+        if (!currentUserId)
+            return;
+
+        this.languageId = Number(id);
+        this.setLanguage(this.languageId);
+
+        localStorage.setItem('languageId', this.languageId.toString());
+
+        const model = <UserChangeLanguageModel>{
+            Id: currentUserId,
+            LanguageId: this.languageId
+        };
+
+        this.httpClient
+            .put<string>(ApiRoutes.user.changeLanguage, model)
+            .subscribe(
+                result => {
+                    if (result === ApiResultEnum[ApiResultEnum.OK])
+                        this.setLanguage(this.languageId);
+                }
+            );
+    }
+
+    private replaceThemeLink(href: string, onComplete: Function) {
+        const id = 'theme-css';
+        const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
+        const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
+
+        cloneLinkElement.setAttribute('href', href);
+        cloneLinkElement.setAttribute('id', id + '-clone');
+
+        themeLink.parentNode!.insertBefore(cloneLinkElement, themeLink.nextSibling);
+
+        cloneLinkElement.addEventListener('load', () => {
+            themeLink.remove();
+            cloneLinkElement.setAttribute('id', id);
+            onComplete();
+        });
+    }
+
+    private setLanguage(languageId: number) {
+        const language = this.getLanguageCodeById(languageId);
+
+        this.translate
+            .use(language)
+            .subscribe(() => {
+                this.titleService.setTitle(this.translate.instant('AppName'));
+                this.appSidebar?.appMenu?.buildMenu();
+                this.translate
+                    .get('primeng')
+                    .subscribe(res => this.config.setTranslation(res));
+            });
     }
 }

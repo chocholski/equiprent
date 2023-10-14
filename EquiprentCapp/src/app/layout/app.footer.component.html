@@ -1,4 +1,19 @@
-<div class="layout-footer">
-    by
-    <span class="font-medium ml-2">Alec Chocholski</span>
+<div class="layout-footer py-0">
+    <div class="col-12 field grid py-0 my-0">
+        <div class="md:col-11 layout-footer pl-6 py-0" style="border: 0;">
+            <p class="mt-3">by</p>
+            <span class="font-medium ml-2">Alec Chocholski</span>
+        </div>
+        <div class="md:col-1 layout-footer pb-0 pt-3 pl-6" style="border: 0;">
+            <div class="field grid">
+                <h5 class="col-12 mb-0 mt-1 py-0 md:col-7 md:mb-0" style="font-size: 0.85rem; margin-right: -0.52rem;">
+                    Dark
+                    mode
+                </h5>
+                <div class="col-12 md:col-5">
+                    <p-inputSwitch [(ngModel)]="isDarkModeThemeSelected" (onChange)="changeUserTheme()"></p-inputSwitch>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

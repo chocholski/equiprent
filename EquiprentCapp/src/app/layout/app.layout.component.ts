@@ -4,7 +4,6 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./services/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
-import { AuthorizationService } from '../services/authorization.service';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -21,13 +20,13 @@ export class AppLayoutComponent implements OnDestroy {
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
-    constructor(public layoutService: LayoutService,
-        public renderer: Renderer2,
-        public router: Router,
+    constructor(
         private authenticationService: AuthenticationService,
-        private authorizationService: AuthorizationService) {
+        public layoutService: LayoutService,
+        public renderer: Renderer2,
+        public router: Router) {
 
-        this.isUserLoggedIn = authenticationService.isLoggedIn();
+        this.isUserLoggedIn = this.authenticationService.isLoggedIn();
 
         if (!this.isUserLoggedIn) {
             this.router.navigate(['login']);
@@ -69,6 +68,15 @@ export class AppLayoutComponent implements OnDestroy {
         }
     }
 
+    blockBodyScroll(): void {
+        if (document.body.classList) {
+            document.body.classList.add('blocked-scroll');
+        }
+        else {
+            document.body.className += ' blocked-scroll';
+        }
+    }
+
     hideMenu() {
         this.layoutService.state.overlayMenuActive = false;
         this.layoutService.state.staticMenuMobileActive = false;
@@ -85,15 +93,6 @@ export class AppLayoutComponent implements OnDestroy {
         if (this.profileMenuOutsideClickListener) {
             this.profileMenuOutsideClickListener();
             this.profileMenuOutsideClickListener = null;
-        }
-    }
-
-    blockBodyScroll(): void {
-        if (document.body.classList) {
-            document.body.classList.add('blocked-scroll');
-        }
-        else {
-            document.body.className += ' blocked-scroll';
         }
     }
 
