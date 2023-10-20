@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationServices.Audits;
-using Equiprent.ApplicationServices.Database;
 using Equiprent.Data.CustomQueryTypes;
 using Equiprent.Logic.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.FieldNames
 {
@@ -11,19 +11,18 @@ namespace Equiprent.Logic.Queries.Audits.Reponses.FieldNames
 
         public FieldNamesResponse(
             RequestParameters requestParameters,
-            IAuditMemberTranslatorService auditMemberTranslatorService,
-            IDbStatementService dbStatementService,
-            IQueryable<AuditListQueryModel> query) : base(requestParameters, dbStatementService, query)
+            IQueryable<AuditListQueryModel> query,
+            IServiceProvider serviceProvider) : base(requestParameters, query, serviceProvider)
         {
-            _auditMemberTranslatorService = auditMemberTranslatorService;
+            _auditMemberTranslatorService = serviceProvider.GetService<IAuditMemberTranslatorService>()!;
         }
 
         protected override async Task<FieldNamesItemViewModel> MapEntityToViewModelAsync(AuditListQueryModel entity)
         {
             return await Task.FromResult(new FieldNamesItemViewModel
             {
-                Translation = _auditMemberTranslatorService.Translate(entity.FieldName),
-                DbName = entity.FieldName
+                Name = _auditMemberTranslatorService!.Translate(entity.FieldName),
+                Value = entity.FieldName
             });
         }
     }

@@ -3,7 +3,7 @@ import { PngTableColumn } from '../../interfaces/png';
 import { UserListItemModel, UserListModel } from 'src/app/interfaces/user';
 import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
-import { Confirmation, ConfirmationService, LazyLoadEvent, Message, SelectItem } from 'primeng/api';
+import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { FilterService } from '../../services/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
@@ -22,8 +22,22 @@ import { ConsoleMessageService } from 'src/app/services/console-message.service'
 })
 export class UserListComponent implements OnInit {
 
+  private readonly _dataPopulator = {
+    multiSelects: {
+      userRoles: {
+        get: () => this.getUserRoleMultiSelectData(),
+        set: (userRoles: SelectItem[]) => this.setUserRoleMultiSelectData(userRoles)
+      }
+    },
+    users: {
+      get: (event: LazyLoadEvent) => this.getUsers(event),
+      set: (users: UserListModel) => this.setUsers(users)
+    }
+  };
+
+  private tempLazyLoadEvent: LazyLoadEvent;
+
   cols: PngTableColumn[];
-  tempLazyLoadEvent: LazyLoadEvent;
   totalRecords: number;
   userRoleOptions: SelectItem[];
   users: UserListItemModel[];
@@ -87,32 +101,19 @@ export class UserListComponent implements OnInit {
     this.populateMultiSelects();
   }
 
-  getData(event: LazyLoadEvent) {
-    if (!event.sortField) {
-      event.sortField = this.cols[0]?.field;
-    }
-
-    this.httpClient
-      .get<UserListModel>(ApiRoutes.user.getAll(event, this.cols))
-      .subscribe(result => {
-        this.totalRecords = result.TotalRowsCount;
-        this.users = result.List;
-      });
-  }
-
-  loadUsersLazy(event: LazyLoadEvent) {
+  public loadUsersLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
-    setTimeout(() => {
-      this.getData(event);
-    }, 0);
+    this._dataPopulator.users
+      .get(event)
+      .subscribe(result => this._dataPopulator.users.set(result));
   }
 
-  onCreate() {
+  public onCreate() {
     this.router.navigate(['home/users/create']);
   }
 
-  onDelete(user: UserListItemModel) {
+  public onDelete(user: UserListItemModel) {
     this.confirmationService.confirm(<Confirmation>{
       key: 'deleteUser',
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(user.LastName).append(' ').append(user.FirstName).toString()}'?`,
@@ -122,7 +123,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onEdit(user: UserListItemModel) {
+  public onEdit(user: UserListItemModel) {
     this.router.navigate([`home/users/edit/${user.Id}`]);
   }
 
@@ -133,7 +134,7 @@ export class UserListComponent implements OnInit {
         next: result => {
           if (result === "OK") {
             this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
-            this.getData(this.tempLazyLoadEvent);
+            this.loadUsersLazy(this.tempLazyLoadEvent);
           }
           else {
             this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
@@ -147,15 +148,35 @@ export class UserListComponent implements OnInit {
       });
   }
 
+  private getUserRoleMultiSelectData() {
+    return this.selectOptionsService.getUserRoles();
+  }
+
+  private getUsers(event: LazyLoadEvent) {
+    event.sortField ??= this.cols[0]?.field;
+
+    return this.httpClient
+      .get<UserListModel>(ApiRoutes.user.getAll(event, this.cols));
+  }
+
   private populateMultiSelects() {
-    this.selectOptionsService.getUserRoles().subscribe(options => {
-      this.userRoleOptions = options;
+    this._dataPopulator.multiSelects.userRoles
+      .get()
+      .subscribe(result => this._dataPopulator.multiSelects.userRoles.set(result));
+  }
 
-      const userRoleField = this.cols.find(c => c.field === "UserRoleName");
+  private setUserRoleMultiSelectData(userRoles: SelectItem[]) {
+    this.userRoleOptions = userRoles;
 
-      if (userRoleField) {
-        userRoleField.options = this.userRoleOptions;
-      }
-    });
+    const userRoleColumn = this.cols.find(c => c.field === "UserRoleName");
+
+    if (userRoleColumn) {
+      userRoleColumn.options = this.userRoleOptions;
+    }
+  }
+
+  private setUsers(users: UserListModel) {
+    this.totalRecords = users.TotalRowsCount;
+    this.users = users.List;
   }
 }

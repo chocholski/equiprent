@@ -1,12 +1,8 @@
-﻿using Equiprent.Logic.Attributes;
+﻿using Equiprent.Logic.QueryData.UIModels;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.FieldNames
 {
-    public class FieldNamesItemViewModel
+    public class FieldNamesItemViewModel : SelectListItemModel
     {
-        public string DbName { get; set; } = null!;
-
-        [SortColumn]
-        public string Translation { get; set; } = null!;
     }
 }

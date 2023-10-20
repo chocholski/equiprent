@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationServices.Audits;
-using Equiprent.ApplicationServices.Database;
 using Equiprent.Data.CustomQueryTypes;
 using Equiprent.Logic.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
 {
@@ -11,22 +11,23 @@ namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
 
         public ObjectHistoryResponse(
             RequestParameters requestParameters,
-            IAuditMemberTranslatorService auditMemberTranslatorService,
-            IDbStatementService dbStatementService,
-            IQueryable<AuditListQueryModel> query) : base(requestParameters, dbStatementService, query)
+            IQueryable<AuditListQueryModel> query,
+            IServiceProvider serviceProvider) : base(requestParameters, query, serviceProvider)
         {
-            _auditMemberTranslatorService = auditMemberTranslatorService;
+            _auditMemberTranslatorService = serviceProvider.GetService<IAuditMemberTranslatorService>()!;
         }
 
-        protected override async Task<ObjectHistoryItemViewModel> MapEntityToViewModelAsync(AuditListQueryModel entity) =>
-            await Task.FromResult(new ObjectHistoryItemViewModel
+        protected override async Task<ObjectHistoryItemViewModel> MapEntityToViewModelAsync(AuditListQueryModel entity)
+        {
+            return await Task.FromResult(new ObjectHistoryItemViewModel
             {
                 CreatedOn = entity.CreatedOn,
-                UserName = entity.UserName,
                 FieldName = entity.FieldName,
-                Translation = _auditMemberTranslatorService.Translate(entity.FieldName),
+                NewValue = entity.NewValue,
                 OldValue = entity.OldValue,
-                NewValue = entity.NewValue
+                Translation = _auditMemberTranslatorService.Translate(entity.FieldName),
+                UserName = entity.UserName,
             });
+        }
     }
 }

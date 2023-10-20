@@ -1,5 +1,4 @@
 {
-    "AppName": "Equiprent",
     "primeng": {
         "accept": "Zaakceptuj",
         "addRule": "Dodaj regułę",
@@ -94,6 +93,15 @@
         "upload": "Wgraj",
         "weak": "Słabe",
         "weekHeader": "Tydz"
+    },
+    "AppName": "Equiprent",
+    "Audit": {
+        "CreatedOn": "Utworzony",
+        "FieldName": "Nazwa pola",
+        "History": "Historia",
+        "NewValue": "Nowa wartość",
+        "OldValue": "Stara wartość",
+        "UserName": "Nazwa użytkownika"
     },
     "General": {
         "Add": "Dodaj",

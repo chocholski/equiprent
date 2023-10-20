@@ -33,12 +33,12 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.Audit.GetFieldNames)]
-        public async Task<ActionResult> GetFieldNames(string entityId, string entityTableName)
+        public async Task<ActionResult> GetFieldNames([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
         {
-            var request = new GetFieldNamesRequest(entityId, entityTableName);
+            var request = new GetFieldNamesRequest(requestParameters, entityId, entityTableName);
             var result = await _queryDispatcher.SendQueryAsync<GetFieldNamesRequest, FieldNamesResponse>(request);
 
-            return new JsonResult(result);
+            return new JsonResult(result?.List);
         }
     }
 }

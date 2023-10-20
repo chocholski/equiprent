@@ -9,12 +9,14 @@ namespace Equiprent.Logic.Queries.Audits.Requests
         public string EntityId { get; set; }
         public string EntityTableName { get; set; }
 
-        public GetFieldNamesRequest(string entityId, string entityTableName)
+        public GetFieldNamesRequest(RequestParameters requestParameters, string entityId, string entityTableName)
         {
+            RequestParameters = requestParameters;
+
             if (string.IsNullOrEmpty(RequestParameters.SortColumnName) ||
                 RequestParameters.SortColumnName == "null")
             {
-                RequestParameters.SortColumnName = nameof(FieldNamesItemViewModel.Translation);
+                RequestParameters.SortColumnName = "FieldName";
             }
 
             EntityId = entityId;

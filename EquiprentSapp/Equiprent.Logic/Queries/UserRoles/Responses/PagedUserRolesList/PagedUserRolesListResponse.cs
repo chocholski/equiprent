@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application;
 using Equiprent.Logic.Abstractions;
 
 namespace Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList
@@ -8,8 +7,8 @@ namespace Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList
     {
         public PagedUserRolesListResponse(
             RequestParameters requestParameters,
-            IDbStatementService dbStatementService,
-            IQueryable<UserRole> query) : base(requestParameters, dbStatementService, query)
+            IQueryable<UserRole> query,
+            IServiceProvider serviceProvider) : base(requestParameters, query, serviceProvider)
         {
         }
 

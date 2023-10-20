@@ -1,15 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { SelectItem } from "primeng/api";
+import { LazyLoadEvent, SelectItem } from "primeng/api";
 import { Observable, catchError, map } from "rxjs";
 import { SelectOption } from "../interfaces/ui-models";
 import { ApiRoutes } from "../api-routes";
+import { PngTableColumn } from "../interfaces/png";
 
 @Injectable()
 export class SelectOptionsService {
 
   constructor(private httpClient: HttpClient, public translate: TranslateService) {
+  }
+
+  getFieldNamesForObjectHistory(event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string): Observable<SelectItem[]> {
+    return this.getOptions(ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
   }
 
   getLanguages(): Observable<SelectItem[]> {

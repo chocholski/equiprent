@@ -26,7 +26,7 @@ export class FilterService {
   public shouldHideIcon(filterValue: string): boolean {
     let inputWidth = 0;
 
-    const inputElement = document.getElementById('filter');
+    const filterElement = document.getElementById('filter');
     const textContentLengthHelper = document.createElement('span');
 
     textContentLengthHelper.style.visibility = 'hidden';
@@ -34,8 +34,8 @@ export class FilterService {
 
     textContentLengthHelper.textContent = filterValue;
 
-    if (inputElement)
-      inputWidth = inputElement.offsetWidth;
+    if (filterElement)
+      inputWidth = filterElement.offsetWidth;
 
     document.body.appendChild(textContentLengthHelper);
 

@@ -25,7 +25,7 @@ namespace Equiprent.Web.Controllers
             var model = languages
                 .Select(language => new SelectListItemModel
                 {
-                    Value = language.Id,
+                    Value = language.Id.ToString(),
                     Name = language.Name
                 })
                 .ToList();
@@ -41,7 +41,7 @@ namespace Equiprent.Web.Controllers
             var model = userRolesIdsWithNames
                 .Select(userRoleIdWithName => new SelectListItemModel
                 {
-                    Value = userRoleIdWithName.Id,
+                    Value = userRoleIdWithName.Id.ToString(),
                     Name = userRoleIdWithName.Name
                 })
                 .ToList();
@@ -55,8 +55,8 @@ namespace Equiprent.Web.Controllers
         {
             var model = new List<SelectListItemModel>
             {
-                new SelectListItemModel { Value = 0, Name = "Nie" },
-                new SelectListItemModel { Value = 1, Name = "Tak" }
+                new SelectListItemModel { Value = 0.ToString(), Name = "Nie" },
+                new SelectListItemModel { Value = 1.ToString(), Name = "Tak" }
             };
 
             return new JsonResult(model, new JsonSerializerSettings { });

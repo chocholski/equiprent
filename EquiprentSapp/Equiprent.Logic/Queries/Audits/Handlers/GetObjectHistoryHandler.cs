@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.Data.CustomQueries;
+﻿using Equiprent.Data.CustomQueries;
 using Equiprent.Data.CustomQueryTypes;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;
@@ -11,22 +10,22 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
     public class GetObjectHistoryHandler : IQueryHandler<GetObjectHistoryRequest, ObjectHistoryResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IDbStatementService _dbStatementService;
+        private readonly IServiceProvider _serviceProvider;
 
         public GetObjectHistoryHandler(
             ApplicationDbContext dbContext,
-            IDbStatementService dbStatementService)
+            IServiceProvider serviceProvider)
         {
             _dbContext = dbContext;
-            _dbStatementService = dbStatementService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<ObjectHistoryResponse?> HandleAsync(GetObjectHistoryRequest request)
         {
             return await ListViewResponseBuilder.GetListViewResponseAsync<ObjectHistoryResponse, AuditListQueryModel, ObjectHistoryItemViewModel>(
                 requestParameters: request.RequestParameters,
-                _dbStatementService,
-                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)));
+                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)),
+                _serviceProvider);
         }
     }
 }

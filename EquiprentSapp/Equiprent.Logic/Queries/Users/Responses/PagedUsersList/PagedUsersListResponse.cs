@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application;
 using Equiprent.Logic.Abstractions;
 
 namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
@@ -8,8 +7,8 @@ namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
     {
         public PagedUsersListResponse(
             RequestParameters requestParameters,
-            IDbStatementService dbStatementService,
-            IQueryable<User> query) : base(requestParameters, dbStatementService, query)
+            IQueryable<User> query,
+            IServiceProvider serviceProvider) : base(requestParameters, query, serviceProvider)
         {
         }
 

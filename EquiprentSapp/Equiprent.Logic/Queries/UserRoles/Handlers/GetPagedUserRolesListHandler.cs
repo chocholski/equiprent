@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.ApplicationServices.Languageables;
+﻿using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application;
 using Equiprent.Logic.Queries.UserRoles.Requests;
@@ -11,27 +10,27 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
     public class GetPagedUserRolesListHandler : IQueryHandler<GetPagedUserRolesListRequest, PagedUserRolesListResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IDbStatementService _dbStatementService;
         private readonly ILanguageableService _languageableService;
+        private readonly IServiceProvider _serviceProvider;
 
         public GetPagedUserRolesListHandler(
             ApplicationDbContext dbContext,
-            IDbStatementService dbStatementService,
-            ILanguageableService languageableService)
+            ILanguageableService languageableService,
+            IServiceProvider serviceProvider)
         {
             _dbContext = dbContext;
-            _dbStatementService = dbStatementService;
             _languageableService = languageableService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<PagedUserRolesListResponse?> HandleAsync(GetPagedUserRolesListRequest request)
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleListItemModel>(
                 requestParameters: request.RequestParameters,
-                _dbStatementService,
                 query:
                     _dbContext.UserRoles
-                        .Where(r => !r.IsDeleted));
+                        .Where(r => !r.IsDeleted),
+                _serviceProvider);
 
             if (response is not null)
             {

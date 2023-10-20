@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.Data.CustomQueries;
+﻿using Equiprent.Data.CustomQueries;
 using Equiprent.Data.CustomQueryTypes;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
@@ -11,22 +10,22 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
     public class GetFieldNamesHandler : IQueryHandler<GetFieldNamesRequest, FieldNamesResponse>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IDbStatementService _dbStatementService;
+        private readonly IServiceProvider _serviceProvider;
 
         public GetFieldNamesHandler(
             ApplicationDbContext dbContext,
-            IDbStatementService dbStatementService)
+            IServiceProvider serviceProvider)
         {
             _dbContext = dbContext;
-            _dbStatementService = dbStatementService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<FieldNamesResponse?> HandleAsync(GetFieldNamesRequest request)
         {
             return await ListViewResponseBuilder.GetListViewResponseAsync<FieldNamesResponse, AuditListQueryModel, FieldNamesItemViewModel>(
                 requestParameters: request.RequestParameters,
-                _dbStatementService,
-                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)));
+                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)),
+                _serviceProvider);
         }
     }
 }

@@ -30,6 +30,7 @@ import { FilterService } from './services/filter.service';
 import { SelectOptionsService } from './services/select-options.service';
 
 //Components
+import { AuditListForEntityComponent } from './components/audits/audit-list-for-entity';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { UserCreationComponent } from './components/users/user-create';
@@ -37,7 +38,7 @@ import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
-//primeng
+//PrimeNG
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -64,6 +65,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AppComponent,
         //[end] app components
         //[start] custom components
+        AuditListForEntityComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         UserCreationComponent,

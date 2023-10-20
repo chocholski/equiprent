@@ -1,0 +1,94 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <div class="col-12">
+        <p-table #dataTable [value]="audits" [columns]="cols" sortField="CreatedOn" [lazy]="true"
+          (onLazyLoad)="loadAuditsLazy($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+          [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+          responsiveLayout="scroll">
+          <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+              <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
+                icon="pi pi-filter-slash" (click)="filterService.onClearFilters(dataTable)"></button>
+              <div class="grid formgrid">
+                <div class="col-12 mb-2 lg:col-4 lg:mb-0 mt-2">
+                  <span class="p-input-icon-right">
+                    <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                    <input type="text" pInputText #filter id="filter"
+                      (input)="filterService.onFilterGlobal(dataTable, filter.value)"
+                      [placeholder]="translate.instant('General.SearchKeyword')" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
+                <div class="flex justify-content-between align-items-center">
+                  {{ col.header | translate }}
+                  <p-columnFilter *ngSwitchCase="'UserName'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="UserName">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'CreatedOn'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="CreatedOn">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'FieldName'"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="FieldName" matchMode="in" [showMatchModes]="false" [showOperator]="false"
+                    [showAddButton]="false">
+                    <ng-template pTemplate="header">
+                      <div>
+                        <span class="font-bold">{{translate.instant('Audit.FieldNamePicker')}}</span>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [ngModel]="value" [options]="fieldNameOptions"
+                        [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"
+                        (onChange)="filter($event.value)" optionLabel="label">
+                        <ng-template let-option pTemplate="item">
+                          <div class="p-multiselect-representative-option">
+                            <span class="ml-1">{{option.label}}</span>
+                          </div>
+                        </ng-template>
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'OldValue'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="OldValue">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'NewValue'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="NewValue">
+                  </p-columnFilter>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-audit let-columns="columns">
+            <tr>
+              <td>
+                {{audit.UserName}}
+              </td>
+              <td>
+                {{audit.CreatedOn | date:'yyyy-MM-dd HH:mm:ss' }}
+              </td>
+              <td>
+                {{audit.Translation}}
+              </td>
+              <td>
+                {{audit.OldValue}}
+              </td>
+              <td>
+                {{audit.NewValue}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ import { PngTableSearchQueryBuilder } from "./tools/png-table-search-query-build
 
 export const ApiRoutes = {
   audit: {
-    getObjectHistory: "audit",
+    getObjectHistory: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     getFieldNames: "audit/getFieldNames"
   },
   identity: {
@@ -14,6 +14,7 @@ export const ApiRoutes = {
     refreshToken: "identity/refreshToken"
   },
   selectOptions: {
+    audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     languages: "selectoptions/languages",
     userRoles: "selectoptions/userRoles",
     yesNoOptions: "selectoptions/yesNo"

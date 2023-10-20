@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationServices.Database;
-using Equiprent.Logic.Abstractions;
+﻿using Equiprent.Logic.Abstractions;
 
 namespace Equiprent.Logic.Infrastructure
 {
@@ -7,13 +6,13 @@ namespace Equiprent.Logic.Infrastructure
     {
         public static async Task<TEntityViewModel?> GetListViewResponseAsync<TEntityViewModel, TEntity, TEntityViewItemModel>(
             RequestParameters requestParameters,
-            IDbStatementService dbStatementService,
-            IQueryable<TEntity> query)
+            IQueryable<TEntity> query,
+            IServiceProvider serviceProvider)
                 where TEntityViewModel : ListViewModelBaseResponse<TEntity, TEntityViewItemModel>
                 where TEntity : class
                 where TEntityViewItemModel : class
         {
-            var listViewModel = Activator.CreateInstance(typeof(TEntityViewModel), requestParameters, dbStatementService, query);
+            var listViewModel = Activator.CreateInstance(typeof(TEntityViewModel), requestParameters, query, serviceProvider);
 
             if (listViewModel is TEntityViewModel entityViewModel)
             {

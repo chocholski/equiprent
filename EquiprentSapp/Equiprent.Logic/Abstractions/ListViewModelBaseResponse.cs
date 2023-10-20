@@ -3,6 +3,7 @@ using Equiprent.ApplicationServices.Database;
 using Equiprent.Data.CustomQueryTypes;
 using Equiprent.Logic.Attributes;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Equiprent.Logic.Abstractions
@@ -12,20 +13,20 @@ namespace Equiprent.Logic.Abstractions
         where TEntityItemViewModel : class
     {
         protected readonly RequestParameters _requestParameters;
-        protected readonly IDbStatementService _dbStatementService;
         protected readonly IQueryable<TEntity> _query;
+        protected readonly IServiceProvider _serviceProvider;
 
         public List<TEntityItemViewModel> List { get; private set; } = new();
         public int TotalRowsCount { get; private set; }
 
         public ListViewModelBaseResponse(
             RequestParameters requestParameters,
-            IDbStatementService dbStatementService,
-            IQueryable<TEntity> query)
+            IQueryable<TEntity> query,
+            IServiceProvider serviceProvider)
         {
             _requestParameters = requestParameters;
-            _dbStatementService = dbStatementService;
             _query = query;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task FetchAsync()
@@ -38,7 +39,7 @@ namespace Equiprent.Logic.Abstractions
             foreach (var item in list)
             {
                 if (typeof(TEntityItemViewModel) != typeof(FieldNamesItemViewModel) ||
-                    !List.Any(i => ((FieldNamesItemViewModel)(object)i).DbName == ((AuditListQueryModel)(object)item).FieldName))
+                    !List.Any(i => ((FieldNamesItemViewModel)(object)i).Value == ((AuditListQueryModel)(object)item).FieldName))
                 {
                     List.Add(await MapEntityToViewModelAsync(item));
                 }
@@ -56,9 +57,14 @@ namespace Equiprent.Logic.Abstractions
             if (sortColumnName is null)
                 return null;
 
+            var dbStatementService = _serviceProvider.GetService<IDbStatementService>();
+
+            if (dbStatementService is null)
+                return null;
+
             return await _query
-                .Where(await _dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
-                .OrderBy(_dbStatementService.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
+                .Where(await dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+                .OrderBy(dbStatementService.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
                 .Skip(_requestParameters.StartRow)
                 .Take(_requestParameters.PageCount)
                 .ToListAsync();
@@ -74,9 +80,13 @@ namespace Equiprent.Logic.Abstractions
                 .Name;
         }
 
-        private async Task<IQueryable<TEntity>> GetTotalRowsQueryAsync() => 
-            !string.IsNullOrEmpty(_requestParameters.SearchCriteria)
-                ? _query.Where(await _dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+        private async Task<IQueryable<TEntity>> GetTotalRowsQueryAsync()
+        {
+            var dbStatementService = _serviceProvider.GetService<IDbStatementService>();
+
+            return dbStatementService is not null && !string.IsNullOrEmpty(_requestParameters.SearchCriteria)
+                ? _query.Where(await dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
                 : _query;
+        }
     }
 }
