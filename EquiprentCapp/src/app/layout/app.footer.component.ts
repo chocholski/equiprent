@@ -5,6 +5,7 @@ import { ApiRoutes } from '../api-routes';
 import { AuthorizationService } from '../services/authorization.service';
 import { UserChangeThemeModel } from '../interfaces/user';
 import { ApiResultEnum } from '../enums/apiResultEnum';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-footer',
@@ -16,7 +17,9 @@ export class AppFooterComponent {
 
     constructor(
         private httpClient: HttpClient,
-        public layoutService: LayoutService) {
+        public layoutService: LayoutService,
+        public translate: TranslateService) {
+
         const isDarkModeThemeSelectedFromStorage = localStorage.getItem('isDarkModeThemeSelected');
 
         if (isDarkModeThemeSelectedFromStorage) {

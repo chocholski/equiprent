@@ -25,8 +25,9 @@ export class UserDetailsComponent
   extends ButtonAccessComponent
   implements OnInit {
 
+  private userId: string;
+
   user: UserDetailsModel;
-  userId: string;
   userRoles: SelectItem<number>[];
 
   constructor(
@@ -46,6 +47,7 @@ export class UserDetailsComponent
 
     this.userId = this.activatedRoute.snapshot.params["id"];
     this.isDisabled = true;
+
     this.createForm({
       CreatedOn: [{ value: '', disabled: true }],
       Email: ['', Validators.pattern(RegexPatterns.emailPattern)],
@@ -56,6 +58,7 @@ export class UserDetailsComponent
       UserRoleId: null,
       Password: ['', Validators.pattern(RegexPatterns.passwordPattern)]
     });
+
     this.loadUser();
   }
 
@@ -63,29 +66,11 @@ export class UserDetailsComponent
     this.populateDropdowns();
   }
 
-  private loadUser() {
-    if (!this.userId)
-      return;
-
-    this.httpClient
-      .get<UserDetailsModel>(ApiRoutes.user.getById(this.userId))
-      .subscribe(result => {
-        this.user = result;
-        this.setAccess();
-
-        this.updateForm();
-
-        if (!this.form.disabled) {
-          this.formValidator.updateAllControlsToTouched();
-        }
-      })
-  }
-
-  onBack() {
+  public onBack() {
     this.router.navigate(['home/users']);
   }
 
-  onDelete() {
+  public onDelete() {
     this.confirmationService.confirm(<Confirmation>{
       key: 'deleteUser',
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(this.user.LastName).append(' ').append(this.user.FirstName).toString()}'?`,
@@ -96,7 +81,7 @@ export class UserDetailsComponent
     });
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.isExecuting = true;
 
     const user = <UserDetailsModel>{
@@ -143,10 +128,30 @@ export class UserDetailsComponent
     return this.form.value.Password.length > 0;
   }
 
+  private loadUser() {
+    if (!this.userId)
+      return;
+
+    this.httpClient
+      .get<UserDetailsModel>(ApiRoutes.user.getById(this.userId))
+      .subscribe(result => {
+        this.user = result;
+
+        this.setAccess();
+        this.updateForm();
+
+        if (!this.form.disabled) {
+          this.formValidator.updateAllControlsToTouched();
+        }
+      })
+  }
+
   private populateDropdowns() {
-    this.selectOptionsService.getUserRoles().subscribe(options => {
-      this.userRoles = options;
-    });
+    this.selectOptionsService
+      .getUserRoles()
+      .subscribe(options => {
+        this.userRoles = options;
+      });
   }
 
   private putUser(user: UserDetailsModel) {

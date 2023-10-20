@@ -53,11 +53,11 @@ export class UserCreationComponent
     this.populateDropdowns();
   }
 
-  onBack() {
+  public onBack() {
     this.router.navigate(['home/users']);
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.isExecuting = true;
 
     const user = <UserCreationModel>{
@@ -76,13 +76,17 @@ export class UserCreationComponent
 
   private populateDropdowns() {
 
-    this.selectOptionsService.getLanguages().subscribe(options => {
-      this.languages = options;
-    });
+    this.selectOptionsService
+      .getLanguages()
+      .subscribe(options => {
+        this.languages = options;
+      });
 
-    this.selectOptionsService.getUserRoles().subscribe(options => {
-      this.userRoles = options;
-    });
+    this.selectOptionsService
+      .getUserRoles()
+      .subscribe(options => {
+        this.userRoles = options;
+      });
   }
 
   private postUser(user: UserCreationModel) {

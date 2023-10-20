@@ -12,7 +12,6 @@ using Equiprent.ApplicationServices.Options.Jwt;
 using Equiprent.Entities.Application.RefreshToken;
 using Equiprent.Extensions;
 using Equiprent.ApplicationServices.Languageables.Enums;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Equiprent.ApplicationServices.Identities
 {
@@ -41,7 +40,8 @@ namespace Equiprent.ApplicationServices.Identities
             _tokenValidationParameters = tokenValidationParameters;
         }
 
-        private static AuthenticationResult GetAuthenticationResult(int code, int expiration = 0, string? token = null, Guid? refreshToken = null) => new(token, refreshToken, expiration, code);
+        private static AuthenticationResult GetAuthenticationResult(int code, int expiration = 0, string? token = null, Guid? refreshToken = null) =>
+            new(token, refreshToken, expiration, code);
 
         public async Task<AuthenticationResult> GetTokenAsync(string grantType, string? clientSecret, string userName, string password)
         {

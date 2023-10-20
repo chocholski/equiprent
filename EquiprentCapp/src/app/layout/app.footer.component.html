@@ -7,8 +7,7 @@
         <div class="md:col-1 layout-footer pb-0 pt-3 pl-6" style="border: 0;">
             <div class="field grid">
                 <h5 class="col-12 mb-0 mt-1 py-0 md:col-7 md:mb-0" style="font-size: 0.85rem; margin-right: -0.52rem;">
-                    Dark
-                    mode
+                    {{ translate.instant('General.DarkMode') }}
                 </h5>
                 <div class="col-12 md:col-5">
                     <p-inputSwitch [(ngModel)]="isDarkModeThemeSelected" (onChange)="changeUserTheme()"></p-inputSwitch>

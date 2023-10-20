@@ -37,27 +37,28 @@ export class LoginComponent implements OnInit {
 
     this.translate.setDefaultLang('pl');
     this.titleService.setTitle(translate.instant('AppName'));
-
     this.createForm();
     this.formValidator = new FormValidator(this.form);
   }
 
   ngOnInit(): void {
-    this.selectOptionsService.getLanguages().subscribe(options => {
-      this.languages = options;
-      var languageIdFromStorage = localStorage.getItem('languageId');
+    this.selectOptionsService
+      .getLanguages()
+      .subscribe(options => {
+        this.languages = options;
 
-      if (languageIdFromStorage) {
-        this.languageId = Number(languageIdFromStorage);
-        this.setLanguage(this.languageId);
-      }
-    });
+        const languageIdFromStorage = localStorage.getItem('languageId');
+
+        if (languageIdFromStorage) {
+          this.languageId = Number(languageIdFromStorage);
+          this.setLanguage(this.languageId);
+        }
+      });
   }
 
   onSubmit() {
     if (!this.form.value.Login) {
       this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-
       return;
     }
 
@@ -103,10 +104,6 @@ export class LoginComponent implements OnInit {
       default:
         return "---";
     }
-  }
-
-  private resetPassword() {
-    this.router.navigate(['login/reset-password'], { queryParams: { 'token': '' } });
   }
 
   private setLanguage(languageId: number) {
