@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private app: AppComponent,
     private authenticationService: AuthenticationService,
+    private dialogMessageService: DialogMessageService,
     private errorService: ErrorService,
     private formBuilder: FormBuilder,
-    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     private titleService: Title,
@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  onSubmit() {
+  public onSubmit() {
     if (!this.form.value.Login) {
       this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
       return;
@@ -86,6 +86,10 @@ export class LoginComponent implements OnInit {
             break;
         }
       });
+  }
+
+  public resetPassword() {
+    this.router.navigate(['login/reset-password'], { queryParams: { 'token': '' } });
   }
 
   private createForm() {

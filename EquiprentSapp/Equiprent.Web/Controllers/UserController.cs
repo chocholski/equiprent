@@ -3,7 +3,6 @@ using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Requests.ChangeLanguage;
-using Equiprent.Logic.Commands.Users.Requests.ChangePassword;
 using Equiprent.Logic.Commands.Users.Requests.ChangeRole;
 using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Logic.Commands.Users.Requests.Save;
@@ -93,14 +92,6 @@ namespace Equiprent.Web.Controllers
 
         [HttpPut(ApiRoutes.User.ChangeLanguage)]
         public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
-        {
-            var result = await _commandDispatcher.SendCommandAsync(request);
-
-            return GetActionResult(result);
-        }
-
-        [HttpPut(ApiRoutes.User.ChangePassword)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
 

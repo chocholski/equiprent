@@ -11,7 +11,8 @@ export const ApiRoutes = {
     authenticate: "identity/authenticate",
     changePassword: "identity/changePassword",
     isEmptyPassword: "identity/isEmptyPassword",
-    refreshToken: "identity/refreshToken"
+    refreshToken: "identity/refreshToken",
+    resetPassword: "identity/resetPassword"
   },
   selectOptions: {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,

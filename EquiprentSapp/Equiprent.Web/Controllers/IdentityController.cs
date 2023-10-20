@@ -3,7 +3,6 @@ using Equiprent.Logic.QueryData.Authentication;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;
 using Equiprent.ApplicationServices.Identities;
-using Equiprent.ApplicationServices.CommandResults;
 
 namespace Equiprent.Web.Controllers
 {
@@ -53,22 +52,6 @@ namespace Equiprent.Web.Controllers
                 return BadRequest();
 
             return string.IsNullOrEmpty(user.Password);
-        }
-
-        [HttpPut(ApiRoutes.Identity.ChangePassword)]
-        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
-        {
-            var user = await _dbContext!.Users
-                .FirstOrDefaultAsync(u => u.ChangePasswordToken == model.Token);
-
-            if (user is null)
-                return GetActionResult(CommandResult.Token_Invalid);
-
-            user.ChangePassword(password: _passwordHasher.GetHash(model.Password));
-
-            await _dbContext.Users.UpdateAndSaveAsync(user);
-
-            return GetActionResult(CommandResult.OK);
         }
     }
 }
