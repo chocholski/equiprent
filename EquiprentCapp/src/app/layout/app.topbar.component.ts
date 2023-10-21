@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem, PrimeNGConfig, SelectItem } from 'primeng/api';
 import { AppComponent } from '../app.component';
 import { LayoutService } from "./services/app.layout.service";
 import { TranslateService } from '@ngx-translate/core';
@@ -14,7 +14,7 @@ import { UserChangeLanguageModel } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { ApiRoutes } from '../api-routes';
 import { ApiResultEnum } from '../enums/apiResultEnum';
-import { filter } from 'rxjs';
+import { concatMap, filter } from 'rxjs';
 import { StringBuilder } from '../tools/stringBuilder';
 
 @Component({
@@ -48,27 +48,7 @@ export class AppTopBarComponent {
         private titleService: Title,
         public translate: TranslateService) {
 
-        this.selectOptionsService
-            .getLanguages()
-            .subscribe(languages => {
-                this.userMenuItems = [
-                    {
-                        label: this.translate.instant('Language.Plural'),
-                        icon: 'fa fa-solid fa-language',
-                        items: languages.map(l => <MenuItem>{ label: l.label, command: () => this.onLanguageChange(l.value) })
-                    },
-                    { label: this.translate.instant('General.LogOut'), icon: 'fa fa-power-off', command: () => this.logout() }
-                ];
-
-                const languageIdFromStorage = localStorage.getItem('languageId');
-
-                if (languageIdFromStorage) {
-                    this.languageId = Number(languageIdFromStorage);
-                    this.setLanguage(this.languageId);
-                }
-            });
-
-        this.feedBreadcrumb();
+        this.updateWithLanguageOnInit();
     }
 
     public setTheme(withDarkMode: boolean) {
@@ -101,19 +81,13 @@ export class AppTopBarComponent {
             const label = child.snapshot.data['breadcrumb'];
 
             if (label) {
-                breadcrumbs.push(<MenuItem>{ label: this.translate.instant(label), url: urlBuilder.toString(), target: "_self" });
+                breadcrumbs.push(<MenuItem>{ label: label, url: urlBuilder.toString(), target: "_self" });
             }
 
             return this.createBreadcrumbs(child, urlBuilder, breadcrumbs);
         }
 
         return breadcrumbs;
-    }
-
-    private feedBreadcrumb() {
-        this.router.events
-            .pipe(filter(event => event instanceof Scroll || event instanceof NavigationEnd))
-            .subscribe(() => this.breadcrumbItems = this.createBreadcrumbs(this.activatedRoute.root));
     }
 
     private getLanguageCodeById(id: number): string {
@@ -125,6 +99,22 @@ export class AppTopBarComponent {
             default:
                 return "---";
         }
+    }
+
+    private initializeLayout() {
+        this.titleService.setTitle(this.translate.instant('AppName'));
+        this.appSidebar?.appMenu?.buildMenu();
+    }
+
+    private initializeUserMenu(languages: SelectItem[]) {
+        this.userMenuItems = [
+            {
+                label: this.translate.instant('Language.Plural'),
+                icon: 'fa fa-solid fa-language',
+                items: languages.map(l => <MenuItem>{ label: l.label, command: () => this.onLanguageChange(l.value) })
+            },
+            { label: this.translate.instant('General.LogOut'), icon: 'fa fa-power-off', command: () => this.logout() }
+        ];
     }
 
     private logout(): void {
@@ -140,7 +130,6 @@ export class AppTopBarComponent {
             return;
 
         this.languageId = Number(id);
-        this.setLanguage(this.languageId);
 
         localStorage.setItem('languageId', this.languageId.toString());
 
@@ -153,10 +142,72 @@ export class AppTopBarComponent {
             .put<string>(ApiRoutes.user.changeLanguage, model)
             .subscribe(
                 result => {
-                    if (result === ApiResultEnum[ApiResultEnum.OK])
-                        this.setLanguage(this.languageId);
+                    if (result === ApiResultEnum[ApiResultEnum.OK]) {
+                        this.updateWithLanguageOnLanguageChange();
+                    }
                 }
             );
+    }
+
+    private updateBreadcrumbItemsWithLanguage() {
+        this.breadcrumbItems = this.breadcrumbItems.map(breadcrumbItem => ({ ...breadcrumbItem, label: this.translate.instant(breadcrumbItem.label!) }));
+    }
+
+    private updateWithLanguageOnInit() {
+        const languageIdFromStorage = localStorage.getItem('languageId');
+
+        if (languageIdFromStorage) {
+            this.languageId = Number(languageIdFromStorage);
+        }
+
+        if (this.languageId) {
+            const language = this.getLanguageCodeById(this.languageId);
+
+            this.router.events
+                .pipe(filter(event => event instanceof Scroll || event instanceof NavigationEnd))
+                .pipe(
+                    concatMap(() => {
+                        this.breadcrumbItems = this.createBreadcrumbs(this.activatedRoute.root);
+
+                        return this.translate.use(language);
+                    }),
+                    concatMap(() => {
+                        this.initializeLayout();
+
+                        return this.translate.get('primeng');
+                    }),
+                    concatMap(translation => {
+                        this.config.setTranslation(translation);
+
+                        return this.selectOptionsService.getLanguages();
+                    }))
+                .subscribe(languages => {
+                    this.initializeUserMenu(languages);
+                    this.updateBreadcrumbItemsWithLanguage();
+                });
+        }
+    }
+
+    private updateWithLanguageOnLanguageChange() {
+        const language = this.getLanguageCodeById(this.languageId);
+
+        this.translate
+            .use(language)
+            .pipe(
+                concatMap(() => {
+                    this.initializeLayout();
+
+                    return this.translate.get('primeng');
+                }),
+                concatMap(translation => {
+                    this.config.setTranslation(translation);
+
+                    return this.selectOptionsService.getLanguages();
+                }))
+            .subscribe(languages => {
+                this.initializeUserMenu(languages);
+                this.updateBreadcrumbItemsWithLanguage();
+            });
     }
 
     private replaceThemeLink(href: string, onComplete: Function) {
@@ -174,19 +225,5 @@ export class AppTopBarComponent {
             cloneLinkElement.setAttribute('id', id);
             onComplete();
         });
-    }
-
-    private setLanguage(languageId: number) {
-        const language = this.getLanguageCodeById(languageId);
-
-        this.translate
-            .use(language)
-            .subscribe(() => {
-                this.titleService.setTitle(this.translate.instant('AppName'));
-                this.appSidebar?.appMenu?.buildMenu();
-                this.translate
-                    .get('primeng')
-                    .subscribe(res => this.config.setTranslation(res));
-            });
     }
 }

@@ -13,9 +13,6 @@ import { MenuService } from '../services/menu.service';
 })
 export class AppMenuComponent implements OnInit {
 
-    users: Menu = new Menu();
-    userRoles: Menu = new Menu();
-
     model: any[] = [];
 
     constructor(public layoutService: LayoutService,
@@ -23,6 +20,7 @@ export class AppMenuComponent implements OnInit {
         private menuService: MenuService,
         private authorizationService: AuthorizationService,
         public translate: TranslateService) {
+
         this.buildMenu();
         this.router.events.forEach(() => {
             this.buildMenu();
@@ -32,7 +30,7 @@ export class AppMenuComponent implements OnInit {
     ngOnInit() {
     }
 
-    buildMenu() {
+    public buildMenu() {
         this.authorizationService.decodeTokenAndSetData();
         this.model = [];
 
@@ -43,24 +41,25 @@ export class AppMenuComponent implements OnInit {
         this.model = [...this.model];
     }
 
-    appendMenu(menu: Menu) {
-        if (!this.model) {
+    private appendMenu(menu: Menu) {
+        if (!this.model)
             return;
-        }
 
-        var allMenuPermissions: number[] = [];
+        const allMenuPermissions: number[] = [];
+
         menu.Items?.forEach(menuItem => menuItem.Permissions?.forEach(permission => allMenuPermissions.push(permission)));
 
         //TODO
-        var isAuthorized = this.isAuthorized(allMenuPermissions);
+        const isAuthorized = this.isAuthorized(allMenuPermissions);
 
         if (isAuthorized) {
 
-            var menuItems: { label: string; icon: string | undefined; routerLink: string[] | undefined; }[] = [];
-            menu.Items?.forEach(x => menuItems.push({
-                label: this.translate.instant(x.Label),
-                icon: x.Icon,
-                routerLink: x.RouterLink
+            const menuItems: { label: string; icon: string | undefined; routerLink: string[] | undefined; }[] = [];
+
+            menu.Items?.forEach(m => menuItems.push({
+                label: this.translate.instant(m.Label),
+                icon: m.Icon,
+                routerLink: m.RouterLink
             }));
 
             this.model.push({
@@ -70,12 +69,11 @@ export class AppMenuComponent implements OnInit {
         }
     }
 
-    appendMenuItem(menuItemLabel: string, permissions: number[], label: string, icon: string, routerLink?: string[]) {
-        if (!this.model) {
+    private appendMenuItem(menuItemLabel: string, permissions: number[], label: string, icon: string, routerLink?: string[]) {
+        if (!this.model)
             return;
-        }
 
-        var isAuthorized = this.isAuthorized(permissions) || true;
+        const isAuthorized = this.isAuthorized(permissions);
 
         if (isAuthorized) {
             var menuItem = this.model.find(x => x.label == this.translate.instant(menuItemLabel));
@@ -93,7 +91,7 @@ export class AppMenuComponent implements OnInit {
     }
 
     private isAuthorized(permissions: number[]): boolean {
-        var isAuthorized = false;
+        let isAuthorized = false;
 
         for (const permission of permissions) {
             if (this.authorizationService.isAuthorized([permission])) {

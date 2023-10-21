@@ -113,7 +113,7 @@
         "ClearFilters": "Wyczyść filtry",
         "Create": "Utwórz",
         "Dashboard": "Pulpit",
-        "Dark mode": "Tryb ciemny",
+        "DarkMode": "Tryb ciemny",
         "Delete": "Skasuj",
         "Details": "Szczegóły",
         "Edit": "Edytuj",
@@ -172,11 +172,13 @@
         "TheValueOfTheField": "Wartość pola"
     },
     "User": {
+        "Create": "Tworzenie użytkownika",
         "Created": "Użytkownik został utworzony.",
         "CreatedOn": "Data utworzenia",
         "Deleted": "Użytkownik został usunięty.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć użytkownika",
+        "Edit": "Edycja użytkownika",
         "Email": "Email",
         "FirstName": "Imię",
         "IsActive": "Aktywny",
@@ -199,6 +201,7 @@
     },
     "UserRole": {
         "Id": "Id",
+        "List": "Lista ról",
         "Name": "Nazwa",
         "UserRolePicker": "Wybór roli"
     }

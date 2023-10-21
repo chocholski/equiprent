@@ -172,11 +172,13 @@
         "TheValueOfTheField": "The value of the field"
     },
     "User": {
+        "Create": "User creation",
         "Created": "The user has been created.",
         "CreatedOn": "Creation date",
         "Deleted": "The user has been deleted.",
         "Deletion": "Deletion",
         "DeletionConfirmation": "Are you sure to delete user",
+        "Edit": "User edition",
         "Email": "Email",
         "FirstName": "First name",
         "IsActive": "Is active",
@@ -199,6 +201,7 @@
     },
     "UserRole": {
         "Id": "Id",
+        "List": "Roles",
         "Name": "Name",
         "UserRolePicker": "Role picker"
     }
