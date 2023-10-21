@@ -70,7 +70,7 @@ export class MenuService {
       ],
       Label: "Menu.UserRoles",
       Icon: 'fa fa-solid fa-users',
-      RouterLink: [`${MenuService.ALL_MENU_URL_PREFIX}/administration/user-roles`]
+      RouterLink: [`${MenuService.ALL_MENU_URL_PREFIX}/user-roles`]
     });
   }
 }

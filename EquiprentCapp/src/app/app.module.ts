@@ -1,6 +1,6 @@
 //Angular
 import { NgModule } from '@angular/core';
-import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
@@ -40,6 +40,7 @@ import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
 //PrimeNG
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -98,6 +99,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         }),
         //[end] app modules
         //[start] primeng Modules
+        BreadcrumbModule,
         ButtonModule,
         CheckboxModule,
         ConfirmDialogModule,
@@ -115,7 +117,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     ],
     providers: [
         //[start] app services
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
+        { provide: LocationStrategy, useClass: PathLocationStrategy },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

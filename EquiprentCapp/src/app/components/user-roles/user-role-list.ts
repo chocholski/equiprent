@@ -6,7 +6,6 @@ import { PngTableColumn } from 'src/app/interfaces/png';
 import { UserRoleListItemModel, UserRoleListModel } from 'src/app/interfaces/user-role';
 import { FilterService } from 'src/app/services/filter.service';
 import { LazyLoadEvent, SelectItem } from 'primeng/api';
-import { PngTableSearchQueryBuilder } from 'src/app/tools/png-table-search-query-builder';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { FilterTypeEnum } from 'src/app/enums/filterTypeEnum';
 import { ApiRoutes } from 'src/app/api-routes';

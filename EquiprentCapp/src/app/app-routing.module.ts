@@ -9,24 +9,94 @@ import { AuthGuard } from './services/auth-guard.service';
 import { UserPermissionEnum } from './enums/userPermissionEnum';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserCreationComponent } from './components/users/user-create';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: 'home', component: AppLayoutComponent,
+                data: {
+                    breadcrumb: 'General.Dashboard'
+                },
                 children: [
-                    { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanList] } },
-                    { path: "users/create", component: UserCreationComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanModify] } },
-                    { path: "users/edit/:id", component: UserDetailsComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.Users_CanList] } },
-                    { path: 'administration/user-roles', component: UserRoleListComponent, canActivate: [AuthGuard], data: <Data>{ allowedPermissions: [UserPermissionEnum.UserRoles_CanList] } }
+                    {
+                        path: 'users',
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.Users_CanList],
+                            breadcrumb: 'User.List'
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: UserListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Users_CanList],
+                                    breadcrumb: null
+                                }
+                            },
+                            {
+                                path: 'create',
+                                component: UserCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Users_CanModify],
+                                    breadcrumb: 'User.Create'
+                                }
+                            },
+                            {
+                                path: 'edit/:id',
+                                component: UserDetailsComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Users_CanList],
+                                    breadcrumb: 'User.Edit'
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: 'user-roles',
+                        component: UserRoleListComponent,
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
+                            breadcrumb: 'UserRole.List'
+                        }
+                    }
                 ]
             },
-            { path: 'login', component: LoginComponent },
-            { path: 'login/reset-password', component: LoginResetPasswordComponent },
-            { path: '**', redirectTo: 'home' },
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
-        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload' })
+            {
+                path: 'login',
+                component: LoginComponent,
+                data: {
+                    breadcrumb: null
+                }
+            },
+            {
+                path: 'login/reset-password',
+                component: LoginResetPasswordComponent,
+                data: {
+                    breadcrumb: null
+                }
+            },
+            {
+                path: '**',
+                redirectTo: 'home'
+            },
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            },
+        ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload', useHash: false })
+    ],
+    providers: [
+        {
+            provide: LocationStrategy, useClass: PathLocationStrategy
+        }
     ],
     exports: [RouterModule]
 })

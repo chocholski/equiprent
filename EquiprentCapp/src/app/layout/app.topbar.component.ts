@@ -4,7 +4,7 @@ import { AppComponent } from '../app.component';
 import { LayoutService } from "./services/app.layout.service";
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterEvent, Scroll } from '@angular/router';
 import { SelectOptionsService } from '../services/select-options.service';
 import { LanguageCodeEnum } from '../enums/languageCodeEnum';
 import { Title } from "@angular/platform-browser";
@@ -14,6 +14,8 @@ import { UserChangeLanguageModel } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
 import { ApiRoutes } from '../api-routes';
 import { ApiResultEnum } from '../enums/apiResultEnum';
+import { filter } from 'rxjs';
+import { StringBuilder } from '../tools/stringBuilder';
 
 @Component({
     selector: 'app-topbar',
@@ -21,10 +23,11 @@ import { ApiResultEnum } from '../enums/apiResultEnum';
 })
 export class AppTopBarComponent {
 
-    darkModeOn: boolean = false;
-    items!: MenuItem[];
-    languageId: number;
-    languageItems: MenuItem[] = [];
+    public readonly home = { icon: 'pi pi-home', url: 'home' };
+
+    private languageId: number;
+
+    breadcrumbItems: MenuItem[] = [];
     userMenuItems: MenuItem[] = [];
 
     @Input('appSidebar') appSidebar!: AppSidebarComponent;
@@ -34,6 +37,7 @@ export class AppTopBarComponent {
     @ViewChild('topbarmenu') menu!: ElementRef;
 
     constructor(
+        private activatedRoute: ActivatedRoute,
         public app: AppComponent,
         public authenticationService: AuthenticationService,
         private config: PrimeNGConfig,
@@ -44,26 +48,30 @@ export class AppTopBarComponent {
         private titleService: Title,
         public translate: TranslateService) {
 
-        this.selectOptionsService.getLanguages().subscribe(languages => {
-            this.userMenuItems = [
-                {
-                    label: this.translate.instant('Language.Plural'),
-                    icon: 'fa fa-solid fa-language',
-                    items: languages.map(l => <MenuItem>{ label: l.label, command: () => this.onLanguageChange(l.value) })
-                },
-                { label: this.translate.instant('General.LogOut'), icon: 'fa fa-power-off', command: () => this.logout() }
-            ];
+        this.selectOptionsService
+            .getLanguages()
+            .subscribe(languages => {
+                this.userMenuItems = [
+                    {
+                        label: this.translate.instant('Language.Plural'),
+                        icon: 'fa fa-solid fa-language',
+                        items: languages.map(l => <MenuItem>{ label: l.label, command: () => this.onLanguageChange(l.value) })
+                    },
+                    { label: this.translate.instant('General.LogOut'), icon: 'fa fa-power-off', command: () => this.logout() }
+                ];
 
-            const languageIdFromStorage = localStorage.getItem('languageId');
+                const languageIdFromStorage = localStorage.getItem('languageId');
 
-            if (languageIdFromStorage) {
-                this.languageId = Number(languageIdFromStorage);
-                this.setLanguage(this.languageId);
-            }
-        });
+                if (languageIdFromStorage) {
+                    this.languageId = Number(languageIdFromStorage);
+                    this.setLanguage(this.languageId);
+                }
+            });
+
+        this.feedBreadcrumb();
     }
 
-    setTheme(withDarkMode: boolean) {
+    public setTheme(withDarkMode: boolean) {
         const theme = withDarkMode ? 'arya-blue' : 'saga-orange';
         const colorScheme = withDarkMode ? 'dark' : 'light';
         const themeLink = <HTMLLinkElement>document.getElementById('theme-css');
@@ -75,6 +83,37 @@ export class AppTopBarComponent {
             this.layoutService.config.colorScheme = colorScheme;
             this.layoutService.onConfigUpdate();
         });
+    }
+
+    private createBreadcrumbs(route: ActivatedRoute, urlBuilder = new StringBuilder(), breadcrumbs: MenuItem[] = []): MenuItem[] {
+        const children: ActivatedRoute[] = route.children;
+
+        if (children.length === 0)
+            return breadcrumbs;
+
+        for (const child of children) {
+            const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+
+            if (routeURL !== '') {
+                urlBuilder.append(`/${routeURL}`);
+            }
+
+            const label = child.snapshot.data['breadcrumb'];
+
+            if (label) {
+                breadcrumbs.push(<MenuItem>{ label: this.translate.instant(label), url: urlBuilder.toString(), target: "_self" });
+            }
+
+            return this.createBreadcrumbs(child, urlBuilder, breadcrumbs);
+        }
+
+        return breadcrumbs;
+    }
+
+    private feedBreadcrumb() {
+        this.router.events
+            .pipe(filter(event => event instanceof Scroll || event instanceof NavigationEnd))
+            .subscribe(() => this.breadcrumbItems = this.createBreadcrumbs(this.activatedRoute.root));
     }
 
     private getLanguageCodeById(id: number): string {

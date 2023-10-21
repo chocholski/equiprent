@@ -19,36 +19,39 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { MessagesModule } from 'primeng/messages';
 
+
 //primeng
-import { SplitButtonModule } from 'primeng/splitbutton';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
     declarations: [
-        AppMenuitemComponent,
-        AppTopBarComponent,
         AppFooterComponent,
-        AppMenuComponent,
-        AppSidebarComponent,
         AppLayoutComponent,
+        AppMenuComponent,
+        AppMenuitemComponent,
+        AppSidebarComponent,
+        AppTopBarComponent,
     ],
     imports: [
+        AppConfigModule,
+        BadgeModule,
+        BrowserAnimationsModule,
         BrowserModule,
         FormsModule,
         HttpClientModule,
-        BrowserAnimationsModule,
-        InputTextModule,
-        SidebarModule,
-        BadgeModule,
-        RadioButtonModule,
         InputSwitchModule,
+        InputTextModule,
+        RadioButtonModule,
         RippleModule,
         RouterModule,
-        AppConfigModule,
+        SidebarModule,
         //primeng
-        SplitButtonModule,
+        BreadcrumbModule,
+        MessagesModule,
         PanelMenuModule,
-        MessagesModule
+        SplitButtonModule,
     ],
     exports: [AppLayoutComponent]
 })

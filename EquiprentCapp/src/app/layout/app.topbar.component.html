@@ -13,6 +13,10 @@
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
+    <div class="layout-topbar-menu">
+        <p-breadcrumb #breadcrumb [model]="breadcrumbItems" [home]="home"></p-breadcrumb>
+    </div>
+
     <div #topbarmenu class="layout-topbar-menu" style="margin-right: 1.5em;"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
         <div class="formgroup-inline">
