@@ -15,6 +15,7 @@ import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
 import { ErrorService } from 'src/app/services/error.service';
 import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { ConsoleMessageService } from 'src/app/services/console-message.service';
+import { Routes } from 'src/app/routes';
 
 @Component({
   selector: "user-list",
@@ -110,7 +111,7 @@ export class UserListComponent implements OnInit {
   }
 
   public onCreate() {
-    this.router.navigate(['home/users/create']);
+    this.router.navigate([Routes.users.paths.create]);
   }
 
   public onDelete(user: UserListItemModel) {
@@ -124,7 +125,7 @@ export class UserListComponent implements OnInit {
   }
 
   public onEdit(user: UserListItemModel) {
-    this.router.navigate([`home/users/edit/${user.Id}`]);
+    this.router.navigate([Routes.users.navigations.edition(user.Id)]);
   }
 
   private deleteUser(user: UserListItemModel) {

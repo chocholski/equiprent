@@ -4,28 +4,28 @@ import { AppLayoutComponent } from './layout/app.layout.component';
 import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 import { LoginComponent } from './components/login/login';
-import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { AuthGuard } from './services/auth-guard.service';
 import { UserPermissionEnum } from './enums/userPermissionEnum';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserCreationComponent } from './components/users/user-create';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Routes } from './routes';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
-                path: 'home', component: AppLayoutComponent,
+                path: Routes.home.paths.default, component: AppLayoutComponent,
                 data: {
-                    breadcrumb: 'General.Dashboard'
+                    breadcrumb: Routes.home.breadcrumbs.default
                 },
                 children: [
                     {
-                        path: 'users',
+                        path: Routes.users.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.Users_CanList],
-                            breadcrumb: 'User.List'
+                            breadcrumb: Routes.users.breadcrumbs.list
                         },
                         children: [
                             {
@@ -38,57 +38,50 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
                                 }
                             },
                             {
-                                path: 'create',
+                                path: Routes.users.paths.create,
                                 component: UserCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Users_CanModify],
-                                    breadcrumb: 'User.Create'
+                                    breadcrumb: Routes.users.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: 'edit/:id',
+                                path: Routes.users.paths.edit,
                                 component: UserDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Users_CanList],
-                                    breadcrumb: 'User.Edit'
+                                    breadcrumb: Routes.users.breadcrumbs.edition
                                 }
                             }
                         ]
                     },
                     {
-                        path: 'user-roles',
+                        path: Routes.userRoles.paths.list,
                         component: UserRoleListComponent,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
-                            breadcrumb: 'UserRole.List'
+                            breadcrumb: Routes.userRoles.breadcrumbs.list
                         }
                     }
                 ]
             },
             {
-                path: 'login',
+                path: Routes.login.paths.default,
                 component: LoginComponent,
                 data: {
                     breadcrumb: null
                 }
             },
             {
-                path: 'login/reset-password',
-                component: LoginResetPasswordComponent,
-                data: {
-                    breadcrumb: null
-                }
-            },
-            {
                 path: '**',
-                redirectTo: 'home'
+                redirectTo: Routes.home.paths.default
             },
             {
                 path: '',
-                redirectTo: 'home',
+                redirectTo: Routes.home.paths.default,
                 pathMatch: 'full'
             },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload', useHash: false })

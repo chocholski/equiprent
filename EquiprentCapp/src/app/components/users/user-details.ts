@@ -16,6 +16,8 @@ import { StringBuilder } from "src/app/tools/stringBuilder";
 import { ErrorService } from "src/app/services/error.service";
 import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { ConsoleMessageService } from "src/app/services/console-message.service";
+import { Routes } from "src/app/routes";
+import { ApiResultEnum } from "src/app/enums/apiResultEnum";
 
 @Component({
   selector: "user-details",
@@ -67,7 +69,7 @@ export class UserDetailsComponent
   }
 
   public onBack() {
-    this.router.navigate(['home/users']);
+    this.router.navigate([Routes.users.navigations.list]);
   }
 
   public onDelete() {
@@ -105,9 +107,9 @@ export class UserDetailsComponent
       .delete<string>(ApiRoutes.user.delete(this.user.Id))
       .subscribe({
         next: result => {
-          if (result === "OK") {
+          if (result === ApiResultEnum[ApiResultEnum.OK]) {
             this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
-            this.router.navigate(['home/users']);
+            this.router.navigate([Routes.users.navigations.list]);
           }
           else {
             this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
@@ -160,8 +162,8 @@ export class UserDetailsComponent
       .subscribe(
         {
           next: result => {
-            if (result === "OK") {
-              this.router.navigate(['home/users']);
+            if (result === ApiResultEnum[ApiResultEnum.OK]) {
+              this.router.navigate([Routes.users.navigations.list]);
               this.dialogMessageService.addSuccess(this.translate.instant('User.Updated'));
             }
 

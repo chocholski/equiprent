@@ -13,6 +13,7 @@ import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
 import { ApiResultEnum } from 'src/app/enums/apiResultEnum';
+import { Routes } from 'src/app/routes';
 
 @Component({
   selector: "login",
@@ -73,7 +74,7 @@ export class LoginComponent implements OnInit {
         switch (result) {
           case ApiResultEnum[ApiResultEnum.OK]:
             this.app.isUserLoggedIn = true;
-            this.router.navigate(['home']);
+            this.router.navigate([Routes.home.navigations.default]);
             break;
 
           case ApiResultEnum[ApiResultEnum.NotActive]:

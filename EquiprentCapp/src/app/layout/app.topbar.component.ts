@@ -16,6 +16,7 @@ import { ApiRoutes } from '../api-routes';
 import { ApiResultEnum } from '../enums/apiResultEnum';
 import { concatMap, filter } from 'rxjs';
 import { StringBuilder } from '../tools/stringBuilder';
+import { Routes } from '../routes';
 
 @Component({
     selector: 'app-topbar',
@@ -119,7 +120,7 @@ export class AppTopBarComponent {
 
     private logout(): void {
         if (this.authenticationService.logout()) {
-            this.router.navigate(['login']);
+            this.router.navigate([Routes.login.navigations.default]);
         }
     }
 

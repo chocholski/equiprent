@@ -13,6 +13,7 @@ import { ErrorService } from "src/app/services/error.service";
 import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { ConsoleMessageService } from "src/app/services/console-message.service";
 import { ApiResultEnum } from "src/app/enums/apiResultEnum";
+import { Routes } from "src/app/routes";
 
 @Component({
   selector: "user-create",
@@ -54,7 +55,7 @@ export class UserCreationComponent
   }
 
   public onBack() {
-    this.router.navigate(['home/users']);
+    this.router.navigate([Routes.users.navigations.list]);
   }
 
   public onSubmit() {
@@ -96,12 +97,14 @@ export class UserCreationComponent
         next: result => {
           switch (result) {
             case ApiResultEnum[ApiResultEnum.OK]:
-              this.router.navigate(['home/users']);
+              this.router.navigate([Routes.users.navigations.list]);
               this.dialogMessageService.addSuccess(this.translate.instant('User.Created'));
               break;
+
             case ApiResultEnum[ApiResultEnum.LoginExists]:
               this.dialogMessageService.addError(this.translate.instant('User.LoginAlreadyExists'));
               break;
+
             default:
               this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
               break;

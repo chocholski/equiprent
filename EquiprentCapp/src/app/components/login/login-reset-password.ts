@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
-import { ResetPasswordModel } from 'src/app/interfaces/authentication';
 import { ErrorService } from 'src/app/services/error.service';
 import { FormValidator } from 'src/app/ui-controls/form-validator';
 
@@ -43,14 +42,14 @@ export class LoginResetPasswordComponent implements OnInit {
 
   onSubmit(): void {
     if (!this.form.value.Email) {
-      this.dialogMessageService.add({ key: 'tst', severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterEmailFirst') });
+      this.dialogMessageService.add({ severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterEmailFirst') });
       return;
     }
 
-    const model = <ResetPasswordModel>{
-      Email: this.form.value.Email,
-      Language: this.translate.currentLang
-    };
+    // const model = <ResetPasswordModel>{
+    //   Email: this.form.value.Email,
+    //   Language: this.translate.currentLang
+    // };
 
     //[TODO]
     // this.http.put<string>(ApiRoutes.identity.resetPassword, model).subscribe(result => {
