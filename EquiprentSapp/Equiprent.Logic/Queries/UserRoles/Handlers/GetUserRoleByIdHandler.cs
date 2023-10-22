@@ -81,7 +81,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             var result = new UserRoleByIdResponse
             {
                 Id = userRole.Id,
-                UserRolePermissionsList = listGroupModel
+                Permissions = listGroupModel
             };
 
             var currentUserLanguageId = await _userResolverService.GetCurrentUserLanguageIdAsync();

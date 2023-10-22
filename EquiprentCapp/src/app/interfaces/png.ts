@@ -11,3 +11,8 @@ export class PngTableColumn {
   filterType: FilterTypeEnum = FilterTypeEnum.Text;
   width?: string;
 }
+
+export class PngTreeColumn {
+  field: string;
+  header: string;
+}

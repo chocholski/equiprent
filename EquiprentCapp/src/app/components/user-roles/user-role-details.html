@@ -1,0 +1,60 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card pb-0">
+      <p-tabView>
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+          <form [formGroup]="form">
+            <div class="col-12 pb-0 px-0">
+              <div class="card no-border p-0">
+                <div class="p-fluid p-formgrid grid mb-3">
+                  <div class="field col-12 md:col-6">
+                    <name-in-languages *ngIf="userRole" #nameInLanguages
+                      [disabled]="!buttonAccessService.hasAccessToButtons"
+                      [nameInLanguagesData]="userRole.NameInLanguages"
+                      (isValid)="onIsNameInLanguagesValid($event)"></name-in-languages>
+                  </div>
+                </div>
+                <div *ngIf="userPermissionGroups.length > 0" class="p-fluid p-formgrid grid mb-3">
+                  <p-treeTable [value]="userPermissionGroups" [columns]="userPermissionColumns" selectionMode="checkbox"
+                    [(selection)]="selectedUserPermissions" (onNodeSelect)="onPermissionSelected($event.node)">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns">
+                          {{col.header | translate}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                      <tr>
+                        <td *ngFor="let col of columns; let i = index">
+                          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                          <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
+                          {{rowData[col.field] | translate}}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-treeTable>
+                </div>
+                <div class="p-formgrid grid">
+                  <div class="field col-12 items-centered mb-0">
+                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
+                      icon="pi pi-save" [label]="translate.instant('General.Save')"
+                      class="p-button-raised p-button-success mr-2"
+                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
+                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
+                      icon="pi pi-trash" [label]="translate.instant('General.Delete')"
+                      class="p-button-raised p-button-danger mr-2"
+                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

@@ -16,6 +16,7 @@ import { ErrorService } from 'src/app/services/error.service';
 import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { ConsoleMessageService } from 'src/app/services/console-message.service';
 import { Routes } from 'src/app/routes';
+import { ApiResultEnum } from 'src/app/enums/apiResultEnum';
 
 @Component({
   selector: "user-list",
@@ -49,10 +50,10 @@ export class UserListComponent implements OnInit {
     public buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
+    private dialogMessageService: DialogMessageService,
     private errorService: ErrorService,
     public filterService: FilterService,
     private httpClient: HttpClient,
-    private dialogMessageService: DialogMessageService,
     private router: Router,
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
@@ -111,7 +112,7 @@ export class UserListComponent implements OnInit {
   }
 
   public onCreate() {
-    this.router.navigate([Routes.users.paths.create]);
+    this.router.navigate([Routes.users.navigations.creation]);
   }
 
   public onDelete(user: UserListItemModel) {
@@ -133,9 +134,12 @@ export class UserListComponent implements OnInit {
       .delete<string>(ApiRoutes.user.delete(user.Id))
       .subscribe({
         next: result => {
-          if (result === "OK") {
+          if (result === ApiResultEnum[ApiResultEnum.OK]) {
             this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
-            this.loadUsersLazy(this.tempLazyLoadEvent);
+
+            this._dataPopulator.users
+              .get(this.tempLazyLoadEvent)
+              .subscribe(result => this._dataPopulator.users.set(result));
           }
           else {
             this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());

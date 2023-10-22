@@ -40,7 +40,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                 {
                     groupModel.Permissions.Add(new UserRolePermissionForCreationListItemModel
                     {
-                        UserPermissionId = permission.Id,
+                        Id = permission.Id,
                         SystemName = permission.SystemName,
                         Name = permission.Name,
                         IsSelected = false,

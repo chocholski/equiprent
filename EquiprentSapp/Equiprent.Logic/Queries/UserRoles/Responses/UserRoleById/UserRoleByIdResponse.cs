@@ -6,6 +6,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public List<UserRolePermissionsListGroupItemModel> UserRolePermissionsList { get; set; } = new();
+        public List<UserRolePermissionsListGroupItemModel> Permissions { get; set; } = new();
+        public List<UserRolePermissionListItemModel> PermissionsSelected { get; set; } = new();
     }
 }

@@ -171,6 +171,18 @@
         "ProvidedEmailDoesNotExist": "The email provided does not exist.",
         "TheValueOfTheField": "The value of the field"
     },
+    "Permissions": {
+        "User": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "UserRole": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "UserRoles": "Roles",
+        "Users": "Users"
+    },
     "User": {
         "Create": "User creation",
         "Created": "The user has been created.",
@@ -199,7 +211,15 @@
         "UserRoleName": "Role",
         "UserRolePicker": "Role picker"
     },
+    "UserPermission": {
+        "Name": "Permissions"
+    },
     "UserRole": {
+        "Create": "User role creation",
+        "Created": "The role has been created.",
+        "Deleted": "The role has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete user role",
         "Id": "Id",
         "List": "Roles",
         "Name": "Name",

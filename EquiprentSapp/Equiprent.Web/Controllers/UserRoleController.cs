@@ -60,7 +60,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> SaveUserRole([FromBody] SaveRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
@@ -69,7 +69,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> CreateUserRole([FromBody] CreateRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);

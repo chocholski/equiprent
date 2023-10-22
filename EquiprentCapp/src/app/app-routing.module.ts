@@ -10,6 +10,8 @@ import { UserDetailsComponent } from './components/users/user-details';
 import { UserCreationComponent } from './components/users/user-create';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Routes } from './routes';
+import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
+import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 
 @NgModule({
     imports: [
@@ -59,12 +61,40 @@ import { Routes } from './routes';
                     },
                     {
                         path: Routes.userRoles.paths.list,
-                        component: UserRoleListComponent,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
                             breadcrumb: Routes.userRoles.breadcrumbs.list
-                        }
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: UserRoleListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
+                                    breadcrumb: null
+                                }
+                            },
+                            {
+                                path: Routes.userRoles.paths.create,
+                                component: UserRoleCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.UserRoles_CanModify],
+                                    breadcrumb: Routes.userRoles.breadcrumbs.creation
+                                }
+                            },
+                            {
+                                path: Routes.userRoles.paths.edit,
+                                component: UserRoleDetailsComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.UserRoles_CanModify],
+                                    breadcrumb: Routes.userRoles.breadcrumbs.edition
+                                }
+                            }
+                        ]
                     }
                 ]
             },

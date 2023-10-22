@@ -171,6 +171,18 @@
         "ProvidedEmailDoesNotExist": "Podany email nie istnieje.",
         "TheValueOfTheField": "Wartość pola"
     },
+    "Permissions": {
+        "User": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "UserRole": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "UserRoles": "Role",
+        "Users": "Użytkownicy"
+    },
     "User": {
         "Create": "Tworzenie użytkownika",
         "Created": "Użytkownik został utworzony.",
@@ -199,7 +211,15 @@
         "UserRoleName": "Rola",
         "UserRolePicker": "Wybór roli"
     },
+    "UserPermission": {
+        "Name": "Uprawnienia"
+    },
     "UserRole": {
+        "Create": "Tworzenie roli",
+        "Created": "Rola została utworzona.",
+        "Deleted": "Rola została usunięta.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć rolę",
         "Id": "Id",
         "List": "Lista ról",
         "Name": "Nazwa",

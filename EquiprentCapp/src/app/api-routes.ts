@@ -33,10 +33,10 @@ export const ApiRoutes = {
     put: "user"
   },
   userRole: {
-    delete: (userRoleId: string) => `userRole/${userRoleId}`,
+    delete: (userRoleId: number) => `userRole/${userRoleId}`,
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `userRole${new PngTableSearchQueryBuilder(event, columns).create()}`,
-    getById: (userRoleId: string) => `userRole/${userRoleId}`,
-    getUserRolePermissionsForCreation: "getUserRolePermissionsForCreation",
+    getById: (userRoleId: number) => `userRole/${userRoleId}`,
+    getUserRolePermissionsForCreation: "userRole/getUserRolePermissionsForCreation",
     post: "userRole",
     put: "userRole"
   }

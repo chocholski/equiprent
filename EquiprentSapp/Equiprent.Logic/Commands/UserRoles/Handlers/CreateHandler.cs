@@ -28,10 +28,10 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
             _dbContext.UserRoles.Add(userRole);
 
-            await AddUserRoleToLanguagesAsync(userRole, request.NameInLanguages);
-            await _dbContext.SaveChangesAsync();
+            AddUserRoleToLanguages(userRole, request.NameInLanguages);
 
-            await AddUserRolePermissionsAsync(userRole.Id, request.UserPermissionsForUserRoleList);
+            await AddUserRolePermissionsAsync(userRole, request.PermissionsSelected);
+
             await _dbContext.SaveChangesAsync();
 
             return CommandResult.OK;
@@ -56,25 +56,25 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             if (doesUserRoleExistWithinDatabase)
                 return CommandResult.UserRole_ExistsInDatabase;
 
-            if (request.UserPermissionsForUserRoleList.IsNullOrEmpty())
+            if (request.PermissionsSelected.IsNullOrEmpty())
                 return CommandResult.UserRole_NoUserPermissionAssigned;
 
             return CommandResult.OK;
         }
 
-        private async Task AddUserRoleToLanguagesAsync(UserRole userRole, IEnumerable<NameInLanguage> namesInLanguages)
+        private void AddUserRoleToLanguages(UserRole roleBeingCreated, IEnumerable<NameInLanguage> namesInLanguages)
         {
-            await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(
+            _dbContext.UserRolesToLanguages.AddRange(
                 namesInLanguages
                     .Select(nameInLanguage => new UserRoleToLanguage
                         {
-                            UserRole = userRole,
+                            UserRole = roleBeingCreated,
                             Name = nameInLanguage.Name,
                             LanguageId = nameInLanguage.LanguageId
                         }));
         }
 
-        private async Task AddUserRolePermissionsAsync(int roleId, IEnumerable<UserRolePermissionsListItemModel> userPermissionsFromRequest)
+        private async Task AddUserRolePermissionsAsync(UserRole roleBeingCreated, IEnumerable<UserRolePermissionsListItemModel> selectedUserPermissionsFromRequest)
         {
             var allUserPermissions = await _userPermissionsService
                 .GetAllUserPermissionsAsync();
@@ -83,21 +83,19 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .Select(p => p.Id)
                 .ToList();
 
-            var userPermissionIdsFromMessage = userPermissionsFromRequest
-                .Where(i =>
-                    i.IsSelected &&
-                    allUserPermissionsIds.Contains(i.UserPermissionId))
-                .Select(i => i.UserPermissionId)
+            var userPermissionIdsFromRequest = selectedUserPermissionsFromRequest
+                .Where(selectedPermission => allUserPermissionsIds.Contains(selectedPermission.Id))
+                .Select(selectedPermission => selectedPermission.Id)
                 .ToList();
 
-            var userPermissionsIds = await AppendWithLinkedUserPermissionsAsync(userPermissionIdsFromMessage);
+            var userPermissionIdsForRoleBeingCreated = await AppendWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest);
 
-            await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(
-                userPermissionsIds
+            _dbContext.UserPermissionToRoles.AddRange(
+                userPermissionIdsForRoleBeingCreated
                     .Select(id => new UserPermissionToRole
                         {
                             UserPermissionId = id,
-                            UserRoleId = roleId
+                            UserRole = roleBeingCreated
                         }));
         }
 

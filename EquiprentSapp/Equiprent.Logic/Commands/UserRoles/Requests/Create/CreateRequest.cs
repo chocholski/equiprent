@@ -5,6 +5,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Requests.Create
 {
     public record CreateRequest : NameInLanguagesBaseResponse, ICommand
     {
-        public List<UserRolePermissionsListItemModel> UserPermissionsForUserRoleList { get; set; } = new();
+        public List<UserRolePermissionsListItemModel> PermissionsSelected { get; set; } = new();
     }
 }

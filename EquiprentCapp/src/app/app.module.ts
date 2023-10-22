@@ -33,9 +33,12 @@ import { SelectOptionsService } from './services/select-options.service';
 import { AuditListForEntityComponent } from './components/audits/audit-list-for-entity';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
+import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages';
 import { UserCreationComponent } from './components/users/user-create';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
+import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
+import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 
 //PrimeNG
@@ -56,6 +59,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
+import { TreeTableModule } from 'primeng/treetable';
 
 registerLocaleData(localePl, 'pl');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
@@ -69,9 +73,12 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuditListForEntityComponent,
         LoginComponent,
         LoginResetPasswordComponent,
+        NameInLanguagesComponent,
         UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,
+        UserRoleCreationComponent,
+        UserRoleDetailsComponent,
         UserRoleListComponent
         //[end] custom components
     ],
@@ -113,6 +120,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         TableModule,
         TabViewModule,
         ToastModule,
+        TreeTableModule,
         //[end] primeng Modules
     ],
     providers: [

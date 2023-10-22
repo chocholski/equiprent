@@ -37,10 +37,10 @@ export class UserDetailsComponent
     protected override buttonAccessService: ButtonAccessService,
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
+    private dialogMessageService: DialogMessageService,
     private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
@@ -141,10 +141,6 @@ export class UserDetailsComponent
 
         this.setAccess();
         this.updateForm();
-
-        if (!this.form.disabled) {
-          this.formValidator.updateAllControlsToTouched();
-        }
       })
   }
 
@@ -188,5 +184,9 @@ export class UserDetailsComponent
       Login: this.user.Login,
       UserRoleId: this.user.UserRoleId,
     });
+
+    if (!this.form.disabled) {
+      this.formValidator.updateAllControlsToTouched();
+    }
   }
 }

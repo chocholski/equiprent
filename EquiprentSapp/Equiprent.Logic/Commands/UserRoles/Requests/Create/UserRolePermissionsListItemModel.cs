@@ -2,7 +2,7 @@
 {
     public record UserRolePermissionsListItemModel
     {
-        public int UserPermissionId { get; set; }
+        public int Id { get; set; }
         public bool IsSelected { get; set; }
     }
 }

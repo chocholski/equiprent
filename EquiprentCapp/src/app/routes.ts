@@ -20,12 +20,18 @@ export const Routes = {
   },
   userRoles: {
     breadcrumbs: {
+      creation: 'UserRole.Create',
+      edition: 'UserRole.Edit',
       list: 'UserRole.List'
     },
     navigations: {
+      create: 'home/user-roles/create',
+      edition: (id: number) => `home/user-roles/edit/${id}`,
       list: 'home/user-roles'
     },
     paths: {
+      create: 'create',
+      edit: 'edit/:id',
       list: 'user-roles'
     }
   },

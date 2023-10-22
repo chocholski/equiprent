@@ -2,7 +2,7 @@
 {
     public class UserRolePermissionForCreationListItemModel
     {
-        public int UserPermissionId { get; set; }
+        public int Id { get; set; }
         public string SystemName { get; set; } = null!;
         public string Name { get; set; } = null!;
         public bool IsSelected { get; set; }
