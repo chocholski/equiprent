@@ -100,7 +100,9 @@ export class UserListComponent implements OnInit {
       }
     ];
 
-    this.populateMultiSelects();
+    this._dataPopulator.multiSelects.userRoles
+      .get()
+      .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
   public loadUsersLazy(event: LazyLoadEvent) {
@@ -162,12 +164,6 @@ export class UserListComponent implements OnInit {
 
     return this.httpClient
       .get<UserListModel>(ApiRoutes.user.getAll(event, this.cols));
-  }
-
-  private populateMultiSelects() {
-    this._dataPopulator.multiSelects.userRoles
-      .get()
-      .subscribe(result => this._dataPopulator.multiSelects.userRoles.set(result));
   }
 
   private setUserRoleMultiSelectData(userRoles: SelectItem[]) {

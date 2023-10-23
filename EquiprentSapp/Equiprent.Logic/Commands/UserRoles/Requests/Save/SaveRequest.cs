@@ -6,6 +6,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Requests.Save
     public record SaveRequest : NameInLanguagesBaseResponse, ICommand
     {
         public int Id { get; set; }
-        public List<UserRolePermissionsListItemModel> UserPermissionsForUserRoleList { get; set; } = new();
+        public List<PermissionItemModel> PermissionsSelected { get; set; } = new();
     }
 }

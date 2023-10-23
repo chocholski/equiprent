@@ -155,10 +155,17 @@ export class AppTopBarComponent {
     }
 
     private updateWithLanguageOnInit() {
-        const languageIdFromStorage = localStorage.getItem('languageId');
+        const userLanguageId = AuthorizationService.currentUserLanguageId;
 
-        if (languageIdFromStorage) {
-            this.languageId = Number(languageIdFromStorage);
+        if (userLanguageId) {
+            this.languageId = Number(userLanguageId);
+        }
+        else {
+            const languageIdFromStorage = localStorage.getItem('languageId');
+
+            if (languageIdFromStorage) {
+                this.languageId = Number(languageIdFromStorage);
+            }
         }
 
         if (this.languageId) {

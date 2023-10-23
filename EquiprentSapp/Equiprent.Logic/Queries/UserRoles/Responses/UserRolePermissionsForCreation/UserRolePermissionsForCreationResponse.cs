@@ -2,6 +2,6 @@
 {
     public class UserRolePermissionsForCreationResponse
     {
-        public List<UserRolePermissionForCreationListGroupModel> List { get; set; } = new();
+        public List<PermissionGroupModel> List { get; set; } = new();
     }
 }

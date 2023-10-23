@@ -7,7 +7,7 @@ namespace Equiprent.ApplicationServices.UserPermissions
         public Task<List<UserPermission>> GetAllUserPermissionsAsync();
         public Task<List<UserPermission>> GetUserPermissionsForUserAsync(Guid userId);
         public Task<List<UserPermission>> GetUserRolePermissionsAsync(int roleId);
-        public Task<List<int>> GetAllLinkedPermissionsIdsAsync(int permissionId);
+        public Task<List<int>> GetIdsOfPermissionsLinkedToPermissionAsync(int permissionId);
         public Task<bool> IsPermissionLinked(int permissionId);
     }
 }

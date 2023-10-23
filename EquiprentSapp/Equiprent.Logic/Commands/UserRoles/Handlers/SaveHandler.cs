@@ -6,6 +6,7 @@ using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Microsoft.IdentityModel.Tokens;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Equiprent.Logic.Commands.UserRoles.Handlers
 {
@@ -23,39 +24,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             _dbContext = dbContext;
             _userService = userService;
             _userPermissionsService = userPermissionsService;
-        }
-
-        public async Task<CommandResult> HandleAsync(SaveRequest request)
-        {
-            var userRole = await _dbContext.UserRoles
-                .SingleOrDefaultAsync(role => role.Id == request.Id);
-
-            if (userRole is null)
-                return CommandResult.BadRequest;
-
-            var userRolesToLanguages = await _dbContext.UserRolesToLanguages
-                .Where(roleToLanguage => roleToLanguage.UserRoleId == userRole.Id)
-                .ToListAsync();
-
-            await _dbContext.UserRolesToLanguages.RemoveRangeAndSaveAsync(userRolesToLanguages);
-
-            await UpdateUserRolePermissionsAsync(userRole.Id, request.UserPermissionsForUserRoleList);
-
-            await _dbContext.UserRolesToLanguages.AddRangeAndSaveAsync(request.NameInLanguages
-                .Select(x => new UserRoleToLanguage
-                {
-                    UserRoleId = userRole.Id,
-                    Name = x.Name,
-                    LanguageId = x.LanguageId
-                }));
-
-            var users = await _dbContext.Users
-                .Where(u => u.UserRoleId == userRole.Id)
-                .ToListAsync();
-
-            await _userService.SetTokenRefreshRequiredForUsersAsync(users.Select(u => u.Id));
-
-            return CommandResult.OK;
         }
 
         public async Task<CommandResult> ValidateAsync(SaveRequest request)
@@ -80,7 +48,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 if (equallyNamedUserRoleExists)
                 {
                     userRoleExists = true;
-
                     break;
                 }
             }
@@ -88,17 +55,43 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             if (userRoleExists)
                 return CommandResult.UserRole_ExistsInDatabase;
 
-            if (request.UserPermissionsForUserRoleList.IsNullOrEmpty())
+            if (request.PermissionsSelected.IsNullOrEmpty())
                 return CommandResult.UserRole_NoUserPermissionAssigned;
 
             return CommandResult.OK;
         }
 
-        private async Task UpdateUserRolePermissionsAsync(int roleId, IEnumerable<UserRolePermissionsListItemModel> userPermissionsFromRequest)
+        public async Task<CommandResult> HandleAsync(SaveRequest request)
         {
-            var currentPermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId);
+            var userRole = await GetUserRoleAsync(request.Id);
 
-            var userPermissionsToUserRolesToRemoveIds = currentPermissions
+            if (userRole is null)
+                return CommandResult.BadRequest;
+
+            await UpdateUserRoleToLanguagesAsync(request);
+            await UpdateUserRolePermissionsAsync(userRole.Id, request.PermissionsSelected);
+
+            var idsOfUsersWithRoleUpdated = await _dbContext.Users
+                .Where(u => u.UserRoleId == userRole.Id)
+                .Select(u => u.Id)
+                .ToListAsync();
+
+            await _userService.SetTokenRefreshRequiredForUsersAsync(idsOfUsersWithRoleUpdated);
+
+            return CommandResult.OK;
+        }
+
+        private async Task<UserRole?> GetUserRoleAsync(int userRoleId)
+        {
+            return await _dbContext.UserRoles
+                .SingleOrDefaultAsync(role => !role.IsDeleted && role.Id == userRoleId);
+        }
+
+        private async Task UpdateUserRolePermissionsAsync(int roleId, IEnumerable<PermissionItemModel> userPermissionsFromRequest)
+        {
+            var currentUserRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId);
+
+            var userPermissionsToUserRolesToRemoveIds = currentUserRolePermissions
                 .Select(p => p.Id)
                 .ToList();
 
@@ -118,34 +111,50 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .ToList();
 
             var userPermissionIdsFromRequest = userPermissionsFromRequest
-                .Where(model =>
-                    model.IsSelected &&
-                    allUserPermissionsIds.Contains(model.UserPermissionId))
-                .Select(model => model.UserPermissionId)
+                .Where(model => allUserPermissionsIds.Contains(model.Id))
+                .Select(model => model.Id)
                 .ToList();
 
-            userPermissionIdsFromRequest = await AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest);
+            var userPermissionIdsForRoleBeingUpdated = await AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest);
 
-            await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionsFromRequest
-                .Select(p => new UserPermissionToRole
+            await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionIdsForRoleBeingUpdated
+                .Select(id => new UserPermissionToRole
                 {
-                    UserPermissionId = p.UserPermissionId,
+                    UserPermissionId = id,
                     UserRoleId = roleId
                 }));
         }
 
-        private async Task<List<int>> AppendPermissionsWithLinkedUserPermissionsAsync(List<int> userPermissionIds)
+        private async Task UpdateUserRoleToLanguagesAsync(SaveRequest request)
         {
-            var result = userPermissionIds;
+            var userRolesToLanguages = await _dbContext.UserRolesToLanguages
+                .Where(roleToLanguage => roleToLanguage.UserRoleId == request.Id)
+                .ToListAsync();
+
+            _dbContext.UserRolesToLanguages.RemoveRange(userRolesToLanguages);
+
+            _dbContext.UserRolesToLanguages.AddRange(request.NameInLanguages
+                .Select(roleInLanguage => new UserRoleToLanguage
+                {
+                    UserRoleId = request.Id,
+                    Name = roleInLanguage.Name,
+                    LanguageId = roleInLanguage.LanguageId
+                }));
+        }
+
+        private async Task<HashSet<int>> AppendPermissionsWithLinkedUserPermissionsAsync(List<int> userPermissionIds)
+        {
+            var result = new HashSet<int>(userPermissionIds);
 
             foreach (var id in userPermissionIds)
             {
-                var linkedUserPermissionIds = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(id);
+                var linkedUserPermissionIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(id);
 
-                result.AddRange(linkedUserPermissionIds.Where(id => !result.Contains(id)));
+                foreach (var linkedUserPermissionId in linkedUserPermissionIds)
+                    result.Add(linkedUserPermissionId);
             }
 
-            return result.Distinct().ToList();
+            return result;
         }
     }
 }

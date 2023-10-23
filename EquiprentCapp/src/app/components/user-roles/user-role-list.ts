@@ -83,7 +83,9 @@ export class UserRoleListComponent implements OnInit {
       }
     ];
 
-    this.populateMultiSelects();
+    this._dataPopulator.multiSelects.userRoles
+      .get()
+      .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
   public loadUserRolesLazy(event: LazyLoadEvent) {
@@ -147,16 +149,10 @@ export class UserRoleListComponent implements OnInit {
       .get<UserRoleListModel>(ApiRoutes.userRole.getAll(event, this.cols));
   }
 
-  populateMultiSelects() {
-    this._dataPopulator.multiSelects.userRoles
-      .get()
-      .subscribe(result => this._dataPopulator.multiSelects.userRoles.set(result));
-  }
-
   private setUserRoleMultiSelectData(userRoles: SelectItem[]) {
     this.userRoleOptions = userRoles;
 
-    const userRoleColumn = this.cols.find(c => c.field === "UserRoleName");
+    const userRoleColumn = this.cols.find(c => c.field === "Name");
 
     if (userRoleColumn) {
       userRoleColumn.options = this.userRoleOptions;

@@ -18,42 +18,42 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
         {
             var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync();
 
-            var allUserPermissionsInGroups = allUserPermissions
+            var groupedPermissions = allUserPermissions
                 .GroupBy(p => p.SystemName.Split("_")[0])
                 .Select(g => new
                 {
-                    GroupName = $"Permissions.{g.Key}",
-                    PermissionsList = g.ToList()
+                    Name = $"Permissions.{g.Key}",
+                    Permissions = g.ToList()
                 })
                 .ToList();
 
-            var listGroupModel = new List<UserRolePermissionForCreationListGroupModel>();
+            var permissionGroupModel = new List<PermissionGroupModel>();
 
-            foreach (var group in allUserPermissionsInGroups)
+            foreach (var permissionsGroup in groupedPermissions)
             {
-                var groupModel = new UserRolePermissionForCreationListGroupModel
+                var permissionGroupItemModel = new PermissionGroupModel
                 {
-                    GroupName = group.GroupName
+                    Name = permissionsGroup.Name
                 };
 
-                foreach (var permission in group.PermissionsList)
+                foreach (var permission in permissionsGroup.Permissions)
                 {
-                    groupModel.Permissions.Add(new UserRolePermissionForCreationListItemModel
+                    permissionGroupItemModel.Permissions.Add(new PermissionItemModel
                     {
                         Id = permission.Id,
-                        SystemName = permission.SystemName,
-                        Name = permission.Name,
                         IsSelected = false,
-                        LinkedUserPermissions = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(permission.Id)
+                        LinkedPermissionsIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(permission.Id),
+                        Name = permission.Name,
+                        SystemName = permission.SystemName,
                     });
                 }
 
-                listGroupModel.Add(groupModel);
+                permissionGroupModel.Add(permissionGroupItemModel);
             }
 
             return new UserRolePermissionsForCreationResponse
             {
-                List = listGroupModel
+                List = permissionGroupModel
             };
         }
     }

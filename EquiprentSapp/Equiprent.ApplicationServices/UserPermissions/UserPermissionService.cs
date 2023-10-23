@@ -45,7 +45,7 @@ namespace Equiprent.ApplicationServices.UserPermissions
             return permissions!;
         }
 
-        public async Task<List<int>> GetAllLinkedPermissionsIdsAsync(int permissionId)
+        public async Task<List<int>> GetIdsOfPermissionsLinkedToPermissionAsync(int permissionId)
         {
             var result = await GetNotNormalizedAllLinkedPermissionsIdsAsync(permissionId);
 

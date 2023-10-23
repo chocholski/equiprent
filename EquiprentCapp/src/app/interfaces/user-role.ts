@@ -1,14 +1,23 @@
 import { NameInLanguagesBase } from "./name-in-language";
+import { PermissionGroupItemModel, PermissionItemModel } from "./user-permission";
 
 export class UserRoleCreationModel extends NameInLanguagesBase {
-  PermissionsSelected: UserPermissionsForUserRoleListItemModel[];
+  PermissionsSelected: PermissionItemModel[] = [];
+
+  public doesPermissionExistWithinSelected(permissionId: number) {
+    return this.PermissionsSelected.find(p => p.Id === permissionId);
+  }
 }
 
 export class UserRoleDetailsModel extends NameInLanguagesBase {
   Id: number;
   Name?: string;
-  Permissions: UserPermissionsForUserRoleListGroupItemModel[];
-  PermissionsSelected: UserPermissionsForUserRoleListItemModel[];
+  GroupedPermissions: PermissionGroupItemModel[] = [];
+  PermissionsSelected: PermissionItemModel[] = [];
+
+  public doesPermissionExistWithinSelected(permissionId: number) {
+    return this.PermissionsSelected.find(p => p.Id === permissionId);
+  }
 }
 
 export interface UserRoleListModel {
@@ -21,31 +30,6 @@ export interface UserRoleListItemModel {
   Name: string;
 }
 
-export interface UserRolePermissionForCreationListGroupModel {
-  GroupName: string;
-  Permissions: UserRolePermissionForCreationListItemModel[];
-}
-
-export interface UserRolePermissionForCreationListItemModel {
-  Id: number;
-  IsSelected: boolean;
-  LinkedUserPermissions: number[];
-  Name: string;
-  SystemName: string;
-}
-
-export class UserPermissionsForUserRoleListGroupItemModel {
-  GroupName: string;
-  Permissions: UserPermissionsForUserRoleListItemModel[];
-}
-
-export class UserPermissionsForUserRoleListItemModel {
-  Id: number;
-  Name: string;
-  IsSelected: boolean;
-  LinkedUserPermissions: number[];
-}
-
 export interface UserRolePermissionsForCreation {
-  List: UserRolePermissionForCreationListGroupModel[];
+  List: PermissionGroupItemModel[];
 }

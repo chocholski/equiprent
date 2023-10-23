@@ -22,21 +22,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             _userPermissionsService = userPermissionsService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateRequest request)
-        {
-            var userRole = new UserRole();
-
-            _dbContext.UserRoles.Add(userRole);
-
-            AddUserRoleToLanguages(userRole, request.NameInLanguages);
-
-            await AddUserRolePermissionsAsync(userRole, request.PermissionsSelected);
-
-            await _dbContext.SaveChangesAsync();
-
-            return CommandResult.OK;
-        }
-
         public async Task<CommandResult> ValidateAsync(CreateRequest request)
         {
             if (request is null)
@@ -62,6 +47,21 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             return CommandResult.OK;
         }
 
+        public async Task<CommandResult> HandleAsync(CreateRequest request)
+        {
+            var userRole = new UserRole();
+
+            _dbContext.UserRoles.Add(userRole);
+
+            AddUserRoleToLanguages(userRole, request.NameInLanguages);
+
+            await AddUserRolePermissionsAsync(userRole, request.PermissionsSelected);
+
+            await _dbContext.SaveChangesAsync();
+
+            return CommandResult.OK;
+        }
+
         private void AddUserRoleToLanguages(UserRole roleBeingCreated, IEnumerable<NameInLanguage> namesInLanguages)
         {
             _dbContext.UserRolesToLanguages.AddRange(
@@ -74,7 +74,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                         }));
         }
 
-        private async Task AddUserRolePermissionsAsync(UserRole roleBeingCreated, IEnumerable<UserRolePermissionsListItemModel> selectedUserPermissionsFromRequest)
+        private async Task AddUserRolePermissionsAsync(UserRole roleBeingCreated, IEnumerable<PermissionItemModel> selectedUserPermissionsFromRequest)
         {
             var allUserPermissions = await _userPermissionsService
                 .GetAllUserPermissionsAsync();
@@ -105,7 +105,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
 
             foreach (var id in userPermissionIds)
             {
-                var linkedUserPermissionIds = await _userPermissionsService.GetAllLinkedPermissionsIdsAsync(id);
+                var linkedUserPermissionIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(id);
 
                 foreach (var linkedUserPermissionId in linkedUserPermissionIds)
                     result.Add(linkedUserPermissionId);

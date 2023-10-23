@@ -104,8 +104,6 @@ namespace Equiprent.ApplicationServices.Identities
                 }
 
                 await _dbContext.RefreshTokens.UpdateAndSaveAsync(storedRefreshToken);
-
-                return GetAuthenticationResult(code: (int)HttpStatusCode.OK, token: token, refreshToken: refreshToken);
             }
 
             if (storedRefreshToken.Invalidated)
