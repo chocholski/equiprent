@@ -12,27 +12,9 @@
                       (isValid)="onIsNameInLanguagesValid($event)"></name-in-languages>
                   </div>
                 </div>
-                <div *ngIf="userPermissionGroups.length > 0" class="p-fluid p-formgrid grid mb-3">
-                  <p-treeTable [value]="userPermissionGroups" [columns]="userPermissionColumns" selectionMode="checkbox"
-                    [(selection)]="selectedUserPermissions" (onNodeSelect)="onPermissionSelected($event.node)">
-                    <ng-template pTemplate="header" let-columns>
-                      <tr>
-                        <th *ngFor="let col of columns">
-                          {{col.header | translate}}
-                        </th>
-                      </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                      <tr>
-                        <td *ngFor="let col of columns; let i = index">
-                          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                          <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
-                          {{rowData[col.field] | translate}}
-                        </td>
-                      </tr>
-                    </ng-template>
-                  </p-treeTable>
-                </div>
+                <user-role-permissions *ngIf="groupedUserPermissions" #userRolePermissions
+                  [formMode]="formMode.Creation"
+                  [groupedUserPermissions]="groupedUserPermissions"></user-role-permissions>
                 <div class="p-formgrid grid">
                   <div class="field col-12 items-centered mb-0">
                     <button pButton pRipple type="button" [label]="translate.instant('General.Create')"

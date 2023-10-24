@@ -40,6 +40,7 @@ import { UserListComponent } from './components/users/user-list';
 import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
 import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
+import { UserRolePermissionsComponent } from './components/user-roles/user-role-permissions';
 
 //PrimeNG
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
@@ -79,7 +80,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         UserListComponent,
         UserRoleCreationComponent,
         UserRoleDetailsComponent,
-        UserRoleListComponent
+        UserRoleListComponent,
+        UserRolePermissionsComponent,
         //[end] custom components
     ],
     imports: [

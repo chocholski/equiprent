@@ -6,7 +6,6 @@ using Equiprent.Entities.Application;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Microsoft.IdentityModel.Tokens;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace Equiprent.Logic.Commands.UserRoles.Handlers
 {
@@ -36,7 +35,10 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
             foreach (var userRole in request.NameInLanguages)
             {
                 var existingUserRolesInLanguage = await _dbContext.UserRolesToLanguages
-                    .Where(roleToLanguage => roleToLanguage.LanguageId == userRole.LanguageId)
+                    .Include(roleToLanguage => roleToLanguage.UserRole)
+                    .Where(roleToLanguage =>
+                        !roleToLanguage.UserRole.IsDeleted &&
+                        roleToLanguage.LanguageId == userRole.LanguageId)
                     .ToListAsync();
 
                 var equallyNamedUserRoleExists = existingUserRolesInLanguage

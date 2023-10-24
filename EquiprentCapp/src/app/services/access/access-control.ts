@@ -1,12 +1,7 @@
-import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { AuthorizationService } from "./authorization.service";
-import { FormGroup } from "@angular/forms";
+import { AuthorizationService } from "../authorization.service";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ButtonAccessService {
+export class AccessControl {
 
   permissions?: number[];
   hasAccessToButtons: boolean;

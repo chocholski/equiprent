@@ -215,14 +215,18 @@
         "Name": "Uprawnienia"
     },
     "UserRole": {
+        "AssignedRoleDeletionAttempt": "Istnieje użytkownik, który ma przypisaną obecną rolę.",
         "Create": "Tworzenie roli",
         "Created": "Rola została utworzona.",
         "Deleted": "Rola została usunięta.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć rolę",
+        "ExistsInDatabase": "Rola z wprowadzoną nazwą/nazwami istnieje już w bazie danych.",
         "Id": "Id",
         "List": "Lista ról",
         "Name": "Nazwa",
+        "NoUserPermissionAssigned": "Roli nie przypisano żadnych uprawnień.",
+        "Updated": "Rola została zaktualizowana.",
         "UserRolePicker": "Wybór roli"
     }
 }

@@ -28,6 +28,8 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 return CommandResult.BadRequest;
 
             var existingUserRolesNamesInLanguages = await _dbContext.UserRolesToLanguages
+                .Include(roleToLanguage => roleToLanguage.UserRole)
+                .Where(roleToLanguage => !roleToLanguage.UserRole.IsDeleted)
                 .GroupBy(roleToLanguage => roleToLanguage.LanguageId)
                 .Select(g => new { g.Key, Names = g.ToList().Select(roleToLanguage => roleToLanguage.Name).ToList() })
                 .ToDictionaryAsync(kvp => kvp.Key, kvp => kvp.Names);

@@ -9,5 +9,5 @@ export class Menu {
 export interface SelectOption {
     IsSelected: boolean;
     Name: string;
-    Value: number | string;
+    Value: string | number;
 }

@@ -1,29 +1,32 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { NameInLanguage } from "src/app/interfaces/name-in-language";
 import { SelectOptionsService } from "src/app/services/select-options.service";
 import { FormValidator } from "src/app/ui-controls/form-validator";
+import { FormComponent } from "../abstract/formComponent";
 
 @Component({
   selector: 'name-in-languages',
   templateUrl: './name-in-languages.html'
 })
-export class NameInLanguagesComponent implements OnInit {
+export class NameInLanguagesComponent
+  extends FormComponent
+  implements OnInit {
 
-  nameInLanguagesForm: FormGroup;
-  formValidator: FormValidator;
   languages: SelectItem[];
 
-  @Input('nameInLanguagesData') nameInLanguagesData: NameInLanguage[];
+  @Input('nameInLanguages') nameInLanguages: NameInLanguage[];
   @Input('disabled') disabled: boolean;
 
   @Output('isValid') isValid = new EventEmitter<boolean>();
 
   constructor(
+    protected override formBuilder: FormBuilder,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
+    super(formBuilder);
   }
 
   ngOnInit() {
@@ -34,18 +37,16 @@ export class NameInLanguagesComponent implements OnInit {
 
         this.createForm();
 
-        this.formValidator = new FormValidator(this.nameInLanguagesForm);
-
-        if (this.nameInLanguagesData) {
+        if (this.nameInLanguages) {
           this.updateForm();
           this.isValid.emit(true);
         }
 
         if (this.disabled) {
-          this.nameInLanguagesForm.disable();
+          this.form.disable();
         }
         else {
-          this.nameInLanguagesForm.enable();
+          this.form.enable();
         }
       });
   }
@@ -56,25 +57,25 @@ export class NameInLanguagesComponent implements OnInit {
     this.languages.forEach(l => {
       data.push(<NameInLanguage>{
         LanguageId: Number(l.value),
-        Name: this.nameInLanguagesForm.controls[l.label!].value
+        Name: this.form.controls[l.label!].value
       });
     });
 
     return data;
   }
 
-  public onChangeInput(text: string) {
+  public onChangeInput() {
     let isFormValid = true;
 
-    Object.keys(this.nameInLanguagesForm.controls)
+    Object.keys(this.form.controls)
       .forEach(key => {
-        isFormValid = isFormValid && (this.nameInLanguagesForm.get(key)?.valid ?? true);
+        isFormValid = isFormValid && (this.form.get(key)?.valid ?? true);
       });
 
     this.isValid.emit(isFormValid);
   }
 
-  private createForm() {
+  protected override createForm() {
     const group: { [key: string]: FormControl } = {};
 
     this.languages.forEach(l => {
@@ -82,14 +83,15 @@ export class NameInLanguagesComponent implements OnInit {
       group[l.label!].setValidators(Validators.required);
     });
 
-    this.nameInLanguagesForm = new FormGroup(group);
+    this.form = new FormGroup(group);
+    this.formValidator = new FormValidator(this.form);
   }
 
-  private updateForm() {
+  protected override updateForm() {
     this.languages.forEach(l => {
-      const data = this.nameInLanguagesData.find(d => d.LanguageId == l.value);
+      const data = this.nameInLanguages.find(d => d.LanguageId == l.value);
 
-      this.nameInLanguagesForm.controls[l.label!].patchValue(data?.Name);
+      this.form.controls[l.label!].patchValue(data?.Name);
     });
   }
 }

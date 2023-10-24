@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Menu } from "src/app/interfaces/ui-models";
-import { UserPermissionEnum } from "../enums/userPermissionEnum";
+import { UserPermissionEnum } from "../enums/user-permission-enum";
 import { AuthorizationService } from "./authorization.service";
 
 @Injectable({

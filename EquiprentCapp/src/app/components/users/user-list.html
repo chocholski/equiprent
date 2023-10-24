@@ -3,7 +3,7 @@
     <div class="card">
       <div class="col-12">
         <div class="flex flex-column md:flex-row">
-          <button *ngIf="buttonAccessService.hasAccessToButtons" pButton [label]="translate.instant('General.Create')"
+          <button *ngIf="hasAccessToButtons" pButton [label]="translate.instant('General.Create')"
             class="p-button-outlined ml-auto" icon="pi pi-user" (click)="onCreate()"></button>
         </div>
       </div>
@@ -91,12 +91,10 @@
               </td>
               <td class="items-centered gap-2">
                 <button pButton pRipple class="p-button-raised" type="button"
-                  [class]="buttonAccessService.hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'"
-                  icon="pi pi-pencil"
-                  [label]="translate.instant(buttonAccessService.hasAccessToButtons ? 'General.Edit' : 'General.Details')"
-                  (click)="onEdit(user)"></button>
-                <button *ngIf="buttonAccessService.hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
-                  [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger"
+                  [class]="hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'"
+                  icon="pi pi-pencil" [label]="translate.instant(onEditLabelId)" (click)="onEdit(user)"></button>
+                <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
+                  [label]="translate.instant(onDeleteLabelId)" class="p-button-raised p-button-danger"
                   (click)="onDelete(user)"></button>
               </td>
             </tr>

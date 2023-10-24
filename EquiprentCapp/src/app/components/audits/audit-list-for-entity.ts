@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { LazyLoadEvent, SelectItem } from "primeng/api";
-import { PngTableColumn } from "src/app/interfaces/png";
+import { PngTable, PngTableColumn } from "src/app/interfaces/png";
 import { HttpClient } from "@angular/common/http";
 import { FilterService } from "src/app/services/filter.service";
 import { TranslateService } from "@ngx-translate/core";
@@ -29,7 +29,7 @@ export class AuditListForEntityComponent implements OnInit {
   private tempLazyLoadEvent: LazyLoadEvent;
 
   public audits: AuditListItemModel[];
-  public cols: PngTableColumn[];
+  public table: PngTable;
   public fieldNameOptions: SelectItem[] = [];
   public totalRecords: number;
 
@@ -44,7 +44,7 @@ export class AuditListForEntityComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cols = [
+    this.table = new PngTable([
       <PngTableColumn>{
         field: 'UserName',
         header: 'Audit.UserName',
@@ -74,7 +74,7 @@ export class AuditListForEntityComponent implements OnInit {
         width: '20%',
         applyGlobalFiltering: true
       }
-    ];
+    ]);
   }
 
   public loadAuditsLazy(event: LazyLoadEvent) {
@@ -96,26 +96,17 @@ export class AuditListForEntityComponent implements OnInit {
 
   private getFieldNamesForObjectHistory() {
     return this.selectOptionsService
-      .getFieldNamesForObjectHistory(this.tempLazyLoadEvent, this.cols, this.entityId, this.entityTableName);
+      .getFieldNamesForObjectHistory(this.tempLazyLoadEvent, this.table.cols, this.entityId, this.entityTableName);
   }
 
   private getObjectHistory(event: LazyLoadEvent) {
-    if (!event.sortField) {
-      event.sortField = this.cols[0]?.field;
-    }
-
     return this.httpClient
-      .get<AuditListModel>(ApiRoutes.audit.getObjectHistory(event, this.cols, this.entityId, this.entityTableName));
+      .get<AuditListModel>(ApiRoutes.audit.getObjectHistory(event, this.table.cols, this.entityId, this.entityTableName));
   }
 
   private setFieldNamesForObjectHistory(options: SelectItem[]) {
     this.fieldNameOptions = options;
-
-    const fieldNameColumn = this.cols.find(c => c.field === "FieldName");
-
-    if (fieldNameColumn) {
-      fieldNameColumn.options = this.fieldNameOptions;
-    }
+    this.table.setOptionsForColumn("FieldName", this.fieldNameOptions);
   }
 
   private setObjectHistory(audits: AuditListModel) {

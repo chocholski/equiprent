@@ -10,19 +10,22 @@ import { SelectOptionsService } from 'src/app/services/select-options.service';
 import { ApiRoutes } from 'src/app/api-routes';
 import { Router } from '@angular/router';
 import { StringBuilder } from 'src/app/tools/stringBuilder';
-import { ButtonAccessService } from 'src/app/services/buttonAccessService';
-import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
+import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
 import { ErrorService } from 'src/app/services/error.service';
 import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { ConsoleMessageService } from 'src/app/services/console-message.service';
 import { Routes } from 'src/app/routes';
-import { ApiResultEnum } from 'src/app/enums/apiResultEnum';
+import { ApiResultEnum } from 'src/app/enums/api-result-enum';
+import { AccessControlComponent } from '../abstract/accessControlComponent';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: "user-list",
   templateUrl: "./user-list.html"
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent
+  extends AccessControlComponent
+  implements OnInit {
 
   private readonly _dataPopulator = {
     multiSelects: {
@@ -47,7 +50,7 @@ export class UserListComponent implements OnInit {
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(
-    public buttonAccessService: ButtonAccessService,
+    protected override authorizationService: AuthorizationService,
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,
@@ -58,7 +61,7 @@ export class UserListComponent implements OnInit {
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
 
-    this.buttonAccessService.assignPermissions([UserPermissionEnum.Users_CanModify]);
+    super(authorizationService, [UserPermissionEnum.Users_CanModify]);
   }
 
   ngOnInit() {

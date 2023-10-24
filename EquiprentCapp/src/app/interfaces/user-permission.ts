@@ -12,12 +12,20 @@ export class PermissionItemModel {
   LinkedPermissionsIds: number[];
 }
 
+export class SelectedUserPermissionNodeArray extends Array<UserPermissionNode<any>> {
+  public tryPush(item: UserPermissionNode<any>) {
+    if (item.data.isSelected)
+      this.push(item);
+  }
+}
+
 export interface UserPermissionNode<T = any> extends TreeNode {
   children?: UserPermissionNode<T>[];
   data: UserPermissionNodeData;
 }
 
 export interface UserPermissionNodeData {
+  icon?: string;
   id: number | null,
   isSelected?: boolean,
   linkedPermissionIds: number[],

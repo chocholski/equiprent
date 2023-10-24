@@ -8,42 +8,20 @@
               <div class="card no-border p-0">
                 <div class="p-fluid p-formgrid grid mb-3">
                   <div class="field col-12 md:col-6">
-                    <name-in-languages *ngIf="userRole" #nameInLanguages
-                      [disabled]="!buttonAccessService.hasAccessToButtons"
-                      [nameInLanguagesData]="userRole.NameInLanguages"
+                    <name-in-languages *ngIf="userRole" #nameInLanguages [disabled]="!hasAccessToButtons"
+                      [nameInLanguages]="userRole.NameInLanguages"
                       (isValid)="onIsNameInLanguagesValid($event)"></name-in-languages>
                   </div>
                 </div>
-                <div *ngIf="userPermissionGroups.length > 0" class="p-fluid p-formgrid grid mb-3">
-                  <p-treeTable [value]="userPermissionGroups" [columns]="userPermissionColumns" selectionMode="checkbox"
-                    [(selection)]="selectedUserPermissions" (onNodeSelect)="onPermissionSelected($event.node)">
-                    <ng-template pTemplate="header" let-columns>
-                      <tr>
-                        <th *ngFor="let col of columns">
-                          {{col.header | translate}}
-                        </th>
-                      </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                      <tr>
-                        <td *ngFor="let col of columns; let i = index">
-                          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                          <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
-                          {{rowData[col.field] | translate}}
-                        </td>
-                      </tr>
-                    </ng-template>
-                  </p-treeTable>
-                </div>
+                <user-role-permissions *ngIf="userRole" #userRolePermissions [formMode]="formMode.Edition"
+                  [groupedUserPermissions]="userRole.GroupedPermissions"></user-role-permissions>
                 <div class="p-formgrid grid">
                   <div class="field col-12 items-centered mb-0">
-                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
-                      icon="pi pi-save" [label]="translate.instant('General.Save')"
-                      class="p-button-raised p-button-success mr-2"
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
+                      [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
                       [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
-                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
-                      icon="pi pi-trash" [label]="translate.instant('General.Delete')"
-                      class="p-button-raised p-button-danger mr-2"
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
+                      [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
                       [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
                     <button pButton pRipple type="button" icon="pi pi-undo"
                       [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
@@ -53,6 +31,10 @@
               </div>
             </div>
           </form>
+        </p-tabPanel>
+        <p-tabPanel header="{{ 'Audit.History' | translate}}">
+          <audit-list-for-entity #audits *ngIf="userRole" [entityId]="userRole.Id" entityTableName="UserRoles"
+            translation="UserRole"></audit-list-for-entity>
         </p-tabPanel>
       </p-tabView>
     </div>

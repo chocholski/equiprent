@@ -4,7 +4,7 @@ import { LayoutService } from "./services/app.layout.service";
 import { ApiRoutes } from '../api-routes';
 import { AuthorizationService } from '../services/authorization.service';
 import { UserChangeThemeModel } from '../interfaces/user';
-import { ApiResultEnum } from '../enums/apiResultEnum';
+import { ApiResultEnum } from '../enums/api-result-enum';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

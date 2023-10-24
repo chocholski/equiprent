@@ -2,7 +2,7 @@ import { PngTableColumn } from '../interfaces/png';
 import { FilterMatchMode, FilterMetadata, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { StringBuilder } from './stringBuilder';
 import { PrimeNgHelper } from './primeNgHelper';
-import { SearchOperatorEnum } from '../enums/searchOperatorEnum';
+import { SearchOperatorEnum } from '../enums/search-operator-enum';
 
 export class PngTableSearchQueryBuilder {
 
@@ -20,6 +20,8 @@ export class PngTableSearchQueryBuilder {
     }
 
     public buildBaseUri() {
+        this.event.sortField ??= this.columns[0]?.field;
+
         this.resultUriBuilder.append(`?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`);
     }
 

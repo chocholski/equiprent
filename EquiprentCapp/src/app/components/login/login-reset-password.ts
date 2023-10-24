@@ -1,46 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/services/error.service';
-import { FormValidator } from 'src/app/ui-controls/form-validator';
+import { FormComponent } from '../abstract/formComponent';
 
 @Component({
   selector: "login-reset-password",
   templateUrl: "./login-reset-password.html"
 })
-export class LoginResetPasswordComponent implements OnInit {
+export class LoginResetPasswordComponent
+  extends FormComponent
+  implements OnInit {
 
-  form: FormGroup;
-  formValidator: FormValidator;
   token: string;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private activatedRoute: ActivatedRoute,
     private errorService: ErrorService,
-    public formBuilder: FormBuilder,
+    protected override formBuilder: FormBuilder,
     public dialogMessageService: MessageService,
     public translate: TranslateService) {
 
+    super(formBuilder);
+
     this.activatedRoute.queryParams.subscribe(params => {
       this.token = params['token'];
-      this.createForm();
-      this.formValidator = new FormValidator(this.form);
-    });
 
-    this.formValidator = new FormValidator(this.form);
-  }
-
-  ngOnInit(): void {
-  }
-
-  createForm(): void {
-    this.form = this.formBuilder.group({
-      Email: ['', Validators.required]
+      this.createForm({
+        Email: ['', Validators.required]
+      });
     });
   }
 
-  onSubmit(): void {
+  ngOnInit() {
+  }
+
+  public onSubmit() {
     if (!this.form.value.Email) {
       this.dialogMessageService.add({ severity: 'error', summary: this.errorService.getDefaultErrorMessage(), detail: this.translate.instant('Messages.EnterEmailFirst') });
       return;

@@ -7,22 +7,25 @@ import { UserRoleListItemModel, UserRoleListModel } from 'src/app/interfaces/use
 import { FilterService } from 'src/app/services/filter.service';
 import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { SelectOptionsService } from 'src/app/services/select-options.service';
-import { FilterTypeEnum } from 'src/app/enums/filterTypeEnum';
+import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 import { ApiRoutes } from 'src/app/api-routes';
-import { ButtonAccessService } from 'src/app/services/buttonAccessService';
 import { ConsoleMessageService } from 'src/app/services/console-message.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { DialogMessageService } from 'src/app/services/dialog-message.service';
 import { Router } from '@angular/router';
-import { UserPermissionEnum } from 'src/app/enums/userPermissionEnum';
+import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
 import { Routes } from 'src/app/routes';
-import { ApiResultEnum } from 'src/app/enums/apiResultEnum';
+import { ApiResultEnum } from 'src/app/enums/api-result-enum';
+import { AccessControlComponent } from '../abstract/accessControlComponent';
+import { AuthorizationService } from 'src/app/services/authorization.service';
 
 @Component({
   selector: "user-role-list",
   templateUrl: "./user-role-list.html"
 })
-export class UserRoleListComponent implements OnInit {
+export class UserRoleListComponent
+  extends AccessControlComponent
+  implements OnInit {
 
   private readonly _dataPopulator = {
     multiSelects: {
@@ -47,7 +50,7 @@ export class UserRoleListComponent implements OnInit {
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(
-    public buttonAccessService: ButtonAccessService,
+    protected override authorizationService: AuthorizationService,
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,
@@ -58,7 +61,7 @@ export class UserRoleListComponent implements OnInit {
     public selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
 
-    this.buttonAccessService.assignPermissions([UserPermissionEnum.UserRoles_CanModify]);
+    super(authorizationService, [UserPermissionEnum.UserRoles_CanModify]);
   }
 
   ngOnInit(): void {
@@ -119,15 +122,23 @@ export class UserRoleListComponent implements OnInit {
       .delete<string>(ApiRoutes.userRole.delete(userRole.Id))
       .subscribe({
         next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Deleted'));
+          switch (result) {
+            case ApiResultEnum[ApiResultEnum.OK]:
+              this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Deleted'));
 
-            this._dataPopulator.userRoles
-              .get(this.tempLazyLoadEvent)
-              .subscribe(result => this._dataPopulator.userRoles.set(result));
-          }
-          else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+              this._dataPopulator.userRoles
+                .get(this.tempLazyLoadEvent)
+                .subscribe(result => this._dataPopulator.userRoles.set(result));
+              break;
+
+            case ApiResultEnum[ApiResultEnum.AssignedRoleDeletionAttempt]:
+            case ApiResultEnum[ApiResultEnum.TheOnlyAssignedRoleDeletionAttempt]:
+              this.dialogMessageService.addError(this.translate.instant('UserRole.AssignedRoleDeletionAttempt'));
+              break;
+
+            default:
+              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+              break;
           }
 
           console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('UserRole', result));

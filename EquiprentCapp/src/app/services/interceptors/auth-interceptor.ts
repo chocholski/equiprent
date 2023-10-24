@@ -3,7 +3,7 @@ import { HttpHandler, HttpEvent, HttpInterceptor, HttpRequest, HttpErrorResponse
 import { AuthenticationService } from "../authentication.service";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { ApiResultEnum } from "src/app/enums/apiResultEnum";
+import { ApiResultEnum } from "src/app/enums/api-result-enum";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

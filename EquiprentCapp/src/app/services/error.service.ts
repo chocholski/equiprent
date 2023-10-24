@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { StringBuilder } from "../tools/stringBuilder";
-import { ErrorMessageTypeEnum } from "../enums/errorMessageTypeEnum";
+import { ErrorMessageTypeEnum } from "../enums/error-messag-type-enum";
 
 @Injectable()
 export class ErrorService {

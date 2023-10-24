@@ -34,7 +34,7 @@
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
 
-                    <div *ngIf="buttonAccessService.hasAccessToButtons" class="flex-wrap mb-3">
+                    <div *ngIf="hasAccessToButtons" class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Password' | translate
                         }}</label>
                       <input pInputText class="p-inputtext mb-2" id="password" formControlName="Password"
@@ -86,13 +86,11 @@
                 </div>
                 <div class="p-formgrid grid">
                   <div class="field col-12 items-centered mb-0">
-                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
-                      icon="pi pi-save" [label]="translate.instant('General.Save')"
-                      class="p-button-raised p-button-success mr-2"
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
+                      [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
                       [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
-                    <button *ngIf="buttonAccessService.hasAccessToButtons && !isDisabled" pButton pRipple type="button"
-                      icon="pi pi-trash" [label]="translate.instant('General.Delete')"
-                      class="p-button-raised p-button-danger mr-2"
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
+                      [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
                       [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
                     <button pButton pRipple type="button" icon="pi pi-undo"
                       [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"

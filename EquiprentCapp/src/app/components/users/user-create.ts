@@ -12,7 +12,7 @@ import { ApiRoutes } from "src/app/api-routes";
 import { ErrorService } from "src/app/services/error.service";
 import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { ConsoleMessageService } from "src/app/services/console-message.service";
-import { ApiResultEnum } from "src/app/enums/apiResultEnum";
+import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { Routes } from "src/app/routes";
 
 @Component({

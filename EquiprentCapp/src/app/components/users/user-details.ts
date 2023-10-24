@@ -5,26 +5,26 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Confirmation, ConfirmationService, SelectItem } from "primeng/api";
 import { ApiRoutes } from "src/app/api-routes";
-import { UserPermissionEnum } from "src/app/enums/userPermissionEnum";
+import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { UserDetailsModel } from "src/app/interfaces/user";
-import { ButtonAccessService } from "src/app/services/buttonAccessService";
 import { SelectOptionsService } from "src/app/services/select-options.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
-import { ButtonAccessComponent } from "../abstract/buttonAccessComponent";
+import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
 import { StringBuilder } from "src/app/tools/stringBuilder";
 import { ErrorService } from "src/app/services/error.service";
 import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { ConsoleMessageService } from "src/app/services/console-message.service";
 import { Routes } from "src/app/routes";
-import { ApiResultEnum } from "src/app/enums/apiResultEnum";
+import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { AuthorizationService } from "src/app/services/authorization.service";
 
 @Component({
   selector: "user-details",
   templateUrl: "./user-details.html"
 })
 export class UserDetailsComponent
-  extends ButtonAccessComponent
+  extends AccessControlFormComponent
   implements OnInit {
 
   private userId: string;
@@ -34,7 +34,7 @@ export class UserDetailsComponent
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    protected override buttonAccessService: ButtonAccessService,
+    protected override authorizationService: AuthorizationService,
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,
@@ -45,7 +45,7 @@ export class UserDetailsComponent
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
 
-    super(buttonAccessService, formBuilder, [UserPermissionEnum.Users_CanModify]);
+    super(authorizationService, formBuilder, [UserPermissionEnum.Users_CanModify]);
 
     this.userId = this.activatedRoute.snapshot.params["id"];
     this.isDisabled = true;
@@ -139,9 +139,16 @@ export class UserDetailsComponent
       .subscribe(result => {
         this.user = result;
 
-        this.setAccess();
-        this.updateForm();
-      })
+        this.updateForm({
+          CreatedOn: PrimeNgHelper.getDateFromCalendarAsString(new Date(this.user.CreatedOn ?? "")),
+          Email: this.user.Email,
+          FirstName: this.user.FirstName,
+          IsActive: this.user.IsActive,
+          LastName: this.user.LastName,
+          Login: this.user.Login,
+          UserRoleId: this.user.UserRoleId.toString(),
+        });
+      });
   }
 
   private populateDropdowns() {
@@ -172,21 +179,5 @@ export class UserDetailsComponent
             this.isExecuting = false;
           }
         });
-  }
-
-  private updateForm() {
-    this.form.patchValue({
-      CreatedOn: PrimeNgHelper.getDateFromCalendarAsString(new Date(this.user.CreatedOn ?? "")),
-      Email: this.user.Email,
-      FirstName: this.user.FirstName,
-      IsActive: this.user.IsActive,
-      LastName: this.user.LastName,
-      Login: this.user.Login,
-      UserRoleId: this.user.UserRoleId,
-    });
-
-    if (!this.form.disabled) {
-      this.formValidator.updateAllControlsToTouched();
-    }
   }
 }

@@ -5,7 +5,7 @@ import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 import { LoginComponent } from './components/login/login';
 import { AuthGuard } from './services/auth-guard.service';
-import { UserPermissionEnum } from './enums/userPermissionEnum';
+import { UserPermissionEnum } from './enums/user-permission-enum';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserCreationComponent } from './components/users/user-create';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -90,7 +90,7 @@ import { UserRoleDetailsComponent } from './components/user-roles/user-role-deta
                                 component: UserRoleDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
-                                    allowedPermissions: [UserPermissionEnum.UserRoles_CanModify],
+                                    allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
                                     breadcrumb: Routes.userRoles.breadcrumbs.edition
                                 }
                             }

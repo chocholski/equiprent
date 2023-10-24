@@ -2,7 +2,7 @@
   <div class="col-12">
     <div class="card">
       <div class="col-12">
-        <p-table #dataTable [value]="audits" [columns]="cols" sortField="CreatedOn" [lazy]="true"
+        <p-table #dataTable [value]="audits" [columns]="table.cols" sortField="CreatedOn" [sortOrder]="-1" [lazy]="true"
           (onLazyLoad)="loadAuditsLazy($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
           [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
           responsiveLayout="scroll">

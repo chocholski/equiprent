@@ -8,12 +8,12 @@ import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Routes } from "src/app/routes";
-import { PngTreeColumn } from "src/app/interfaces/png";
 import { ApiRoutes } from "src/app/api-routes";
 import { UserRoleCreationModel, UserRolePermissionsForCreation } from "src/app/interfaces/user-role";
-import { PermissionGroupItemModel, PermissionItemModel, UserPermissionNode } from "src/app/interfaces/user-permission";
+import { PermissionGroupItemModel } from "src/app/interfaces/user-permission";
 import { NameInLanguagesComponent } from "../name-in-languages/name-in-languages";
-import { ApiResultEnum } from "src/app/enums/apiResultEnum";
+import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { UserRolePermissionsComponent } from "./user-role-permissions";
 
 @Component({
   selector: "user-role-create",
@@ -26,16 +26,15 @@ export class UserRoleCreationComponent
   private readonly _dataPopulator = {
     userPermissions: {
       get: () => this.httpClient.get<UserRolePermissionsForCreation>(ApiRoutes.userRole.getUserRolePermissionsForCreation),
-      set: (userPermissions: UserRolePermissionsForCreation) => this.setUserRolePermissions(userPermissions.List)
+      set: (userPermissions: UserRolePermissionsForCreation) => this.groupedUserPermissions = userPermissions.List
     }
   }
 
+  groupedUserPermissions: PermissionGroupItemModel[];
   isNameInLanguagesValid: boolean = false;
-  selectedUserPermissions: UserPermissionNode[] = [];
-  userPermissionColumns: PngTreeColumn[] = [];
-  userPermissionGroups: UserPermissionNode[] = [];
 
   @ViewChild('nameInLanguages') nameInLanguages: NameInLanguagesComponent;
+  @ViewChild('userRolePermissions') userRolePermissions: UserRolePermissionsComponent;
 
   constructor(
     private consoleMessageService: ConsoleMessageService,
@@ -49,17 +48,10 @@ export class UserRoleCreationComponent
 
     super(formBuilder);
 
-    this.createForm({});
+    this.createForm();
   }
 
   ngOnInit() {
-    this.userPermissionColumns = [
-      {
-        field: 'name',
-        header: 'UserPermission.Name'
-      }
-    ];
-
     this._dataPopulator.userPermissions
       .get()
       .subscribe(result => this._dataPopulator.userPermissions.set(result));
@@ -73,23 +65,6 @@ export class UserRoleCreationComponent
     this.isNameInLanguagesValid = value;
   }
 
-  public onPermissionSelected(permission: UserPermissionNode) {
-    if (permission.data.linkedPermissionIds.length <= 0)
-      return;
-
-    for (const linkedPermissionId of permission.data.linkedPermissionIds) {
-      const isPermissionAlreadySelected = this.selectedUserPermissions.find(p => p.data.id === linkedPermissionId);
-
-      if (!isPermissionAlreadySelected) {
-        const permissionToBeSelected = this.getPermissionNodeToBeSelected(linkedPermissionId);
-
-        if (permissionToBeSelected) {
-          this.selectedUserPermissions.push(permissionToBeSelected);
-        }
-      }
-    }
-  }
-
   public onSubmit() {
     this.isExecuting = true;
 
@@ -97,7 +72,7 @@ export class UserRoleCreationComponent
 
     userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
 
-    const permissionsSubmitted = this.getPermissionsSubmitted();
+    const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
 
     for (const permission of permissionsSubmitted) {
       if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
@@ -106,60 +81,6 @@ export class UserRoleCreationComponent
     }
 
     this.postUserRole(userRole);
-  }
-
-  private findPermissionById(node: UserPermissionNode, idToFind: number): UserPermissionNode | undefined {
-    if (node.data && node.data.id === idToFind)
-      return node;
-
-    if (this.hasChildren(node)) {
-      for (const nodeChild of node.children!) {
-        const result = this.findPermissionById(nodeChild, idToFind);
-
-        if (result)
-          return result;
-      }
-    }
-
-    return undefined;
-  }
-
-  private getPermissionsSubmitted() {
-    const permissionsSubmitted: PermissionItemModel[] = [];
-
-    for (const permissionNode of this.selectedUserPermissions) {
-      if (!this.hasChildren(permissionNode)) {
-        permissionsSubmitted.push(<PermissionItemModel>{
-          Id: permissionNode.data.id
-        });
-      }
-      else {
-        for (const childPermission of permissionNode.children!) {
-          permissionsSubmitted.push(<PermissionItemModel>{
-            Id: childPermission.data.id
-          });
-        }
-      }
-    }
-
-    return permissionsSubmitted;
-  }
-
-  private getPermissionNodeToBeSelected(permissionId: number): UserPermissionNode | undefined {
-    let permission: UserPermissionNode | undefined;
-
-    for (const userPermissionGroup of this.userPermissionGroups) {
-      permission = this.findPermissionById(userPermissionGroup, permissionId);
-
-      if (permission)
-        return permission;
-    }
-
-    return permission;
-  }
-
-  private hasChildren(node: UserPermissionNode) {
-    return node.children !== undefined && node.children.length > 0;
   }
 
   private postUserRole(userRole: UserRoleCreationModel) {
@@ -172,6 +93,15 @@ export class UserRoleCreationComponent
               this.router.navigate([Routes.userRoles.navigations.list]);
               this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Created'));
               break;
+
+            case ApiResultEnum[ApiResultEnum.ExistsInDatabase]:
+              this.dialogMessageService.addError(this.translate.instant('UserRole.ExistsInDatabase'));
+              break;
+
+            case ApiResultEnum[ApiResultEnum.NoUserPermissionAssigned]:
+              this.dialogMessageService.addError(this.translate.instant('UserRole.NoUserPermissionAssigned'));
+              break;
+
             default:
               this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
               break;
@@ -186,30 +116,5 @@ export class UserRoleCreationComponent
           this.isExecuting = false;
         }
       });
-  }
-
-  private setUserRolePermissions(groupedUserPermissions: PermissionGroupItemModel[]) {
-    for (const userPermissionGroup of groupedUserPermissions) {
-      const userPermissionsGroupChildren: UserPermissionNode[] = [];
-
-      for (const permission of userPermissionGroup.Permissions) {
-        userPermissionsGroupChildren.push(<UserPermissionNode>{
-          data: {
-            id: permission.Id,
-            name: permission.Name,
-            linkedPermissionIds: permission.LinkedPermissionsIds
-          }
-        });
-      }
-
-      this.userPermissionGroups.push(<UserPermissionNode>{
-        data: {
-          id: null,
-          name: userPermissionGroup.Name,
-          linkedPermissionIds: [],
-        },
-        children: userPermissionsGroupChildren
-      });
-    }
   }
 }

@@ -8,7 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 import { environment } from "../../environments/environment";
 import { TokenResponse } from '../interfaces/identity';
 import { ApiRoutes } from '../api-routes';
-import { ApiResultEnum } from '../enums/apiResultEnum';
+import { ApiResultEnum } from '../enums/api-result-enum';
 
 @Injectable()
 export class AuthenticationService {
