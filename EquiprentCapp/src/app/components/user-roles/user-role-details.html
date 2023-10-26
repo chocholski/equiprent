@@ -33,8 +33,8 @@
           </form>
         </p-tabPanel>
         <p-tabPanel header="{{ 'Audit.History' | translate}}">
-          <audit-list-for-entity #audits *ngIf="userRole" [entityId]="userRole.Id" entityTableName="UserRoles"
-            translation="UserRole"></audit-list-for-entity>
+          <audit-list-for-entity #audits *ngIf="userRole" [entityId]="userRole.Id.toString()"
+            entityTableName="UserRoles" translation="UserRole"></audit-list-for-entity>
         </p-tabPanel>
       </p-tabView>
     </div>

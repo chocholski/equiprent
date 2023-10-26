@@ -1,6 +1,6 @@
 <div class="p-fluid p-formgrid grid mb-3">
-  <p-treeTable [value]="userPermissionGroups" [columns]="userRolePermissionColumns" selectionMode="checkbox"
-    [(selection)]="selectedUserPermissions" (onNodeSelect)="onPermissionSelected($event.node)">
+  <p-treeTable [value]="userPermissionNodes" [columns]="userRolePermissionColumns" selectionMode="checkbox"
+    [(selection)]="selectedUserPermissionNodes" (onNodeSelect)="onPermissionSelected($event.node)">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns">

@@ -1,4 +1,4 @@
-import { TreeNode } from "primeng/api";
+import { UserPermissionNode } from "../components/user-roles/models/user-permission-node";
 
 export class PermissionGroupItemModel {
   Name: string;
@@ -17,11 +17,6 @@ export class SelectedUserPermissionNodeArray extends Array<UserPermissionNode<an
     if (item.data.isSelected)
       this.push(item);
   }
-}
-
-export interface UserPermissionNode<T = any> extends TreeNode {
-  children?: UserPermissionNode<T>[];
-  data: UserPermissionNodeData;
 }
 
 export interface UserPermissionNodeData {

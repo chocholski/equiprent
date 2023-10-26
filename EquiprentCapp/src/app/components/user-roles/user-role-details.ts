@@ -9,7 +9,7 @@ import { FormBuilder } from "@angular/forms";
 import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
 import { DialogMessageService } from "src/app/services/dialog-message.service";
 import { TranslateService } from "@ngx-translate/core";
-import { SelectedUserPermissionNodeArray, UserPermissionNode } from "src/app/interfaces/user-permission";
+import { SelectedUserPermissionNodeArray } from "src/app/interfaces/user-permission";
 import { PngTreeColumn } from "src/app/interfaces/png";
 import { NameInLanguagesComponent } from "../name-in-languages/name-in-languages";
 import { Routes } from "src/app/routes";
@@ -18,6 +18,7 @@ import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { UserRoleDetailsModel } from "src/app/interfaces/user-role";
 import { AuthorizationService } from "src/app/services/authorization.service";
 import { UserRolePermissionsComponent } from "./user-role-permissions";
+import { UserPermissionNode } from "./models/user-permission-node";
 
 @Component({
   selector: 'user-role-details',
