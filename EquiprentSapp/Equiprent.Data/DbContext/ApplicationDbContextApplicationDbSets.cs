@@ -12,6 +12,7 @@ namespace Equiprent.Data.DbContext
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<UserPermission> UserPermissions { get; set; } = null!;
         public DbSet<UserPermissionToRole> UserPermissionToRoles { get; set; } = null!;
+        public DbSet<UserPermissionToUserPermission> UserPermissionToUserPermissions { get; set; } = null!;
         public DbSet<UserRole> UserRoles { get; set; } = null!;
         public DbSet<UserRoleToLanguage> UserRolesToLanguages { get; set; } = null!;
     }

@@ -4,6 +4,7 @@ using Equiprent.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Equiprent.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231106210348_RentalCategories")]
+    partial class RentalCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -399,32 +402,6 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("RentalCategories");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.RentalCategoryToLanguage.RentalCategoryToLanguage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<int>("RentalCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("RentalCategoryId");
-
-                    b.ToTable("RentalCategoriesToLanguages");
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Application.Audit", b =>
                 {
                     b.HasOne("Equiprent.Entities.Application.User", "CreatedByUser")
@@ -547,25 +524,6 @@ namespace Equiprent.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("UserResponsibleForHandling");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.RentalCategoryToLanguage.RentalCategoryToLanguage", b =>
-                {
-                    b.HasOne("Equiprent.Entities.Application.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Equiprent.Entities.Business.RentalCategories.RentalCategory", "RentalCategory")
-                        .WithMany()
-                        .HasForeignKey("RentalCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("RentalCategory");
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Application.UserRole", b =>
