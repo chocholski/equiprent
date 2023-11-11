@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application.Users;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 

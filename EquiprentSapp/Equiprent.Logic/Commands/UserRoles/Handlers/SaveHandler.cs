@@ -2,7 +2,9 @@
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
 using Equiprent.Data.Services;
-using Equiprent.Entities.Application;
+using Equiprent.Entities.Application.UserPermissionToRoles;
+using Equiprent.Entities.Application.UserRoles;
+using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Microsoft.IdentityModel.Tokens;

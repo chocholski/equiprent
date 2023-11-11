@@ -1,12 +1,11 @@
 ﻿using System.Security.Claims;
-using Equiprent.Data.CustomQueryTypes;
-using Equiprent.Entities.Application;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata;
 using System.Threading;
 using System.Reflection;
 using Equiprent.Entities.Attributes;
+using Equiprent.Data.DbContext.ModelBuilderAppenders;
+using Equiprent.Entities.Application.Audits;
 
 namespace Equiprent.Data.DbContext
 {
@@ -21,7 +20,7 @@ namespace Equiprent.Data.DbContext
         public ApplicationDbContext(DbContextOptions options, IHttpContextAccessor httpAccessor) : this(options)
         {
             var userId = httpAccessor?.HttpContext?.User?.Claims
-                .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?
+                .FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?
                 .Value;
 
             _currentUserId = userId is not null && Guid.TryParse(userId, out Guid currentUserId)
@@ -33,18 +32,7 @@ namespace Equiprent.Data.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ConfigurationKey>().ToTable(nameof(ConfigurationKeys));
-            modelBuilder.Entity<ConfigurationKey>().Property(c => c.Id).ValueGeneratedNever();
-
-            modelBuilder.Entity<User>().ToTable(nameof(Users));
-            modelBuilder.Entity<User>().Property(u => u.Id)
-                .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                .ValueGeneratedOnAdd();
-
-            modelBuilder.Entity<Audit>().ToTable(nameof(Audits));
-            modelBuilder.Entity<Audit>().Property(a => a.CreatedById);
-
-            modelBuilder.Entity<AuditListQueryModel>().HasNoKey();
+            modelBuilder.AppendUsingAppendersInAssembly();
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(entityType => entityType.GetForeignKeys()))
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

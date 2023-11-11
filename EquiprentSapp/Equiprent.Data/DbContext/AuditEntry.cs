@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application.Audits;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Equiprent.Data.DbContext

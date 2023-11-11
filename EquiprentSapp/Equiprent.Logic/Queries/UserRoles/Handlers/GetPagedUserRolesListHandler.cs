@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Application;
+using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
@@ -25,7 +25,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
         public async Task<PagedUserRolesListResponse?> HandleAsync(GetPagedUserRolesListRequest request)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleListItemModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, Entities.Application.UserRoles.UserRole, UserRoleListItemModel>(
                 requestParameters: request.RequestParameters,
                 query:
                     _dbContext.UserRoles

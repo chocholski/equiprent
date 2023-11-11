@@ -1,4 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
+using Equiprent.Entities.Application.UserPermissions;
 using Equiprent.Extensions;
 
 namespace Equiprent.ApplicationServices.UserPermissions
@@ -12,25 +13,25 @@ namespace Equiprent.ApplicationServices.UserPermissions
             _dbContext = dbContext;
         }
 
-        public async Task<List<Entities.Application.UserPermission>> GetAllUserPermissionsAsync()
+        public async Task<List<UserPermission>> GetAllUserPermissionsAsync()
         {
             return await _dbContext.UserPermissions.ToListAsync();
         }
 
-        public async Task<List<Entities.Application.UserPermission>> GetUserPermissionsForUserAsync(Guid userId)
+        public async Task<List<UserPermission>> GetUserPermissionsForUserAsync(Guid userId)
         {
             var userRoleId = await _dbContext.Users
                 .Where(u => u.Id == userId)
                 .Select(u => u.UserRoleId)
                 .SingleOrDefaultAsync();
 
-            var permissions = new List<Entities.Application.UserPermission>()
+            var permissions = new List<UserPermission>()
                 .AppendRange(await GetUserRolePermissionsAsync(userRoleId));
 
             return permissions!;
         }
 
-        public async Task<List<Entities.Application.UserPermission>> GetUserRolePermissionsAsync(int roleId)
+        public async Task<List<UserPermission>> GetUserRolePermissionsAsync(int roleId)
         {
             var userPermissionsForRole = await _dbContext.UserPermissionToRoles
                 .Include(userPermissionToRole => userPermissionToRole.UserPermission)
@@ -39,7 +40,7 @@ namespace Equiprent.ApplicationServices.UserPermissions
                 .Select(userPermissionToRole => userPermissionToRole.UserPermission)
                 .ToListAsync();
 
-            var permissions = new List<Entities.Application.UserPermission>()
+            var permissions = new List<UserPermission>()
                 .AppendRange(userPermissionsForRole);
 
             return permissions!;

@@ -2,16 +2,17 @@
 using Equiprent.ApplicationServices.Users;
 using Equiprent.ApplicationServices.UserPermissions;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Application;
+using Equiprent.Entities.Application.Users;
 using Equiprent.Entities.Enums;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using Equiprent.ApplicationServices.Options.Jwt;
-using Equiprent.Entities.Application.RefreshToken;
+using Equiprent.Entities.Application.RefreshTokens;
 using Equiprent.Extensions;
 using Equiprent.ApplicationServices.Languageables.Enums;
+using Equiprent.Entities.Application.UserRoleToLanguages;
 
 namespace Equiprent.ApplicationServices.Identities
 {

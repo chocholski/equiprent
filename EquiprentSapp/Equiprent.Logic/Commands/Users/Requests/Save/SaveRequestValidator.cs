@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application.Users;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;
 

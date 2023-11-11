@@ -1,9 +1,10 @@
 ﻿using Equiprent.Logic.Queries.Users.Requests;
 using Equiprent.ApplicationServices.Languageables;
-using Equiprent.Entities.Application;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
+using Equiprent.Entities.Application.UserRoleToLanguages;
+using Equiprent.Entities.Application.Users;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {

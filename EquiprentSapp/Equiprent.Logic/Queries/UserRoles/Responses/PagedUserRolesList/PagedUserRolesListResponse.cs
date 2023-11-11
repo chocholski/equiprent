@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Logic.Abstractions;
 
 namespace Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList

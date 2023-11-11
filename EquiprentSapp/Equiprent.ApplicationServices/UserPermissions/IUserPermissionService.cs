@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Application;
+﻿using Equiprent.Entities.Application.UserPermissions;
 
 namespace Equiprent.ApplicationServices.UserPermissions
 {
