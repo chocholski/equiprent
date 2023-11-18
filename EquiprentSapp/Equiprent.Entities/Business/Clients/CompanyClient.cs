@@ -1,10 +1,10 @@
-﻿using Equiprent.Entities.Business.ClientToCountries;
+﻿using Equiprent.Entities.Business.ClientLocations;
 
 namespace Equiprent.Entities.Business.Clients
 {
     public class CompanyClient : Client
     {
-        [InverseProperty(nameof(ClientToCountry.Client))]
-        public virtual List<CompanyClientToCountry> CompanyCountries { get; set; } = new();
+        [InverseProperty(nameof(ClientLocation.Client))]
+        public virtual List<CompanyClientLocation> CompanyLocations { get; set; } = new();
     }
 }

@@ -1,15 +1,15 @@
 ﻿using Equiprent.Business.Clients;
-using Equiprent.Entities.Business.Countries;
+using Equiprent.Entities.Application.Countries;
 
-namespace Equiprent.Entities.Business.ClientToCountries
+namespace Equiprent.Entities.Business.ClientLocations
 {
-    public partial class ClientToCountry
+    public partial class ClientLocation
     {
         [Key]
         public int Id { get; set; }
 
         [ForeignKey(nameof(Country))]
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
         public virtual Country Country { get; set; } = null!;
 
         [ForeignKey(nameof(Client))]

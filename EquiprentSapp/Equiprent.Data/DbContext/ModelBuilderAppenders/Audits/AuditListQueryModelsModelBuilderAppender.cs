@@ -1,10 +1,10 @@
 ﻿using Equiprent.Data.CustomQueryTypes;
 
-namespace Equiprent.Data.DbContext.ModelBuilderAppenders
+namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Audits
 {
     public class AuditListQueryModelsModelBuilderAppender : IModelBuilderAppender
     {
-        public void AppendModelBuilder(ModelBuilder builder)
+        public void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext)
         {
             builder.Entity<AuditListQueryModel>().HasNoKey();
         }

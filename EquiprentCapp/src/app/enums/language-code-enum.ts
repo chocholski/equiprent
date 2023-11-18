@@ -1,4 +1,4 @@
 export enum LanguageCodeEnum {
-  Pl = 1,
-  En = 2
+  En = 1,
+  Pl = 2
 }

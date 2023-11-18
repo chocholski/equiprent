@@ -1,5 +1,6 @@
 ﻿using Equiprent.Entities.Application.Audits;
 using Equiprent.Entities.Application.ConfigurationKeys;
+using Equiprent.Entities.Application.Countries;
 using Equiprent.Entities.Application.Languages;
 using Equiprent.Entities.Application.RefreshTokens;
 using Equiprent.Entities.Application.UserPermissions;
@@ -8,6 +9,7 @@ using Equiprent.Entities.Application.UserPermissionToUserPermissions;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Application.Users;
+using Equiprent.Entities.Business.CountryToLanguages;
 
 namespace Equiprent.Data.DbContext
 {
@@ -15,6 +17,8 @@ namespace Equiprent.Data.DbContext
     {
         public DbSet<Audit> Audits { get; set; } = null!;
         public DbSet<ConfigurationKey> ConfigurationKeys { get; set; } = null!;
+        public DbSet<Country> Countries { get; set; } = null!;
+        public DbSet<CountryToLanguage> CountryToLanguages { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
         public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;

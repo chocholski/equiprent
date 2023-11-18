@@ -2,14 +2,14 @@
 {
     public static class ModelBuilderExtensions
     {
-        public static void AppendUsingAppendersInAssembly(this ModelBuilder builder)
+        public static void AppendUsingAppendersInAssemblyForDbContext(this ModelBuilder builder, ApplicationDbContext dbContext)
         {
             typeof(ApplicationDbContext).Assembly.ExportedTypes
                 .Where(t => typeof(IModelBuilderAppender).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract)
                 .Select(Activator.CreateInstance)
                 .Cast<IModelBuilderAppender>()
                 .ToList()
-                .ForEach(i => i.AppendModelBuilder(builder));
+                .ForEach(i => i.AppendModelBuilderForDbContext(builder, dbContext));
         }
     }
 }
