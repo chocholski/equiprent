@@ -1,4 +1,5 @@
-﻿using Equiprent.Entities.Business.ClientLocations;
+﻿using Equiprent.Entities.Business.Addresses;
+using Equiprent.Entities.Business.ClientAddresses;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Business.ClientTypes;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
@@ -10,7 +11,8 @@ namespace Equiprent.Data.DbContext
 {
     public partial class ApplicationDbContext
     {
-        public DbSet<ClientLocation> ClientLocations { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
+        public DbSet<ClientAddress> ClientAddresses { get; set; } = null!;
         public DbSet<Client> Clients { get; set; } = null!;
         public DbSet<ClientType> ClientTypes { get; set; } = null!;
         public DbSet<ClientTypeToLanguage> ClientTypeToLanguages { get; set; } = null!;

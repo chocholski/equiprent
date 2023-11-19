@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.ClientLocations;
+﻿using Equiprent.Entities.Business.ClientAddresses;
 
 namespace Equiprent.Entities.Business.Clients
 {
@@ -8,7 +8,7 @@ namespace Equiprent.Entities.Business.Clients
         
         public string LastName { get; set;} = null!;
 
-        [InverseProperty(nameof(ClientLocation.Client))]
-        public virtual List<PrivateClientLocation> CitizenLocations { get; set; } = new();
+        [InverseProperty(nameof(ClientAddress.Client))]
+        public virtual List<PrivateClientAddress> CitizenAddresses { get; set; } = new();
     }
 }

@@ -7,11 +7,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Equiprent.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Clients : Migration
+    public partial class ClientsAndAddresses : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ApartmentNumber = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CountryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Email = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StreetName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StreetNumber = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "Clients",
                 columns: table => new
@@ -44,12 +74,12 @@ namespace Equiprent.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ClientLocations",
+                name: "ClientAddresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CountryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    AddressId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -60,31 +90,36 @@ namespace Equiprent.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClientLocations", x => x.Id);
+                    table.PrimaryKey("PK_ClientAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClientLocations_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
+                        name: "FK_ClientAddresses_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ClientLocations_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
+                        name: "FK_ClientAddresses_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientLocations_ClientId",
-                table: "ClientLocations",
-                column: "ClientId");
+                name: "IX_Addresses_CountryId",
+                table: "Addresses",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientLocations_CountryId",
-                table: "ClientLocations",
-                column: "CountryId");
+                name: "IX_ClientAddresses_AddressId",
+                table: "ClientAddresses",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ClientAddresses_ClientId",
+                table: "ClientAddresses",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_ClientTypeId",
@@ -96,7 +131,10 @@ namespace Equiprent.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ClientLocations");
+                name: "ClientAddresses");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Clients");
