@@ -32,7 +32,7 @@ namespace Equiprent.Data.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.AppendUsingAppendersInAssemblyForDbContext(this);
+            modelBuilder.AppendUsingAppendersInAssembly();
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(entityType => entityType.GetForeignKeys()))
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

@@ -2,6 +2,6 @@
 {
     public interface IModelBuilderAppender
     {
-        public abstract void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext);
+        public abstract void AppendModelBuilder(ModelBuilder builder);
     }
 }

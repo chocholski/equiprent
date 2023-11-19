@@ -19,7 +19,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLangu
                 {
                     _builder.Entity<CountryToLanguage>().HasData(new CountryToLanguage
                     {
-                        Id = CountryToLanguageSeederFactory.LastUsedId++,
+                        Id = CountryToLanguageSeederFactory.LastUsedSeedId++,
                         Name = "Wielka Brytania",
                         CountryId = country.Id,
                         LanguageId = _language.Id
@@ -29,7 +29,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLangu
                 {
                     _builder.Entity<CountryToLanguage>().HasData(new CountryToLanguage
                     {
-                        Id = CountryToLanguageSeederFactory.LastUsedId++,
+                        Id = CountryToLanguageSeederFactory.LastUsedSeedId++,
                         Name = "Polska",
                         CountryId = country.Id,
                         LanguageId = _language.Id
@@ -39,7 +39,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLangu
                 {
                     _builder.Entity<CountryToLanguage>().HasData(new CountryToLanguage
                     {
-                        Id = CountryToLanguageSeederFactory.LastUsedId++,
+                        Id = CountryToLanguageSeederFactory.LastUsedSeedId++,
                         Name = "Stany Zjednoczone",
                         CountryId = country.Id,
                         LanguageId = _language.Id

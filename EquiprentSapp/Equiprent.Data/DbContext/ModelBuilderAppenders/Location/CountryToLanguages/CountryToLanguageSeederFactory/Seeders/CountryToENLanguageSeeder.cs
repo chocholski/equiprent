@@ -24,7 +24,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLangu
             {
                 var countryToLanguage = new CountryToLanguage
                 {
-                    Id = CountryToLanguageSeederFactory.LastUsedId++,
+                    Id = CountryToLanguageSeederFactory.LastUsedSeedId++,
                     Name = _regions
                         .Where(r => CountryIdBuilder.HashCountryRepresentationToGuidId(new CountryRepresentation(r.TwoLetterISORegionName, r.GeoId, r.Name)) == country.Id)
                         .Select(r => r.EnglishName)

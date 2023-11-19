@@ -6,7 +6,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLangu
 {
     internal static class CountryToLanguageSeederFactory
     {
-        internal static int LastUsedId { get; set; } = 1;
+        internal static int LastUsedSeedId { get; set; } = 1;
 
         public static CountryToLanguageSeeder? MakeSeeder(ModelBuilder builder, List<Country> countries, Language language, List<RegionInfo> regions)
         {

@@ -5,7 +5,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Users
 {
     public class UsersModelBuilderAppender : IModelBuilderAppender
     {
-        public void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext)
+        public void AppendModelBuilder(ModelBuilder builder)
         {
             builder.Entity<User>().ToTable(nameof(ApplicationDbContext.Users));
             builder.Entity<User>().Property(u => u.Id)

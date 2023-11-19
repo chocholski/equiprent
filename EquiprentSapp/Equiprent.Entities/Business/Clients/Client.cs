@@ -1,6 +1,6 @@
 ﻿using Equiprent.Entities.Business.ClientTypes;
 
-namespace Equiprent.Business.Clients
+namespace Equiprent.Entities.Business.Clients
 {
     public partial class Client
     {

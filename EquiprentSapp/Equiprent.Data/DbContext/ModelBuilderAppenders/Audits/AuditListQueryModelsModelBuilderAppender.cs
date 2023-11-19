@@ -4,7 +4,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Audits
 {
     public class AuditListQueryModelsModelBuilderAppender : IModelBuilderAppender
     {
-        public void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext)
+        public void AppendModelBuilder(ModelBuilder builder)
         {
             builder.Entity<AuditListQueryModel>().HasNoKey();
         }

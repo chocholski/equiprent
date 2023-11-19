@@ -1,4 +1,4 @@
-﻿using Equiprent.Business.Clients;
+﻿using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Application.Countries;
 
 namespace Equiprent.Entities.Business.ClientLocations

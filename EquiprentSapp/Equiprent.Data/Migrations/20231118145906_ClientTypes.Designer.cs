@@ -4,6 +4,7 @@ using Equiprent.Data.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Equiprent.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231118145906_ClientTypes")]
+    partial class ClientTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1613,33 +1616,6 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.ClientLocation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ClientId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.ToTable("ClientLocations");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ClientLocation");
-
-                    b.UseTphMappingStrategy();
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Business.ClientTypeToLanguages.ClientTypeToLanguage", b =>
                 {
                     b.Property<int>("Id")
@@ -1681,45 +1657,6 @@ namespace Equiprent.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ClientTypes");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.Client", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<int>("ClientTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("CreatedById")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClientTypeId");
-
-                    b.ToTable("Clients");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Client");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Business.CountryToLanguages.CountryToLanguage", b =>
@@ -3590,52 +3527,6 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("Rentals");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.CompanyClientLocation", b =>
-                {
-                    b.HasBaseType("Equiprent.Entities.Business.ClientLocations.ClientLocation");
-
-                    b.Property<string>("NationalCompanyId")
-                        .HasColumnType("longtext");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasDiscriminator().HasValue("CompanyClientLocation");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.PrivateClientLocation", b =>
-                {
-                    b.HasBaseType("Equiprent.Entities.Business.ClientLocations.ClientLocation");
-
-                    b.Property<string>("NationalCitizenId")
-                        .HasColumnType("longtext");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasDiscriminator().HasValue("PrivateClientLocation");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.CompanyClient", b =>
-                {
-                    b.HasBaseType("Equiprent.Entities.Business.Clients.Client");
-
-                    b.HasDiscriminator().HasValue("CompanyClient");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.PrivateClient", b =>
-                {
-                    b.HasBaseType("Equiprent.Entities.Business.Clients.Client");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasDiscriminator().HasValue("PrivateClient");
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Application.Audits.Audit", b =>
                 {
                     b.HasOne("Equiprent.Entities.Application.Users.User", "CreatedByUser")
@@ -3750,17 +3641,6 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("UserRole");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.ClientLocation", b =>
-                {
-                    b.HasOne("Equiprent.Entities.Application.Countries.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Business.ClientTypeToLanguages.ClientTypeToLanguage", b =>
                 {
                     b.HasOne("Equiprent.Entities.Business.ClientTypes.ClientType", "ClientType")
@@ -3778,17 +3658,6 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("ClientType");
 
                     b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.Client", b =>
-                {
-                    b.HasOne("Equiprent.Entities.Business.ClientTypes.ClientType", "ClientType")
-                        .WithMany()
-                        .HasForeignKey("ClientTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ClientType");
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Business.CountryToLanguages.CountryToLanguage", b =>
@@ -3839,41 +3708,9 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("UserResponsibleForHandling");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.CompanyClientLocation", b =>
-                {
-                    b.HasOne("Equiprent.Entities.Business.Clients.CompanyClient", "Client")
-                        .WithMany("CompanyLocations")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.ClientLocations.PrivateClientLocation", b =>
-                {
-                    b.HasOne("Equiprent.Entities.Business.Clients.PrivateClient", "Client")
-                        .WithMany("CitizenLocations")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("Equiprent.Entities.Application.UserRoles.UserRole", b =>
                 {
                     b.Navigation("UserPermissionToRoles");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.CompanyClient", b =>
-                {
-                    b.Navigation("CompanyLocations");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.Clients.PrivateClient", b =>
-                {
-                    b.Navigation("CitizenLocations");
                 });
 #pragma warning restore 612, 618
         }

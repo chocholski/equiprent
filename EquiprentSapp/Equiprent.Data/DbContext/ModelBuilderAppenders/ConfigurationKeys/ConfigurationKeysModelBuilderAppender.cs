@@ -4,7 +4,7 @@ namespace Equiprent.Data.DbContext.ModelBuilderAppenders.ConfigurationKeys
 {
     public class ConfigurationKeysModelBuilderAppender : IModelBuilderAppender
     {
-        public void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext)
+        public void AppendModelBuilder(ModelBuilder builder)
         {
             builder.Entity<ConfigurationKey>().ToTable(nameof(ApplicationDbContext.ConfigurationKeys));
             builder.Entity<ConfigurationKey>().Property(c => c.Id).ValueGeneratedNever();

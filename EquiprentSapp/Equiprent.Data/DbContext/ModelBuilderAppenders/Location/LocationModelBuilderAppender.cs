@@ -2,7 +2,7 @@
 {
     public partial class LocationModelBuilderAppender : IModelBuilderAppender
     {
-        public void AppendModelBuilderForDbContext(ModelBuilder builder, ApplicationDbContext dbContext)
+        public void AppendModelBuilder(ModelBuilder builder)
         {
             SeedCountries(builder);
             SeedLanguages(builder);

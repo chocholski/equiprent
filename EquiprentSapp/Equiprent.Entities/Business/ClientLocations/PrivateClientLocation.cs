@@ -2,6 +2,6 @@
 {
     public class PrivateClientLocation : ClientLocation
     {
-        public string? CitizenNationalId { get; set; }
+        public string? NationalCitizenId { get; set; }
     }
 }

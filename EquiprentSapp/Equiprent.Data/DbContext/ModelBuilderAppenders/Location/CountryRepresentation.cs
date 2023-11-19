@@ -1,6 +1,6 @@
 ﻿namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location
 {
-    internal class CountryRepresentation
+    internal sealed class CountryRepresentation
     {
         public readonly string Code = null!;
         public readonly int Id;
