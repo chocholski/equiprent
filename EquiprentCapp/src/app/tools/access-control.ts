@@ -1,5 +1,5 @@
 import { TranslateService } from "@ngx-translate/core";
-import { AuthorizationService } from "../services/authorization.service";
+import { AuthorizationService } from "../services/authorization/authorization.service";
 
 export class AccessControl {
 

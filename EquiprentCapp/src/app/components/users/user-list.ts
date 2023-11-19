@@ -5,19 +5,19 @@ import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
 import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { FilterService } from '../../services/filter.service';
-import { SelectOptionsService } from 'src/app/services/select-options.service';
+import { FilterService } from '../../services/filters/filter.service';
+import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { ApiRoutes } from 'src/app/api-routes';
 import { Router } from '@angular/router';
 import { StringBuilder } from 'src/app/tools/stringBuilder';
 import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
-import { ErrorService } from 'src/app/services/error.service';
-import { DialogMessageService } from 'src/app/services/dialog-message.service';
-import { ConsoleMessageService } from 'src/app/services/console-message.service';
+import { ErrorService } from 'src/app/services/errors/error.service';
+import { DialogMessageService } from 'src/app/services/messages/dialog-message.service';
+import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { AccessControlComponent } from '../abstract/accessControlComponent';
-import { AuthorizationService } from 'src/app/services/authorization.service';
+import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 
 @Component({
   selector: "user-list",
@@ -173,7 +173,6 @@ export class UserListComponent
     this.userRoleOptions = userRoles;
 
     const userRoleColumn = this.cols.find(c => c.field === "UserRoleName");
-
     if (userRoleColumn) {
       userRoleColumn.options = this.userRoleOptions;
     }

@@ -1,9 +1,9 @@
-import { AuthorizationService } from './authorization.service';
+import { AuthorizationService } from '../authorization/authorization.service';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
-import { Routes } from '../routes';
+import { Routes } from '../../routes';
 
 @Injectable()
 export class AuthGuard {

@@ -4,20 +4,20 @@ import { TranslateService } from '@ngx-translate/core';
 import { Table } from 'primeng/table';
 import { PngTableColumn } from 'src/app/interfaces/png';
 import { UserRoleListItemModel, UserRoleListModel } from 'src/app/interfaces/user-role';
-import { FilterService } from 'src/app/services/filter.service';
+import { FilterService } from 'src/app/services/filters/filter.service';
 import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
-import { SelectOptionsService } from 'src/app/services/select-options.service';
+import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 import { ApiRoutes } from 'src/app/api-routes';
-import { ConsoleMessageService } from 'src/app/services/console-message.service';
-import { ErrorService } from 'src/app/services/error.service';
-import { DialogMessageService } from 'src/app/services/dialog-message.service';
+import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
+import { ErrorService } from 'src/app/services/errors/error.service';
+import { DialogMessageService } from 'src/app/services/messages/dialog-message.service';
 import { Router } from '@angular/router';
 import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { AccessControlComponent } from '../abstract/accessControlComponent';
-import { AuthorizationService } from 'src/app/services/authorization.service';
+import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 
 @Component({
   selector: "user-role-list",
@@ -100,7 +100,7 @@ export class UserRoleListComponent
   }
 
   public onCreate() {
-    this.router.navigate([Routes.userRoles.navigations.create]);
+    this.router.navigate([Routes.userRoles.navigations.creation]);
   }
 
   public onDelete(userRole: UserRoleListItemModel) {

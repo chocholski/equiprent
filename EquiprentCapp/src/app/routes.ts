@@ -18,6 +18,23 @@ export const Routes = {
       default: 'login'
     }
   },
+  clients: {
+    breadcrumbs: {
+      creation: 'Client.Create',
+      edition: 'Client.Edit',
+      list: 'Client.List'
+    },
+    navigations: {
+      creation: 'home/clients/create',
+      edition: (id: string) => `home/clients/edit/${id}`,
+      list: 'home/clients'
+    },
+    paths: {
+      crate: 'crate',
+      edit: 'edit/:id',
+      list: 'clients'
+    }
+  },
   userRoles: {
     breadcrumbs: {
       creation: 'UserRole.Create',
@@ -25,7 +42,7 @@ export const Routes = {
       list: 'UserRole.List'
     },
     navigations: {
-      create: 'home/user-roles/create',
+      creation: 'home/user-roles/create',
       edition: (id: number) => `home/user-roles/edit/${id}`,
       list: 'home/user-roles'
     },

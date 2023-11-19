@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
-import { ErrorService } from 'src/app/services/error.service';
+import { ErrorService } from 'src/app/services/errors/error.service';
 import { FormComponent } from '../abstract/formComponent';
 
 @Component({

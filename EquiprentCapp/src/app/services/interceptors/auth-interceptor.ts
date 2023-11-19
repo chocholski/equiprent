@@ -1,6 +1,6 @@
 import { Injectable, Injector } from "@angular/core";
 import { HttpHandler, HttpEvent, HttpInterceptor, HttpRequest, HttpErrorResponse } from "@angular/common/http";
-import { AuthenticationService } from "../authentication.service";
+import { AuthenticationService } from "../authentication/authentication.service";
 import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";

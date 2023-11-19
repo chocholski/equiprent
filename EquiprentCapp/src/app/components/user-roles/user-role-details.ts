@@ -1,13 +1,13 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ConsoleMessageService } from "src/app/services/console-message.service";
+import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { Confirmation, ConfirmationService } from "primeng/api";
-import { ErrorService } from "src/app/services/error.service";
+import { ErrorService } from "src/app/services/errors/error.service";
 import { FormBuilder } from "@angular/forms";
 import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
-import { DialogMessageService } from "src/app/services/dialog-message.service";
+import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectedUserPermissionNodeArray } from "src/app/interfaces/user-permission";
 import { PngTreeColumn } from "src/app/interfaces/png";
@@ -16,7 +16,7 @@ import { Routes } from "src/app/routes";
 import { ApiRoutes } from "src/app/api-routes";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { UserRoleDetailsModel } from "src/app/interfaces/user-role";
-import { AuthorizationService } from "src/app/services/authorization.service";
+import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 import { UserRolePermissionsComponent } from "./user-role-permissions";
 import { UserPermissionNode } from "./models/user-permission-node";
 

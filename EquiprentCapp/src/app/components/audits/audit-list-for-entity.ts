@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from "@angular/core";
 import { LazyLoadEvent, SelectItem } from "primeng/api";
 import { PngTable, PngTableColumn } from "src/app/interfaces/png";
 import { HttpClient } from "@angular/common/http";
-import { FilterService } from "src/app/services/filter.service";
+import { FilterService } from "src/app/services/filters/filter.service";
 import { TranslateService } from "@ngx-translate/core";
 import { ApiRoutes } from "src/app/api-routes";
-import { SelectOptionsService } from "src/app/services/select-options.service";
+import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { AuditListItemModel, AuditListModel } from "src/app/interfaces/audit";
 import { concatMap } from 'rxjs/operators';
 

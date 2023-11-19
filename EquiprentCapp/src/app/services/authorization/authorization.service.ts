@@ -77,7 +77,9 @@ export class AuthorizationService {
     }
   }
 
-  isAuthorized(allowedPermissions: number[]): boolean {
+  isAuthorized(allowedPermissions: number[] | undefined): boolean {
+    if (allowedPermissions === undefined)
+      return false;
     // check if the list of allowed permissions is empty, if empty, authorize the user to access the page
     if (allowedPermissions == null || allowedPermissions.length === 0)
       return true;

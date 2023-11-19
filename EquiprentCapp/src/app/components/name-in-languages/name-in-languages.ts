@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { NameInLanguage } from "src/app/interfaces/name-in-language";
-import { SelectOptionsService } from "src/app/services/select-options.service";
+import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { FormValidator } from "src/app/ui-controls/form-validator";
 import { FormComponent } from "../abstract/formComponent";
 

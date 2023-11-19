@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Message, MessageService } from 'primeng/api';
-import { MessageType, MessageTypes } from '../tools/message-type';
+import { MessageType, MessageTypes } from '../../tools/message-type';
 
 @Injectable()
 export class DialogMessageService {

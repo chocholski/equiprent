@@ -4,7 +4,7 @@ import { AppLayoutComponent } from './layout/app.layout.component';
 import { UserListComponent } from './components/users/user-list';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
 import { LoginComponent } from './components/login/login';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuard } from './services/auth-guard/auth-guard.service';
 import { UserPermissionEnum } from './enums/user-permission-enum';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserCreationComponent } from './components/users/user-create';
@@ -12,6 +12,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Routes } from './routes';
 import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
 import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
+import { ClientListComponent } from './components/clients/client-list';
 
 @NgModule({
     imports: [
@@ -22,6 +23,25 @@ import { UserRoleDetailsComponent } from './components/user-roles/user-role-deta
                     breadcrumb: Routes.home.breadcrumbs.default
                 },
                 children: [
+                    {
+                        path: Routes.clients.paths.list,
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.Clients_CanList],
+                            breadcrumb: Routes.clients.breadcrumbs.list
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: ClientListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Clients_CanList],
+                                    breadcrumb: null
+                                }
+                            },
+                        ]
+                    },
                     {
                         path: Routes.users.paths.list,
                         canActivate: [AuthGuard],

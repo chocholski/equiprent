@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Menu } from '../interfaces/ui-models';
 import { LayoutService } from './services/app.layout.service';
-import { AuthorizationService } from '../services/authorization.service';
-import { MenuService } from '../services/menu.service';
+import { AuthorizationService } from '../services/authorization/authorization.service';
+import { MenuService } from '../services/layout/menu.service';
 
 @Component({
     selector: 'app-menu',

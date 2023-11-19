@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataBaseOperationTypeMessagePartsForConsole, DatabaseOperationTypeMessagePartForConsole } from '../tools/database-operation-type';
+import { DataBaseOperationTypeMessagePartsForConsole, DatabaseOperationTypeMessagePartForConsole } from '../../tools/database-operation-type';
 
 @Injectable()
 export class ConsoleMessageService {

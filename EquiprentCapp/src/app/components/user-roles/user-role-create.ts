@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormComponent } from "../abstract/formComponent";
-import { ConsoleMessageService } from "src/app/services/console-message.service";
-import { ErrorService } from "src/app/services/error.service";
+import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
+import { ErrorService } from "src/app/services/errors/error.service";
 import { FormBuilder } from "@angular/forms";
-import { DialogMessageService } from "src/app/services/dialog-message.service";
+import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Routes } from "src/app/routes";

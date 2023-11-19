@@ -154,6 +154,7 @@
     },
     "Menu": {
         "Administration": "Administracja",
+        "Clients": "Klienci",
         "Title": "Menu",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
@@ -172,6 +173,10 @@
         "TheValueOfTheField": "Wartość pola"
     },
     "Permissions": {
+        "Client": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
         "User": {
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
@@ -180,6 +185,7 @@
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
         },
+        "Clients": "Klienci",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
     },

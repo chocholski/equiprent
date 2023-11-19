@@ -1,14 +1,14 @@
-import { AuthorizationService } from './authorization.service';
-import { SignInModel } from '../interfaces/authentication';
+import { AuthorizationService } from '../authorization/authorization.service';
+import { SignInModel } from '../../interfaces/authentication';
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { map, catchError } from 'rxjs/operators';
-import { environment } from "../../environments/environment";
-import { TokenResponse } from '../interfaces/identity';
-import { ApiRoutes } from '../api-routes';
-import { ApiResultEnum } from '../enums/api-result-enum';
+import { environment } from "../../../environments/environment";
+import { TokenResponse } from '../../interfaces/identity';
+import { ApiRoutes } from '../../api-routes';
+import { ApiResultEnum } from '../../enums/api-result-enum';
 
 @Injectable()
 export class AuthenticationService {

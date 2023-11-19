@@ -17,20 +17,21 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { environment } from 'src/environments/environment';
 
 //Services
-import { MenuService } from './services/menu.service';
-import { AuthorizationService } from './services/authorization.service';
-import { AuthenticationService } from './services/authentication.service';
+import { MenuService } from './services/layout/menu.service';
+import { AuthorizationService } from './services/authorization/authorization.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
-import { AuthGuard } from './services/auth-guard.service';
+import { AuthGuard } from './services/auth-guard/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ConsoleMessageService } from './services/console-message.service';
-import { DialogMessageService } from './services/dialog-message.service';
-import { ErrorService } from './services/error.service';
-import { FilterService } from './services/filter.service';
-import { SelectOptionsService } from './services/select-options.service';
+import { ConsoleMessageService } from './services/messages/console-message.service';
+import { DialogMessageService } from './services/messages/dialog-message.service';
+import { ErrorService } from './services/errors/error.service';
+import { FilterService } from './services/filters/filter.service';
+import { SelectOptionsService } from './services/select-options/select-options.service';
 
 //Components
 import { AuditListForEntityComponent } from './components/audits/audit-list-for-entity';
+import { ClientListComponent } from './components/clients/client-list';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages';
@@ -72,6 +73,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[end] app components
         //[start] custom components
         AuditListForEntityComponent,
+        ClientListComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         NameInLanguagesComponent,

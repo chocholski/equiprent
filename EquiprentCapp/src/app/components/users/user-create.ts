@@ -4,14 +4,14 @@ import { FormComponent } from "../abstract/formComponent";
 import { FormBuilder, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
 import { Router } from "@angular/router";
-import { SelectOptionsService } from "src/app/services/select-options.service";
+import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { TranslateService } from "@ngx-translate/core";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { UserCreationModel } from "src/app/interfaces/user";
 import { ApiRoutes } from "src/app/api-routes";
-import { ErrorService } from "src/app/services/error.service";
-import { DialogMessageService } from "src/app/services/dialog-message.service";
-import { ConsoleMessageService } from "src/app/services/console-message.service";
+import { ErrorService } from "src/app/services/errors/error.service";
+import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
+import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { Routes } from "src/app/routes";
 

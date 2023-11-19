@@ -4,7 +4,7 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from "./services/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Routes } from '../routes';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { LayoutService } from "./services/app.layout.service";
 import { ApiRoutes } from '../api-routes';
-import { AuthorizationService } from '../services/authorization.service';
+import { AuthorizationService } from '../services/authorization/authorization.service';
 import { UserChangeThemeModel } from '../interfaces/user';
 import { ApiResultEnum } from '../enums/api-result-enum';
 import { TranslateService } from '@ngx-translate/core';

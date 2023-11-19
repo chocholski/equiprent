@@ -154,6 +154,7 @@
     },
     "Menu": {
         "Administration": "Administration",
+        "Clients": "Clients",
         "Title": "Menu",
         "UserRoles": "Roles",
         "Users": "Users"
@@ -172,6 +173,10 @@
         "TheValueOfTheField": "The value of the field"
     },
     "Permissions": {
+        "Client": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
         "User": {
             "CanList": "Can list",
             "CanModify": "Can modify"
@@ -180,6 +185,7 @@
             "CanList": "Can list",
             "CanModify": "Can modify"
         },
+        "Clients": "Clients",
         "UserRoles": "Roles",
         "Users": "Users"
     },

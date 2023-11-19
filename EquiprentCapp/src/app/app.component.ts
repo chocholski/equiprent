@@ -2,8 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { AuthenticationService } from './services/authentication.service';
-import { AuthorizationService } from './services/authorization.service';
+import { AuthenticationService } from './services/authentication/authentication.service';
+import { AuthorizationService } from './services/authorization/authorization.service';
 
 @Component({
     selector: 'app-root',

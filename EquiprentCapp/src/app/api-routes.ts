@@ -7,6 +7,13 @@ export const ApiRoutes = {
     getObjectHistory: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     getFieldNames: "audit/getFieldNames"
   },
+  client: {
+    delete: (clientId: string) => `client/${clientId}`,
+    getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `client${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: (clientId: string) => `client/${clientId}`,
+    post: "client",
+    put: "client"
+  },
   identity: {
     authenticate: "identity/authenticate",
     changePassword: "identity/changePassword",
@@ -15,6 +22,7 @@ export const ApiRoutes = {
   },
   selectOptions: {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
+    clients: "selectoptions/clients",
     languages: "selectoptions/languages",
     userRoles: "selectoptions/userRoles",
     yesNoOptions: "selectoptions/yesNo"

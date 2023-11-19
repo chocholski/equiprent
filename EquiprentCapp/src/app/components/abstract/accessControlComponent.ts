@@ -1,5 +1,5 @@
 import { AccessControl } from "src/app/tools/access-control";
-import { AuthorizationService } from "src/app/services/authorization.service";
+import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 
 export abstract class AccessControlComponent {
 
