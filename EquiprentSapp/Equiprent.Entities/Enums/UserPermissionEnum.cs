@@ -21,6 +21,14 @@
         /// <summary>
         /// Role użytkowników - modyfikowanie
         /// </summary>
-        UserRoles_CanModify = 4
+        UserRoles_CanModify = 4,
+        /// <summary>
+        /// Klienci - przeglądanie
+        /// </summary>
+        Clients_CanList = 3,
+        /// <summary>
+        /// Klienci - modyfikowanie
+        /// </summary>
+        Clients_CanModify = 4
     }
 }

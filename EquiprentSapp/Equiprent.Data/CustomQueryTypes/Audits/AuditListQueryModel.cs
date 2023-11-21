@@ -1,4 +1,4 @@
-﻿namespace Equiprent.Data.CustomQueryTypes
+﻿namespace Equiprent.Data.CustomQueryTypes.Audits
 {
     public class AuditListQueryModel
     {

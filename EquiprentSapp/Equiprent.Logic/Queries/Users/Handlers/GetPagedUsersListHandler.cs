@@ -28,26 +28,30 @@ namespace Equiprent.Logic.Queries.Users.Handlers
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUsersListResponse, User, UserListItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query:
-                    _dbContext.Users
-                    .Include(u => u.UserRole)
-                    .Where(u =>
-                        !u.IsDeleted &&
-                        (
-                            !request.UserRoleId.HasValue ||
-                            u.UserRoleId == request.UserRoleId.Value)
-                        ),
+                query: GetUserListQueryUsingRequest(request),
                 _serviceProvider);
 
             if (response is not null)
             {
-                await _languageableService.TranslateLanguageableValuesAsync<UserListItemViewModel, UserRoleToLanguage>(
+                await _languageableService.TranslateListLanguageableValuesAsync<UserListItemViewModel, UserRoleToLanguage>(
                     response.List,
                     idPropertyName: nameof(UserListItemViewModel.UserRoleId),
                     namePropertyName: nameof(UserListItemViewModel.UserRoleName));
             }
 
             return response;
+        }
+
+        private IQueryable<User> GetUserListQueryUsingRequest(GetPagedUsersListRequest request)
+        {
+            return _dbContext.Users
+                .Include(u => u.UserRole)
+                .Where(u =>
+                    !u.IsDeleted &&
+                    (
+                        !request.UserRoleId.HasValue ||
+                        u.UserRoleId == request.UserRoleId.Value)
+                    );
         }
     }
 }

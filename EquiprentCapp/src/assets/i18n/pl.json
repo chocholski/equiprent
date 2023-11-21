@@ -103,6 +103,17 @@
         "OldValue": "Stara wartość",
         "UserName": "Nazwa użytkownika"
     },
+    "Client": {
+        "ClientTypePicker": "Wybór typu klienta",
+        "Deleted": "Klient został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć klienta",
+        "FirstName": "Imię",
+        "LastName": "Nazwisko",
+        "List": "Lista klientów",
+        "Name": "Nazwa",
+        "TypeName": "Typ"
+    },
     "General": {
         "Add": "Dodaj",
         "All": "-- Wszystkie --",

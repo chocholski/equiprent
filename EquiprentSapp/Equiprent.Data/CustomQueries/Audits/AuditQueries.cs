@@ -1,8 +1,8 @@
-﻿namespace Equiprent.Data.CustomQueries
+﻿namespace Equiprent.Data.CustomQueries.Audits
 {
-    public class AuditQueries
+    public static class AuditQueries
     {
-        public static string GetAudit(string id, string tableName)
+        public static string GetAuditQuery(string id, string tableName)
         {
             return $@"
                 SELECT 

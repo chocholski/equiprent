@@ -1,5 +1,5 @@
-﻿using Equiprent.Data.CustomQueries;
-using Equiprent.Data.CustomQueryTypes;
+﻿using Equiprent.Data.CustomQueries.Audits;
+using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
 using Equiprent.Logic.Queries.Audits.Requests;
@@ -24,8 +24,14 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
         {
             return await ListViewResponseBuilder.GetListViewResponseAsync<FieldNamesResponse, AuditListQueryModel, FieldNamesItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)),
+                query: GetAuditFieldNamesQueryUsingRequest(request),
                 _serviceProvider);
+        }
+
+        private IQueryable<AuditListQueryModel> GetAuditFieldNamesQueryUsingRequest(GetFieldNamesRequest request)
+        {
+            return _dbContext!.AuditListItems
+                .FromSqlRaw(AuditQueries.GetAuditQuery(request.EntityId, request.EntityTableName));
         }
     }
 }

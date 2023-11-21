@@ -16,6 +16,7 @@ import { DialogMessageService } from 'src/app/services/messages/dialog-message.s
 import { ErrorService } from 'src/app/services/errors/error.service';
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
+import { FilterService } from 'src/app/services/filters/filter.service';
 
 @Component({
   selector: "client-list",
@@ -53,6 +54,7 @@ export class ClientListComponent
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,
     private errorService: ErrorService,
+    public filterService: FilterService,
     private httpClient: HttpClient,
     private router: Router,
     private selectOptionService: SelectOptionsService,

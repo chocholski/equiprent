@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
 using Equiprent.ApplicationServices.Database;
-using Equiprent.Data.CustomQueryTypes;
+using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Logic.Attributes;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
 using Microsoft.Extensions.DependencyInjection;

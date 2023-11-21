@@ -4,6 +4,7 @@ using Equiprent.Entities.Enums;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;
 using Equiprent.Entities.Application.UserRoleToLanguages;
+using Equiprent.Entities.Business.ClientTypeToLanguages;
 
 namespace Equiprent.Web.Controllers
 {
@@ -14,6 +15,23 @@ namespace Equiprent.Web.Controllers
         public SelectOptionsController(ApplicationDbContext context, IConfiguration configuration, ILanguageableService languageableService) : base(context, configuration)
         {
             _languageableService = languageableService;
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
+        [HttpGet(ApiRoutes.SelectOptions.ClientTypes)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientTypesSelectOptions()
+        {
+            var clientTypesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<ClientTypeToLanguage>();
+
+            var model = clientTypesIdsWithNames
+                .Select(clientTypeIdWithName => new SelectListItemModel
+                {
+                    Value = clientTypeIdWithName.Id.ToString(),
+                    Name = clientTypeIdWithName.Name
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
         }
 
         [HttpGet(ApiRoutes.SelectOptions.Languages)]

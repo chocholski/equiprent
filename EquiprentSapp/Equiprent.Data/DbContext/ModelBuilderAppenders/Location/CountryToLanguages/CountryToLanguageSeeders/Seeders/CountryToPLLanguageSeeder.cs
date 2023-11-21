@@ -2,7 +2,7 @@
 using Equiprent.Entities.Application.Languages;
 using Equiprent.Entities.Business.CountryToLanguages;
 
-namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages
+namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages.CountryToLanguageSeeders.Seeders
 {
     internal sealed class CountryToPLLanguageSeeder : CountryToLanguageSeeder
     {

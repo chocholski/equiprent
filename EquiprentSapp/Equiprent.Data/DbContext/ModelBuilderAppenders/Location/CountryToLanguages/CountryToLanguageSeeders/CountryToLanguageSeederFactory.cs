@@ -1,8 +1,9 @@
-﻿using Equiprent.Entities.Application.Countries;
+﻿using Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages.CountryToLanguageSeeders.Seeders;
+using Equiprent.Entities.Application.Countries;
 using Equiprent.Entities.Application.Languages;
 using System.Globalization;
 
-namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages
+namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages.CountryToLanguageSeeders
 {
     internal static class CountryToLanguageSeederFactory
     {

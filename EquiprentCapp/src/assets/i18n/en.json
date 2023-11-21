@@ -103,6 +103,17 @@
         "OldValue": "Old value",
         "UserName": "User name"
     },
+    "Client": {
+        "ClientTypePicker": "Type picker",
+        "Deleted": "The client has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete client",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "List": "Clients list",
+        "Name": "Name",
+        "TypeName": "Type"
+    },
     "General": {
         "Add": "Add",
         "All": "-- All --",

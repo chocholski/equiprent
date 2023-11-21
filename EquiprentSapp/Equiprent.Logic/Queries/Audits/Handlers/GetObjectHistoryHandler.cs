@@ -1,5 +1,5 @@
-﻿using Equiprent.Data.CustomQueries;
-using Equiprent.Data.CustomQueryTypes;
+﻿using Equiprent.Data.CustomQueries.Audits;
+using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;
 using Equiprent.Logic.Queries.Audits.Requests;
@@ -24,8 +24,14 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
         {
             return await ListViewResponseBuilder.GetListViewResponseAsync<ObjectHistoryResponse, AuditListQueryModel, ObjectHistoryItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: _dbContext!.AuditListItems.FromSqlRaw(AuditQueries.GetAudit(request.EntityId, request.EntityTableName)),
+                query: GetObjectHistoryQueryUsingRequest(request),
                 _serviceProvider);
+        }
+
+        private IQueryable<AuditListQueryModel> GetObjectHistoryQueryUsingRequest(GetObjectHistoryRequest request)
+        {
+            return _dbContext.AuditListItems
+                .FromSqlRaw(AuditQueries.GetAuditQuery(request.EntityId, request.EntityTableName));
         }
     }
 }

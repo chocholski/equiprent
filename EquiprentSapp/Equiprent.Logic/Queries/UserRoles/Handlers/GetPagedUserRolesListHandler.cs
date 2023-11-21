@@ -1,5 +1,6 @@
 ﻿using Equiprent.ApplicationServices.Languageables;
 using Equiprent.Data.DbContext;
+using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
@@ -25,22 +26,26 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
         public async Task<PagedUserRolesListResponse?> HandleAsync(GetPagedUserRolesListRequest request)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, Entities.Application.UserRoles.UserRole, UserRoleListItemModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleListItemModel>(
                 requestParameters: request.RequestParameters,
-                query:
-                    _dbContext.UserRoles
-                        .Where(r => !r.IsDeleted),
+                query: GetUserRoleListQuery(),
                 _serviceProvider);
 
             if (response is not null)
             {
-                await _languageableService.TranslateLanguageableValuesAsync<UserRoleListItemModel, UserRoleToLanguage>(
+                await _languageableService.TranslateListLanguageableValuesAsync<UserRoleListItemModel, UserRoleToLanguage>(
                     response.List,
                     idPropertyName: nameof(UserRoleListItemModel.Id),
                     namePropertyName: nameof(UserRoleListItemModel.Name));
             }
 
             return response;
+        }
+
+        private IQueryable<UserRole> GetUserRoleListQuery()
+        {
+            return _dbContext.UserRoles
+                .Where(r => !r.IsDeleted);
         }
     }
 }

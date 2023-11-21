@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationServices.Audits;
-using Equiprent.Data.CustomQueryTypes;
+using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Logic.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 

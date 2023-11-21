@@ -8,7 +8,7 @@ export interface ClientListItemModel {
   Id: string,
   LastName: string,
   Name: string,
+  NationalId: string,
   TypeId: number,
   TypeName: string,
-  NationalId: string
 }

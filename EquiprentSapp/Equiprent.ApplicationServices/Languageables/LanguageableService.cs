@@ -16,7 +16,7 @@ namespace Equiprent.ApplicationServices.Languageables
             _userResolverService = userResolverService;
         }
 
-        public async Task TranslateLanguageableValuesAsync<T, U>(List<T> list,
+        public async Task TranslateListLanguageableValuesAsync<T, U>(List<T> list,
             string idPropertyName,
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,

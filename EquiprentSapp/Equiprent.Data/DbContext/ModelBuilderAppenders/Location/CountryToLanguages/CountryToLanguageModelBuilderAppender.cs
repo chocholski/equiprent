@@ -1,4 +1,4 @@
-﻿using Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages;
+﻿using Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages.CountryToLanguageSeeders;
 
 namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location
 {

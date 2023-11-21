@@ -6,7 +6,7 @@ namespace Equiprent.ApplicationServices.Languageables
 {
     public interface ILanguageableService
     {
-        public Task TranslateLanguageableValuesAsync<T, U>(List<T> list,
+        public Task TranslateListLanguageableValuesAsync<T, U>(List<T> list,
             string idPropertyName,
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,

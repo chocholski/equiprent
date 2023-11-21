@@ -1,4 +1,4 @@
-﻿using Equiprent.Data.CustomQueryTypes;
+﻿using Equiprent.Data.CustomQueryTypes.Audits;
 
 namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Audits
 {

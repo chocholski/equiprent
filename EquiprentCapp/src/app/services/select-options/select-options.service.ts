@@ -14,7 +14,7 @@ export class SelectOptionsService {
   }
 
   getClientTypes(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.clients, false);
+    return this.getOptions(ApiRoutes.selectOptions.clientTypes, false);
   }
 
   getFieldNamesForObjectHistory(event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string): Observable<SelectItem[]> {

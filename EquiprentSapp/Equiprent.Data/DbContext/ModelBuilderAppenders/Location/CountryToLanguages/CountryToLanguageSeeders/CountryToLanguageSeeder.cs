@@ -1,7 +1,7 @@
 ﻿using Equiprent.Entities.Application.Countries;
 using Equiprent.Entities.Application.Languages;
 
-namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages
+namespace Equiprent.Data.DbContext.ModelBuilderAppenders.Location.CountryToLanguages.CountryToLanguageSeeders
 {
     internal abstract class CountryToLanguageSeeder
     {
