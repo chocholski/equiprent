@@ -6,6 +6,7 @@
         Empty,
         Length,
         MatchAllowedLetters,
-        MatchSmallLetters
+        MatchSmallLetters,
+        PhoneNumber
     }
 }

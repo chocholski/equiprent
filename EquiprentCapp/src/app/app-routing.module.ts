@@ -13,6 +13,7 @@ import { Routes } from './routes';
 import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
 import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 import { ClientListComponent } from './components/clients/client-list';
+import { ClientCreationComponent } from './components/clients/client-create';
 
 @NgModule({
     imports: [
@@ -40,6 +41,15 @@ import { ClientListComponent } from './components/clients/client-list';
                                     breadcrumb: null
                                 }
                             },
+                            {
+                                path: Routes.clients.paths.create,
+                                component: ClientCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Clients_CanModify],
+                                    breadcrumb: Routes.clients.breadcrumbs.creation
+                                }
+                            }
                         ]
                     },
                     {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Equiprent.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231119120211_ClientsAndAddresses")]
+    [Migration("20231121155146_ClientsAndAddresses")]
     partial class ClientsAndAddresses
     {
         /// <inheritdoc />
@@ -23,7 +23,7 @@ namespace Equiprent.Data.Migrations
                 .HasAnnotation("ProductVersion", "7.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Equiprent.Data.CustomQueryTypes.AuditListQueryModel", b =>
+            modelBuilder.Entity("Equiprent.Data.CustomQueryTypes.Audits.AuditListQueryModel", b =>
                 {
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime(6)");
@@ -1623,7 +1623,6 @@ namespace Equiprent.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApartmentNumber")
-                        .IsRequired()
                         .HasMaxLength(25)
                         .HasColumnType("varchar(25)");
 

@@ -31,6 +31,7 @@ import { SelectOptionsService } from './services/select-options/select-options.s
 
 //Components
 import { AuditListForEntityComponent } from './components/audits/audit-list-for-entity';
+import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientListComponent } from './components/clients/client-list';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
@@ -73,6 +74,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[end] app components
         //[start] custom components
         AuditListForEntityComponent,
+        ClientCreationComponent,
         ClientListComponent,
         LoginComponent,
         LoginResetPasswordComponent,

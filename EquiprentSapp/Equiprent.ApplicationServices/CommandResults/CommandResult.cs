@@ -24,6 +24,10 @@
         UserRole_NoUserPermissionAssigned = 301,
         UserRole_TheOnlyAssignedRoleDeletionAttempt = 302,
         UserRole_AssignedRoleDeletionAttempt = 303,
-        UserRole_UserHasBeenAlreadyAssignedToRole = 304
+        UserRole_UserHasBeenAlreadyAssignedToRole = 304,
+
+        //Client
+        Client_NameExists = 400,
+        Client_NationalIdExists = 401,
     }
 }

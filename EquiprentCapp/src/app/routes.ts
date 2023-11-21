@@ -30,7 +30,7 @@ export const Routes = {
       list: 'home/clients'
     },
     paths: {
-      crate: 'crate',
+      create: 'create',
       edit: 'edit/:id',
       list: 'clients'
     }

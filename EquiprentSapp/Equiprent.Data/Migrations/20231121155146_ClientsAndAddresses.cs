@@ -18,7 +18,7 @@ namespace Equiprent.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ApartmentNumber = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: false)
+                    ApartmentNumber = table.Column<string>(type: "varchar(25)", maxLength: 25, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CountryId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Email = table.Column<string>(type: "longtext", nullable: true)

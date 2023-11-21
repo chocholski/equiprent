@@ -15,6 +15,8 @@
 
         public static string CreateMessageForWrongEmailAddress(string propertyName) => CreateMessage(propertyName, FluentValidationMessageTypeEnum.Email);
 
+        public static string CreateMessageForWrongPhoneNumber(string propertyName) => CreateMessage(propertyName, FluentValidationMessageTypeEnum.PhoneNumber);
+
         private static string CreateMessage(string propertyName, FluentValidationMessageTypeEnum type) =>
             $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}TYPE:{type}";
 

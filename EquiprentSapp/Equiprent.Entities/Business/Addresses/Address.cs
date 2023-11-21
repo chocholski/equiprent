@@ -5,7 +5,7 @@ namespace Equiprent.Entities.Business.Addresses
     public partial class Address
     {
         [MaxLength(25)]
-        public string ApartmentNumber { get; set; } = null!;
+        public string? ApartmentNumber { get; set; } = null!;
 
         [ForeignKey(nameof(Country))]
         public Guid CountryId { get; set; }

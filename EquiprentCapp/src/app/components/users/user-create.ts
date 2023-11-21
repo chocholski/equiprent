@@ -28,10 +28,10 @@ export class UserCreationComponent
 
   constructor(
     private consoleMessageService: ConsoleMessageService,
+    private dialogMessageService: DialogMessageService,
     private errorService: ErrorService,
     protected override formBuilder: FormBuilder,
     private httpClient: HttpClient,
-    private dialogMessageService: DialogMessageService,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
     public translate: TranslateService) {
