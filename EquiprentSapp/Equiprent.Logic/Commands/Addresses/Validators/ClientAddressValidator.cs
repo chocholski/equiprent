@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.Addresses;
+﻿using Equiprent.Entities.Application.Addresses;
 using Equiprent.Logic.Commands.Addresses.Models;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;

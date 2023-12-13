@@ -17,6 +17,7 @@ import { ErrorService } from 'src/app/services/errors/error.service';
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { FilterService } from 'src/app/services/filters/filter.service';
+import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 
 @Component({
   selector: "client-list",
@@ -68,26 +69,28 @@ export class ClientListComponent
         field: 'Name',
         header: 'Client.Name',
         width: '20%',
-        applyGlobalFiltering: true
+        filterType: FilterTypeEnum.Text,
+        applyGlobalFiltering: true,
       },
       <PngTableColumn>{
         field: 'FirstName',
         header: 'Client.FirstName',
         width: '20%',
-        applyGlobalFiltering: true
+        filterType: FilterTypeEnum.Text,
       },
       <PngTableColumn>{
         field: 'LastName',
         header: 'Client.LastName',
         width: '20%',
-        applyGlobalFiltering: true
+        filterType: FilterTypeEnum.Text,
       },
       <PngTableColumn>{
         field: 'TypeName',
         header: 'Client.TypeName',
         width: '20%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true,
-        replaceWith: 'TypeId'
+        replaceWith: 'ClientTypeId'
       },
       <PngTableColumn>{
         field: 'Actions',

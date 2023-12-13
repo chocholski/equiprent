@@ -1,0 +1,73 @@
+<div class="grid form-grid">
+  <div class=" col-12">
+    <div class="card pb-0">
+      <p-tabView>
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+          <form [formGroup]="form">
+            <div class="col-12 pb-0 px-0">
+              <div class="card no-border p-0">
+                <div class="p-fluid p-formgrid grid mb-3">
+                  <div
+                    [class]="'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')">
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Client.Name' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="name" formControlName="Name" type="text" />
+                      <p-message *ngIf="formValidator.hasError('Name')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                  </div>
+                  <div
+                    [class]="'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')">
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'Client.Type' | translate }}</label>
+                      <p-dropdown class="mb-2" [options]="clientTypes" formControlName="ClientTypeId"
+                        [placeholder]="translate.instant('Client.SelectType')" [showClear]="false">
+                        <ng-template let-role pTemplate="selectedItem">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                        <ng-template let-role pTemplate="item">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  <div *ngIf="client && form.value.ClientTypeId === clientType.Private.toString()"
+                    class="field col-12 px-0 py-0">
+                    <private-client #privateClientForm [client]="client">
+                    </private-client>
+                  </div>
+                  <div *ngIf="client" class="field col-12 px-0 py-0">
+                    <address #addressForm [entityAddress]="client.Addresses[0]" [showTitle]="true"></address>
+                  </div>
+                  <div *ngIf="client && form.value.ClientTypeId === clientType.Private.toString()"
+                    class="field col-12 px-0 py-0">
+                    <private-client-address #privateClientAddressForm [clientAddress]="client.Addresses[0]">
+                    </private-client-address>
+                  </div>
+                  <div *ngIf="client && form.value.ClientTypeId === clientType.Company.toString()"
+                    class="field col-12 px-0 py-0">
+                    <company-client-address #companyClientAddressForm [clientAddress]="client.Addresses[0]">
+                    </company-client-address>
+                  </div>
+                </div>
+                <div class="p-formgrid grid">
+                  <div class="field col-12 items-centered mb-0">
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
+                      [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
+                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
+                      [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
+                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

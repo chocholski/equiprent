@@ -1,4 +1,5 @@
-﻿using Equiprent.Entities.Application.Audits;
+﻿using Equiprent.Entities.Application.Addresses;
+using Equiprent.Entities.Application.Audits;
 using Equiprent.Entities.Application.ConfigurationKeys;
 using Equiprent.Entities.Application.Countries;
 using Equiprent.Entities.Application.Languages;
@@ -15,6 +16,7 @@ namespace Equiprent.Data.DbContext
 {
     public partial class ApplicationDbContext
     {
+        public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<Audit> Audits { get; set; } = null!;
         public DbSet<ConfigurationKey> ConfigurationKeys { get; set; } = null!;
         public DbSet<Country> Countries { get; set; } = null!;

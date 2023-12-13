@@ -5,6 +5,7 @@ using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
+using Equiprent.Entities.Business.CountryToLanguages;
 
 namespace Equiprent.Web.Controllers
 {
@@ -28,6 +29,21 @@ namespace Equiprent.Web.Controllers
                 {
                     Value = clientTypeIdWithName.Id.ToString(),
                     Name = clientTypeIdWithName.Name
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [HttpGet(ApiRoutes.SelectOptions.Countries)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetCountriesSelectOptions()
+        {
+            var countriesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<CountryToLanguage>();
+            var model = countriesIdsWithNames
+                .Select(c => new SelectListItemModel
+                {
+                    Value = c.Id.ToString(),
+                    Name = c.Name
                 })
                 .ToList();
 

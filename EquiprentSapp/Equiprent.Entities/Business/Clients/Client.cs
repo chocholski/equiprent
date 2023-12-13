@@ -2,7 +2,8 @@
 
 namespace Equiprent.Entities.Business.Clients
 {
-    public partial class Client
+    [Table("Clients")]
+    public abstract partial class Client
     {
         [ForeignKey(nameof(ClientType))]
         public int ClientTypeId { get; set; }

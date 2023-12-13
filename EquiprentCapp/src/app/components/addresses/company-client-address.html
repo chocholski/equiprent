@@ -1,0 +1,16 @@
+<div *ngIf="form">
+  <form [formGroup]="form">
+    <div class="p-fluid p-formgrid grid px-0 py-0 m-0">
+      <div class="field col-12 md:col-6 py-0 mb-0">
+        <div class="flex-wrap mb-3">
+          <label class="block text-900 font-medium mb-2">
+            {{ 'CompanyClientAddress.NationalCompanyId' | translate }}
+          </label>
+          <input pInputText class="p-inputtext mb-2" formControlName="NationalCompanyId" type="text" />
+          <p-message *ngIf="formValidator.hasError('NationalCompanyId')" severity="error"
+            [text]="translate.instant('Messages.FieldRequired')"></p-message>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

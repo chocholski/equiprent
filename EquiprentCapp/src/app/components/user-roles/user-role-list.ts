@@ -76,6 +76,7 @@ export class UserRoleListComponent
         field: 'Name',
         header: 'UserRole.Name',
         width: '70%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true,
         replaceWith: 'Id'
       },

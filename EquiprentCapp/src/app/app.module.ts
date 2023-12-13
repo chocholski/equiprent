@@ -30,12 +30,17 @@ import { FilterService } from './services/filters/filter.service';
 import { SelectOptionsService } from './services/select-options/select-options.service';
 
 //Components
+import { AddressComponent } from './components/addresses/address';
 import { AuditListForEntityComponent } from './components/audits/audit-list-for-entity';
 import { ClientCreationComponent } from './components/clients/client-create';
+import { ClientDetailsComponent } from './components/clients/client-details';
 import { ClientListComponent } from './components/clients/client-list';
+import { CompanyClientAddressComponent } from './components/addresses/company-client-address';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages';
+import { PrivateClientAddressComponent } from './components/addresses/private-client-address';
+import { PrivateClientComponent } from './components/clients/private-client';
 import { UserCreationComponent } from './components/users/user-create';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
@@ -73,12 +78,17 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AppComponent,
         //[end] app components
         //[start] custom components
+        AddressComponent,
         AuditListForEntityComponent,
         ClientCreationComponent,
+        ClientDetailsComponent,
         ClientListComponent,
+        CompanyClientAddressComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         NameInLanguagesComponent,
+        PrivateClientAddressComponent,
+        PrivateClientComponent,
         UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,

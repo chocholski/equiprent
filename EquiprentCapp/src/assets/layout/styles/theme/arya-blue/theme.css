@@ -7652,3 +7652,9 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 .p-datatable .p-datatable-tbody>tr.p-datatable-dragpoint-bottom>td {
   box-shadow: inset 0 -2px 0 0 var(--surface-900);
 }
+
+.form-grid {
+  max-width: 50%;
+  position: relative;
+  left: 21%;
+}

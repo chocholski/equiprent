@@ -2,10 +2,10 @@
 {
     public record LanguageableItem
     {
-        public readonly int Id;
+        public readonly string Id;
         public readonly string Name;
 
-        public LanguageableItem(int id, string name)
+        public LanguageableItem(string id, string name)
         {
             Id = id;
             Name = name;

@@ -138,7 +138,7 @@ namespace Equiprent.ApplicationServices.Identities
             var tokenLifetime = _jwtOptions.TokenLifetime;
             var now = DateTime.UtcNow;
             var userRoleIdWithName = await _languageableService
-                .GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>(EntityIdsFilterModeEnum.Include, user.LanguageId, user.UserRoleId);
+                .GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>(EntityIdsFilterModeEnum.Include, user.LanguageId, user.UserRoleId.ToString());
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -147,10 +147,10 @@ namespace Equiprent.ApplicationServices.Identities
                     new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(now).ToUnixTimeSeconds().ToString()),
-                    new Claim(ClaimTypes.Role, userRoleIdWithName.GetNameForId(user.UserRoleId)),
+                    new Claim(ClaimTypes.Role, userRoleIdWithName.GetNameForId(user.UserRoleId.ToString())),
                     new Claim("userlanguageid", user.LanguageId.ToString()),
                     new Claim("userroleid", user.UserRoleId.ToString()),
-                    new Claim("userrolename", userRoleIdWithName.GetNameForId(user.UserRoleId)),
+                    new Claim("userrolename", userRoleIdWithName.GetNameForId(user.UserRoleId.ToString())),
                     new Claim("permissions", await GetUserPermissionsForUserAsText(user.Id)),
                     new Claim(ClaimTypes.GivenName, user.GetName())
                 }),

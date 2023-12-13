@@ -5,6 +5,7 @@
         public static class SelectOptions
         {
             public const string ClientTypes = "clientTypes";
+            public const string Countries = "countries";
             public const string Languages = "languages";
             public const string UserRoles = "userRoles";
             public const string YesNoOptions = "yesNo";

@@ -14,7 +14,11 @@ export class SelectOptionsService {
   }
 
   getClientTypes(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.clientTypes, false);
+    return this.getOptions(ApiRoutes.selectOptions.clientTypes);
+  }
+
+  getCountries(): Observable<SelectItem[]> {
+    return this.getOptions(ApiRoutes.selectOptions.countries);
   }
 
   getFieldNamesForObjectHistory(event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string): Observable<SelectItem[]> {
@@ -22,18 +26,18 @@ export class SelectOptionsService {
   }
 
   getLanguages(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.languages, false);
+    return this.getOptions(ApiRoutes.selectOptions.languages);
   }
 
   getUserRoles(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.userRoles, false);
+    return this.getOptions(ApiRoutes.selectOptions.userRoles);
   }
 
   getYesNoOptions(): Observable<SelectItem[]> {
     return this.getOptions(ApiRoutes.selectOptions.yesNoOptions, true);
   }
 
-  private getOptions(url: string, insertAllOption: boolean): Observable<SelectItem[]> {
+  private getOptions(url: string, insertAllOption: boolean = false): Observable<SelectItem[]> {
     return this.httpClient
       .get<SelectOption[]>(url)
       .pipe(map(result => {

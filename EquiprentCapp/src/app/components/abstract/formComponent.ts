@@ -6,7 +6,7 @@ export abstract class FormComponent {
 
   public readonly formMode: typeof FormModeEnum = FormModeEnum;
 
-  protected form: FormGroup;
+  public form: FormGroup;
   protected formValidator: FormValidator;
 
   isDisabled: boolean = false;

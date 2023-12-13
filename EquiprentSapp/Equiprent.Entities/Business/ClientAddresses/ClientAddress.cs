@@ -1,9 +1,9 @@
-﻿using Equiprent.Entities.Business.Clients;
-using Equiprent.Entities.Business.Addresses;
+﻿using Equiprent.Entities.Application.Addresses;
 
 namespace Equiprent.Entities.Business.ClientAddresses
 {
-    public partial class ClientAddress
+    [Table("ClientAddresses")]
+    public abstract partial class ClientAddress
     {
         [Key]
         public int Id { get; set; }
@@ -11,9 +11,5 @@ namespace Equiprent.Entities.Business.ClientAddresses
         [ForeignKey(nameof(Address))]
         public int AddressId { get; set; }
         public virtual Address Address { get; set; } = null!;
-
-        [ForeignKey(nameof(Client))]
-        public Guid ClientId { get; set; }
-        public virtual Client Client { get; set; } = null!;
     }
 }

@@ -17,15 +17,16 @@ export class NameInLanguagesComponent
 
   languages: SelectItem[];
 
-  @Input('nameInLanguages') nameInLanguages: NameInLanguage[];
   @Input('disabled') disabled: boolean;
+  @Input('nameInLanguages') nameInLanguages: NameInLanguage[];
 
   @Output('isValid') isValid = new EventEmitter<boolean>();
 
   constructor(
     protected override formBuilder: FormBuilder,
     private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    public translate: TranslateService
+  ) {
     super(formBuilder);
   }
 

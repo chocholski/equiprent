@@ -11,16 +11,16 @@ namespace Equiprent.Entities.Interfaces
 
     public static class LanguageableExtension
     {
-        public static int GetTranslatedEntityId(this ILanguageable languageableEntity)
+        public static string GetTranslatedEntityId(this ILanguageable languageableEntity)
         {
             return languageableEntity
                 .GetType()
                 .GetProperties()
                 .Where(p => p.GetCustomAttribute<TranslatedEntityAttribute>(inherit: true) != null)
-                .Select(p => int.TryParse(p.GetValue(languageableEntity)?.ToString(), out var translatedEntityId) ? translatedEntityId : (int?)null)
+                .Select(p => p.GetValue(languageableEntity)?.ToString())
                 .SingleOrDefault()
                 ??
-                -1;
+                string.Empty;
         }
 
         public static object? GetTranslatedEntity(this ILanguageable languageableEntity)

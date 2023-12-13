@@ -95,6 +95,17 @@
         "weekHeader": "Tydz"
     },
     "AppName": "Equiprent",
+    "Address": {
+        "ApartmentNumber": "Numer mieszkania",
+        "City": "Miejscowość",
+        "Country": "Kraj",
+        "Email": "Email",
+        "PhoneNumber": "Numer telefonu",
+        "PostalCode": "Kod pocztowy",
+        "SelectCountry": "Wybierz kraj",
+        "StreetName": "Nazwa ulicy",
+        "StreetNumber": "Numer ulicy"
+    },
     "Audit": {
         "CreatedOn": "Utworzony",
         "FieldName": "Nazwa pola",
@@ -105,6 +116,7 @@
     },
     "Client": {
         "ClientTypePicker": "Wybór typu klienta",
+        "Create": "Tworzenie klienta",
         "Deleted": "Klient został usunięty.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć klienta",
@@ -112,7 +124,12 @@
         "LastName": "Nazwisko",
         "List": "Lista klientów",
         "Name": "Nazwa",
+        "SelectType": "Wybierz typ",
+        "Type": "Typ",
         "TypeName": "Typ"
+    },
+    "CompanyClientAddress": {
+        "NationalCompanyId": "Narodowy identyfikator firmy"
     },
     "General": {
         "Add": "Dodaj",
@@ -199,6 +216,9 @@
         "Clients": "Klienci",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
+    },
+    "PrivateClientAddress": {
+        "NationalCitizenId": "Narodowy identyfikator obywatela"
     },
     "User": {
         "Create": "Tworzenie użytkownika",

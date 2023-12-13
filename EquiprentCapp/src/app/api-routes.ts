@@ -23,6 +23,7 @@ export const ApiRoutes = {
   selectOptions: {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     clientTypes: "selectoptions/clientTypes",
+    countries: "selectoptions/countries",
     languages: "selectoptions/languages",
     userRoles: "selectoptions/userRoles",
     yesNoOptions: "selectoptions/yesNo"

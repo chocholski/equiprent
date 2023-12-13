@@ -95,6 +95,17 @@
         "weekHeader": "Wk"
     },
     "AppName": "Equiprent",
+    "Address": {
+        "ApartmentNumber": "Apartment number",
+        "City": "City",
+        "Country": "Country",
+        "Email": "Email",
+        "PhoneNumber": "Phone number",
+        "PostalCode": "Postal code",
+        "SelectCountry": "Select country",
+        "StreetName": "Street name",
+        "StreetNumber": "Street number"
+    },
     "Audit": {
         "CreatedOn": "Created on",
         "FieldName": "Field name",
@@ -105,6 +116,7 @@
     },
     "Client": {
         "ClientTypePicker": "Type picker",
+        "Create": "Client creation",
         "Deleted": "The client has been deleted.",
         "Deletion": "Deletion",
         "DeletionConfirmation": "Are you sure to delete client",
@@ -112,7 +124,12 @@
         "LastName": "Last name",
         "List": "Clients list",
         "Name": "Name",
+        "SelectType": "Select type",
+        "Type": "Type",
         "TypeName": "Type"
+    },
+    "CompanyClientAddress": {
+        "NationalCompanyId": "National company identification"
     },
     "General": {
         "Add": "Add",
@@ -199,6 +216,9 @@
         "Clients": "Clients",
         "UserRoles": "Roles",
         "Users": "Users"
+    },
+    "PrivateClientAddress": {
+        "NationalCitizenId": "National citizen identification"
     },
     "User": {
         "Create": "User creation",

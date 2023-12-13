@@ -2,13 +2,14 @@
 
 namespace Equiprent.Entities.Business.Clients
 {
-    public class PrivateClient : Client
+    [Table("PrivateClients")]
+    public class PrivateClient : Client, ICloneable<PrivateClient>, ICloneable<CompanyClient>
     {
         public string FirstName { get; set; } = null!;
         
         public string LastName { get; set;} = null!;
 
-        [InverseProperty(nameof(ClientAddress.Client))]
+        [InverseProperty(nameof(PrivateClientAddress.PrivateClient))]
         public virtual List<PrivateClientAddress> CitizenAddresses { get; set; } = new();
     }
 }

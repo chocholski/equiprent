@@ -41,7 +41,6 @@ namespace Equiprent.Web.Controllers
         {
             var parameters = new GetPagedUsersListRequest(requestParameters, userRoleId);
             var result = await _queryDispatcher.SendQueryAsync<GetPagedUsersListRequest, PagedUsersListResponse>(parameters);
-
             return new JsonResult(result);
         }
 
@@ -51,7 +50,6 @@ namespace Equiprent.Web.Controllers
         {
             var parameters = new GetUserByIdRequest(id);
             var result = await _queryDispatcher.SendQueryAsync<GetUserByIdRequest, UserByIdResponse>(parameters);
-
             return result is not null ? Ok(result) : NotFound();
         }
 
@@ -60,7 +58,6 @@ namespace Equiprent.Web.Controllers
         {
             var parameters = new GetUserLanguageByIdRequest(userId);
             var result = await _queryDispatcher.SendQueryAsync<GetUserLanguageByIdRequest, UserLanguageByIdResponse>(parameters);
-
             return new JsonResult(result);
         }
 
@@ -69,7 +66,6 @@ namespace Equiprent.Web.Controllers
         {
             var parameters = new GetUserThemeByIdRequest(userId);
             var result = await _queryDispatcher.SendQueryAsync<GetUserThemeByIdRequest, bool>(parameters);
-
             return new JsonResult(result);
         }
 
@@ -78,7 +74,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> CreateUser([FromBody] CreateRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -87,7 +82,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> SaveUser([FromBody] SaveRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -95,7 +89,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -103,7 +96,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -112,7 +104,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -120,7 +111,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> ChangeTheme([FromBody] ChangeThemeRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
-
             return GetActionResult(result);
         }
 
@@ -129,7 +119,6 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
-
             return GetActionResult(result);
         }
     }

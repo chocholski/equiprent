@@ -26,6 +26,14 @@ export class PngTableColumn {
   replaceWith?: string;
   filterType: FilterTypeEnum = FilterTypeEnum.Text;
   width?: string;
+
+  constructor(field: string, header: string, width: string, applyGlobalFiltering?: boolean) {
+    this.field = field;
+    this.header = header;
+    this.width = width;
+    this.applyGlobalFiltering = applyGlobalFiltering ? applyGlobalFiltering : false;
+    this.filterType = FilterTypeEnum.Text;
+  }
 }
 
 export class PngTreeColumn {

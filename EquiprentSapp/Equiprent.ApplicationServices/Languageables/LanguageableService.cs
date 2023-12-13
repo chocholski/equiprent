@@ -20,7 +20,7 @@ namespace Equiprent.ApplicationServices.Languageables
             string idPropertyName,
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
-            List<int>? translatedEntityIds = null,
+            List<string>? translatedEntityIds = null,
             int? languageId = null)
                 where T : class
                 where U : class, ILanguageable
@@ -30,13 +30,13 @@ namespace Equiprent.ApplicationServices.Languageables
             var nameProperty = typeof(T).GetProperty(namePropertyName);
 
             if (idProperty is not null && nameProperty is not null)
-                list.ForEach(item => nameProperty.SetValue(item, entityIdsWithNames.GetNameForId((int)idProperty.GetValue(item)!)));
+                list.ForEach(item => nameProperty.SetValue(item, entityIdsWithNames.GetNameForId(idProperty.GetValue(item)!.ToString()!)));
         }
 
         public async Task<List<LanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             int? languageId = null,
-            params int[]? translatedEntityIds) where TEntity : class, ILanguageable
+            params string[]? translatedEntityIds) where TEntity : class, ILanguageable
         {
             var result = new List<LanguageableItem>();
 
@@ -79,7 +79,7 @@ namespace Equiprent.ApplicationServices.Languageables
                 .ToList();
 
             foreach (var idWithName in IdsWithNames)
-                result.Add(new LanguageableItem(idWithName.EntityId, idWithName.Name));
+                result.Add(new LanguageableItem(idWithName.EntityId.ToString(), idWithName.Name));
 
 
             return result;

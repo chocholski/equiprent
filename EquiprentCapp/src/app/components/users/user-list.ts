@@ -18,6 +18,7 @@ import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { AccessControlComponent } from '../abstract/accessControlComponent';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
+import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 
 @Component({
   selector: "user-list",
@@ -70,24 +71,28 @@ export class UserListComponent
         field: 'Login',
         header: 'User.Login',
         width: '10%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true
       },
       <PngTableColumn>{
         field: 'FirstName',
         header: 'User.FirstName',
         width: '20%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true
       },
       <PngTableColumn>{
         field: 'LastName',
         header: 'User.LastName',
         width: '20%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true
       },
       <PngTableColumn>{
         field: 'UserRoleName',
         header: 'User.UserRoleName',
         width: '20%',
+        filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true,
         replaceWith: 'UserRoleId'
       },

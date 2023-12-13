@@ -5,4 +5,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Equiprent.Entities\Equiprent.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

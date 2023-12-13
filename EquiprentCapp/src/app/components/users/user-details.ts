@@ -43,7 +43,8 @@ export class UserDetailsComponent
     private httpClient: HttpClient,
     private router: Router,
     private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    public translate: TranslateService
+  ) {
 
     super(authorizationService, formBuilder, [UserPermissionEnum.Users_CanModify]);
 

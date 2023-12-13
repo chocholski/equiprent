@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid form-grid">
   <div class="col-12">
     <div class="card pb-0">
       <p-tabView>
@@ -7,12 +7,44 @@
             <div class="col-12 pb-0 px-0">
               <div class="card no-border p-0">
                 <div class="p-fluid p-formgrid grid mb-3">
-                  <div class="field col-12 md:col-6">
-                    //FIELDS1
+                  <div
+                    [class]="'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')">
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Client.Name' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="name" formControlName="Name" type="text" />
+                      <p-message *ngIf="formValidator.hasError('Name')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
                   </div>
-
-                  <div class="field col-12 md:col-6">
-                    //FIELDS2
+                  <div
+                    [class]="'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')">
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'Client.Type' | translate }}</label>
+                      <p-dropdown class="mb-2" [options]="clientTypes" formControlName="ClientTypeId"
+                        [placeholder]="translate.instant('Client.SelectType')" [showClear]="false">
+                        <ng-template let-role pTemplate="selectedItem">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                        <ng-template let-role pTemplate="item">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                  </div>
+                  <div *ngIf="form.value.ClientTypeId === clientType.Private.toString()" class="field col-12 px-0 py-0">
+                    <private-client #privateClientForm>
+                    </private-client>
+                  </div>
+                  <div class="field col-12 px-0 py-0">
+                    <address #addressForm [showTitle]="true"></address>
+                  </div>
+                  <div *ngIf="form.value.ClientTypeId === clientType.Private.toString()" class="field col-12 px-0 py-0">
+                    <private-client-address #privateClientAddressForm>
+                    </private-client-address>
+                  </div>
+                  <div *ngIf="form.value.ClientTypeId === clientType.Company.toString()" class="field col-12 px-0 py-0">
+                    <company-client-address #companyClientAddressForm>
+                    </company-client-address>
                   </div>
                 </div>
                 <div class="p-formgrid grid">

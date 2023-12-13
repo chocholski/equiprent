@@ -53,13 +53,7 @@ namespace Equiprent.Data.Migrations
                     CreatedById = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     CreatedOn = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DeletedOn = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    IsDeleted = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,14 +73,7 @@ namespace Equiprent.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NationalCompanyId = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    NationalCitizenId = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,10 +84,98 @@ namespace Equiprent.Data.Migrations
                         principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CompanyClients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyClients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ClientAddresses_Clients_ClientId",
-                        column: x => x.ClientId,
+                        name: "FK_CompanyClients_Clients_Id",
+                        column: x => x.Id,
                         principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PrivateClients",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    FirstName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    LastName = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrivateClients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PrivateClients_Clients_Id",
+                        column: x => x.Id,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CompanyClientAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    CompanyClientId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    NationalCompanyId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyClientAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompanyClientAddresses_ClientAddresses_Id",
+                        column: x => x.Id,
+                        principalTable: "ClientAddresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CompanyClientAddresses_CompanyClients_CompanyClientId",
+                        column: x => x.CompanyClientId,
+                        principalTable: "CompanyClients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PrivateClientAddresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    NationalCitizenId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    PrivateClientId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PrivateClientAddresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PrivateClientAddresses_ClientAddresses_Id",
+                        column: x => x.Id,
+                        principalTable: "ClientAddresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PrivateClientAddresses_PrivateClients_PrivateClientId",
+                        column: x => x.PrivateClientId,
+                        principalTable: "PrivateClients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 })
@@ -117,21 +192,38 @@ namespace Equiprent.Data.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClientAddresses_ClientId",
-                table: "ClientAddresses",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Clients_ClientTypeId",
                 table: "Clients",
                 column: "ClientTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyClientAddresses_CompanyClientId",
+                table: "CompanyClientAddresses",
+                column: "CompanyClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PrivateClientAddresses_PrivateClientId",
+                table: "PrivateClientAddresses",
+                column: "PrivateClientId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CompanyClientAddresses");
+
+            migrationBuilder.DropTable(
+                name: "PrivateClientAddresses");
+
+            migrationBuilder.DropTable(
+                name: "CompanyClients");
+
+            migrationBuilder.DropTable(
                 name: "ClientAddresses");
+
+            migrationBuilder.DropTable(
+                name: "PrivateClients");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
