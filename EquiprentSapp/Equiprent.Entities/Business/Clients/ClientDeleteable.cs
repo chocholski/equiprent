@@ -3,6 +3,7 @@
     public abstract partial class Client : IDeleteable
     {
         public DateTime? DeletedOn { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }

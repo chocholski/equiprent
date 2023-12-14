@@ -14,6 +14,13 @@ export const ApiRoutes = {
     post: "client",
     put: "client"
   },
+  clientRepresentative: {
+    delete: (clientRepresentativeId: string) => `client/representative/${clientRepresentativeId}`,
+    getAll: (event: LazyLoadEvent, columns: PngTableColumn[], clientId: string) => `client/representative${new PngTableSearchQueryBuilder(event, columns).create()}&clientId=${clientId}`,
+    getById: (clientRepresentativeId: string) => `client/representative/${clientRepresentativeId}`,
+    post: "client/representative",
+    put: "client/representative"
+  },
   identity: {
     authenticate: "identity/authenticate",
     changePassword: "identity/changePassword",

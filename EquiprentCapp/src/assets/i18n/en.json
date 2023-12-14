@@ -117,16 +117,32 @@
     "Client": {
         "ClientTypePicker": "Type picker",
         "Create": "Client creation",
+        "CreatedOn": "Created on",
         "Deleted": "The client has been deleted.",
         "Deletion": "Deletion",
         "DeletionConfirmation": "Are you sure to delete client",
+        "Edit": "Edit",
         "FirstName": "First name",
         "LastName": "Last name",
         "List": "Clients list",
         "Name": "Name",
+        "RepresentativesTab": "Representatives",
         "SelectType": "Select type",
         "Type": "Type",
-        "TypeName": "Type"
+        "TypeName": "Type",
+        "Updated": "The client has been updated."
+    },
+    "ClientRepresentative": {
+        "Create": "Client representative creation",
+        "Deleted": "The client representative has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete client representative",
+        "Email": "Email",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "List": "Client representatives list",
+        "PhoneNumber": "Phone number",
+        "Updated": "The client representative has been updated."
     },
     "CompanyClientAddress": {
         "NationalCompanyId": "National company identification"
@@ -205,6 +221,10 @@
             "CanList": "Can list",
             "CanModify": "Can modify"
         },
+        "ClientRepresentative": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
         "User": {
             "CanList": "Can list",
             "CanModify": "Can modify"
@@ -214,6 +234,7 @@
             "CanModify": "Can modify"
         },
         "Clients": "Clients",
+        "ClientRepresentatives": "Client representatives",
         "UserRoles": "Roles",
         "Users": "Users"
     },

@@ -1,8 +1,9 @@
-<div class="grid form-grid">
+<div [class]="'grid' + (activeTab === routes.clients.tabs.general.index ? ' form-grid' : '')">
   <div class=" col-12">
     <div class="card pb-0">
-      <p-tabView>
-        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+      <p-tabView (onChange)="switchActiveTab($event.index)">
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}"
+          [selected]="activeTab === routes.clients.tabs.general.index">
           <form [formGroup]="form">
             <div class="col-12 pb-0 px-0">
               <div class="card no-border p-0">
@@ -66,6 +67,10 @@
               </div>
             </div>
           </form>
+        </p-tabPanel>
+        <p-tabPanel *ngIf="client" header="{{ 'Client.RepresentativesTab' | translate }}"
+          [selected]="activeTab === routes.clients.tabs.representatives.index">
+          <client-representative-list [clientId]="client.Id"></client-representative-list>
         </p-tabPanel>
       </p-tabView>
     </div>

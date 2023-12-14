@@ -35,6 +35,7 @@ import { AuditListForEntityComponent } from './components/audits/audit-list-for-
 import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientDetailsComponent } from './components/clients/client-details';
 import { ClientListComponent } from './components/clients/client-list';
+import { ClientRepresentativeListComponent } from './components/representatives/client-representative-list';
 import { CompanyClientAddressComponent } from './components/addresses/company-client-address';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
@@ -83,6 +84,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ClientCreationComponent,
         ClientDetailsComponent,
         ClientListComponent,
+        ClientRepresentativeListComponent,
         CompanyClientAddressComponent,
         LoginComponent,
         LoginResetPasswordComponent,

@@ -3,32 +3,40 @@
     public enum UserPermissionEnum
     {
         /// <summary>
-        /// Dla wszystkich zalogowanych użytkowników
+        /// For all logged users
         /// </summary>
         ForAllLoggedIn = 0,
         /// <summary>
-        /// Użytkownicy - przeglądanie
+        /// Users - listing
         /// </summary>
         Users_CanList = 1,
         /// <summary>
-        /// Użytkownicy - modyfikowanie
+        /// Users - modifying
         /// </summary>
         Users_CanModify = 2,
         /// <summary>
-        /// Role użytkowników - przeglądanie
+        /// User roles - listing
         /// </summary>
         UserRoles_CanList = 3,
         /// <summary>
-        /// Role użytkowników - modyfikowanie
+        /// User roles - modifying
         /// </summary>
         UserRoles_CanModify = 4,
         /// <summary>
-        /// Klienci - przeglądanie
+        /// Clients - listing
         /// </summary>
-        Clients_CanList = 3,
+        Clients_CanList = 5,
         /// <summary>
-        /// Klienci - modyfikowanie
+        /// Clients - modifying
         /// </summary>
-        Clients_CanModify = 4
+        Clients_CanModify = 6,
+        /// <summary>
+        /// Client representatives - listing
+        /// </summary>
+        ClientRepresentatives_CanList = 7,
+        /// <summary>
+        /// Client representatives - modifying
+        /// </summary>
+        ClientRepresentatives_CanModify = 8,
     }
 }

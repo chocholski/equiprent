@@ -90,7 +90,7 @@
                 <input type="checkbox" [checked]="user.IsActive" disabled />
               </td>
               <td class="items-centered gap-2">
-                <button pButton pRipple class="p-button-raised" type="button"
+                <button *ngIf="hasAccessToButtons" pButton pRipple class="p-button-raised" type="button"
                   [class]="hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'"
                   icon="pi pi-pencil" [label]="translate.instant(onEditLabelId)" (click)="onEdit(user)"></button>
                 <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"

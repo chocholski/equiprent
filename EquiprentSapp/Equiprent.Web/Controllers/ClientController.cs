@@ -1,6 +1,7 @@
 ﻿using Equiprent.Data.DbContext;
 using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Requests.Create;
+using Equiprent.Logic.Commands.Clients.Requests.Delete;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Logic.Queries.Clients.Requests;
@@ -13,10 +14,10 @@ namespace Equiprent.Web.Controllers
 {
     [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.Clients_CanList)]
-    public class ClientController : BaseApiController
+    public partial class ClientController : BaseApiController
     {
-        private readonly ICommandDispatcher _commandDispatcher;
-        private readonly IQueryDispatcher _queryDispatcher;
+        protected readonly ICommandDispatcher _commandDispatcher;
+        protected readonly IQueryDispatcher _queryDispatcher;
 
         public ClientController(
             ApplicationDbContext context,
@@ -58,6 +59,14 @@ namespace Equiprent.Web.Controllers
         public async Task<IActionResult> SaveClient([FromBody] SaveRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
+            return GetActionResult(result);
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.Clients_CanModify)]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClient(Guid id)
+        {
+            var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
             return GetActionResult(result);
         }
     }

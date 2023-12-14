@@ -117,16 +117,32 @@
     "Client": {
         "ClientTypePicker": "Wybór typu klienta",
         "Create": "Tworzenie klienta",
+        "CreatedOn": "Data utworzenia",
         "Deleted": "Klient został usunięty.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć klienta",
+        "Edit": "Edycja klienta",
         "FirstName": "Imię",
         "LastName": "Nazwisko",
         "List": "Lista klientów",
         "Name": "Nazwa",
+        "RepresentativesTab": "Przedstawiciele",
         "SelectType": "Wybierz typ",
         "Type": "Typ",
-        "TypeName": "Typ"
+        "TypeName": "Typ",
+        "Updated": "Klient został zaktualizowany."
+    },
+    "ClientRepresentative": {
+        "Create": "Tworzenie przedstawiciela klienta",
+        "Deleted": "Przedstawiciel klienta został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć przedstawiciela klienta",
+        "Email": "Email",
+        "FirstName": "Imię",
+        "LastName": "Nazwisko",
+        "List": "Lista przedstawicieli klienta",
+        "PhoneNumber": "Numer telefonu",
+        "Updated": "Przedstawiciel klienta został zaktualizowany."
     },
     "CompanyClientAddress": {
         "NationalCompanyId": "Narodowy identyfikator firmy"
@@ -205,6 +221,10 @@
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
         },
+        "ClientRepresentative": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
         "User": {
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
@@ -214,6 +234,7 @@
             "CanModify": "Edycja"
         },
         "Clients": "Klienci",
+        "ClientRepresentatives": "Przedstawiciele klientów",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
     },

@@ -28,7 +28,7 @@ import { ClientAddress } from "src/app/interfaces/address";
 })
 export class ClientDetailsComponent
   extends AccessControlFormComponent
-  implements OnInit {
+  implements OnInit, AfterViewInit {
 
   @ViewChild('addressForm') addressForm: AddressComponent;
   @ViewChild('companyClientAddressForm') companyClientAddressForm?: CompanyClientAddressComponent;
@@ -39,8 +39,10 @@ export class ClientDetailsComponent
 
   private clientId: string;
 
+  activeTab: number = 0;
   client: ClientDetailsModel;
   clientTypes: SelectItem[];
+  routes = Routes;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,6 +72,13 @@ export class ClientDetailsComponent
 
   ngOnInit() {
     this.populateDropdowns();
+  }
+
+  ngAfterViewInit(): void {
+    const activeTab = this.activatedRoute.snapshot.params['activeTab'];
+    if (activeTab) {
+      this.switchActiveTab(Number(activeTab));
+    }
   }
 
   public onBack() {
@@ -112,6 +121,10 @@ export class ClientDetailsComponent
     };
 
     this.putClient(client);
+  }
+
+  switchActiveTab(tabIndex: number) {
+    this.activeTab = tabIndex;
   }
 
   private deleteClient() {

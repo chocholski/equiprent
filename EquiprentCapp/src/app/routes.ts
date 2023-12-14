@@ -18,6 +18,23 @@ export const Routes = {
       default: 'login'
     }
   },
+  clientRepresentatives: {
+    breadcrumbs: {
+      creation: 'ClientRepresentative.Create',
+      edition: 'ClientRepresentative.Edit',
+      list: 'ClientRepresentative.List'
+    },
+    navigations: {
+      creation: 'home/client-representatives/create',
+      edition: (id: string) => `home/client-representatives/edit/${id}`,
+      list: 'home/client-representatives'
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'client-representatives'
+    }
+  },
   clients: {
     breadcrumbs: {
       creation: 'Client.Create',
@@ -33,6 +50,14 @@ export const Routes = {
       create: 'create',
       edit: 'edit/:id',
       list: 'clients'
+    },
+    tabs: {
+      general: {
+        index: 0
+      },
+      representatives: {
+        index: 1
+      }
     }
   },
   userRoles: {

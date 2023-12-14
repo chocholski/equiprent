@@ -45,7 +45,8 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
         private IQueryable<Client> GetClientListQuery()
         {
             return _dbContext.Clients
-                .Include(c => c.ClientType);
+                .Include(c => c.ClientType)
+                .Where(c => !c.IsDeleted);
         }
     }
 }

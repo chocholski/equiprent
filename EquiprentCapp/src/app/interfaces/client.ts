@@ -31,3 +31,16 @@ export interface ClientListItemModel {
   TypeId: number,
   TypeName: string,
 }
+
+export interface ClientRepresentativeListModel {
+  List: ClientRepresentativeListItemModel[];
+  TotalRowsCount: number;
+}
+
+export interface ClientRepresentativeListItemModel {
+  Email: string,
+  FirstName: string,
+  Id: string,
+  LastName: string,
+  PhoneNumber: string
+}

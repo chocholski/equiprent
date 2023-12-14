@@ -59,7 +59,8 @@ export class ClientListComponent
     private httpClient: HttpClient,
     private router: Router,
     private selectOptionService: SelectOptionsService,
-    public translate: TranslateService) {
+    public translate: TranslateService
+  ) {
     super(authorizationService, [UserPermissionEnum.Clients_CanModify]);
   }
 
