@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
-import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
+import { AccessControlFormComponent } from "../abstract/access-control-form";
 import { Confirmation, ConfirmationService, SelectItem } from "primeng/api";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
@@ -20,7 +20,7 @@ import { AddressComponent } from "../addresses/address";
 import { CompanyClientAddressComponent } from "../addresses/company-client-address";
 import { PrivateClientAddressComponent } from "../addresses/private-client-address";
 import { PrivateClientComponent } from "./private-client";
-import { ClientAddress } from "src/app/interfaces/address";
+import { ClientAddress, addressFormFields } from "src/app/interfaces/address";
 
 @Component({
   selector: "client-details",
@@ -35,6 +35,13 @@ export class ClientDetailsComponent
   @ViewChild('privateClientAddressForm') privateClientAddressForm?: PrivateClientAddressComponent;
   @ViewChild('privateClientForm') privateClientForm?: PrivateClientComponent;
 
+  readonly clientAddressRequiredFields: string[] = [
+    addressFormFields.City,
+    addressFormFields.Country,
+    addressFormFields.PostalCode,
+    addressFormFields.StreetName,
+    addressFormFields.StreetNumber
+  ];
   readonly clientType: typeof ClientTypeEnum = ClientTypeEnum;
 
   private clientId: string;

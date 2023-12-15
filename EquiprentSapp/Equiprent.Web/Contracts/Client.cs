@@ -8,6 +8,7 @@
             {
                 public const string GetAll = "representative";
                 public const string GetById = "representative/{id}";
+                public const string Post = "representative";
             }
         }
     }

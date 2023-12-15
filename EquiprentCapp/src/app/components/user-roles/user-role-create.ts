@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormComponent } from "../abstract/formComponent";
+import { FormComponent } from "../abstract/form";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { FormBuilder } from "@angular/forms";

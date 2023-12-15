@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/services/errors/error.service';
-import { FormComponent } from '../abstract/formComponent';
+import { FormComponent } from '../abstract/form';
 
 @Component({
   selector: "login-reset-password",

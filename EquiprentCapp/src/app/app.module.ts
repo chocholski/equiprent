@@ -35,6 +35,7 @@ import { AuditListForEntityComponent } from './components/audits/audit-list-for-
 import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientDetailsComponent } from './components/clients/client-details';
 import { ClientListComponent } from './components/clients/client-list';
+import { ClientRepresentativeCreationComponent } from './components/representatives/client-representative-create';
 import { ClientRepresentativeListComponent } from './components/representatives/client-representative-list';
 import { CompanyClientAddressComponent } from './components/addresses/company-client-address';
 import { LoginComponent } from './components/login/login';
@@ -57,7 +58,9 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
@@ -84,6 +87,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ClientCreationComponent,
         ClientDetailsComponent,
         ClientListComponent,
+        ClientRepresentativeCreationComponent,
         ClientRepresentativeListComponent,
         CompanyClientAddressComponent,
         LoginComponent,
@@ -129,6 +133,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         CheckboxModule,
         ConfirmDialogModule,
         DropdownModule,
+        DynamicDialogModule,
         MessageModule,
         MessagesModule,
         MultiSelectModule,
@@ -160,6 +165,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ConfirmationService,
         ConsoleMessageService,
         DialogMessageService,
+        DialogService,
         ErrorService,
         FilterService,
         MessageService,

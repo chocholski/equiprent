@@ -141,6 +141,9 @@
         "FirstName": "Imię",
         "LastName": "Nazwisko",
         "List": "Lista przedstawicieli klienta",
+        "Messages": {
+            "RepresentativeExists": "Dla klienta istnieje już przedstawiciel z jednakowymi danymi."
+        },
         "PhoneNumber": "Numer telefonu",
         "Updated": "Przedstawiciel klienta został zaktualizowany."
     },

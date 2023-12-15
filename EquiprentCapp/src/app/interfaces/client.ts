@@ -1,4 +1,4 @@
-import { ClientAddress } from "./address";
+import { Address, ClientAddress } from "./address";
 
 export interface ClientCreationModel {
   Addresses: ClientAddress[],
@@ -30,6 +30,22 @@ export interface ClientListItemModel {
   NationalId: string,
   TypeId: number,
   TypeName: string,
+}
+
+export class ClientRepresentativeDialogConfigData {
+  ClientId: string;
+
+  constructor(clientId?: string) {
+    if (clientId)
+      this.ClientId = clientId;
+  }
+}
+
+export interface ClientRepresentativeCreationModel {
+  Address: Address,
+  ClientId: string,
+  FirstName: string,
+  LastName: string
 }
 
 export interface ClientRepresentativeListModel {

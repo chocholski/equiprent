@@ -1,12 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { AccessControlComponent } from "../abstract/accessControlComponent";
+import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AccessControlComponent } from "../abstract/access-control";
 import { Confirmation, ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { PngTableColumn } from "src/app/interfaces/png";
 import { Table } from "primeng/table";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { FilterTypeEnum } from "src/app/enums/filter-type-enum";
-import { ClientRepresentativeListItemModel, ClientRepresentativeListModel } from "src/app/interfaces/client";
+import { ClientRepresentativeDialogConfigData, ClientRepresentativeListItemModel, ClientRepresentativeListModel } from "src/app/interfaces/client";
 import { Router } from "@angular/router";
 import { Routes } from "src/app/routes";
 import { TranslateService } from "@ngx-translate/core";
@@ -17,6 +17,8 @@ import { DialogMessageService } from "src/app/services/messages/dialog-message.s
 import { ErrorService } from "src/app/services/errors/error.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { FilterService } from "src/app/services/filters/filter.service";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { ClientRepresentativeCreationComponent } from "./client-representative-create";
 
 @Component({
   selector: "client-representative-list",
@@ -24,7 +26,7 @@ import { FilterService } from "src/app/services/filters/filter.service";
 })
 export class ClientRepresentativeListComponent
   extends AccessControlComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
 
   @Input('clientId') clientId: string;
 
@@ -37,6 +39,7 @@ export class ClientRepresentativeListComponent
     }
   };
 
+  private clientRepresentativeCreationDialog: DynamicDialogRef | undefined;
   private tempLazyLoadEvent: LazyLoadEvent;
 
   clientRepresentatives: ClientRepresentativeListItemModel[];
@@ -48,6 +51,7 @@ export class ClientRepresentativeListComponent
     private confirmationService: ConfirmationService,
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,
+    private dialogService: DialogService,
     private errorService: ErrorService,
     public filterService: FilterService,
     private httpClient: HttpClient,
@@ -86,8 +90,19 @@ export class ClientRepresentativeListComponent
         width: '20%',
         filterType: FilterTypeEnum.Text,
         applyGlobalFiltering: true
+      },
+      <PngTableColumn>{
+        field: 'Actions',
+        header: '',
+        width: '20%'
       }
     ];
+  }
+
+  ngOnDestroy() {
+    if (this.clientRepresentativeCreationDialog) {
+      this.clientRepresentativeCreationDialog.close();
+    }
   }
 
   public loadClientRepresentativesLazy(event: LazyLoadEvent) {
@@ -99,7 +114,10 @@ export class ClientRepresentativeListComponent
   }
 
   public onCreate() {
-    this.router.navigate([Routes.clientRepresentatives.navigations.creation]);
+    if (!this.clientId)
+      return;
+
+    this.openClientRepresentativeDialog();
   }
 
   public onDelete(clientRepresentative: ClientRepresentativeListItemModel) {
@@ -145,6 +163,21 @@ export class ClientRepresentativeListComponent
 
     return this.httpClient
       .get<ClientRepresentativeListModel>(ApiRoutes.clientRepresentative.getAll(event, this.cols, this.clientId));
+  }
+
+  private openClientRepresentativeDialog() {
+    this.clientRepresentativeCreationDialog = this.dialogService.open(
+      ClientRepresentativeCreationComponent,
+      {
+        ...ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS,
+        data: new ClientRepresentativeDialogConfigData(this.clientId)
+      });
+
+    this.clientRepresentativeCreationDialog.onClose.subscribe(() => {
+      this._dataPopulator.clientRepresentatives
+        .get(this.tempLazyLoadEvent)
+        .subscribe(result => this._dataPopulator.clientRepresentatives.set(result));
+    });
   }
 
   private setClientRepresentatives(clientRepresentatives: ClientRepresentativeListModel) {

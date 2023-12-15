@@ -29,5 +29,8 @@
         //Client
         Client_NameExists = 400,
         Client_NationalIdExists = 401,
+
+        //ClientRepresentative
+        ClientRepresentative_RepresentativeExists = 500,
     }
 }

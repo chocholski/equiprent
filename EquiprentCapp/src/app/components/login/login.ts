@@ -13,7 +13,7 @@ import { DialogMessageService } from 'src/app/services/messages/dialog-message.s
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { Routes } from 'src/app/routes';
-import { FormComponent } from '../abstract/formComponent';
+import { FormComponent } from '../abstract/form';
 
 @Component({
   selector: "login",

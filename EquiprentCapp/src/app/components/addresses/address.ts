@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormComponent } from "../abstract/formComponent";
 import { FormBuilder, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { Address } from "src/app/interfaces/address";
+import { DynamicRequirementFormComponent } from "../abstract/dynamic-requirement-form";
 
 @Component({
   selector: 'address',
   templateUrl: './address.html'
 })
 export class AddressComponent
-  extends FormComponent
+  extends DynamicRequirementFormComponent
   implements OnInit {
 
   @Input('entityAddress') entityAddress?: Address;
@@ -27,19 +27,20 @@ export class AddressComponent
     super(formBuilder);
     this.createForm({
       ApartmentNumber: [''],
-      City: ['', Validators.required],
-      CountryId: null,
+      City: [''],
+      CountryId: [''],
       Email: [''],
       Id: null,
       PhoneNumber: [''],
-      PostalCode: ['', Validators.required],
-      StreetName: ['', Validators.required],
-      StreetNumber: ['', Validators.required]
+      PostalCode: [''],
+      StreetName: [''],
+      StreetNumber: ['']
     });
   }
 
   ngOnInit() {
     this.populateDropdowns();
+    this.updateFormAfterInit();
 
     if (this.entityAddress) {
       this.updateForm({

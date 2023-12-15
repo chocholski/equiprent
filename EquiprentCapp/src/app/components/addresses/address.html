@@ -6,7 +6,7 @@
     <div class="p-fluid p-formgrid grid px-0 py-0 m-0">
       <div class="field col-12 md:col-6 py-0 mb-0">
         <div class="flex-wrap mb-3">
-          <label class="block text-900 font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('StreetName') ? ' text-900' : ''">
             {{ 'Address.StreetName' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="StreetName" type="text" />
@@ -14,7 +14,7 @@
             [text]="translate.instant('Messages.FieldRequired')"></p-message>
         </div>
         <div class="flex-wrap mb-3">
-          <label class="block text-900 font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('StreetNumber') ? ' text-900' : ''">
             {{ 'Address.StreetNumber' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="StreetNumber" type="text" />
@@ -22,7 +22,7 @@
             [text]="translate.instant('Messages.FieldRequired')"></p-message>
         </div>
         <div class="flex-wrap mb-3">
-          <label class="block font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('ApartmentNumber') ? ' text-900' : ''">
             {{ 'Address.ApartmentNumber' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="ApartmentNumber" type="text" />
@@ -30,7 +30,8 @@
       </div>
       <div class="field col-12 md:col-6 py-0 mb-0">
         <div class="flex-wrap mb-4">
-          <label class="block text-900 font-medium mb-2">{{ 'Address.Country' | translate }}</label>
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('CountryId') ? ' text-900' : ''">{{
+            'Address.Country' | translate }}</label>
           <p-dropdown class="mb-2" [options]="countries" formControlName="CountryId"
             [placeholder]="translate.instant('Address.SelectCountry')" [showClear]="false">
             <ng-template let-role pTemplate="selectedItem">
@@ -42,7 +43,7 @@
           </p-dropdown>
         </div>
         <div class="flex-wrap mb-3">
-          <label class="block text-900 font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('PostalCode') ? ' text-900' : ''">
             {{ 'Address.PostalCode' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="PostalCode" type="text" />
@@ -50,7 +51,7 @@
             [text]="translate.instant('Messages.FieldRequired')"></p-message>
         </div>
         <div class="flex-wrap mb-3">
-          <label class="block text-900 font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('City') ? ' text-900' : ''">
             {{ 'Address.City' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="City" type="text" />
@@ -62,7 +63,7 @@
     <div class="p-fluid p-formgrid grid px-0 py-0 m-0">
       <div class="field col-12 md:col-6 py-0 mb-0">
         <div class="flex-wrap mb-3">
-          <label class="block font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('Email') ? ' text-900' : ''">
             {{ 'Address.Email' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="Email" type="text" />
@@ -72,7 +73,7 @@
       </div>
       <div class="col-12 md:col-6 py-0 mb-0">
         <div class="flex-wrap mb-3">
-          <label class="block font-medium mb-2">
+          <label [class]="'block font-medium mb-2' + requiredFields.includes('PhoneNumber') ? ' text-900' : ''">
             {{ 'Address.PhoneNumber' | translate }}
           </label>
           <input pInputText class="p-inputtext mb-2" formControlName="PhoneNumber" type="text" />

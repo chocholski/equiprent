@@ -12,7 +12,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
-        private readonly IUserService _userResolverService;
+        private readonly IUserService _userService;
 
         public CreateHandler(
             ApplicationDbContext dbContext,
@@ -21,7 +21,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
-            _userResolverService = userResolverService;
+            _userService = userResolverService;
         }
 
         public async Task<CommandResult> HandleAsync(CreateRequest request)
@@ -32,7 +32,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (loginExists)
                 return CommandResult.User_LoginExists;
 
-            var createdById = _userResolverService.GetUserId();
+            var createdById = _userService.GetUserId();
 
             if (!createdById.HasValue ||
                 !request.LanguageId.HasValue ||
@@ -64,9 +64,6 @@ namespace Equiprent.Logic.Commands.Users.Handlers
         {
             if (await _dbContext.Users.Where(u => u.Login == request.Login).AnyAsync())
                 return CommandResult.User_LoginExists;
-
-            if (string.IsNullOrEmpty(request.Password))
-                return CommandResult.BadRequest;
 
             return CommandResult.OK;
         }

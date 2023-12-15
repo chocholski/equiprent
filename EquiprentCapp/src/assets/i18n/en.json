@@ -141,6 +141,9 @@
         "FirstName": "First name",
         "LastName": "Last name",
         "List": "Client representatives list",
+        "Messages": {
+            "RepresentativeExists": "The representative with the data provided already exists for the client."
+        },
         "PhoneNumber": "Phone number",
         "Updated": "The client representative has been updated."
     },

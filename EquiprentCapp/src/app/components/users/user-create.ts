@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { FormComponent } from "../abstract/formComponent";
+import { FormComponent } from "../abstract/form";
 import { FormBuilder, Validators } from "@angular/forms";
 import { SelectItem } from "primeng/api";
 import { Router } from "@angular/router";

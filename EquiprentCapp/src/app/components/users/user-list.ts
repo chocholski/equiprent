@@ -16,7 +16,7 @@ import { DialogMessageService } from 'src/app/services/messages/dialog-message.s
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
-import { AccessControlComponent } from '../abstract/accessControlComponent';
+import { AccessControlComponent } from '../abstract/access-control';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 

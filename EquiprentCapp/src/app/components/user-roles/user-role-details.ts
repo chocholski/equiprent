@@ -6,7 +6,7 @@ import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { Confirmation, ConfirmationService } from "primeng/api";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { FormBuilder } from "@angular/forms";
-import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
+import { AccessControlFormComponent } from "../abstract/access-control-form";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectedUserPermissionNodeArray } from "src/app/interfaces/user-permission";

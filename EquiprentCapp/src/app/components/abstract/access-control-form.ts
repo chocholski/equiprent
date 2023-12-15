@@ -1,5 +1,5 @@
 import { AccessControl } from "src/app/tools/access-control";
-import { FormComponent } from "./formComponent";
+import { FormComponent } from "./form";
 import { FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 

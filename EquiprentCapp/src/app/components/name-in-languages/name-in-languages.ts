@@ -5,7 +5,7 @@ import { SelectItem } from "primeng/api";
 import { NameInLanguage } from "src/app/interfaces/name-in-language";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { FormValidator } from "src/app/ui-controls/form-validator";
-import { FormComponent } from "../abstract/formComponent";
+import { FormComponent } from "../abstract/form";
 
 @Component({
   selector: 'name-in-languages',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormComponent } from "../abstract/formComponent";
+import { FormComponent } from "../abstract/form";
 import { TranslateService } from "@ngx-translate/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ClientAddress } from "src/app/interfaces/address";

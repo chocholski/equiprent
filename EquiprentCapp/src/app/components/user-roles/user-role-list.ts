@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
-import { AccessControlComponent } from '../abstract/accessControlComponent';
+import { AccessControlComponent } from '../abstract/access-control';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 
 @Component({

@@ -36,7 +36,7 @@
                     </private-client>
                   </div>
                   <div class="field col-12 px-0 py-0">
-                    <address #addressForm [showTitle]="true"></address>
+                    <address #addressForm [requiredFields]="clientAddressRequiredFields" [showTitle]="true"></address>
                   </div>
                   <div *ngIf="form.value.ClientTypeId === clientType.Private.toString()" class="field col-12 px-0 py-0">
                     <private-client-address #privateClientAddressForm>

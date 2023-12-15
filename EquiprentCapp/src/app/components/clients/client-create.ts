@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormComponent } from "../abstract/formComponent";
+import { FormComponent } from "../abstract/form";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
@@ -16,7 +16,7 @@ import { AddressComponent } from "../addresses/address";
 import { PrivateClientAddressComponent } from "../addresses/private-client-address";
 import { CompanyClientAddressComponent } from "../addresses/company-client-address";
 import { ClientCreationModel } from "src/app/interfaces/client";
-import { ClientAddress } from "src/app/interfaces/address";
+import { ClientAddress, addressFormFields } from "src/app/interfaces/address";
 import { ApiRoutes } from "src/app/api-routes";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";
 
@@ -33,6 +33,13 @@ export class ClientCreationComponent
   @ViewChild('privateClientAddressForm') privateClientAddressForm?: PrivateClientAddressComponent;
   @ViewChild('privateClientForm') privateClientForm?: PrivateClientComponent;
 
+  readonly clientAddressRequiredFields: string[] = [
+    addressFormFields.City,
+    addressFormFields.Country,
+    addressFormFields.PostalCode,
+    addressFormFields.StreetName,
+    addressFormFields.StreetNumber
+  ];
   readonly clientType: typeof ClientTypeEnum = ClientTypeEnum;
 
   clientTypes: SelectItem[];

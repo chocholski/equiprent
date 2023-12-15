@@ -10,7 +10,7 @@ import { UserDetailsModel } from "src/app/interfaces/user";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
-import { AccessControlFormComponent } from "../abstract/accessControlFormComponent";
+import { AccessControlFormComponent } from "../abstract/access-control-form";
 import { StringBuilder } from "src/app/tools/stringBuilder";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
