@@ -1,6 +1,9 @@
 ﻿using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;
+using Equiprent.Logic.Commands.Clients.Requests.DeleteClientRepresentative;
+using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;
 using Equiprent.Logic.Queries.Clients.Requests;
+using Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList;
 using Equiprent.Web.Contracts;
 
@@ -23,12 +26,48 @@ namespace Equiprent.Web.Controllers
         [PermissionRequirement(
             (int)UserPermissionEnum.Clients_CanList,
             (int)UserPermissionEnum.Clients_CanModify,
+            (int)UserPermissionEnum.ClientRepresentatives_CanList)]
+        [HttpGet(ApiRoutes.Client.Representative.GetById)]
+        public async Task<IActionResult> GetClientRepresentativeById(Guid id)
+        {
+            var parameters = new GetClientRepresentativeByIdRequest(id);
+            var result = await _queryDispatcher.SendQueryAsync<GetClientRepresentativeByIdRequest, ClientRepresentativeByIdResponse>(parameters);
+            return new JsonResult(result);
+        }
+
+        [PermissionRequirement(
+            (int)UserPermissionEnum.Clients_CanList,
+            (int)UserPermissionEnum.Clients_CanModify,
             (int)UserPermissionEnum.ClientRepresentatives_CanList,
             (int)UserPermissionEnum.ClientRepresentatives_CanModify)]
         [HttpPost(ApiRoutes.Client.Representative.Post)]
         public async Task<IActionResult> CreateClientRepresentative([FromBody] CreateRequest request)
         {
             var result = await _commandDispatcher.SendCommandAsync(request);
+            return GetActionResult(result);
+        }
+
+        [PermissionRequirement(
+            (int)UserPermissionEnum.Clients_CanList,
+            (int)UserPermissionEnum.Clients_CanModify,
+            (int)UserPermissionEnum.ClientRepresentatives_CanList,
+            (int)UserPermissionEnum.ClientRepresentatives_CanModify)]
+        [HttpPut(ApiRoutes.Client.Representative.Put)]
+        public async Task<IActionResult> SaveClientRepresentative([FromBody] SaveRequest request)
+        {
+            var result = await _commandDispatcher.SendCommandAsync(request);
+            return GetActionResult(result);
+        }
+
+        [PermissionRequirement(
+            (int)UserPermissionEnum.Clients_CanList,
+            (int)UserPermissionEnum.Clients_CanModify,
+            (int)UserPermissionEnum.ClientRepresentatives_CanList,
+            (int)UserPermissionEnum.ClientRepresentatives_CanModify)]
+        [HttpDelete(ApiRoutes.Client.Representative.Delete)]
+        public async Task<IActionResult> DeleteClientRepresentative(Guid id)
+        {
+            var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
             return GetActionResult(result);
         }
     }

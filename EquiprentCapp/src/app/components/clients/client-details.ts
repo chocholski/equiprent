@@ -44,6 +44,16 @@ export class ClientDetailsComponent
   ];
   readonly clientType: typeof ClientTypeEnum = ClientTypeEnum;
 
+  public override get shouldActionsBeDisabled(): boolean {
+    return super.shouldActionsBeDisabled ||
+      (this.addressForm?.form.invalid ?? false) ||
+      (this.companyClientAddressForm?.form.invalid ?? false) ||
+      (this.privateClientAddressForm?.form.invalid ?? false) ||
+      (this.privateClientForm?.form.invalid ?? false);
+  }
+
+  public override readonly deletionKey: string = 'deleteClient';
+
   private clientId: string;
 
   activeTab: number = 0;
@@ -94,7 +104,7 @@ export class ClientDetailsComponent
 
   public onDelete() {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteUser',
+      key: this.deletionKey,
       message: `${this.translate.instant('Client.DeletionConfirmation')} '${this.client.Name}'?`,
       accept: () => {
         this.isExecuting = true;

@@ -97,11 +97,7 @@
         </p-table>
       </div>
     </div>
-    <p-confirmDialog [header]="translate.instant('Client.Deletion')" key="deleteClient"
-      icon="pi pi-exclamation-triangle" [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text"
-      rejectButtonStyleClass="p-button-text" [acceptLabel]="translate.instant('General.Yes')"
-      [rejectLabel]="translate.instant('General.No')">
-    </p-confirmDialog>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
   </div>
 </div>
 <router-outlet></router-outlet>

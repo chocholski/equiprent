@@ -21,7 +21,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
             return companyClient;
         }
 
-        public Client? UpdateClientWithTypeChangingRequest(Client client, SaveRequest updatingRequest)
+        public async Task<Client?> UpdateClientWithTypeChangingRequestAsync(Client client, SaveRequest updatingRequest)
         {
             CompanyClient companyClient;
 
@@ -38,7 +38,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
             UpdateStandardCompanyClientPropertiesWithRequest(companyClient, updatingRequest);
             _dbContext.CompanyClients.Add(companyClient);
 
-            return companyClient;
+            return await Task.FromResult(companyClient);
         }
 
         private static void UpdateStandardCompanyClientPropertiesWithRequest(CompanyClient companyClient, SaveRequest updatingRequest)

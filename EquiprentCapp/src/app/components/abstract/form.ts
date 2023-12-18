@@ -14,6 +14,12 @@ export abstract class FormComponent {
 
   constructor(protected formBuilder: FormBuilder) { }
 
+  public get shouldActionsBeDisabled(): boolean {
+    return this.form.invalid ||
+      this.isDisabled ||
+      this.isExecuting;
+  }
+
   protected createForm(formFieldGroup?: object) {
     this.form = this.formBuilder.group(formFieldGroup ?? {});
     this.formValidator = new FormValidator(this.form);

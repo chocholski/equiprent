@@ -34,17 +34,17 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.Strategies
             }
         }
 
-        public Client? UpdateClientWithRequest(Client client, SaveRequest updatingRequest)
+        public async Task<Client?> UpdateClientWithRequestAsync(Client client, SaveRequest updatingRequest)
         {
             if (updatingRequest.TypeId == (int)ClientTypeEnum.Private)
             {
-                return new PrivateClientUpdater(_dbContext)
-                    .UpdateClientWithTypeChangingRequest(client, updatingRequest);
+                return await new PrivateClientUpdater(_dbContext)
+                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest);
             }
             else if (updatingRequest.TypeId == (int)ClientTypeEnum.Company)
             {
-                return new CompanyClientUpdater(_dbContext)
-                    .UpdateClientWithTypeChangingRequest(client, updatingRequest);
+                return await new CompanyClientUpdater(_dbContext)
+                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest);
             }
             else
             {

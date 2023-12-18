@@ -3,6 +3,8 @@ import { AuthorizationService } from "src/app/services/authorization/authorizati
 
 export abstract class AccessControlComponent {
 
+  public abstract readonly deletionKey: string;
+
   private accessControl: AccessControl;
 
   public get hasAccessToButtons(): boolean {

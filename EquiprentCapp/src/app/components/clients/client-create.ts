@@ -42,6 +42,14 @@ export class ClientCreationComponent
   ];
   readonly clientType: typeof ClientTypeEnum = ClientTypeEnum;
 
+  public override get shouldActionsBeDisabled(): boolean {
+    return super.shouldActionsBeDisabled ||
+      (this.addressForm?.form.invalid ?? false) ||
+      (this.companyClientAddressForm?.form.invalid ?? false) ||
+      (this.privateClientAddressForm?.form.invalid ?? false) ||
+      (this.privateClientForm?.form.invalid ?? false);
+  }
+
   clientTypes: SelectItem[];
 
   constructor(

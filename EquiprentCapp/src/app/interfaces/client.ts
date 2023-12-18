@@ -34,11 +34,7 @@ export interface ClientListItemModel {
 
 export class ClientRepresentativeDialogConfigData {
   ClientId: string;
-
-  constructor(clientId?: string) {
-    if (clientId)
-      this.ClientId = clientId;
-  }
+  Id?: string;
 }
 
 export interface ClientRepresentativeCreationModel {
@@ -48,12 +44,21 @@ export interface ClientRepresentativeCreationModel {
   LastName: string
 }
 
+export interface ClientRepresentativeDetailsModel {
+  Address: Address,
+  ClientId: string,
+  FirstName: string,
+  Id: string,
+  LastName: string
+}
+
 export interface ClientRepresentativeListModel {
   List: ClientRepresentativeListItemModel[];
   TotalRowsCount: number;
 }
 
 export interface ClientRepresentativeListItemModel {
+  ClientId: string,
   Email: string,
   FirstName: string,
   Id: string,

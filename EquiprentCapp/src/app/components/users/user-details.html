@@ -8,7 +8,6 @@
               <div class="card no-border p-0">
                 <div class="p-fluid p-formgrid grid mb-3">
                   <div class="field col-12 md:col-6">
-
                     <div class="flex-wrap mb-3">
                       <label class="block font-medium mb-2">{{ 'User.Login' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="login" formControlName="Login" type="text"
@@ -16,7 +15,6 @@
                       <p-message *ngIf="formValidator.hasError('Login')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.FirstName' | translate
                         }}</label>
@@ -25,7 +23,6 @@
                       <p-message *ngIf="formValidator.hasError('FirstName')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.LastName' | translate
                         }}</label>
@@ -33,7 +30,6 @@
                       <p-message *ngIf="formValidator.hasError('LastName')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div *ngIf="hasAccessToButtons" class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Password' | translate
                         }}</label>
@@ -42,7 +38,6 @@
                       <p-message *ngIf="formValidator.hasError('Password')" severity="error"
                         [text]="translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <div class="field-checkbox">
                         <p-checkbox name="isActive" formControlName="IsActive" id="isActive"
@@ -50,17 +45,13 @@
                         <label for="isActive">{{ 'User.IsActive' | translate }}</label>
                       </div>
                     </div>
-
                   </div>
-
                   <div class="field col-12 md:col-6">
-
                     <div class="flex-wrap mb-3">
                       <label class="block font-medium mb-2">{{ 'User.CreatedOn' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="createdOn" formControlName="CreatedOn" type="text"
                         readonly />
                     </div>
-
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'User.UserRole' | translate }}</label>
                       <p-dropdown class="mb-2" [options]="userRoles" formControlName="UserRoleId"
@@ -73,7 +64,6 @@
                         </ng-template>
                       </p-dropdown>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Email' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="email" formControlName="Email" type="email"
@@ -81,17 +71,16 @@
                       <p-message *ngIf="formValidator.hasError('Email')" severity="error"
                         [text]="translate.instant('Messages.FieldInvalid')"></p-message>
                     </div>
-
                   </div>
                 </div>
                 <div class="p-formgrid grid">
                   <div class="field col-12 items-centered mb-0">
-                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
+                    <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-save"
                       [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
-                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
-                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
+                      [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
+                    <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
                       [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
-                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
+                      [disabled]="shouldActionsBeDisabled" (click)="onDelete()"></button>
                     <button pButton pRipple type="button" icon="pi pi-undo"
                       [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
                       (click)="onBack()"></button>
@@ -107,10 +96,6 @@
         </p-tabPanel>
       </p-tabView>
     </div>
-
-    <p-confirmDialog [header]="translate.instant('User.Deletion')" key="deleteUser" icon="pi pi-exclamation-triangle"
-      [style]="{width: '350px'}" acceptButtonStyleClass="p-button-text" rejectButtonStyleClass="p-button-text"
-      [acceptLabel]="translate.instant('General.Yes')" [rejectLabel]="translate.instant('General.No')">
-    </p-confirmDialog>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
   </div>
 </div>

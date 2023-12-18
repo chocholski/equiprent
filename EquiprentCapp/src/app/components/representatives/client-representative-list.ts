@@ -8,7 +8,6 @@ import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { FilterTypeEnum } from "src/app/enums/filter-type-enum";
 import { ClientRepresentativeDialogConfigData, ClientRepresentativeListItemModel, ClientRepresentativeListModel } from "src/app/interfaces/client";
 import { Router } from "@angular/router";
-import { Routes } from "src/app/routes";
 import { TranslateService } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiRoutes } from "src/app/api-routes";
@@ -19,6 +18,7 @@ import { ConsoleMessageService } from "src/app/services/messages/console-message
 import { FilterService } from "src/app/services/filters/filter.service";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ClientRepresentativeCreationComponent } from "./client-representative-create";
+import { ClientRepresentativeDetailsComponent } from "./client-representative-details";
 
 @Component({
   selector: "client-representative-list",
@@ -38,6 +38,8 @@ export class ClientRepresentativeListComponent
       set: (clientRepresentatives: ClientRepresentativeListModel) => this.setClientRepresentatives(clientRepresentatives)
     }
   };
+
+  public override readonly deletionKey: string = 'deleteClientRepresentative';
 
   private clientRepresentativeCreationDialog: DynamicDialogRef | undefined;
   private tempLazyLoadEvent: LazyLoadEvent;
@@ -122,7 +124,7 @@ export class ClientRepresentativeListComponent
 
   public onDelete(clientRepresentative: ClientRepresentativeListItemModel) {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteClientRepresentative',
+      key: this.deletionKey,
       message: `${this.translate.instant('ClientRepresentative.DeletionConfirmation')} ${clientRepresentative.LastName} ${clientRepresentative.FirstName}?`,
       accept: () => {
         this.deleteClientRepresentative(clientRepresentative);
@@ -131,7 +133,7 @@ export class ClientRepresentativeListComponent
   }
 
   public onEdit(clientRepresentative: ClientRepresentativeListItemModel) {
-    this.router.navigate([Routes.clientRepresentatives.navigations.edition(clientRepresentative.Id)]);
+    this.openClientRepresentativeDialog(clientRepresentative);
   }
 
   private deleteClientRepresentative(clientRepresentative: ClientRepresentativeListItemModel) {
@@ -165,13 +167,24 @@ export class ClientRepresentativeListComponent
       .get<ClientRepresentativeListModel>(ApiRoutes.clientRepresentative.getAll(event, this.cols, this.clientId));
   }
 
-  private openClientRepresentativeDialog() {
+  private openClientRepresentativeDialog(clientRepresentative?: ClientRepresentativeListItemModel) {
+
+    const clientRepresentativeDialogConfigData = <ClientRepresentativeDialogConfigData>{
+      ClientId: this.clientId,
+      Id: clientRepresentative ? clientRepresentative.Id : undefined
+    };
+
     this.clientRepresentativeCreationDialog = this.dialogService.open(
-      ClientRepresentativeCreationComponent,
-      {
-        ...ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS,
-        data: new ClientRepresentativeDialogConfigData(this.clientId)
-      });
+      clientRepresentative ? ClientRepresentativeDetailsComponent : ClientRepresentativeCreationComponent,
+      clientRepresentative
+        ? {
+          ...ClientRepresentativeDetailsComponent.OPEN_AS_DIALOG_SETTINGS,
+          data: clientRepresentativeDialogConfigData
+        }
+        : {
+          ...ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS,
+          data: clientRepresentativeDialogConfigData
+        });
 
     this.clientRepresentativeCreationDialog.onClose.subscribe(() => {
       this._dataPopulator.clientRepresentatives

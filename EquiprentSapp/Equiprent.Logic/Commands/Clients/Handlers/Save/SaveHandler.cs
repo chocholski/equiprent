@@ -27,7 +27,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save
             var clientUpdateStrategy = new ClientUpdateStrategyFactory(_dbContext)
                 .GetClientUpdateStrategy(client, request);
 
-            var updatedClient = clientUpdateStrategy.UpdateClientWithRequest(client, request);
+            var updatedClient = await clientUpdateStrategy.UpdateClientWithRequestAsync(client, request);
 
             if (updatedClient is null)
                 return CommandResult.BadRequest;

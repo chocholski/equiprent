@@ -40,6 +40,8 @@ export class UserRoleListComponent
     }
   };
 
+  public override readonly deletionKey: string = 'deleteUserRole';
+
   private tempLazyLoadEvent: LazyLoadEvent;
 
   cols: PngTableColumn[];
@@ -106,7 +108,7 @@ export class UserRoleListComponent
 
   public onDelete(userRole: UserRoleListItemModel) {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteUserRole',
+      key: this.deletionKey,
       message: `${this.translate.instant('UserRole.DeletionConfirmation')} '${userRole.Name}'?`,
       accept: () => {
         this.deleteUserRole(userRole);

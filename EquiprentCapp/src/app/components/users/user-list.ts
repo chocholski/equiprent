@@ -41,6 +41,8 @@ export class UserListComponent
     }
   };
 
+  public override readonly deletionKey: string = 'deleteUser';
+
   private tempLazyLoadEvent: LazyLoadEvent;
 
   cols: PngTableColumn[];
@@ -127,7 +129,7 @@ export class UserListComponent
 
   public onDelete(user: UserListItemModel) {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteUser',
+      key: this.deletionKey,
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(user.LastName).append(' ').append(user.FirstName).toString()}'?`,
       accept: () => {
         this.deleteUser(user);

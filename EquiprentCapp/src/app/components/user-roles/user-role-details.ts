@@ -28,6 +28,8 @@ export class UserRoleDetailsComponent
   extends AccessControlFormComponent
   implements OnInit {
 
+  public override readonly deletionKey: string = 'deleteUserRole';
+
   private userRoleId: number;
 
   isNameInLanguagesValid: boolean = false;
@@ -69,7 +71,7 @@ export class UserRoleDetailsComponent
 
   public onDelete() {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteUserRole',
+      key: this.deletionKey,
       message: `${this.translate.instant('UserRole.DeletionConfirmation')} '${this.userRole.Name}'?`,
       accept: () => {
         this.isExecuting = true;

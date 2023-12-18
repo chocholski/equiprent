@@ -117,6 +117,7 @@
     "Client": {
         "ClientTypePicker": "Wybór typu klienta",
         "Create": "Tworzenie klienta",
+        "Created": "Klient został utworzony.",
         "CreatedOn": "Data utworzenia",
         "Deleted": "Klient został usunięty.",
         "Deletion": "Usuwanie",
@@ -134,6 +135,7 @@
     },
     "ClientRepresentative": {
         "Create": "Tworzenie przedstawiciela klienta",
+        "Created": "Przedstawiciel klienta został utworzony.",
         "Deleted": "Przedstawiciel klienta został usunięty.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć przedstawiciela klienta",

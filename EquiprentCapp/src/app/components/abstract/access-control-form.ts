@@ -5,6 +5,8 @@ import { AuthorizationService } from "src/app/services/authorization/authorizati
 
 export abstract class AccessControlFormComponent extends FormComponent {
 
+  public readonly abstract deletionKey: string;
+
   private accessControl: AccessControl;
 
   public get hasAccessToButtons(): boolean {

@@ -27,6 +27,8 @@ export class UserDetailsComponent
   extends AccessControlFormComponent
   implements OnInit {
 
+  public override readonly deletionKey: string = 'deleteUser';
+
   private userId: string;
 
   user: UserDetailsModel;
@@ -75,7 +77,7 @@ export class UserDetailsComponent
 
   public onDelete() {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteUser',
+      key: this.deletionKey,
       message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(this.user.LastName).append(' ').append(this.user.FirstName).toString()}'?`,
       accept: () => {
         this.isExecuting = true;

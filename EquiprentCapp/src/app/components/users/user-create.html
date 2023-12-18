@@ -93,7 +93,7 @@
                   <div class="field col-12 items-centered mb-0">
                     <button pButton pRipple type="button" icon="pi pi-save"
                       [label]="translate.instant('General.Create')" class="p-button-raised p-button-success mr-2"
-                      [disabled]="form.invalid || isExecuting" (click)="onSubmit()"></button>
+                      [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
                     <button pButton pRipple type="button" icon="pi pi-undo"
                       [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
                       (click)="onBack()"></button>

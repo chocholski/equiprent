@@ -45,6 +45,11 @@ export class ClientRepresentativeCreationComponent
     addressFormFields.StreetNumber
   ];
 
+  public override get shouldActionsBeDisabled() {
+    return super.shouldActionsBeDisabled ||
+      (this.addressForm?.form.invalid ?? false);
+  }
+
   constructor(
     private consoleMessageService: ConsoleMessageService,
     private dialogMessageService: DialogMessageService,

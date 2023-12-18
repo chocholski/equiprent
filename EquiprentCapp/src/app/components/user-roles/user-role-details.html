@@ -19,10 +19,10 @@
                   <div class="field col-12 items-centered mb-0">
                     <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
                       [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
-                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onSubmit()"></button>
+                      [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
                     <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
                       [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
-                      [disabled]="form.invalid || isDisabled || isExecuting" (click)="onDelete()"></button>
+                      [disabled]="shouldActionsBeDisabled" (click)="onDelete()"></button>
                     <button pButton pRipple type="button" icon="pi pi-undo"
                       [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
                       (click)="onBack()"></button>
@@ -38,5 +38,6 @@
         </p-tabPanel>
       </p-tabView>
     </div>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
   </div>
 </div>

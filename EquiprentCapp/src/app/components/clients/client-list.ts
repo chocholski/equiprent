@@ -40,6 +40,8 @@ export class ClientListComponent
     }
   };
 
+  public override readonly deletionKey: string = 'deleteClient';
+
   private tempLazyLoadEvent: LazyLoadEvent;
 
   clients: ClientListItemModel[];
@@ -119,7 +121,7 @@ export class ClientListComponent
 
   public onDelete(client: ClientListItemModel) {
     this.confirmationService.confirm(<Confirmation>{
-      key: 'deleteClient',
+      key: this.deletionKey,
       message: `${this.translate.instant('Client.DeletionConfirmation')} ${client.Name}?`,
       accept: () => {
         this.deleteClient(client);

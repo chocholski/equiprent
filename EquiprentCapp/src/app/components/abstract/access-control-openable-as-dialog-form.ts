@@ -2,19 +2,23 @@ import { Router } from "@angular/router";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { FormComponent } from "./form";
 import { FormBuilder } from "@angular/forms";
+import { AccessControlFormComponent } from "./access-control-form";
+import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 
-export abstract class OpenableAsDialogForm<T>
-  extends FormComponent {
+export abstract class AccessControlOpenableAsDialogForm<T>
+  extends AccessControlFormComponent {
 
   protected readonly _dialogConfigData: T | undefined;
 
   constructor(
+    protected override authorizationService: AuthorizationService,
     public openedAsDialogConfig: DynamicDialogConfig,
     public openedAsDialogRef: DynamicDialogRef,
     protected override formBuilder: FormBuilder,
-    protected router: Router
+    protected router: Router,
+    public override userPermissions: number[]
   ) {
-    super(formBuilder);
+    super(authorizationService, formBuilder, userPermissions);
     this._dialogConfigData = this.getOpenedAsDialogData(openedAsDialogConfig?.data);
   }
 

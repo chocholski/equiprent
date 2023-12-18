@@ -36,8 +36,10 @@ import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientDetailsComponent } from './components/clients/client-details';
 import { ClientListComponent } from './components/clients/client-list';
 import { ClientRepresentativeCreationComponent } from './components/representatives/client-representative-create';
+import { ClientRepresentativeDetailsComponent } from './components/representatives/client-representative-details';
 import { ClientRepresentativeListComponent } from './components/representatives/client-representative-list';
 import { CompanyClientAddressComponent } from './components/addresses/company-client-address';
+import { DeletionDialogComponent } from './components/dialogs/deletion-dialog';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages';
@@ -88,8 +90,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ClientDetailsComponent,
         ClientListComponent,
         ClientRepresentativeCreationComponent,
+        ClientRepresentativeDetailsComponent,
         ClientRepresentativeListComponent,
         CompanyClientAddressComponent,
+        DeletionDialogComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         NameInLanguagesComponent,

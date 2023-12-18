@@ -5,7 +5,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.Strategies
 {
     internal interface IClientUpdateStrategy
     {
-        Client? UpdateClientWithRequest(Client client, SaveRequest updatingRequest);
+        Task<Client?> UpdateClientWithRequestAsync(Client client, SaveRequest updatingRequest);
         Task<bool> UpdateClientAddressesWithRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest);
     }
 }

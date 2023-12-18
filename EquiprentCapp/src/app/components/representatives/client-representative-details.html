@@ -1,0 +1,50 @@
+<div class="grid form-grid">
+  <div class="col-12">
+    <div class="card pb-0">
+      <form [formGroup]="form">
+        <div class="col-12 pb-0 px-0">
+          <div class="card no-border p-0">
+            <div class="p-fluid p-formgrid grid mb-3">
+              <div class="field col-12 md:col-6 mb-0 pb-0">
+                <div class="flex-wrap mb-3">
+                  <label class="block text-900 font-medium mb-2">{{ 'ClientRepresentative.LastName' | translate
+                    }}</label>
+                  <input pInputText class="p-inputtext mb-2" id="lastName" formControlName="LastName" type="text" />
+                  <p-message *ngIf="formValidator.hasError('LastName')" severity="error"
+                    [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                </div>
+              </div>
+              <div class="field col-12 md:col-6 mb-0 pb-0">
+                <div class="flex-wrap mb-3">
+                  <label class="block text-900 font-medium mb-2">{{ 'ClientRepresentative.FirstName' | translate
+                    }}</label>
+                  <input pInputText class="p-inputtext mb-2" id="firstName" formControlName="FirstName" type="text" />
+                  <p-message *ngIf="formValidator.hasError('FirstName')" severity="error"
+                    [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                </div>
+              </div>
+              <div *ngIf="clientRepresentative" class="field col-12 px-0 py-0">
+                <address #addressForm [entityAddress]="clientRepresentative.Address"
+                  [requiredFields]="clientRepresentativeAddressRequiredFields" [showTitle]="true">
+                </address>
+              </div>
+            </div>
+            <div class="p-formgrid grid">
+              <div class="field col-12 items-centered mb-0">
+                <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-save"
+                  [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
+                  [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
+                <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
+                  [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
+                  [disabled]="shouldActionsBeDisabled" (click)="onDelete()"></button>
+                <button pButton pRipple type="button" icon="pi pi-undo" [label]="translate.instant('General.Cancel')"
+                  class="p-button-raised" [disabled]="isExecuting" (click)="onBack()"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
+  </div>
+</div>
