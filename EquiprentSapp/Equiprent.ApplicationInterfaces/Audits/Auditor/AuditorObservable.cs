@@ -11,7 +11,7 @@ namespace Equiprent.ApplicationInterfaces.Audits.Auditor
             _auditors.Add(auditor);
         }
 
-        public async Task NotifyAuditorsWithEntriesAsync(params AuditEntry[] auditEntries)
+        public async Task NotifyAuditorsWithEntriesAsync(params AuditEntryBase[] auditEntries)
         {
             foreach (var auditor in _auditors)
                 await auditor.AuditAsync(auditEntries);

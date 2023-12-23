@@ -13,13 +13,13 @@ namespace Equiprent.ApplicationImplementations.Audits.Auditor
             _dbContext = dbContext;
         }
 
-        public async Task AuditAsync(IEnumerable<AuditEntry> auditEntries)
+        public async Task AuditAsync(IEnumerable<AuditEntryBase> auditEntries)
         {
             foreach (var entry in auditEntries)
                 await AuditAsync(entry);
         }
 
-        public async Task AuditAsync(AuditEntry auditEntry)
+        public async Task AuditAsync(AuditEntryBase auditEntry)
         {
             _dbContext.AddRange(auditEntry.ToAudit());
 

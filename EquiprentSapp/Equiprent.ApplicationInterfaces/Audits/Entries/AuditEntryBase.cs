@@ -1,10 +1,9 @@
 ﻿using Equiprent.Entities.Application.Audits;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Equiprent.ApplicationInterfaces.Audits.Entries
 {
-    public record AuditEntry
+    public record AuditEntryBase
     {
         public EntityEntry Entry { get; }
         public string TableName { get; set; } = null!;
@@ -14,38 +13,17 @@ namespace Equiprent.ApplicationInterfaces.Audits.Entries
         public List<PropertyEntry> TemporaryProperties { get; } = new();
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 
-        private readonly Guid? _currentUserId;
+        protected readonly Guid? _currentUserId;
 
-        public AuditEntry(EntityEntry entry, Guid? currentUserId)
+        public AuditEntryBase(EntityEntry entry, Guid? currentUserId)
         {
             Entry = entry;
-
             _currentUserId = currentUserId;
         }
 
         public void SetKeyValueWithEntityPropertyEntry(PropertyEntry propertyEntry)
         {
             KeyValue = propertyEntry.CurrentValue?.ToString() ?? string.Empty;
-        }
-
-        public void SetOldValuesWithEntityPropertyEntry(
-            EntityEntry entityEntry,
-            PropertyEntry propertyEntry,
-            Func<EntityEntry, PropertyEntry, string?>? valueGetter = null)
-        {
-            OldValues[propertyEntry.Metadata.Name] = valueGetter is null
-                ? propertyEntry.OriginalValue!
-                : valueGetter.Invoke(entityEntry, propertyEntry);
-        }
-
-        public void SetNewValuesWithEntityPropertyEntry(
-            EntityEntry entityEntry,
-            PropertyEntry propertyEntry,
-            Func<EntityEntry, PropertyEntry, string?>? valueGetter = null)
-        {
-            NewValues[propertyEntry.Metadata.Name] = valueGetter is null
-                ? propertyEntry.OriginalValue!
-                : valueGetter.Invoke(entityEntry, propertyEntry);
         }
 
         public List<Audit> ToAudit()

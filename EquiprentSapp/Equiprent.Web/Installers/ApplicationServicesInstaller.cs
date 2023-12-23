@@ -21,6 +21,8 @@ using Equiprent.ApplicationInterfaces.Database.Filtering.SpecialFiltering;
 using Equiprent.ApplicationImplementations.Database.Filtering.SpecialFiltering;
 using Equiprent.ApplicationImplementations.Users;
 using Equiprent.ApplicationImplementations.Identities;
+using Equiprent.ApplicationInterfaces.Database.Events.Saving;
+using Equiprent.ApplicationImplementations.Database.Events.Saving;
 
 namespace Equiprent.Web.Installers
 {
@@ -35,6 +37,7 @@ namespace Equiprent.Web.Installers
 
             builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
             builder.Services.AddTransient<ICreateableService, CreateableService>();
+            builder.Services.AddTransient<IDbContextSavingHandler, DbContextSavingWithAuditingHandler>();
             builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
             builder.Services.AddTransient<IAuditKeyValueService, AuditKeyValueService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();

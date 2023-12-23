@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using System.Threading;
+﻿using System.Threading;
 using Equiprent.Data.DbContext.ModelBuilderAppenders;
 using Equiprent.ApplicationInterfaces.Database.Events.Saving;
 using Equiprent.ApplicationImplementations.Audits.Auditor;
@@ -11,36 +9,26 @@ namespace Equiprent.Data.DbContext
     public partial class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly Guid? _currentUserId;
-        private readonly DbContextSavingWithAuditingListener _savingListener;
+        private readonly IDbContextSavingHandler? _dbContextSavingHandler;
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public ApplicationDbContext(
-            DbContextOptions options) : base(options)
+            DbContextOptions<ApplicationDbContext> options,
+            IDbContextSavingHandler dbContextSavingHandler) : base(options)
         {
-            _savingListener = new DbContextSavingWithAuditingListener(this);
-
-            RegisterSavingListenerAuditors();
-        }
-
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IHttpContextAccessor httpAccessor) : this(options)
-        {
-            var userId = httpAccessor?.HttpContext?.User?.Claims
-                .FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?
-                .Value;
-
-            _currentUserId = userId is not null && Guid.TryParse(userId, out Guid currentUserId) ? currentUserId : null;
+            _dbContextSavingHandler = dbContextSavingHandler;
+            ConfigureDbContextSavingHandler();
         }
 
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             try
             {
-                await _savingListener.OnBeforeSaveChangesAsync(_currentUserId);
-
+                ChangeTracker.DetectChanges();
+                await _dbContextSavingHandler!.OnBeforeSaveChangesAsync(this, _currentUserId);
                 var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-
-                await _savingListener.OnAfterSaveChangesAsync();
+                await _dbContextSavingHandler!.OnAfterSaveChangesAsync();
 
                 return result;
             }
@@ -60,21 +48,24 @@ namespace Equiprent.Data.DbContext
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
 
-        private void RegisterSavingListenerAuditors()
+        private void ConfigureDbContextSavingHandler()
         {
-            _savingListener.Subscribe(new DatabaseAuditor(this));
+            if (_dbContextSavingHandler is AuditorObservable savingWithAuditsHandler)
+            {
+                savingWithAuditsHandler.Subscribe(new DatabaseAuditor(this));
 
-            var auditors = typeof(IAuditor).Assembly.ExportedTypes
-                .Where(t =>
-                    typeof(IAuditor).IsAssignableFrom(t) &&
-                    !typeof(DatabaseAuditor).IsAssignableFrom(t) &&
-                    !t.IsInterface &&
-                    !t.IsAbstract)
-                .Select(Activator.CreateInstance)
-                .Cast<IAuditor>();
+                var auditors = typeof(IAuditor).Assembly.ExportedTypes
+                    .Where(t =>
+                        typeof(IAuditor).IsAssignableFrom(t) &&
+                        !typeof(DatabaseAuditor).IsAssignableFrom(t) &&
+                        !t.IsInterface &&
+                        !t.IsAbstract)
+                    .Select(Activator.CreateInstance)
+                    .Cast<IAuditor>();
 
-            foreach (var auditor in auditors)
-                _savingListener.Subscribe(auditor);
+                foreach (var auditor in auditors)
+                    savingWithAuditsHandler.Subscribe(auditor);
+            }
         }
     }
 }

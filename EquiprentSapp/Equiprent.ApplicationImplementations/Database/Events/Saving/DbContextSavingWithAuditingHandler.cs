@@ -1,23 +1,19 @@
-﻿using Equiprent.ApplicationInterfaces.Audits.Auditor;
+﻿using Equiprent.ApplicationImplementations.Audits.Entries;
+using Equiprent.ApplicationInterfaces.Audits.Auditor;
 using Equiprent.ApplicationInterfaces.Audits.Entries;
+using Equiprent.ApplicationInterfaces.Database.Events.Saving;
+using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.Audits;
 using Equiprent.Entities.Attributes;
 using Equiprent.Extensions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
 
-namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
+namespace Equiprent.ApplicationImplementations.Database.Events.Saving
 {
-    public class DbContextSavingWithAuditingListener : AuditorObservable, IDbContextSavingListener
+    public class DbContextSavingWithAuditingHandler : AuditorObservable, IDbContextSavingHandler
     {
-        private readonly DbContext _dbContext;
-        private readonly List<AuditEntry> _auditEntries = new();
-
-        public DbContextSavingWithAuditingListener(DbContext dbContext) : base()
-        {
-            _dbContext = dbContext;
-        }
+        private readonly List<AuditEntryBase> _auditEntries = new();
 
         public async Task OnAfterSaveChangesAsync()
         {
@@ -42,23 +38,24 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
             return;
         }
 
-        public async Task OnBeforeSaveChangesAsync(Guid? currentUserId)
+        public async Task OnBeforeSaveChangesAsync(DbContext dbContext, Guid? currentUserId)
         {
-            _dbContext.ChangeTracker.DetectChanges();
-
-            foreach (var entry in _dbContext.ChangeTracker.Entries())
+            if (dbContext is ApplicationDbContext applicationDbContext)
             {
-                if (!ShouldEntryBeAudited(entry))
-                    continue;
+                foreach (var entry in applicationDbContext.ChangeTracker.Entries())
+                {
+                    if (!ShouldEntryBeAudited(entry))
+                        continue;
 
-                LoadEntryIntoAudits(entry, currentUserId);
+                    LoadEntryIntoAudits(applicationDbContext, entry, currentUserId);
+                }
+
+                ReloadAuditEntriesExcludingTemporaryEntries();
+                await NotifyAuditorsWithEntriesAsync(_auditEntries.ToArray());
             }
-
-            ReloadAuditEntriesExcludingTemporaryEntries();
-            await NotifyAuditorsWithEntriesAsync(_auditEntries.ToArray());
         }
 
-        private void LoadEntryIntoAudits(EntityEntry entry, Guid? currentUserId)
+        private void LoadEntryIntoAudits(ApplicationDbContext dbContext, EntityEntry entry, Guid? currentUserId)
         {
             var auditEntry = new AuditEntry(entry, currentUserId)
             {
@@ -68,10 +65,10 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
             if (!string.IsNullOrEmpty(auditEntry.TableName))
                 _auditEntries.Add(auditEntry);
 
-            LoadEntryPropertiesIntoAudits(entry, auditEntry);
+            LoadEntryPropertiesIntoAudits(dbContext, entry, auditEntry);
         }
 
-        private void LoadEntryPropertiesIntoAudits(EntityEntry entry, AuditEntry auditEntry)
+        private void LoadEntryPropertiesIntoAudits(ApplicationDbContext dbContext, EntityEntry entry, AuditEntry auditEntry)
         {
             foreach (var property in entry.Properties)
             {
@@ -96,11 +93,11 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
                         break;
 
                     case EntityState.Deleted:
-                        auditEntry.SetOldValuesWithEntityPropertyEntry(entry, property);
+                        auditEntry.SetOldValuesWithEntityPropertyEntry(dbContext, entry, property);
                         break;
 
                     case EntityState.Modified:
-                        HandleObjectModifications(entry, auditEntry, property);
+                        HandleObjectModifications(dbContext, entry, auditEntry, property);
                         break;
                 }
             }
@@ -113,7 +110,7 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
         private static bool ShouldEntryBeAudited(EntityEntry entry) =>
             entry.Entity is not Audit && entry.State is not (EntityState.Unchanged or EntityState.Detached);
 
-        private void HandleObjectModifications(EntityEntry entry, AuditEntry auditEntry, PropertyEntry property)
+        private void HandleObjectModifications(ApplicationDbContext dbContext, EntityEntry entry, AuditEntry auditEntry, PropertyEntry property)
         {
             var propertyName = GetEntryPropertyName(property);
 
@@ -121,28 +118,28 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
             {
                 if (!property.OriginalValue.Equals(property.CurrentValue))
                 {
-                    auditEntry.SetOldValuesWithEntityPropertyEntry(entry, property, GetOriginalValue);
-                    auditEntry.SetNewValuesWithEntityPropertyEntry(entry, property, GetCurrentValue);
+                    auditEntry.SetOldValuesWithEntityPropertyEntry(dbContext, entry, property, GetOriginalValue);
+                    auditEntry.SetNewValuesWithEntityPropertyEntry(dbContext, entry, property, GetCurrentValue);
                 }
             }
             else if (property.OriginalValue is not null && property.CurrentValue is null)
             {
-                auditEntry.SetOldValuesWithEntityPropertyEntry(entry, property, GetOriginalValue);
+                auditEntry.SetOldValuesWithEntityPropertyEntry(dbContext, entry, property, GetOriginalValue);
                 auditEntry.NewValues[propertyName] = null;
             }
             else if (property.OriginalValue is null && property.CurrentValue is not null)
             {
                 auditEntry.OldValues[propertyName] = null;
-                auditEntry.SetNewValuesWithEntityPropertyEntry(entry, property, GetCurrentValue);
+                auditEntry.SetNewValuesWithEntityPropertyEntry(dbContext, entry, property, GetCurrentValue);
             }
 
         }
 
-        private string? GetCurrentValue(EntityEntry entry, PropertyEntry property) => GetValue(entry, property, getCurrentValue: true);
+        private string? GetCurrentValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: true);
 
-        private string? GetOriginalValue(EntityEntry entry, PropertyEntry property) => GetValue(entry, property, getCurrentValue: false);
+        private string? GetOriginalValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: false);
 
-        private string? GetValue(EntityEntry entry, PropertyEntry property, bool getCurrentValue)
+        private string? GetValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property, bool getCurrentValue)
         {
             var entryType = entry.Entity.GetType().BaseType;
 
@@ -167,7 +164,7 @@ namespace Equiprent.ApplicationInterfaces.Database.Events.Saving
                     .ToString();
 
                 var valueObj = translatedPropertyType is not null
-                    ? _dbContext.Find((Type)translatedPropertyType, property.OriginalValue)
+                    ? dbContext.Find((Type)translatedPropertyType, property.OriginalValue)
                     : null;
 
                 PropertyInfo? translatedPropertyInfo = null;

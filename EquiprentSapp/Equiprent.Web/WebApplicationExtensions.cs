@@ -1,5 +1,4 @@
-﻿using Equiprent.ApplicationInterfaces.Database.Events.Saving;
-using Equiprent.Data.DbContext;
+﻿using Equiprent.Data.DbContext;
 using Equiprent.Web.Installers;
 using Serilog;
 
