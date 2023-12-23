@@ -1,5 +1,5 @@
 ﻿using Equiprent.Logic.Queries.Users.Requests;
-using Equiprent.ApplicationServices.Languageables;
+using Equiprent.ApplicationInterfaces.Languageables;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;

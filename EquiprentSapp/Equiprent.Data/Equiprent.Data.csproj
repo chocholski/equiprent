@@ -35,6 +35,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\Equiprent.ApplicationInterfaces\Equiprent.ApplicationInterfaces.csproj" />
     <ProjectReference Include="..\Equiprent.Entities\Equiprent.Entities.csproj" />
     <ProjectReference Include="..\Equiprent.Extensions\Equiprent.Extensions.csproj" />
   </ItemGroup>

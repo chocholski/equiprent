@@ -1,6 +1,6 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Logic.Commands.Users.Requests.ChangeRole;
 using Equiprent.Logic.Infrastructure.CQRS;
 

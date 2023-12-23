@@ -1,6 +1,6 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Entities.Application.Addresses;
 using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;

@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.UserPermissions;
+﻿using Equiprent.ApplicationInterfaces.UserPermissions;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.UserRolePermissionsForCreation;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;

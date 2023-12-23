@@ -1,10 +1,10 @@
-﻿using Equiprent.ApplicationServices.Users;
-using Equiprent.Data.Services;
-using Equiprent.Logic.Infrastructure.CQRS;
+﻿using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Data.DbContext;
-using Equiprent.ApplicationServices.CommandResults;
 using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Entities.Application.Users;
+using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users.Passwords;
+using Equiprent.ApplicationInterfaces.Users;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {

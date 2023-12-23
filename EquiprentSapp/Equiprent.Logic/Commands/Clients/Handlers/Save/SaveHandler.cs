@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters;

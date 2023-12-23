@@ -1,14 +1,26 @@
-﻿using Equiprent.ApplicationServices.Users;
-using Equiprent.ApplicationServices.Audits;
-using Equiprent.ApplicationServices.Createables;
-using Equiprent.ApplicationServices.Languageables;
-using Equiprent.ApplicationServices.UserPermissions;
-using Equiprent.Data.Services;
+﻿using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Createables;
+using Equiprent.ApplicationInterfaces.Languageables;
+using Equiprent.ApplicationInterfaces.UserPermissions;
 using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Web.Infrastructure;
 using static Equiprent.Logic.Infrastructure.CQRS.Queries;
-using Equiprent.ApplicationServices.Identities;
-using Equiprent.ApplicationServices.Database;
+using Equiprent.ApplicationInterfaces.Identities;
+using Equiprent.ApplicationInterfaces.Audits.AuditMemberTranslators;
+using Equiprent.ApplicationImplementations.Audits.AuditMemberTranslators;
+using Equiprent.ApplicationImplementations.Createables;
+using Equiprent.ApplicationInterfaces.Database.DbStatementBuilders;
+using Equiprent.ApplicationImplementations.Database.DbStatementBuilders;
+using Equiprent.ApplicationInterfaces.Audits.AuditKeyValues;
+using Equiprent.ApplicationImplementations.UserPermissions;
+using Equiprent.ApplicationImplementations.Audits.AuditKeyValues;
+using Equiprent.ApplicationImplementations.Languageables;
+using Equiprent.ApplicationInterfaces.Users.Passwords;
+using Equiprent.ApplicationImplementations.Users.Passwords;
+using Equiprent.ApplicationInterfaces.Database.Filtering.SpecialFiltering;
+using Equiprent.ApplicationImplementations.Database.Filtering.SpecialFiltering;
+using Equiprent.ApplicationImplementations.Users;
+using Equiprent.ApplicationImplementations.Identities;
 
 namespace Equiprent.Web.Installers
 {
@@ -23,11 +35,11 @@ namespace Equiprent.Web.Installers
 
             builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
             builder.Services.AddTransient<ICreateableService, CreateableService>();
-            builder.Services.AddTransient<IDbStatementService, DbStatementService>();
-            builder.Services.AddTransient<IKeyAtAuditValueService, KeyAtAuditValueService>();
+            builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
+            builder.Services.AddTransient<IAuditKeyValueService, AuditKeyValueService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
             builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
-            builder.Services.AddTransient<ISpecialFilterService, SpecialFilterService>();
+            builder.Services.AddTransient<ISpecialFilterBuilder, SpecialFilterBuilder>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserPermissionService, UserPermissionService>();
 

@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.Languageables;
+﻿using Equiprent.ApplicationInterfaces.Languageables;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;

@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;

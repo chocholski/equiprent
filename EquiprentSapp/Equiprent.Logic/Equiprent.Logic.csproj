@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Equiprent.ApplicationServices\Equiprent.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Equiprent.ApplicationImplementations\Equiprent.ApplicationImplementations.csproj" />
+    <ProjectReference Include="..\Equiprent.ApplicationInterfaces\Equiprent.ApplicationInterfaces.csproj" />
     <ProjectReference Include="..\Equiprent.Data\Equiprent.Data.csproj" />
     <ProjectReference Include="..\Equiprent.Entities\Equiprent.Entities.csproj" />
   </ItemGroup>

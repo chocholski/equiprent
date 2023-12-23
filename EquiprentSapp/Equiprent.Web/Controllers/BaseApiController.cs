@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.ApplicationImplementations.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Enums;
 using Equiprent.Web.Filters;

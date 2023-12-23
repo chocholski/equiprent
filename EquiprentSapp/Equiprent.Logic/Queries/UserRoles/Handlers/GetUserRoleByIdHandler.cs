@@ -1,6 +1,6 @@
-﻿using Equiprent.ApplicationServices.UserPermissions;
+﻿using Equiprent.ApplicationInterfaces.UserPermissions;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Queries.UserRoles.Requests;

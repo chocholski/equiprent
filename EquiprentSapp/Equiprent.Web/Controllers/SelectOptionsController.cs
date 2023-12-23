@@ -1,5 +1,5 @@
 ﻿using Equiprent.Logic.QueryData.UIModels;
-using Equiprent.ApplicationServices.Languageables;
+using Equiprent.ApplicationInterfaces.Languageables;
 using Equiprent.Entities.Enums;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;

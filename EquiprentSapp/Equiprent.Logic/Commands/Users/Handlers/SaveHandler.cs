@@ -1,7 +1,7 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
-using Equiprent.ApplicationServices.Users;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Users.Passwords;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Logic.Commands.Users.Requests.Save;
 using Equiprent.Logic.Infrastructure.CQRS;
 

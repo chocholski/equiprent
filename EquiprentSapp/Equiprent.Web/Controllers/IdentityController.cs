@@ -1,9 +1,9 @@
-﻿using Equiprent.ApplicationServices.Users;
-using Equiprent.Logic.QueryData.Authentication;
+﻿using Equiprent.Logic.QueryData.Authentication;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;
-using Equiprent.ApplicationServices.Identities;
-using Equiprent.ApplicationServices.CommandResults;
+using Equiprent.ApplicationInterfaces.Identities;
+using Equiprent.ApplicationInterfaces.Users.Passwords;
+using Equiprent.ApplicationImplementations.CommandResults;
 
 namespace Equiprent.Web.Controllers
 {

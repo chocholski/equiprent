@@ -1,7 +1,7 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
-using Equiprent.ApplicationServices.UserPermissions;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.UserPermissions;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Entities.Application.UserPermissionToRoles;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;

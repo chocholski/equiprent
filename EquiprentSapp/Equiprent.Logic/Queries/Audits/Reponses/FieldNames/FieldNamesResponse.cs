@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.Audits;
+﻿using Equiprent.ApplicationInterfaces.Audits.AuditMemberTranslators;
 using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Logic.Abstractions;
 using Microsoft.Extensions.DependencyInjection;

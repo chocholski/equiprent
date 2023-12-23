@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Office2010.ExcelAc;
-using Equiprent.ApplicationServices.Database;
+﻿using Equiprent.ApplicationInterfaces.Database.DbStatementBuilders;
 using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Logic.Attributes;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
@@ -57,14 +56,14 @@ namespace Equiprent.Logic.Abstractions
             if (sortColumnName is null)
                 return null;
 
-            var dbStatementService = _serviceProvider.GetService<IDbStatementService>();
+            var dbStatementBuilder = _serviceProvider.GetService<IDbStatementBuilder>();
 
-            if (dbStatementService is null)
+            if (dbStatementBuilder is null)
                 return null;
 
             return await _query
-                .Where(await dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
-                .OrderBy(dbStatementService.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
+                .Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+                .OrderBy(dbStatementBuilder.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
                 .Skip(_requestParameters.StartRow)
                 .Take(_requestParameters.PageCount)
                 .ToListAsync();
@@ -82,10 +81,10 @@ namespace Equiprent.Logic.Abstractions
 
         private async Task<IQueryable<TEntity>> GetTotalRowsQueryAsync()
         {
-            var dbStatementService = _serviceProvider.GetService<IDbStatementService>();
+            var dbStatementBuilder = _serviceProvider.GetService<IDbStatementBuilder>();
 
-            return dbStatementService is not null && !string.IsNullOrEmpty(_requestParameters.SearchCriteria)
-                ? _query.Where(await dbStatementService.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+            return dbStatementBuilder is not null && !string.IsNullOrEmpty(_requestParameters.SearchCriteria)
+                ? _query.Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
                 : _query;
         }
     }

@@ -1,6 +1,6 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Handlers.Create.Compositions;
 using Equiprent.Logic.Commands.Clients.Handlers.Create.Creators;

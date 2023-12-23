@@ -1,4 +1,5 @@
-﻿using Equiprent.Data.DbContext;
+﻿using Equiprent.ApplicationInterfaces.Database.Events.Saving;
+using Equiprent.Data.DbContext;
 using Equiprent.Web.Installers;
 using Serilog;
 
@@ -51,7 +52,6 @@ namespace Equiprent.Web
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
-
             app.MigrateDatabase();
 
             app.UseSpa(spa =>

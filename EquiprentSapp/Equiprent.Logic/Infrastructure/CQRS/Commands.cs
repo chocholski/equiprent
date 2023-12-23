@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Equiprent.Logic.Infrastructure.CQRS

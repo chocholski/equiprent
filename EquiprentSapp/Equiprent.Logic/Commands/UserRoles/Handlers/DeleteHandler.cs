@@ -1,6 +1,6 @@
-﻿using Equiprent.ApplicationServices.CommandResults;
+﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Data.Services;
 using Equiprent.Logic.Commands.UserRoles.Requests.Delete;
 using Equiprent.Logic.Infrastructure.CQRS;
 

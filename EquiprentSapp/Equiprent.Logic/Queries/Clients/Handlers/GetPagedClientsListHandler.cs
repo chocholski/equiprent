@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationServices.Languageables;
+﻿using Equiprent.ApplicationInterfaces.Languageables;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
