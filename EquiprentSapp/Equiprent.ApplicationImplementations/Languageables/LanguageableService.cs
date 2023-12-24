@@ -3,18 +3,21 @@ using Equiprent.ApplicationInterfaces.Languageables.Models;
 using Equiprent.ApplicationInterfaces.Languageables;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Interfaces;
-using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Users.Languages;
 
 namespace Equiprent.ApplicationImplementations.Languageables
 {
     public class LanguageableService : ILanguageableService
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userResolverService;
-        public LanguageableService(ApplicationDbContext dbContext, IUserService userResolverService)
+        private readonly IUserLanguageService _userLanguageService;
+
+        public LanguageableService(
+            ApplicationDbContext dbContext,
+            IUserLanguageService userLanguageService)
         {
             _dbContext = dbContext;
-            _userResolverService = userResolverService;
+            _userLanguageService = userLanguageService;
         }
 
         public async Task TranslateListLanguageableValuesAsync<T, U>(List<T> list,
@@ -41,7 +44,7 @@ namespace Equiprent.ApplicationImplementations.Languageables
         {
             var result = new List<ILanguageableItem>();
 
-            languageId ??= await _userResolverService.GetCurrentUserLanguageIdAsync();
+            languageId ??= await _userLanguageService.GetCurrentUserLanguageIdAsync();
 
             if (!languageId.HasValue)
                 return result;

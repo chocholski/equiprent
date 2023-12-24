@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationImplementations.CommandResults;
-using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Identities.Tokens;
 using Equiprent.ApplicationInterfaces.Users.Passwords;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Requests.Save;
@@ -11,16 +11,16 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
-        private readonly IUserService _userService;
+        private readonly ITokenRefreshService _tokenRefreshService;
 
         public SaveHandler(
             ApplicationDbContext dbContext,
             IPasswordHasher passwordHasher,
-            IUserService userService)
+            ITokenRefreshService tokenRefreshService)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
-            _userService = userService;
+            _tokenRefreshService = tokenRefreshService;
         }
 
         public async Task<CommandResult> HandleAsync(SaveRequest request)
@@ -32,7 +32,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 return CommandResult.BadRequest;
 
             if (user.UserRoleId != request.UserRoleId)
-                await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
+                await _tokenRefreshService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
 
             user.Email = request.Email;
             user.FirstName = request.FirstName;

@@ -8,14 +8,13 @@ namespace Equiprent.Data.DbContext
 {
     public partial class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        private readonly Guid? _currentUserId;
-        private readonly IDbContextSavingHandler? _dbContextSavingHandler;
+        private readonly IDbContextSavingStrategy? _dbContextSavingHandler;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options,
-            IDbContextSavingHandler dbContextSavingHandler) : base(options)
+            IDbContextSavingStrategy dbContextSavingHandler) : base(options)
         {
             _dbContextSavingHandler = dbContextSavingHandler;
             ConfigureDbContextSavingHandler();
@@ -26,9 +25,9 @@ namespace Equiprent.Data.DbContext
             try
             {
                 ChangeTracker.DetectChanges();
-                await _dbContextSavingHandler!.OnBeforeSaveChangesAsync(this, _currentUserId);
+                await _dbContextSavingHandler!.OnBeforeSaveChangesAsync(this);
                 var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-                await _dbContextSavingHandler!.OnAfterSaveChangesAsync();
+                await _dbContextSavingHandler!.OnAfterSaveChangesAsync(this);
 
                 return result;
             }
@@ -50,7 +49,7 @@ namespace Equiprent.Data.DbContext
 
         private void ConfigureDbContextSavingHandler()
         {
-            if (_dbContextSavingHandler is AuditorObservable savingWithAuditsHandler)
+            if (_dbContextSavingHandler is AuditorObservableBase savingWithAuditsHandler)
             {
                 savingWithAuditsHandler.Subscribe(new DatabaseAuditor(this));
 

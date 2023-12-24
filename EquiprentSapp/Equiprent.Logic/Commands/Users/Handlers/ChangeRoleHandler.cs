@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationImplementations.CommandResults;
-using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Identities.Tokens;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Requests.ChangeRole;
 using Equiprent.Logic.Infrastructure.CQRS;
@@ -9,14 +9,14 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     public class ChangeRoleHandler : ICommandHandler<ChangeRoleRequest>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userService;
+        private readonly ITokenRefreshService _tokenRefreshService;
 
         public ChangeRoleHandler(
             ApplicationDbContext dbContext,
-            IUserService userService)
+            ITokenRefreshService tokenRefreshService)
         {
             _dbContext = dbContext;
-            _userService = userService;
+            _tokenRefreshService = tokenRefreshService;
         }
 
         public async Task<CommandResult> HandleAsync(ChangeRoleRequest request)
@@ -27,7 +27,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (user is null)
                 return CommandResult.BadRequest;
 
-            await _userService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
+            await _tokenRefreshService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
 
             user.UserRoleId = request.UserRoleId;
 

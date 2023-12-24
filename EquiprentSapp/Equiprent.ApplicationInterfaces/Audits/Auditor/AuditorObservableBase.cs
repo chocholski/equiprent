@@ -2,7 +2,7 @@
 
 namespace Equiprent.ApplicationInterfaces.Audits.Auditor
 {
-    public abstract class AuditorObservable
+    public abstract class AuditorObservableBase
     {
         protected readonly List<IAuditor> _auditors = new();
 

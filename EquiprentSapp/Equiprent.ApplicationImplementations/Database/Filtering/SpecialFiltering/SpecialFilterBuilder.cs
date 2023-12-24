@@ -5,10 +5,12 @@ namespace Equiprent.ApplicationImplementations.Database.Filtering.SpecialFilteri
 {
     public class SpecialFilterBuilder : ISpecialFilterBuilder
     {
-        public async Task<string?> BuildSpecialConditionAsync(List<IWhereClauseCriteria> criteria, string filterName, string filterValue) =>
-            filterName switch
+        public async Task<string?> BuildSpecialConditionAsync(List<IWhereClauseCriteria>? criteria, string? filterName, string? filterValue)
+        {
+            return await Task.FromResult((string?)(filterName switch
             {
                 _ => null,
-            };
+            }));
+        }
     }
 }

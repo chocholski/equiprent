@@ -94,7 +94,7 @@ namespace Equiprent.ApplicationImplementations.Database.DbStatementBuilders
             if (resultBuilder.Length == 0)
                 return "1 = 1";
 
-            return resultBuilder.ToString();
+            return await Task.FromResult(resultBuilder.ToString());
         }
 
         private string GetContainsCondition(IWhereClauseCriteria criteria) =>

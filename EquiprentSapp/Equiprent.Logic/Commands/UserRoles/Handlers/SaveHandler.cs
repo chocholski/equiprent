@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Identities.Tokens;
 using Equiprent.ApplicationInterfaces.UserPermissions;
-using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.UserPermissionToRoles;
 using Equiprent.Entities.Application.UserRoles;
@@ -14,16 +14,16 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
     public class SaveHandler : ICommandHandler<SaveRequest>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userService;
+        private readonly ITokenRefreshService _tokenRefreshService;
         private readonly IUserPermissionService _userPermissionsService;
 
         public SaveHandler(
             ApplicationDbContext dbContext,
-            IUserService userService,
+            ITokenRefreshService tokenRefreshService,
             IUserPermissionService userPermissionsService)
         {
             _dbContext = dbContext;
-            _userService = userService;
+            _tokenRefreshService = tokenRefreshService;
             _userPermissionsService = userPermissionsService;
         }
 
@@ -80,7 +80,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers
                 .Select(u => u.Id)
                 .ToListAsync();
 
-            await _userService.SetTokenRefreshRequiredForUsersAsync(idsOfUsersWithRoleUpdated);
+            await _tokenRefreshService.SetTokenRefreshRequiredForUsersAsync(idsOfUsersWithRoleUpdated);
 
             return CommandResult.OK;
         }

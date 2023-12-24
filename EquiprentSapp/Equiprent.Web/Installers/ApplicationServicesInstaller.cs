@@ -23,6 +23,10 @@ using Equiprent.ApplicationImplementations.Users;
 using Equiprent.ApplicationImplementations.Identities;
 using Equiprent.ApplicationInterfaces.Database.Events.Saving;
 using Equiprent.ApplicationImplementations.Database.Events.Saving;
+using Equiprent.ApplicationInterfaces.Identities.Tokens;
+using Equiprent.ApplicationImplementations.Identities.Tokens;
+using Equiprent.ApplicationInterfaces.Users.Languages;
+using Equiprent.ApplicationImplementations.Users.Languages;
 
 namespace Equiprent.Web.Installers
 {
@@ -37,12 +41,14 @@ namespace Equiprent.Web.Installers
 
             builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
             builder.Services.AddTransient<ICreateableService, CreateableService>();
-            builder.Services.AddTransient<IDbContextSavingHandler, DbContextSavingWithAuditingHandler>();
+            builder.Services.AddTransient<IDbContextSavingStrategy, DbContextSavingWithAuditingStrategy>();
             builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
             builder.Services.AddTransient<IAuditKeyValueService, AuditKeyValueService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
             builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
             builder.Services.AddTransient<ISpecialFilterBuilder, SpecialFilterBuilder>();
+            builder.Services.AddTransient<ITokenRefreshService, TokenRefreshService>();
+            builder.Services.AddTransient<IUserLanguageService, UserLanguageService>();
             builder.Services.AddTransient<IUserService, UserService>();
             builder.Services.AddTransient<IUserPermissionService, UserPermissionService>();
 

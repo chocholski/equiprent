@@ -1,4 +1,5 @@
 ﻿using Equiprent.Entities.Application.Audits;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Equiprent.ApplicationInterfaces.Audits.Entries
@@ -26,36 +27,61 @@ namespace Equiprent.ApplicationInterfaces.Audits.Entries
             KeyValue = propertyEntry.CurrentValue?.ToString() ?? string.Empty;
         }
 
+        public void SetNewValuesWithEntityPropertyEntry(
+            DbContext dbContext,
+            EntityEntry entityEntry,
+            PropertyEntry propertyEntry,
+            Func<DbContext, EntityEntry, PropertyEntry, string?>? valueGetter = null)
+        {
+            NewValues[propertyEntry.Metadata.Name] = valueGetter is null
+                ? propertyEntry.OriginalValue!
+                : valueGetter.Invoke(dbContext, entityEntry, propertyEntry);
+        }
+
+        public void SetOldValuesWithEntityPropertyEntry(
+            DbContext dbContext,
+            EntityEntry entityEntry,
+            PropertyEntry propertyEntry,
+            Func<DbContext, EntityEntry, PropertyEntry, string?>? valueGetter = null)
+        {
+            OldValues[propertyEntry.Metadata.Name] = valueGetter is null
+                ? propertyEntry.OriginalValue!
+                : valueGetter.Invoke(dbContext, entityEntry, propertyEntry);
+        }
+
         public List<Audit> ToAudit()
         {
             var audits = new List<Audit>();
 
-            if (NewValues.Any())
+            if (!NewValues.Any())
+                return audits;
+
+            foreach (var newKeyValuePair in NewValues)
             {
-                foreach (var newValue in NewValues)
+                var audit = new Audit
                 {
-                    var audit = new Audit
-                    {
-                        TableName = TableName,
-                        CreatedOn = DateTime.Now,
-                        KeyValue = KeyValue,
-                        FieldName = newValue.Key,
-                        CreatedById = _currentUserId ?? null
-                    };
+                    TableName = TableName,
+                    CreatedOn = DateTime.Now,
+                    KeyValue = KeyValue,
+                    FieldName = newKeyValuePair.Key,
+                    CreatedById = _currentUserId
+                };
 
-                    if (OldValues.Any())
-                        audit.OldValue = OldValues.Any(item => item.Key == newValue.Key) && OldValues[newValue.Key] != null
-                            ? OldValues[newValue.Key]?.ToString()
-                            : null;
+                if (OldValues.Any())
+                    audit.OldValue = GetOldValueForKey(newKeyValuePair.Key);
 
-                    audit.NewValue = newValue.Value?.ToString();
-
-                    audits.Add(audit);
-                }
-
+                audit.NewValue = newKeyValuePair.Value?.ToString();
+                audits.Add(audit);
             }
 
             return audits;
+        }
+
+        private string? GetOldValueForKey(string newValueKey)
+        {
+            return OldValues.Any(item => item.Key == newValueKey) && OldValues[newValueKey] is not null
+                ? OldValues[newValueKey]?.ToString()
+                : null;
         }
     }
 }

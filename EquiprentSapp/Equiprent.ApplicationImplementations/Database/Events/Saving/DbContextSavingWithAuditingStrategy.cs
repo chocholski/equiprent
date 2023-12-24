@@ -2,7 +2,7 @@
 using Equiprent.ApplicationInterfaces.Audits.Auditor;
 using Equiprent.ApplicationInterfaces.Audits.Entries;
 using Equiprent.ApplicationInterfaces.Database.Events.Saving;
-using Equiprent.Data.DbContext;
+using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Entities.Application.Audits;
 using Equiprent.Entities.Attributes;
 using Equiprent.Extensions;
@@ -11,11 +11,17 @@ using System.Reflection;
 
 namespace Equiprent.ApplicationImplementations.Database.Events.Saving
 {
-    public class DbContextSavingWithAuditingHandler : AuditorObservable, IDbContextSavingHandler
+    public class DbContextSavingWithAuditingStrategy : AuditorObservableBase, IDbContextSavingStrategy
     {
         private readonly List<AuditEntryBase> _auditEntries = new();
+        private readonly Guid? _currentUserId;
 
-        public async Task OnAfterSaveChangesAsync()
+        public DbContextSavingWithAuditingStrategy(IUserService userService)
+        {
+            _currentUserId = userService.GetUserId();
+        }
+
+        public async Task OnAfterSaveChangesAsync(DbContext dbContext)
         {
             if (_auditEntries.IsNullOrEmpty())
                 return;
@@ -33,31 +39,29 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
                 await NotifyAuditorsWithEntriesAsync(entry);
             }
 
+            await dbContext.SaveChangesAsync();
             _auditEntries.Clear();
 
             return;
         }
 
-        public async Task OnBeforeSaveChangesAsync(DbContext dbContext, Guid? currentUserId)
+        public async Task OnBeforeSaveChangesAsync(DbContext dbContext)
         {
-            if (dbContext is ApplicationDbContext applicationDbContext)
+            foreach (var entry in dbContext.ChangeTracker.Entries())
             {
-                foreach (var entry in applicationDbContext.ChangeTracker.Entries())
-                {
-                    if (!ShouldEntryBeAudited(entry))
-                        continue;
+                if (!ShouldEntryBeAudited(entry))
+                    continue;
 
-                    LoadEntryIntoAudits(applicationDbContext, entry, currentUserId);
-                }
-
-                ReloadAuditEntriesExcludingTemporaryEntries();
-                await NotifyAuditorsWithEntriesAsync(_auditEntries.ToArray());
+                LoadEntryIntoAudits(dbContext, entry);
             }
+
+            await NotifyAuditorsWithEntriesAsync(_auditEntries.Where(entry => !entry.HasTemporaryProperties).ToArray());
+            ReloadAuditEntriesLeavingTemporaryEntries();
         }
 
-        private void LoadEntryIntoAudits(ApplicationDbContext dbContext, EntityEntry entry, Guid? currentUserId)
+        private void LoadEntryIntoAudits(DbContext dbContext, EntityEntry entry)
         {
-            var auditEntry = new AuditEntry(entry, currentUserId)
+            var auditEntry = new AuditEntry(entry, _currentUserId)
             {
                 TableName = entry.Metadata.GetTableName() ?? string.Empty
             };
@@ -68,7 +72,7 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
             LoadEntryPropertiesIntoAudits(dbContext, entry, auditEntry);
         }
 
-        private void LoadEntryPropertiesIntoAudits(ApplicationDbContext dbContext, EntityEntry entry, AuditEntry auditEntry)
+        private void LoadEntryPropertiesIntoAudits(DbContext dbContext, EntityEntry entry, AuditEntry auditEntry)
         {
             foreach (var property in entry.Properties)
             {
@@ -110,7 +114,7 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
         private static bool ShouldEntryBeAudited(EntityEntry entry) =>
             entry.Entity is not Audit && entry.State is not (EntityState.Unchanged or EntityState.Detached);
 
-        private void HandleObjectModifications(ApplicationDbContext dbContext, EntityEntry entry, AuditEntry auditEntry, PropertyEntry property)
+        private void HandleObjectModifications(DbContext dbContext, EntityEntry entry, AuditEntry auditEntry, PropertyEntry property)
         {
             var propertyName = GetEntryPropertyName(property);
 
@@ -135,11 +139,11 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
 
         }
 
-        private string? GetCurrentValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: true);
+        private string? GetCurrentValue(DbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: true);
 
-        private string? GetOriginalValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: false);
+        private string? GetOriginalValue(DbContext dbContext, EntityEntry entry, PropertyEntry property) => GetValue(dbContext, entry, property, getCurrentValue: false);
 
-        private string? GetValue(ApplicationDbContext dbContext, EntityEntry entry, PropertyEntry property, bool getCurrentValue)
+        private static string? GetValue(DbContext dbContext, EntityEntry entry, PropertyEntry property, bool getCurrentValue)
         {
             var entryType = entry.Entity.GetType().BaseType;
 
@@ -182,9 +186,9 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
                     : property.OriginalValue?.ToString();
         }
 
-        private void ReloadAuditEntriesExcludingTemporaryEntries()
+        private void ReloadAuditEntriesLeavingTemporaryEntries()
         {
-            _auditEntries.RemoveAll(entry => entry.HasTemporaryProperties);
+            _auditEntries.RemoveAll(entry => !entry.HasTemporaryProperties);
         }
     }
 }

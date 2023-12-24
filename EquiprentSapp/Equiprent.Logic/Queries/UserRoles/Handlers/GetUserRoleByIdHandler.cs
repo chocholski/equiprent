@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationInterfaces.UserPermissions;
-using Equiprent.ApplicationInterfaces.Users;
+using Equiprent.ApplicationInterfaces.Users.Languages;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Logic.Abstractions;
@@ -12,19 +12,19 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
     public class GetUserRoleByIdHandler : IQueryHandler<GetUserRoleByIdRequest, UserRoleByIdResponse>
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IUserLanguageService _userLanguageService;
         private readonly IUserPermissionService _userPermissionsService;
-        private readonly IUserService _userResolverService;
 
         private UserRoleByIdResponse? _response;
 
         public GetUserRoleByIdHandler(
             ApplicationDbContext dbContext,
-            IUserPermissionService userPermissionsService,
-            IUserService userResolverService)
+            IUserLanguageService userLanguageService,
+            IUserPermissionService userPermissionsService)
         {
             _dbContext = dbContext;
+            _userLanguageService = userLanguageService;
             _userPermissionsService = userPermissionsService;
-            _userResolverService = userResolverService;
         }
 
         public async Task<UserRoleByIdResponse?> HandleAsync(GetUserRoleByIdRequest request)
@@ -53,7 +53,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             if (_response is null)
                 return;
 
-            var currentUserLanguageId = await _userResolverService.GetCurrentUserLanguageIdAsync();
+            var currentUserLanguageId = await _userLanguageService.GetCurrentUserLanguageIdAsync();
 
             if (!currentUserLanguageId.HasValue)
                 return;
