@@ -14,6 +14,21 @@ namespace Equiprent.ApplicationImplementations.UserPermissions
             _dbContext = dbContext;
         }
 
+        public async Task<HashSet<int>> AppendPermissionsWithLinkedUserPermissionsAsync(List<int> userPermissionIds, CancellationToken cancellationToken = default)
+        {
+            var result = new HashSet<int>(userPermissionIds);
+
+            foreach (var id in userPermissionIds)
+            {
+                var linkedUserPermissionIds = await GetIdsOfPermissionsLinkedToPermissionAsync(id, cancellationToken);
+
+                foreach (var linkedUserPermissionId in linkedUserPermissionIds)
+                    result.Add(linkedUserPermissionId);
+            }
+
+            return result;
+        }
+
         public async Task<List<UserPermission>> GetAllUserPermissionsAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.UserPermissions.ToListAsync(cancellationToken);
@@ -24,10 +39,10 @@ namespace Equiprent.ApplicationImplementations.UserPermissions
             var userRoleId = await _dbContext.Users
                 .Where(u => u.Id == userId)
                 .Select(u => u.UserRoleId)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(cancellationToken);
 
             var permissions = new List<UserPermission>()
-                .AppendRange(await GetUserRolePermissionsAsync(userRoleId));
+                .AppendRange(await GetUserRolePermissionsAsync(userRoleId, cancellationToken));
 
             return permissions!;
         }

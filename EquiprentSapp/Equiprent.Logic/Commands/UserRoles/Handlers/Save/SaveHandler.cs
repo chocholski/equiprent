@@ -53,9 +53,12 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
                 .SingleOrDefaultAsync(role => !role.IsDeleted && role.Id == userRoleId, cancellationToken);
         }
 
-        private async Task UpdateUserRolePermissionsAsync(int roleId, IEnumerable<PermissionItemModel> userPermissionsFromRequest, CancellationToken cancellationToken)
+        private async Task UpdateUserRolePermissionsAsync(
+            int roleId,
+            IEnumerable<PermissionItemModel> userPermissionsFromRequest,
+            CancellationToken cancellationToken)
         {
-            var currentUserRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId);
+            var currentUserRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId, cancellationToken);
 
             var userPermissionsToUserRolesToRemoveIds = currentUserRolePermissions
                 .Select(p => p.Id)
@@ -70,7 +73,7 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
             await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsToUserRolesToRemove, cancellationToken);
 
             var allUserPermissions = await _userPermissionsService
-                .GetAllUserPermissionsAsync();
+                .GetAllUserPermissionsAsync(cancellationToken);
 
             var allUserPermissionsIds = allUserPermissions
                 .Select(p => p.Id)
@@ -81,7 +84,8 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
                 .Select(model => model.Id)
                 .ToList();
 
-            var userPermissionIdsForRoleBeingUpdated = await AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest, cancellationToken);
+            var userPermissionIdsForRoleBeingUpdated = await _userPermissionsService
+                .AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest, cancellationToken);
 
             await _dbContext.UserPermissionToRoles.AddRangeAndSaveAsync(userPermissionIdsForRoleBeingUpdated
                 .Select(id => new UserPermissionToRole
@@ -107,21 +111,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
                     Name = roleInLanguage.Name,
                     LanguageId = roleInLanguage.LanguageId
                 }));
-        }
-
-        private async Task<HashSet<int>> AppendPermissionsWithLinkedUserPermissionsAsync(List<int> userPermissionIds, CancellationToken cancellationToken = default)
-        {
-            var result = new HashSet<int>(userPermissionIds);
-
-            foreach (var id in userPermissionIds)
-            {
-                var linkedUserPermissionIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(id, cancellationToken);
-
-                foreach (var linkedUserPermissionId in linkedUserPermissionIds)
-                    result.Add(linkedUserPermissionId);
-            }
-
-            return result;
         }
     }
 }

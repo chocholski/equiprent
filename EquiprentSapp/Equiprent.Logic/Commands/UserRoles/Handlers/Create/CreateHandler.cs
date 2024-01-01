@@ -28,9 +28,11 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Create
         {
             var userRole = new UserRole();
             _dbContext.UserRoles.Add(userRole);
+
             AddUserRoleToLanguages(userRole, request.NameInLanguages);
             await AddUserRolePermissionsAsync(userRole, request.PermissionsSelected, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
             return CommandResult.OK;
         }
 
@@ -46,7 +48,10 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Create
                     }));
         }
 
-        private async Task AddUserRolePermissionsAsync(UserRole roleBeingCreated, IEnumerable<PermissionItemModel> selectedUserPermissionsFromRequest, CancellationToken cancellationToken = default)
+        private async Task AddUserRolePermissionsAsync(
+            UserRole roleBeingCreated,
+            IEnumerable<PermissionItemModel> selectedUserPermissionsFromRequest,
+            CancellationToken cancellationToken = default)
         {
             var allUserPermissions = await _userPermissionsService
                 .GetAllUserPermissionsAsync(cancellationToken);
@@ -60,7 +65,8 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Create
                 .Select(selectedPermission => selectedPermission.Id)
                 .ToList();
 
-            var userPermissionIdsForRoleBeingCreated = await AppendWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest, cancellationToken);
+            var userPermissionIdsForRoleBeingCreated = await _userPermissionsService
+                .AppendPermissionsWithLinkedUserPermissionsAsync(userPermissionIdsFromRequest, cancellationToken);
 
             _dbContext.UserPermissionToRoles.AddRange(
                 userPermissionIdsForRoleBeingCreated
@@ -69,21 +75,6 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Create
                         UserPermissionId = id,
                         UserRole = roleBeingCreated
                     }));
-        }
-
-        private async Task<ISet<int>> AppendWithLinkedUserPermissionsAsync(IEnumerable<int> userPermissionIds, CancellationToken cancellationToken = default)
-        {
-            var result = new HashSet<int>(userPermissionIds);
-
-            foreach (var id in userPermissionIds)
-            {
-                var linkedUserPermissionIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(id, cancellationToken);
-
-                foreach (var linkedUserPermissionId in linkedUserPermissionIds)
-                    result.Add(linkedUserPermissionId);
-            }
-
-            return result;
         }
     }
 }
