@@ -1,5 +1,4 @@
 ﻿using Equiprent.Entities.Enums;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Web.Filters;
 
 namespace Equiprent.Web.Controllers
@@ -8,13 +7,8 @@ namespace Equiprent.Web.Controllers
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
     public class SelectListController : BaseApiController
     {
-        private readonly IQueryDispatcher _queryDispatcher;
-
-        public SelectListController(
-            IConfiguration configuration,
-            IQueryDispatcher queryDispatcher) : base(configuration)
+        public SelectListController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
-            _queryDispatcher = queryDispatcher;
         }
     }
 }

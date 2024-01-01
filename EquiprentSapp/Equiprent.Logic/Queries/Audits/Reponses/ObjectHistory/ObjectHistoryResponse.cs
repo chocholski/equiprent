@@ -2,6 +2,7 @@
 using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Logic.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
 {
@@ -17,7 +18,7 @@ namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
             _auditMemberTranslatorService = serviceProvider.GetService<IAuditMemberTranslatorService>()!;
         }
 
-        protected override async Task<ObjectHistoryItemViewModel> MapEntityToViewModelAsync(AuditListQueryModel entity)
+        protected override async Task<ObjectHistoryItemViewModel> MapEntityToViewModelAsync(AuditListQueryModel entity, CancellationToken cancellationToken = default)
         {
             return await Task.FromResult(new ObjectHistoryItemViewModel
             {

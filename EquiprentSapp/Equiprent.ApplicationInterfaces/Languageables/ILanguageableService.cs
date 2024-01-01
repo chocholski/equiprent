@@ -10,13 +10,15 @@ namespace Equiprent.ApplicationInterfaces.Languageables
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             List<string>? translatedEntityIds = null,
-            int? languageId = null)
+            int? languageId = null,
+            CancellationToken cancellationToken = default)
                 where T : class
                 where U : class, ILanguageable;
 
-        public Task<List<ILanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(
+        public Task<List<ILanguageableItem>> GetEntityTranslationsInCurrentUserLanguageAsync<TEntity>(
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             int? languageId = null,
+            CancellationToken cancellationToken = default,
             params string[] translatedEntityIds) where TEntity : class, ILanguageable;
     }
 

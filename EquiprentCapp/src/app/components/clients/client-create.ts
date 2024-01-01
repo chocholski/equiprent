@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormComponent } from "../abstract/form";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
@@ -18,15 +17,18 @@ import { CompanyClientAddressComponent } from "../addresses/company-client-addre
 import { ClientCreationModel } from "src/app/interfaces/client";
 import { ClientAddress, addressFormFields } from "src/app/interfaces/address";
 import { ApiRoutes } from "src/app/api-routes";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { FormComponent } from "../abstract/forms/form";
+import { FormModeEnum } from "src/app/enums/form-mode-enum";
 
 @Component({
   selector: "client-create",
   templateUrl: "./client-create.html"
 })
 export class ClientCreationComponent
-  extends FormComponent
+  extends FormComponent<ClientCreationModel>
   implements OnInit {
+
+  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareClientCreationModel;
 
   @ViewChild('addressForm') addressForm: AddressComponent;
   @ViewChild('companyClientAddressForm') companyClientAddressForm?: CompanyClientAddressComponent;
@@ -53,16 +55,29 @@ export class ClientCreationComponent
   clientTypes: SelectItem[];
 
   constructor(
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    protected override formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private router: Router,
-    private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    private readonly selectOptionsService: SelectOptionsService,
+    public override readonly translate: TranslateService) {
 
-    super(formBuilder);
+    super(
+      consoleMessageService,
+      dialogMessageService,
+      'Client',
+      errorService,
+      formBuilder,
+      httpClient,
+      FormModeEnum.Creation,
+      router,
+      ApiRoutes.client.post,
+      translate,
+      Routes.clients.navigations.list
+    );
+
     this.createForm({
       ClientTypeId: null,
       Name: ['', Validators.required]
@@ -77,9 +92,26 @@ export class ClientCreationComponent
     this.router.navigate([Routes.clients.navigations.list]);
   }
 
-  public onSubmit() {
-    this.isExecuting = true;
+  private getClientNationalId(): string {
+    switch (Number(this.form.value.ClientTypeId)) {
+      case ClientTypeEnum.Private:
+        return this.privateClientAddressForm?.form.value.NationalCitizenId;
+      case ClientTypeEnum.Company:
+        return this.companyClientAddressForm?.form.value.NationalCompanyId;
+      default:
+        return '';
+    }
+  }
 
+  private populateDropdowns() {
+    this.selectOptionsService
+      .getClientTypes()
+      .subscribe(options => {
+        this.clientTypes = options;
+      });
+  }
+
+  private prepareClientCreationModel(): ClientCreationModel {
     const clientAddress = <ClientAddress>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
@@ -99,53 +131,6 @@ export class ClientCreationComponent
       TypeId: this.form.value.ClientTypeId
     };
 
-    this.postClient(client);
-  }
-
-  private getClientNationalId(): string {
-    switch (Number(this.form.value.ClientTypeId)) {
-      case ClientTypeEnum.Private:
-        return this.privateClientAddressForm?.form.value.NationalCitizenId;
-      case ClientTypeEnum.Company:
-        return this.companyClientAddressForm?.form.value.NationalCompanyId;
-      default:
-        return '';
-    }
-  }
-
-  private populateDropdowns() {
-
-    this.selectOptionsService
-      .getClientTypes()
-      .subscribe(options => {
-        this.clientTypes = options;
-      });
-  }
-
-  private postClient(client: ClientCreationModel) {
-    this.httpClient
-      .post<string>(ApiRoutes.client.post, client)
-      .subscribe({
-        next: result => {
-          switch (result) {
-            case ApiResultEnum[ApiResultEnum.OK]:
-              this.router.navigate([Routes.clients.navigations.list]);
-              this.dialogMessageService.addSuccess(this.translate.instant('Client.Created'));
-              break;
-
-            default:
-              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-              break;
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterCreation('Client', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      });
+    return client;
   }
 }

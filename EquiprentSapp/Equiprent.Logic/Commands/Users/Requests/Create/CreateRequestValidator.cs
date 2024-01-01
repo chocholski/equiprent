@@ -1,12 +1,15 @@
-﻿using Equiprent.Entities.Application.Users;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
+using Equiprent.Data.DbContext;
+using Equiprent.Entities.Application.Users;
+using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;
 
 namespace Equiprent.Logic.Commands.Users.Requests.Create
 {
-    public class CreateRequestValidator : AbstractValidator<CreateRequest>
+    public class CreateRequestValidator : RequestValidator<CreateRequest>
     {
-        public CreateRequestValidator() 
+        public CreateRequestValidator(ApplicationDbContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider) 
         {
             RuleFor(r => r.Email)
                 .EmailAddress()
@@ -48,6 +51,14 @@ namespace Equiprent.Logic.Commands.Users.Requests.Create
             RuleFor(r => r.UserRoleId)
                 .NotEmpty()
                     .WithMessage(r => FluentValidationMessageCreator<User>.CreateMessageForEmptyPropertyValue(nameof(r.UserRoleId)));
+        }
+
+        protected override CommandResult ValidateRequestWithDatabase(CreateRequest request)
+        {
+            if (_dbContext.Users.Where(u => u.Login == request.Login).Any())
+                return CommandResult.User_LoginExists;
+
+            return CommandResult.OK;
         }
     }
 }

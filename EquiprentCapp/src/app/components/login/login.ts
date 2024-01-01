@@ -13,28 +13,29 @@ import { DialogMessageService } from 'src/app/services/messages/dialog-message.s
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { Routes } from 'src/app/routes';
-import { FormComponent } from '../abstract/form';
+import { SimpleFormComponent } from '../abstract/forms/simple-form';
 
 @Component({
   selector: "login",
   templateUrl: "./login.html"
 })
 export class LoginComponent
-  extends FormComponent
+  extends SimpleFormComponent
   implements OnInit {
 
   languageId: number;
   languages: SelectItem[];
 
-  constructor(private app: AppComponent,
-    private authenticationService: AuthenticationService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    protected override formBuilder: FormBuilder,
-    private router: Router,
-    private selectOptionsService: SelectOptionsService,
-    private titleService: Title,
-    public translate: TranslateService) {
+  constructor(
+    private readonly app: AppComponent,
+    private readonly authenticationService: AuthenticationService,
+    private readonly dialogMessageService: DialogMessageService,
+    private readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    private readonly router: Router,
+    private readonly selectOptionsService: SelectOptionsService,
+    private readonly titleService: Title,
+    public readonly translate: TranslateService) {
 
     super(formBuilder);
 

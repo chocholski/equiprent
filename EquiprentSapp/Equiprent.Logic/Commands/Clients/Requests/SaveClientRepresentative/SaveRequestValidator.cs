@@ -1,13 +1,15 @@
-﻿using Equiprent.Entities.Business.ClientRepresentatives;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Entities.Business.ClientRepresentatives;
+using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Commands.Addresses.Validators;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;
 
 namespace Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative
 {
-    public class SaveRequestValidator : AbstractValidator<SaveRequest>
+    public class SaveRequestValidator : RequestValidator<SaveRequest>
     {
-        public SaveRequestValidator()
+        public SaveRequestValidator(ApplicationDbContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
         {
             RuleFor(r => r.Address)
                 .SetValidator(new ClientRepresentativeAddressValidator());

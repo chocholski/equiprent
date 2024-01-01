@@ -2,6 +2,6 @@
 {
     public interface IUserLanguageService
     {
-        public Task<int?> GetCurrentUserLanguageIdAsync();
+        public Task<int?> GetCurrentUserLanguageIdAsync(CancellationToken cancellationToken = default);
     }
 }

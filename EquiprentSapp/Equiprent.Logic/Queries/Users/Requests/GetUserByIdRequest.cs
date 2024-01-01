@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.Users.Responses.UserById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Users.Requests
 {
-    public record GetUserByIdRequest : IQuery<UserByIdResponse>
+    public record GetUserByIdRequest : IRequest<UserByIdResponse?>
     {
         public Guid UserId { get; set; }
 

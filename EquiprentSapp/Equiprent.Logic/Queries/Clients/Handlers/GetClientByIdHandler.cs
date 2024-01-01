@@ -2,11 +2,12 @@
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.ClientById;
 using Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Handlers
 {
-    public class GetClientByIdHandler : IQueryHandler<GetClientByIdRequest, ClientByIdResponse>
+    public class GetClientByIdHandler : IRequestHandler<GetClientByIdRequest, ClientByIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -15,10 +16,10 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<ClientByIdResponse?> HandleAsync(GetClientByIdRequest request)
+        public async Task<ClientByIdResponse?> Handle(GetClientByIdRequest request, CancellationToken cancellationToken = default)
         {
             var client = await _dbContext.Clients
-                .SingleOrDefaultAsync(c => !c.IsDeleted && c.Id == request.ClientId);
+                .SingleOrDefaultAsync(c => !c.IsDeleted && c.Id == request.ClientId, cancellationToken);
 
             if (client is null)
                 return null;
@@ -29,7 +30,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
             if (clientByIdMapper is null)
                 return null;
 
-            await clientByIdMapper.MapToResponseAsync(result);
+            await clientByIdMapper.MapToResponseAsync(result, cancellationToken);
 
             return result;
         }

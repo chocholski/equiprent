@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Users.Requests
 {
-    public record GetUserLanguageByIdRequest : IQuery<UserLanguageByIdResponse>
+    public record GetUserLanguageByIdRequest : IRequest<UserLanguageByIdResponse?>
     {
         public Guid UserId { get; set; }
 

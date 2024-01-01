@@ -3,6 +3,7 @@ using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Extensions;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
 {
@@ -25,14 +26,14 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
             return privateClient;
         }
 
-        public async  Task<Client?> UpdateClientWithTypeChangingRequestAsync(Client client, SaveRequest updatingRequest)
+        public async Task<Client?> UpdateClientWithTypeChangingRequestAsync(Client client, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             PrivateClient privateClient;
 
             if (client is CompanyClient companyClient)
             {
                 privateClient = companyClient.Clone<PrivateClient>();
-                await RemoveCompanyClientRepresentativesAsync(companyClient);
+                await RemoveCompanyClientRepresentativesAsync(companyClient, cancellationToken);
                 _dbContext.CompanyClients.Remove(companyClient);
             }
             else
@@ -46,22 +47,22 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
             return privateClient;
         }
 
-        private async Task RemoveCompanyClientRepresentativesAsync(CompanyClient client)
+        private async Task RemoveCompanyClientRepresentativesAsync(CompanyClient client, CancellationToken cancellationToken = default)
         {
             var clientRepresentatives = await _dbContext.ClientRepresentatives
                 .Where(representative => representative.ClientId == client.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             if (!clientRepresentatives.IsNullOrEmpty())
             {
-                await RemoveClientRepresentativesAddressesAsync(clientRepresentatives);
+                await RemoveClientRepresentativesAddressesAsync(clientRepresentatives, cancellationToken);
                 
                 foreach (var representative in clientRepresentatives)
                     _dbContext.ClientRepresentatives.Remove(representative);
             }
         }
 
-        private async Task RemoveClientRepresentativesAddressesAsync(List<ClientRepresentative> clientRepresentatives)
+        private async Task RemoveClientRepresentativesAddressesAsync(List<ClientRepresentative> clientRepresentatives, CancellationToken cancellationToken = default)
         {
             var clientRepresentativesAddresses = await _dbContext.Addresses
                 .Where(a => clientRepresentatives.Select(representative => representative.AddressId).Contains(a.Id))

@@ -1,6 +1,7 @@
 ﻿using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Logic.Commands.Addresses.Models;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers.Mappers
 {
@@ -15,7 +16,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
             _client = client;
         }
 
-        public override async Task MapToResponseAsync(ClientByIdResponse response)
+        public override async Task MapToResponseAsync(ClientByIdResponse response, CancellationToken cancellationToken = default)
         {
             response.Id = _client.Id;
             response.Name = _client.Name!;
@@ -24,7 +25,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
             var clientAddress = await _dbContext.CompanyClientAddresses
                 .Include(clientAddress => clientAddress.Address)
                 .Where(clientAddress => clientAddress.CompanyClientId == _client.Id)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(cancellationToken);
 
             if (clientAddress is null)
                 return;
@@ -35,7 +36,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
                 City = clientAddress.Address.City,
                 CountryId = clientAddress.Address.CountryId,
                 Email = clientAddress.Address.Email,
-                Id = clientAddress.Id,
+                Id = clientAddress.Address.Id,
                 NationalId = clientAddress.NationalCompanyId!,
                 PhoneNumber = clientAddress.Address.PhoneNumber,
                 PostalCode = clientAddress.Address.PostalCode,

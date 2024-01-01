@@ -1,11 +1,12 @@
 ﻿using Equiprent.ApplicationInterfaces.UserPermissions;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.UserRolePermissionsForCreation;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.UserRoles.Handlers
 {
-    public class GetUserRolePermissionsForCreationHandler : IQueryHandler<GetUserRolePermissionsForCreationRequest, UserRolePermissionsForCreationResponse>
+    public class GetUserRolePermissionsForCreationHandler : IRequestHandler<GetUserRolePermissionsForCreationRequest, UserRolePermissionsForCreationResponse?>
     {
         private readonly IUserPermissionService _userPermissionsService;
 
@@ -14,9 +15,9 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             _userPermissionsService = userPermissionsService;
         }
 
-        public async Task<UserRolePermissionsForCreationResponse?> HandleAsync(GetUserRolePermissionsForCreationRequest message)
+        public async Task<UserRolePermissionsForCreationResponse?> Handle(GetUserRolePermissionsForCreationRequest request, CancellationToken cancellationToken)
         {
-            var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync();
+            var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync(cancellationToken);
 
             var groupedPermissions = allUserPermissions
                 .GroupBy(p => p.SystemName.Split("_")[0])
@@ -42,7 +43,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                     {
                         Id = permission.Id,
                         IsSelected = false,
-                        LinkedPermissionsIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(permission.Id),
+                        LinkedPermissionsIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(permission.Id, cancellationToken),
                         Name = permission.Name,
                         SystemName = permission.SystemName,
                     });

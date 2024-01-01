@@ -43,9 +43,8 @@ export class UserRolePermissionsComponent implements OnInit {
 
   public getPermissionsSubmitted() {
     const permissionsSubmitted: PermissionItemModel[] = [];
-
     for (const permissionNode of this.selectedUserPermissionNodes) {
-      if (!permissionNode.hasChildren) {
+      if (!permissionNode.hasChildren()) {
         permissionsSubmitted.push(<PermissionItemModel>{
           Id: permissionNode.data.id
         });

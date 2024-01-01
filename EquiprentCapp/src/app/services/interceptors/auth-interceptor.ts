@@ -10,7 +10,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     isRefreshingToken: boolean;
 
-    constructor(private injector: Injector) { }
+    constructor(private readonly injector: Injector) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const authenticationService = this.injector.get(AuthenticationService);

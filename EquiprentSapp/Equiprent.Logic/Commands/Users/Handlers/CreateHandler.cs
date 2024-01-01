@@ -1,14 +1,15 @@
-﻿using Equiprent.Logic.Infrastructure.CQRS;
-using Equiprent.Data.DbContext;
+﻿using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Entities.Application.Users;
-using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationInterfaces.Users.Passwords;
 using Equiprent.ApplicationInterfaces.Users;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class CreateHandler : ICommandHandler<CreateRequest>
+    public class CreateHandler : IRequestHandler<CreateRequest, CommandResult>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
@@ -24,10 +25,10 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _userService = userResolverService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateRequest request)
+        public async Task<CommandResult> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
             var loginExists = await _dbContext.Users
-                .AnyAsync(u => u.Login == request.Login);
+                .AnyAsync(u => u.Login == request.Login, cancellationToken);
 
             if (loginExists)
                 return CommandResult.User_LoginExists;
@@ -55,15 +56,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
                 UserRoleId = request.UserRoleId.Value
             };
 
-            await _dbContext.Users.AddAndSaveAsync(user);
-
-            return CommandResult.OK;
-        }
-
-        public async Task<CommandResult> ValidateAsync(CreateRequest request)
-        {
-            if (await _dbContext.Users.Where(u => u.Login == request.Login).AnyAsync())
-                return CommandResult.User_LoginExists;
+            await _dbContext.Users.AddAndSaveAsync(user, cancellationToken);
 
             return CommandResult.OK;
         }

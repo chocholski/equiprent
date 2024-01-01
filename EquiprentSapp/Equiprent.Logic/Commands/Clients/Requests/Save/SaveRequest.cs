@@ -1,9 +1,10 @@
-﻿using Equiprent.Logic.Commands.Addresses.Models;
-using Equiprent.Logic.Infrastructure.CQRS;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
+using Equiprent.Logic.Commands.Addresses.Models;
+using MediatR;
 
 namespace Equiprent.Logic.Commands.Clients.Requests.Save
 {
-    public class SaveRequest : ICommand
+    public class SaveRequest : IRequest<CommandResult?>
     {
         public List<ClientAddressModel> Addresses { get; set; } = new();
         public string? FirstName { get; set; }

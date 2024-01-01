@@ -4,6 +4,7 @@ using Equiprent.Logic.Attributes;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using System.Threading;
 
 namespace Equiprent.Logic.Abstractions
 {
@@ -28,9 +29,9 @@ namespace Equiprent.Logic.Abstractions
             _serviceProvider = serviceProvider;
         }
 
-        public async Task FetchAsync()
+        public async Task FetchAsync(CancellationToken cancellationToken = default)
         {
-            var list = await GetFetchedQueryAsync();
+            var list = await GetFetchedQueryAsync(cancellationToken);
 
             if (list is null)
                 return;
@@ -40,16 +41,16 @@ namespace Equiprent.Logic.Abstractions
                 if (typeof(TEntityItemViewModel) != typeof(FieldNamesItemViewModel) ||
                     !List.Any(i => ((FieldNamesItemViewModel)(object)i).Value == ((AuditListQueryModel)(object)item).FieldName))
                 {
-                    List.Add(await MapEntityToViewModelAsync(item));
+                    List.Add(await MapEntityToViewModelAsync(item, cancellationToken));
                 }
             }
 
-            TotalRowsCount = await (await GetTotalRowsQueryAsync()).CountAsync();
+            TotalRowsCount = await (await GetTotalRowsQueryAsync(cancellationToken)).CountAsync();
         }
 
-        protected abstract Task<TEntityItemViewModel> MapEntityToViewModelAsync(TEntity entity);
+        protected abstract Task<TEntityItemViewModel> MapEntityToViewModelAsync(TEntity entity, CancellationToken cancellationToken = default);
 
-        private async Task<List<TEntity>?> GetFetchedQueryAsync()
+        private async Task<List<TEntity>?> GetFetchedQueryAsync(CancellationToken cancellationToken = default)
         {
             var sortColumnName = GetSortColumnName();
 
@@ -66,7 +67,7 @@ namespace Equiprent.Logic.Abstractions
                 .OrderBy(dbStatementBuilder.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
                 .Skip(_requestParameters.StartRow)
                 .Take(_requestParameters.PageCount)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
         }
 
         private string? GetSortColumnName()
@@ -79,12 +80,12 @@ namespace Equiprent.Logic.Abstractions
                 .Name;
         }
 
-        private async Task<IQueryable<TEntity>> GetTotalRowsQueryAsync()
+        private async Task<IQueryable<TEntity>> GetTotalRowsQueryAsync(CancellationToken cancellationToken = default)
         {
             var dbStatementBuilder = _serviceProvider.GetService<IDbStatementBuilder>();
 
             return dbStatementBuilder is not null && !string.IsNullOrEmpty(_requestParameters.SearchCriteria)
-                ? _query.Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+                ? _query.Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria, cancellationToken))
                 : _query;
         }
     }

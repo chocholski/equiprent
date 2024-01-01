@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AccessControlComponent } from '../abstract/access-control';
+import { AccessControlComponent } from '../abstract/access-controls/access-control';
 import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { PngTableColumn } from 'src/app/interfaces/png';
 import { Table } from 'primeng/table';

@@ -6,22 +6,23 @@ import { SearchOperatorEnum } from '../enums/search-operator-enum';
 
 export class PngTableSearchQueryBuilder {
 
-    static dateMatchModes = [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_AFTER, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_IS_NOT];
+    private static DATE_MATCH_MODES = [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_AFTER, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_IS_NOT];
 
     resultUriBuilder = new StringBuilder();
 
-    constructor(private event: LazyLoadEvent, private columns: PngTableColumn[]) { }
+    constructor(
+        private readonly event: LazyLoadEvent,
+        private readonly columns: PngTableColumn[]) {
+    }
 
     create() {
         this.buildBaseUri();
         this.addFilters();
-
         return this.resultUriBuilder.toString();
     }
 
     public buildBaseUri() {
         this.event.sortField ??= this.columns[0]?.field;
-
         this.resultUriBuilder.append(`?sf=${this.event.sortField}&so=${this.event.sortOrder}&pc=${this.event.rows}&sr=${this.event.first}`);
     }
 
@@ -89,7 +90,7 @@ export class PngTableSearchQueryBuilder {
                     value = filter.value;
                 }
 
-                if (PngTableSearchQueryBuilder.dateMatchModes.find(mode => mode == filter.matchMode))
+                if (PngTableSearchQueryBuilder.DATE_MATCH_MODES.find(mode => mode == filter.matchMode))
                     value = PrimeNgHelper.getDateFromCalendarAsString(value);
 
                 whereBuilder.append(`${replaceWith}|${filter.matchMode}|${value}|${filter.operator}|${column.filterType}||`);

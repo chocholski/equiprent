@@ -1,5 +1,6 @@
 ﻿using Equiprent.Entities.Application.Users;
 using Equiprent.Logic.Abstractions;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
 {
@@ -12,7 +13,7 @@ namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
         {
         }
 
-        protected override async Task<UserListItemViewModel> MapEntityToViewModelAsync(User entity) =>
+        protected override async Task<UserListItemViewModel> MapEntityToViewModelAsync(User entity, CancellationToken cancellationToken = default) =>
             await Task.FromResult(new UserListItemViewModel
             {
                 Id = entity.Id,

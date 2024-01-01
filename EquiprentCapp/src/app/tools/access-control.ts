@@ -6,8 +6,8 @@ export class AccessControl {
   hasAccessToButtons: boolean = true;
 
   constructor(
-    private authorizationService: AuthorizationService,
-    private permissions: number[]) {
+    private readonly authorizationService: AuthorizationService,
+    private readonly permissions: number[]) {
     this.determineWhetherUserHasAccessToButtons();
   }
 

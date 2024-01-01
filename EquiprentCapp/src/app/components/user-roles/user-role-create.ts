@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormComponent } from "../abstract/form";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { FormBuilder } from "@angular/forms";
@@ -14,14 +13,18 @@ import { PermissionGroupItemModel } from "src/app/interfaces/user-permission";
 import { NameInLanguagesComponent } from "../name-in-languages/name-in-languages";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { UserRolePermissionsComponent } from "./user-role-permissions";
+import { FormComponent } from "../abstract/forms/form";
+import { FormModeEnum } from "src/app/enums/form-mode-enum";
 
 @Component({
   selector: "user-role-create",
   templateUrl: "./user-role-create.html"
 })
 export class UserRoleCreationComponent
-  extends FormComponent
+  extends FormComponent<UserRoleCreationModel>
   implements OnInit {
+
+  public override beforeSubmitionCustomOperationsHandler = this.prepareUserRoleCreationModel;
 
   private readonly _dataPopulator = {
     userPermissions: {
@@ -37,16 +40,27 @@ export class UserRoleCreationComponent
   @ViewChild('userRolePermissions') userRolePermissions: UserRolePermissionsComponent;
 
   constructor(
-    private consoleMessageService: ConsoleMessageService,
-    private errorService: ErrorService,
-    private dialogMessageService: DialogMessageService,
-    protected override formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private router: Router,
-    public translate: TranslateService
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    public override readonly translate: TranslateService
   ) {
 
-    super(formBuilder);
+    super(
+      consoleMessageService,
+      dialogMessageService,
+      'UserRole',
+      errorService,
+      formBuilder,
+      httpClient,
+      FormModeEnum.Creation,
+      router,
+      ApiRoutes.userRole.post,
+      translate,
+      Routes.userRoles.navigations.list);
 
     this.createForm();
   }
@@ -65,56 +79,17 @@ export class UserRoleCreationComponent
     this.isNameInLanguagesValid = value;
   }
 
-  public onSubmit() {
-    this.isExecuting = true;
-
+  private prepareUserRoleCreationModel(): UserRoleCreationModel {
     const userRole = new UserRoleCreationModel();
-
     userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
 
     const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
-
     for (const permission of permissionsSubmitted) {
       if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
         userRole.PermissionsSelected.push(permission);
       }
     }
 
-    this.postUserRole(userRole);
-  }
-
-  private postUserRole(userRole: UserRoleCreationModel) {
-    this.httpClient
-      .post<string>(ApiRoutes.userRole.post, userRole)
-      .subscribe({
-        next: result => {
-          switch (result) {
-            case ApiResultEnum[ApiResultEnum.OK]:
-              this.router.navigate([Routes.userRoles.navigations.list]);
-              this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Created'));
-              break;
-
-            case ApiResultEnum[ApiResultEnum.ExistsInDatabase]:
-              this.dialogMessageService.addError(this.translate.instant('UserRole.ExistsInDatabase'));
-              break;
-
-            case ApiResultEnum[ApiResultEnum.NoUserPermissionAssigned]:
-              this.dialogMessageService.addError(this.translate.instant('UserRole.NoUserPermissionAssigned'));
-              break;
-
-            default:
-              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-              break;
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterCreation('UserRole', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      });
+    return userRole;
   }
 }

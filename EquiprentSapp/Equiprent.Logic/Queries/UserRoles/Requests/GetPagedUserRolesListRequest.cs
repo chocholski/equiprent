@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.UserRoles.Requests
 {
-    public record GetPagedUserRolesListRequest : IQuery<PagedUserRolesListResponse>
+    public record GetPagedUserRolesListRequest : IRequest<PagedUserRolesListResponse?>
     {
         public RequestParameters RequestParameters { get; }
 

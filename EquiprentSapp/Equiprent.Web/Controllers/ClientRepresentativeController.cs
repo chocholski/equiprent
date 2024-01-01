@@ -3,7 +3,6 @@ using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;
 using Equiprent.Logic.Commands.Clients.Requests.DeleteClientRepresentative;
 using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;
 using Equiprent.Logic.Queries.Clients.Requests;
-using Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList;
 using Equiprent.Web.Contracts;
 
@@ -18,8 +17,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.Client.Representative.GetAll)]
         public async Task<ActionResult<PagedClientRepresentativesListResponse>> GetPagedClientRepresentativesList([FromQuery] RequestParameters requestParameters, [FromQuery] Guid clientId)
         {
-            var parameters = new GetPagedClientRepresentativesListRequest(requestParameters, clientId);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedClientRepresentativesListRequest, PagedClientRepresentativesListResponse>(parameters);
+            var request = new GetPagedClientRepresentativesListRequest(requestParameters, clientId);
+            var result = await _mediator.Send(request);
             return new JsonResult(result);
         }
 
@@ -30,8 +29,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.Client.Representative.GetById)]
         public async Task<IActionResult> GetClientRepresentativeById(Guid id)
         {
-            var parameters = new GetClientRepresentativeByIdRequest(id);
-            var result = await _queryDispatcher.SendQueryAsync<GetClientRepresentativeByIdRequest, ClientRepresentativeByIdResponse>(parameters);
+            var request = new GetClientRepresentativeByIdRequest(id);
+            var result = await _mediator.Send(request);
             return new JsonResult(result);
         }
 
@@ -43,7 +42,7 @@ namespace Equiprent.Web.Controllers
         [HttpPost(ApiRoutes.Client.Representative.Post)]
         public async Task<IActionResult> CreateClientRepresentative([FromBody] CreateRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(request);
+            var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
@@ -55,7 +54,7 @@ namespace Equiprent.Web.Controllers
         [HttpPut(ApiRoutes.Client.Representative.Put)]
         public async Task<IActionResult> SaveClientRepresentative([FromBody] SaveRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(request);
+            var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
@@ -67,7 +66,7 @@ namespace Equiprent.Web.Controllers
         [HttpDelete(ApiRoutes.Client.Representative.Delete)]
         public async Task<IActionResult> DeleteClientRepresentative(Guid id)
         {
-            var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
+            var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);
         }
     }

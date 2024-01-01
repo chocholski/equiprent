@@ -1,18 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { NameInLanguage } from "src/app/interfaces/name-in-language";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
-import { FormValidator } from "src/app/ui-controls/form-validator";
-import { FormComponent } from "../abstract/form";
+import { SimpleFormComponent } from "../abstract/forms/simple-form";
 
 @Component({
   selector: 'name-in-languages',
   templateUrl: './name-in-languages.html'
 })
 export class NameInLanguagesComponent
-  extends FormComponent
+  extends SimpleFormComponent
   implements OnInit {
 
   languages: SelectItem[];
@@ -23,9 +22,9 @@ export class NameInLanguagesComponent
   @Output('isValid') isValid = new EventEmitter<boolean>();
 
   constructor(
-    protected override formBuilder: FormBuilder,
-    private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService
+    protected override readonly formBuilder: FormBuilder,
+    private readonly selectOptionsService: SelectOptionsService,
+    public readonly translate: TranslateService
   ) {
     super(formBuilder);
   }
@@ -53,7 +52,7 @@ export class NameInLanguagesComponent
   }
 
   public getNameInLanguages(): NameInLanguage[] {
-    let data: NameInLanguage[] = [];
+    const data: NameInLanguage[] = [];
 
     this.languages.forEach(l => {
       data.push(<NameInLanguage>{
@@ -84,8 +83,7 @@ export class NameInLanguagesComponent
       group[l.label!].setValidators(Validators.required);
     });
 
-    this.form = new FormGroup(group);
-    this.formValidator = new FormValidator(this.form);
+    super.createForm(group, true);
   }
 
   protected override updateForm() {

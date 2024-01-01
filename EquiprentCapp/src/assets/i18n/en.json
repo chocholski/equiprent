@@ -126,6 +126,10 @@
         "FirstName": "First name",
         "LastName": "Last name",
         "List": "Clients list",
+        "Messages": {
+            "NameExists": "The client with a given name already exists in the database",
+            "NationalIdExists": "The client with a given national id already exists in the database"
+        },
         "Name": "Name",
         "RepresentativesTab": "Representatives",
         "SelectType": "Select type",
@@ -262,7 +266,9 @@
         "LastName": "Last name",
         "List": "Users list",
         "Login": "Login",
-        "LoginAlreadyExists": "The user with login provided already exists in the database.",
+        "Messages": {
+            "LoginExists": "The user with login provided already exists in the database."
+        },
         "Password": "Password",
         "PasswordChange": "Password change",
         "Plural": "Users",
@@ -284,11 +290,13 @@
         "Deleted": "The role has been deleted.",
         "Deletion": "Deletion",
         "DeletionConfirmation": "Are you sure to delete user role",
-        "ExistsInDatabase": "User role with name/names provided already exists in the database.",
         "Id": "Id",
         "List": "Roles",
+        "Messages": {
+            "ExistsInDatabase": "User role with name/names provided already exists in the database.",
+            "NoUserPermissionAssigned": "No permissions assigned to the role."
+        },
         "Name": "Name",
-        "NoUserPermissionAssigned": "No permissions assigned to the role.",
         "Updated": "The role has been updated.",
         "UserRolePicker": "Role picker"
     }

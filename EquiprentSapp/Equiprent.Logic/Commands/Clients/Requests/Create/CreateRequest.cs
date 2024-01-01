@@ -1,9 +1,10 @@
-﻿using Equiprent.Logic.Commands.Addresses.Models;
-using Equiprent.Logic.Infrastructure.CQRS;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
+using Equiprent.Logic.Commands.Addresses.Models;
+using MediatR;
 
 namespace Equiprent.Logic.Commands.Clients.Requests.Create
 {
-    public class CreateRequest : ICommand
+    public class CreateRequest : IRequest<CommandResult?>
     { 
         public List<ClientAddressModel> Addresses { get; set; } = null!;
         public int TypeId { get; set; }

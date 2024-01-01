@@ -6,12 +6,11 @@ import { Table } from "primeng/table";
 @Injectable()
 export class FilterService {
 
-  constructor(public translate: TranslateService) {
+  constructor(public readonly translate: TranslateService) {
   }
 
   public getPlaceholder(field: string): string {
     const capitalizedField = field.replace(/^\w/, (c) => c.toUpperCase());
-
     return `${this.translate.instant('General.SearchFor')} ${capitalizedField}`;
   }
 
@@ -38,9 +37,7 @@ export class FilterService {
       inputWidth = filterElement.offsetWidth;
 
     document.body.appendChild(textContentLengthHelper);
-
     const textContentWidth = textContentLengthHelper.offsetWidth;
-
     document.body.removeChild(textContentLengthHelper);
 
     return textContentWidth > inputWidth - 30;

@@ -1,3 +1,4 @@
+import { DialogConfigData } from "../components/abstract/dialogs/dialog-config-data";
 import { Address, ClientAddress } from "./address";
 
 export interface ClientCreationModel {
@@ -32,7 +33,7 @@ export interface ClientListItemModel {
   TypeName: string,
 }
 
-export class ClientRepresentativeDialogConfigData {
+export class ClientRepresentativeDialogConfigData implements DialogConfigData {
   ClientId: string;
   Id?: string;
 }

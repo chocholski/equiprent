@@ -1,12 +1,13 @@
-﻿using Equiprent.ApplicationImplementations.CommandResults;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;
-using Equiprent.Logic.Infrastructure.CQRS;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
 {
-    public class SaveHandler : ICommandHandler<SaveRequest>
+    public class SaveHandler : IRequestHandler<SaveRequest, CommandResult?>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -15,28 +16,29 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
             _dbContext = dbContext;
         }
 
-        public async Task<CommandResult> HandleAsync(SaveRequest request)
+        public async Task<CommandResult?> Handle(SaveRequest request, CancellationToken cancellationToken)
         {
             var clientRepresentative = await _dbContext.ClientRepresentatives
                 .SingleOrDefaultAsync(representative =>
                     !representative.IsDeleted &&
-                    representative.Id == request.Id);
+                    representative.Id == request.Id,
+                    cancellationToken);
 
             if (clientRepresentative is null ||
                 clientRepresentative.ClientId != request.ClientId)
                 return CommandResult.BadRequest;
 
-            var clientUpdateResult = await UpdateClientRepresentativeWithRequestAsync(clientRepresentative, request);
+            var clientUpdateResult = await UpdateClientRepresentativeWithRequestAsync(clientRepresentative, request, cancellationToken);
 
             if (clientUpdateResult == CommandResult.OK)
-                await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync(cancellationToken);
 
             return clientUpdateResult;
         }
 
-        private async Task<CommandResult> UpdateClientRepresentativeWithRequestAsync(ClientRepresentative representative, SaveRequest request)
+        private async Task<CommandResult> UpdateClientRepresentativeWithRequestAsync(ClientRepresentative representative, SaveRequest request, CancellationToken cancellationToken = default)
         {
-            var clientRepresentativeAddressUpdateResult = await UpdateClientRepresentativeAddressWithRequestAsync(request);
+            var clientRepresentativeAddressUpdateResult = await UpdateClientRepresentativeAddressWithRequestAsync(request, cancellationToken);
 
             if (clientRepresentativeAddressUpdateResult != CommandResult.OK)
                 return clientRepresentativeAddressUpdateResult;
@@ -49,10 +51,10 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
             return CommandResult.OK;
         }
 
-        private async Task<CommandResult> UpdateClientRepresentativeAddressWithRequestAsync(SaveRequest request)
+        private async Task<CommandResult> UpdateClientRepresentativeAddressWithRequestAsync(SaveRequest request, CancellationToken cancellationToken = default)
         {
             var clientRepresentativeAddress = await _dbContext.Addresses
-                .SingleOrDefaultAsync(a => a.Id == request.Address.Id);
+                .SingleOrDefaultAsync(a => a.Id == request.Address.Id, cancellationToken);
 
             if (clientRepresentativeAddress is null)
                 return CommandResult.BadRequest;

@@ -1,33 +1,34 @@
-﻿using Equiprent.ApplicationImplementations.CommandResults;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Requests.Delete;
-using Equiprent.Logic.Infrastructure.CQRS;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Delete
 {
-    public class DeleteHandler : ICommandHandler<DeleteRequest>
+    public class DeleteHandler : IRequestHandler<DeleteRequest, CommandResult?>
     {
         private readonly ApplicationDbContext _dbContext;
 
         public DeleteHandler(ApplicationDbContext dbContext) { _dbContext = dbContext; }
 
-        public async Task<CommandResult> HandleAsync(DeleteRequest request)
+        public async Task<CommandResult?> Handle(DeleteRequest request, CancellationToken cancellationToken)
         {
             var client = await _dbContext.Clients
-                .SingleOrDefaultAsync(c => !c.IsDeleted && c.Id == request.Id);
+                .SingleOrDefaultAsync(c => !c.IsDeleted && c.Id == request.Id, cancellationToken);
 
             if (client is null)
                 return CommandResult.BadRequest;
 
-            await SoftDeleteClientRepresentativesAsync(client);
-            await _dbContext.Clients.SoftDeleteAndSaveAsync(client);
+            await SoftDeleteClientRepresentativesAsync(client, cancellationToken);
+            await _dbContext.Clients.SoftDeleteAndSaveAsync(client, cancellationToken);
 
             return CommandResult.OK;
         }
 
-        private async Task SoftDeleteClientRepresentativesAsync(Client client)
+        private async Task SoftDeleteClientRepresentativesAsync(Client client, CancellationToken cancellationToken = default)
         {
             if (client.ClientTypeId != (int)ClientTypeEnum.Company)
                 return;
@@ -36,7 +37,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Delete
                 .Where(representative =>
                     !representative.IsDeleted &&
                     representative.ClientId == client.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             foreach (var representative in clientRepresentatives)
                 _dbContext.ClientRepresentatives.SoftDelete(representative);

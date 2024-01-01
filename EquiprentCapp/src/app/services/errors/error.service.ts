@@ -1,7 +1,8 @@
-import { Injectable } from "@angular/core";
+import { Component, Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { StringBuilder } from "../../tools/stringBuilder";
 import { ErrorMessageTypeEnum } from "../../enums/error-messag-type-enum";
+import { FormComponent } from "src/app/components/abstract/forms/form";
 
 @Injectable()
 export class ErrorService {
@@ -16,13 +17,35 @@ export class ErrorService {
   private readonly errorMessage: ErrorMessage;
   private readonly errorMessageBuilder: ErrorMessageBuilder;
 
-  constructor(private translate: TranslateService) {
+  constructor(private readonly translate: TranslateService) {
     this.errorMessage = new ErrorMessage();
     this.errorMessageBuilder = new ErrorMessageBuilder(translate, this.errorMessage);
   }
 
   public getDefaultErrorMessage() {
     return this.translate.instant('General.Error.Global');
+  }
+
+  public getFirstErrorMessageKey(error: any) {
+    if (this.isValidErrorObject(error)) {
+      const errorObject = error.errors;
+      const firstErrorPropertyName = this.getFirstErrorName(errorObject);
+
+      if (!firstErrorPropertyName)
+        return;
+
+      const firstError: string | string[] = errorObject[firstErrorPropertyName];
+
+      if (!firstError)
+        return;
+
+      const splitError = this.getSplitError(firstError);
+
+      return splitError[0];
+    }
+    else {
+      return this.getDefaultErrorMessage();
+    }
   }
 
   public getFirstTranslatedErrorMessage(error: any) {
@@ -34,12 +57,13 @@ export class ErrorService {
       if (!firstErrorPropertyName)
         return;
 
-      const firstError = errorObject[firstErrorPropertyName];
+      const firstError: string | string[] = errorObject[firstErrorPropertyName];
 
       if (!firstError)
         return;
 
-      this.fillErrorMessageBasedOnError(this.getSplitError(firstError));
+      const splitError = this.getSplitError(firstError);
+      this.fillErrorMessageBasedOnError(splitError);
 
       if (!this.errorMessage.hasRequiredPropertiesAssigned()) {
         return this.getDefaultErrorMessage();
@@ -82,7 +106,7 @@ export class ErrorService {
   private getSplitError(error: string[] | string) {
     return Array.isArray(error)
       ? error[0].split(ErrorService._messageSeparator)
-      : error.split(ErrorService._messageSeparator);
+      : error.split(ErrorService._messageSeparator)
   }
 
   private isValidErrorObject(error: any) {
@@ -113,7 +137,6 @@ class ErrorMessageBuilder {
 
   append(messagePart: string): ErrorMessageBuilder {
     this.resultMessageBuilder.append(messagePart);
-
     return this;
   }
 

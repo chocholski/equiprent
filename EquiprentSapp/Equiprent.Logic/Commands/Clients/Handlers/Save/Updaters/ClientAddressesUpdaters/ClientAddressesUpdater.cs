@@ -3,6 +3,7 @@ using Equiprent.Entities.Application.Addresses;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Logic.Commands.Addresses.Models;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddressesUpdaters
 {
@@ -15,19 +16,19 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
             _dbContext = dbContext;
         }
 
-        public abstract Task<bool> UpdateClientAddressesWithoutTypeChangingRequestAsync(Client client, SaveRequest updatingRequest);
-        public abstract Task<bool> UpdateClientAddressesWithTypeChangingRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest);
+        public abstract Task<bool> UpdateClientAddressesWithoutTypeChangingRequestAsync(Client client, SaveRequest updatingRequest, CancellationToken cancellationToken = default);
+        public abstract Task<bool> UpdateClientAddressesWithTypeChangingRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest, CancellationToken cancellationToken = default);
 
         protected static Address CreateAddress(AddressModel model)
         {
             return AddressModel.CreateAddressFromModel(model);
         }
 
-        protected async Task RemoveOldAddressesAsync(IEnumerable<int> addressesToRemoveIds)
+        protected async Task RemoveOldAddressesAsync(IEnumerable<int> addressesToRemoveIds, CancellationToken cancellationToken = default)
         {
             var addressesToRemove = await _dbContext.Addresses
                 .Where(a => addressesToRemoveIds.Contains(a.Id))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             _dbContext.Addresses.RemoveRange(addressesToRemove);
         }

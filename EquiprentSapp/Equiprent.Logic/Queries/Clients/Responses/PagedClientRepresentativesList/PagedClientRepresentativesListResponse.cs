@@ -1,5 +1,6 @@
 ﻿using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Logic.Abstractions;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList
 {
@@ -12,7 +13,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesLi
         {
         }
 
-        protected override async Task<ClientRepresentativeListItemViewModel> MapEntityToViewModelAsync(ClientRepresentative entity) =>
+        protected override async Task<ClientRepresentativeListItemViewModel> MapEntityToViewModelAsync(ClientRepresentative entity, CancellationToken cancellationToken = default) =>
             await Task.FromResult(new ClientRepresentativeListItemViewModel
             {
                 Email = entity.Address!.Email!,

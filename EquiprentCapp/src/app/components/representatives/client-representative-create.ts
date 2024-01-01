@@ -8,20 +8,22 @@ import { ClientRepresentativeDialogConfigData, ClientRepresentativeCreationModel
 import { TranslateService } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiRoutes } from "src/app/api-routes";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { OpenableAsDialogForm } from "../abstract/openable-as-dialog-form";
+import { OpenableAsDialogForm } from "../abstract/forms/openable-as-dialog-form";
+import { FormModeEnum } from "src/app/enums/form-mode-enum";
 
 @Component({
   selector: "client-representative-create",
   templateUrl: "./client-representative-create.html"
 })
 export class ClientRepresentativeCreationComponent
-  extends OpenableAsDialogForm<ClientRepresentativeDialogConfigData>
+  extends OpenableAsDialogForm<ClientRepresentativeDialogConfigData, ClientRepresentativeCreationModel>
   implements OnInit {
+
+  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareClientRepresentativeCreationModel;
 
   @Input('clientId') clientId?: string;
 
@@ -51,17 +53,31 @@ export class ClientRepresentativeCreationComponent
   }
 
   constructor(
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    protected override formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    public override openedAsDialogConfig: DynamicDialogConfig,
-    public override openedAsDialogRef: DynamicDialogRef,
-    protected override router: Router,
-    public translate: TranslateService
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    protected override readonly httpClient: HttpClient,
+    public override readonly openedAsDialogConfig: DynamicDialogConfig,
+    public override readonly openedAsDialogRef: DynamicDialogRef,
+    protected override readonly router: Router,
+    public override readonly translate: TranslateService
   ) {
-    super(openedAsDialogConfig, openedAsDialogRef, formBuilder, router);
+    super(
+      consoleMessageService,
+      dialogMessageService,
+      'ClientRepresentative',
+      errorService,
+      formBuilder,
+      httpClient,
+      FormModeEnum.Creation,
+      openedAsDialogConfig,
+      openedAsDialogRef,
+      router,
+      ApiRoutes.clientRepresentative.post,
+      translate,
+      Routes.clientRepresentatives.navigations.list);
+
     this.createForm({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required]
@@ -71,13 +87,11 @@ export class ClientRepresentativeCreationComponent
   ngOnInit() {
   }
 
-  public onBack() {
-    this.onBackNavigateUsingLink(Routes.clientRepresentatives.navigations.list);
+  private getClientRepresentativeClientId() {
+    return this._dialogConfigData ? this._dialogConfigData.ClientId : this.clientId;
   }
 
-  public onSubmit() {
-    this.isExecuting = true;
-
+  private prepareClientRepresentativeCreationModel(): ClientRepresentativeCreationModel {
     const clientRepresentativeAddress = <Address>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
@@ -95,40 +109,6 @@ export class ClientRepresentativeCreationComponent
       LastName: this.form.value.LastName
     };
 
-    this.postClientRepresentative(clientRepresentative);
-  }
-
-  private getClientRepresentativeClientId() {
-    return this._dialogConfigData ? this._dialogConfigData.ClientId : this.clientId;
-  }
-
-  private postClientRepresentative(clientRepresentative: ClientRepresentativeCreationModel) {
-    this.httpClient
-      .post<string>(ApiRoutes.clientRepresentative.post, clientRepresentative)
-      .subscribe({
-        next: result => {
-          switch (result) {
-            case ApiResultEnum[ApiResultEnum.OK]:
-              this.onAfterSubmitSuccessNavigateUsingLink(Routes.clientRepresentatives.navigations.list);
-              this.dialogMessageService.addSuccess(this.translate.instant('ClientRepresentative.Created'));
-              break;
-
-            case ApiResultEnum[ApiResultEnum.RepresentativeExists]:
-              this.dialogMessageService.addError(this.translate.instant('ClientRepresentative.Messages.RepresentativeExists'));
-              break;
-
-            default:
-              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterCreation('ClientRepresentative', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      });
+    return clientRepresentative;
   }
 }

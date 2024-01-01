@@ -12,21 +12,21 @@ namespace Equiprent.ApplicationImplementations.Identities.Tokens
             _dbContext = dbContext;
         }
 
-        public async Task SetTokenRefreshRequiredForUsersAsync(IEnumerable<Guid> userIds)
+        public async Task SetTokenRefreshRequiredForUsersAsync(IEnumerable<Guid> userIds, CancellationToken cancellationToken = default)
         {
             foreach (var userId in userIds)
             {
                 var refreshToken = await _dbContext.RefreshTokens
                     .Where(token => token.UserId == userId)
                     .OrderByDescending(token => token.CreatedOn)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(cancellationToken);
 
                 if (refreshToken is null)
                     return;
 
                 refreshToken.IsTokenRefreshRequired = true;
 
-                await _dbContext.RefreshTokens.UpdateAndSaveAsync(refreshToken);
+                await _dbContext.RefreshTokens.UpdateAndSaveAsync(refreshToken, cancellationToken);
             }
         }
     }

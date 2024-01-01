@@ -16,8 +16,8 @@ export class AuthenticationService {
     isLoggedIn$: Observable<boolean>;
 
     constructor(
-        private authorizationService: AuthorizationService,
-        private httpClient: HttpClient,
+        private readonly authorizationService: AuthorizationService,
+        private readonly httpClient: HttpClient,
         @Inject(PLATFORM_ID) private platformId: any) {
     }
 

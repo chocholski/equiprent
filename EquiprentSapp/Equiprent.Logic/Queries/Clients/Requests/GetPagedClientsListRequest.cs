@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.Clients.Responses.PagedClientsList;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Clients.Requests
 {
-    public class GetPagedClientsListRequest : IQuery<PagedClientsListResponse>
+    public class GetPagedClientsListRequest : IRequest<PagedClientsListResponse?>
     {
         public RequestParameters RequestParameters { get; set; }
 

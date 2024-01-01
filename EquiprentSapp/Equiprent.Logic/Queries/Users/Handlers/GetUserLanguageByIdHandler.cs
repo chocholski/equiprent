@@ -1,11 +1,12 @@
 ﻿using Equiprent.Logic.Queries.Users.Requests;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetUserLanguageByIdHandler : IQueryHandler<GetUserLanguageByIdRequest, UserLanguageByIdResponse>
+    public class GetUserLanguageByIdHandler : IRequestHandler<GetUserLanguageByIdRequest, UserLanguageByIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -14,14 +15,14 @@ namespace Equiprent.Logic.Queries.Users.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<UserLanguageByIdResponse?> HandleAsync(GetUserLanguageByIdRequest request)
+        public async Task<UserLanguageByIdResponse?> Handle(GetUserLanguageByIdRequest request, CancellationToken cancellationToken)
         {
             var userLanguageId = await _dbContext.Users
                 .Where(u =>
                     u.Id == request.UserId &&
                     !u.IsDeleted)
                 .Select(u => u.LanguageId)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(cancellationToken);
 
             return new UserLanguageByIdResponse { LanguageId = userLanguageId };
         }

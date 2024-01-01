@@ -60,8 +60,6 @@ export class UserRolePermissionsOnEditionFiller extends UserRolePermissionsFille
 
       this.destinations.allItems.push(this.createParentNode(permissionsGroup, permissionsGroupChildren));
     }
-
-    this.updateUserRolePermissionsSelected();
   }
 
   private updateUserRolePermissionsSelected() {

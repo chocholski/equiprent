@@ -1,6 +1,7 @@
 ﻿using Equiprent.Entities.Business.Clients;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientsList.ClientListItemMappers;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientsList
 {
@@ -13,7 +14,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientsList
         {
         }
 
-        protected override async Task<ClientListItemViewModel> MapEntityToViewModelAsync(Client entity)
+        protected override async Task<ClientListItemViewModel> MapEntityToViewModelAsync(Client entity, CancellationToken cancellationToken = default)
         {
             var result = new ClientListItemViewModel();
             var clientListItemMapper = ClientListItemMapperFactory.CreateMapperFor(entity);

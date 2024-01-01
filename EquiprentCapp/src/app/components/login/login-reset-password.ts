@@ -4,14 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from 'primeng/api';
 import { ErrorService } from 'src/app/services/errors/error.service';
-import { FormComponent } from '../abstract/form';
+import { SimpleFormComponent } from '../abstract/forms/simple-form';
 
 @Component({
   selector: "login-reset-password",
   templateUrl: "./login-reset-password.html"
 })
 export class LoginResetPasswordComponent
-  extends FormComponent
+  extends SimpleFormComponent
   implements OnInit {
 
   token: string;

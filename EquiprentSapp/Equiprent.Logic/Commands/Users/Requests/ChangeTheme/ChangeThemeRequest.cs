@@ -1,8 +1,9 @@
-﻿using Equiprent.Logic.Infrastructure.CQRS;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
+using MediatR;
 
 namespace Equiprent.Logic.Commands.Users.Requests.ChangeTheme
 {
-    public class ChangeThemeRequest : ICommand
+    public class ChangeThemeRequest : IRequest<CommandResult>
     {
         public Guid Id { get; set; }
     }

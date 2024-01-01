@@ -74,6 +74,12 @@
           [selected]="activeTab === routes.clients.tabs.representatives.index">
           <client-representative-list [clientId]="client.Id"></client-representative-list>
         </p-tabPanel>
+        <p-tabPanel header="{{ 'Audit.History' | translate}}"
+          [selected]="activeTab === routes.clients.tabs.audits.index">
+          <audit-list-for-entity #audits *ngIf="client" [entityId]="client.Id"
+            [entityTableName]="form.value.ClientTypeId === clientType.Company.toString() ? 'CompanyClients' : 'PrivateClients'"
+            translation="Client"></audit-list-for-entity>
+        </p-tabPanel>
       </p-tabView>
     </div>
     <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>

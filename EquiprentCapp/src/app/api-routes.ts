@@ -23,8 +23,6 @@ export const ApiRoutes = {
   },
   identity: {
     authenticate: "identity/authenticate",
-    changePassword: "identity/changePassword",
-    isEmptyPassword: "identity/isEmptyPassword",
     refreshToken: "identity/refreshToken"
   },
   selectOptions: {
@@ -37,7 +35,6 @@ export const ApiRoutes = {
   },
   user: {
     changeLanguage: "user/changeLanguage",
-    changePassword: "user/changePassword",
     changeRole: "user/changeRole",
     changeTheme: "user/changeTheme",
     delete: (userId: string) => `user/${userId}`,

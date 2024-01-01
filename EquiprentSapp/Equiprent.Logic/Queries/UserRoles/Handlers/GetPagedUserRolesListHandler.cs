@@ -4,11 +4,12 @@ using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.UserRoles.Handlers
 {
-    public class GetPagedUserRolesListHandler : IQueryHandler<GetPagedUserRolesListRequest, PagedUserRolesListResponse>
+    public class GetPagedUserRolesListHandler : IRequestHandler<GetPagedUserRolesListRequest, PagedUserRolesListResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILanguageableService _languageableService;
@@ -24,19 +25,21 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<PagedUserRolesListResponse?> HandleAsync(GetPagedUserRolesListRequest request)
+        public async Task<PagedUserRolesListResponse?> Handle(GetPagedUserRolesListRequest request, CancellationToken cancellationToken = default)
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleListItemModel>(
                 requestParameters: request.RequestParameters,
                 query: GetUserRoleListQuery(),
-                _serviceProvider);
+                _serviceProvider,
+                cancellationToken);
 
             if (response is not null)
             {
                 await _languageableService.TranslateListLanguageableValuesAsync<UserRoleListItemModel, UserRoleToLanguage>(
                     response.List,
                     idPropertyName: nameof(UserRoleListItemModel.Id),
-                    namePropertyName: nameof(UserRoleListItemModel.Name));
+                    namePropertyName: nameof(UserRoleListItemModel.Name),
+                    cancellationToken: cancellationToken);
             }
 
             return response;

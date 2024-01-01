@@ -1,12 +1,13 @@
-﻿using Equiprent.ApplicationImplementations.CommandResults;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationInterfaces.Identities.Tokens;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Commands.Users.Requests.ChangeRole;
-using Equiprent.Logic.Infrastructure.CQRS;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Users.Handlers
 {
-    public class ChangeRoleHandler : ICommandHandler<ChangeRoleRequest>
+    public class ChangeRoleHandler : IRequestHandler<ChangeRoleRequest, CommandResult>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ITokenRefreshService _tokenRefreshService;
@@ -19,37 +20,17 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             _tokenRefreshService = tokenRefreshService;
         }
 
-        public async Task<CommandResult> HandleAsync(ChangeRoleRequest request)
+        public async Task<CommandResult> Handle(ChangeRoleRequest request, CancellationToken cancellationToken)
         {
             var user = await _dbContext.Users
-                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId);
+                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId, cancellationToken);
 
             if (user is null)
                 return CommandResult.BadRequest;
 
-            await _tokenRefreshService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id });
-
+            await _tokenRefreshService.SetTokenRefreshRequiredForUsersAsync(new HashSet<Guid>() { user.Id }, cancellationToken);
             user.UserRoleId = request.UserRoleId;
-
-            await _dbContext.Users.UpdateAndSaveAsync(user);
-
-            return CommandResult.OK;
-        }
-
-        public async Task<CommandResult> ValidateAsync(ChangeRoleRequest request)
-        {
-            if (request is null)
-                return CommandResult.BadRequest;
-
-            var userHasUserRoleChosenAlreadyAssigned = await _dbContext.Users
-                .Where(u =>
-                    !u.IsDeleted &&
-                    u.Id == request.UserId &&
-                    u.UserRoleId == request.UserRoleId)
-                .AnyAsync();
-
-            if (userHasUserRoleChosenAlreadyAssigned)
-                return CommandResult.UserRole_UserHasBeenAlreadyAssignedToRole;
+            await _dbContext.Users.UpdateAndSaveAsync(user, cancellationToken);
 
             return CommandResult.OK;
         }

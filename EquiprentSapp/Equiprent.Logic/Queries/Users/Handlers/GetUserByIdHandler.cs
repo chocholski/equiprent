@@ -1,11 +1,12 @@
 ﻿using Equiprent.Logic.Queries.Users.Requests;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Users.Responses.UserById;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetUserByIdHandler : IQueryHandler<GetUserByIdRequest, UserByIdResponse>
+    public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, UserByIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -14,10 +15,12 @@ namespace Equiprent.Logic.Queries.Users.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<UserByIdResponse?> HandleAsync(GetUserByIdRequest request)
+        public async Task<UserByIdResponse?> Handle(GetUserByIdRequest request, CancellationToken cancellationToken)
         {
             var user = await _dbContext.Users
-                .SingleOrDefaultAsync(u => !u.IsDeleted && u.Id == request.UserId);
+                .SingleOrDefaultAsync(u =>
+                    !u.IsDeleted && u.Id == request.UserId,
+                    cancellationToken);
 
             if (user is null)
                 return null;

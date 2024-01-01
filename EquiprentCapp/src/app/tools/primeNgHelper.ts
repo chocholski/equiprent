@@ -5,7 +5,6 @@ export class PrimeNgHelper {
   static getDateFromCalendar(date: string): Date | null {
     if (!isNaN(Date.parse(date))) {
       const parsedDate = new Date(date);
-
       return new Date(Date.UTC(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate()));
     }
 

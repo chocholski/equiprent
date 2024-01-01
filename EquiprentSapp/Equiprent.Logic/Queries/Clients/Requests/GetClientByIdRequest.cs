@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.Clients.Responses.ClientById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Clients.Requests
 {
-    public class GetClientByIdRequest : IQuery<ClientByIdResponse>
+    public class GetClientByIdRequest : IRequest<ClientByIdResponse?>
     {
         public Guid ClientId { get; set; }
 

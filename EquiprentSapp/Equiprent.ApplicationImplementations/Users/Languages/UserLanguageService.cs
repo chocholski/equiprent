@@ -17,7 +17,7 @@ namespace Equiprent.ApplicationImplementations.Users.Languages
             _userService = userService;
         }
 
-        public async Task<int?> GetCurrentUserLanguageIdAsync()
+        public async Task<int?> GetCurrentUserLanguageIdAsync(CancellationToken cancellationToken = default)
         {
             int? result = null;
             var currentUserId = _userService.GetUserId();
@@ -27,7 +27,7 @@ namespace Equiprent.ApplicationImplementations.Users.Languages
                 result = await _dbContext.Users
                     .Where(u => u.Id == currentUserId.Value)
                     .Select(u => (int?)u.LanguageId)
-                    .SingleOrDefaultAsync();
+                    .SingleOrDefaultAsync(cancellationToken);
             }
 
             return result;

@@ -12,7 +12,7 @@ export class MenuService {
 
   private menu = new MenuArray();
 
-  constructor(private authorizationService: AuthorizationService) {
+  constructor(private readonly authorizationService: AuthorizationService) {
     this.initializeMenu();
     this.initializeMenuItems();
   }

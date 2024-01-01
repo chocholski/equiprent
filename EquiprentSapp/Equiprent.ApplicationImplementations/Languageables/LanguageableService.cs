@@ -25,26 +25,28 @@ namespace Equiprent.ApplicationImplementations.Languageables
             string namePropertyName,
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             List<string>? translatedEntityIds = null,
-            int? languageId = null)
+            int? languageId = null,
+            CancellationToken cancellationToken = default)
                 where T : class
                 where U : class, ILanguageable
         {
-            var entityIdsWithNames = await GetEntityIdsWithNamesInCurrentUserLanguageAsync<U>(entityIdsFilterMode, languageId, translatedEntityIds?.ToArray());
+            var entityTranslations = await GetEntityTranslationsInCurrentUserLanguageAsync<U>(entityIdsFilterMode, languageId, cancellationToken, translatedEntityIds?.ToArray());
             var idProperty = typeof(T).GetProperty(idPropertyName);
             var nameProperty = typeof(T).GetProperty(namePropertyName);
 
             if (idProperty is not null && nameProperty is not null)
-                list.ForEach(item => nameProperty.SetValue(item, entityIdsWithNames.GetNameForId(idProperty.GetValue(item)!.ToString()!)));
+                list.ForEach(item => nameProperty.SetValue(item, entityTranslations.GetNameForId(idProperty.GetValue(item)!.ToString()!)));
         }
 
-        public async Task<List<ILanguageableItem>> GetEntityIdsWithNamesInCurrentUserLanguageAsync<TEntity>(
+        public async Task<List<ILanguageableItem>> GetEntityTranslationsInCurrentUserLanguageAsync<TEntity>(
             EntityIdsFilterModeEnum? entityIdsFilterMode = null,
             int? languageId = null,
+            CancellationToken cancellationToken = default,
             params string[]? translatedEntityIds) where TEntity : class, ILanguageable
         {
             var result = new List<ILanguageableItem>();
 
-            languageId ??= await _userLanguageService.GetCurrentUserLanguageIdAsync();
+            languageId ??= await _userLanguageService.GetCurrentUserLanguageIdAsync(cancellationToken);
 
             if (!languageId.HasValue)
                 return result;
@@ -53,10 +55,17 @@ namespace Equiprent.ApplicationImplementations.Languageables
                 .Where(languageableItem => languageableItem.LanguageId == languageId.Value)
                 .Select(languageableItem => new
                 {
+                    Entity = languageableItem.GetTranslatedEntity(),
                     Id = languageableItem.GetTranslatedEntityId(),
                     languageableItem.Name
                 })
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
+
+            rows = rows
+                .Where(row =>
+                    row?.Entity is not IDeleteable deleteableEntity ||
+                    !deleteableEntity.IsDeleted)
+                .ToList();
 
             var IdsWithNames = rows
                 .Where(entity =>

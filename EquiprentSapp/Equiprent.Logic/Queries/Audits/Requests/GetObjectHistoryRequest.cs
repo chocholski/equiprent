@@ -1,9 +1,9 @@
 ﻿using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Audits.Requests
 {
-    public class GetObjectHistoryRequest : IQuery<ObjectHistoryResponse>
+    public class GetObjectHistoryRequest : IRequest<ObjectHistoryResponse?>
     {
         public RequestParameters RequestParameters { get; }
         public string EntityId { get; set; }
@@ -11,14 +11,7 @@ namespace Equiprent.Logic.Queries.Audits.Requests
 
         public GetObjectHistoryRequest(RequestParameters requestParameters, string entityId, string entityTableName)
         {
-            RequestParameters = requestParameters;
-
-            if (string.IsNullOrEmpty(RequestParameters.SortColumnName) ||
-                RequestParameters.SortColumnName == "null")
-            {
-                RequestParameters.SortColumnName = "CreatedOn";
-            }
-
+            RequestParameters = requestParameters.GetWithDefaultSortColumnNameIfSortColumnNameIsNullOrEmptyBasedOn(typeof(ObjectHistoryItemViewModel));
             EntityId = entityId;
             EntityTableName = entityTableName;
         }

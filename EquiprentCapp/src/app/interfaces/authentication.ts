@@ -5,11 +5,6 @@ export class AuthUserModel {
     Roles: Array<string>;
 }
 
-export interface ChangePasswordModel {
-    Password: string;
-    Token: string;
-}
-
 export interface ResetPasswordModel {
     Email: string;
     Language: string;

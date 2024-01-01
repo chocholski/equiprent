@@ -5,11 +5,12 @@ using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Queries.UserRoles.Requests;
 using Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.UserRoles.Handlers
 {
-    public class GetUserRoleByIdHandler : IQueryHandler<GetUserRoleByIdRequest, UserRoleByIdResponse>
+    public class GetUserRoleByIdHandler : IRequestHandler<GetUserRoleByIdRequest, UserRoleByIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserLanguageService _userLanguageService;
@@ -27,7 +28,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             _userPermissionsService = userPermissionsService;
         }
 
-        public async Task<UserRoleByIdResponse?> HandleAsync(GetUserRoleByIdRequest request)
+        public async Task<UserRoleByIdResponse?> Handle(GetUserRoleByIdRequest request, CancellationToken cancellationToken)
         {
             var userRole = await GetUserRoleAsync(request.RoleId);
 
@@ -36,8 +37,8 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
             _response = new UserRoleByIdResponse { Id = userRole.Id };
 
-            await SetResponseUserRolePermissionsAsync();
-            await SetResponseUserRoleNameInLanguagesAsync();
+            await SetResponseUserRolePermissionsAsync(cancellationToken);
+            await SetResponseUserRoleNameInLanguagesAsync(cancellationToken);
 
             return _response;
         }
@@ -48,12 +49,12 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                 .SingleOrDefaultAsync(role => !role.IsDeleted && role.Id == userRoleId);
         }
 
-        private async Task SetResponseUserRoleNameInLanguagesAsync()
+        private async Task SetResponseUserRoleNameInLanguagesAsync(CancellationToken cancellationToken = default)
         {
             if (_response is null)
                 return;
 
-            var currentUserLanguageId = await _userLanguageService.GetCurrentUserLanguageIdAsync();
+            var currentUserLanguageId = await _userLanguageService.GetCurrentUserLanguageIdAsync(cancellationToken);
 
             if (!currentUserLanguageId.HasValue)
                 return;
@@ -61,7 +62,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             _response.NameInLanguages = await _dbContext.UserRolesToLanguages
                 .Where(roleToLanguage => roleToLanguage.UserRoleId == _response.Id)
                 .Select(roleToLanguage => new NameInLanguage(roleToLanguage.Name, roleToLanguage.LanguageId, roleToLanguage.Language.Name))
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             _response.Name = _response.NameInLanguages
                 .Where(nameInLanguage => nameInLanguage.LanguageId == currentUserLanguageId.Value)
@@ -71,12 +72,12 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                 string.Empty;
         }
 
-        private async Task SetResponseUserRolePermissionsAsync()
+        private async Task SetResponseUserRolePermissionsAsync(CancellationToken cancellationToken = default)
         {
             if (_response is null)
                 return;
 
-            var groupedUserPermissions = await GetUserRolePermissionsGroupedBySystemNameAsync();
+            var groupedUserPermissions = await GetUserRolePermissionsGroupedBySystemNameAsync(cancellationToken);
             var groupedPermissionsModel = new List<PermissionGroupItemModel>();
 
             foreach (var permissionGroup in groupedUserPermissions)
@@ -92,7 +93,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
                     {
                         Id = permission.Id,
                         IsSelected = permission.IsSelected,
-                        LinkedPermissionsIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(permission.Id),
+                        LinkedPermissionsIds = await _userPermissionsService.GetIdsOfPermissionsLinkedToPermissionAsync(permission.Id, cancellationToken),
                         Name = permission.Name,
                         SystemName = permission.SystemName,
                     });
@@ -104,13 +105,13 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
             _response.GroupedPermissions = groupedPermissionsModel;
         }
 
-        private async Task<List<PermissionGroupItemModel>> GetUserRolePermissionsGroupedBySystemNameAsync()
+        private async Task<List<PermissionGroupItemModel>> GetUserRolePermissionsGroupedBySystemNameAsync(CancellationToken cancellationToken = default)
         {
             if (_response is null)
                 return new List<PermissionGroupItemModel>();
 
-            var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync();
-            var userRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(_response.Id);
+            var allUserPermissions = await _userPermissionsService.GetAllUserPermissionsAsync(cancellationToken);
+            var userRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(_response.Id, cancellationToken);
 
             var userRolePermissionsModel = new List<PermissionItemModel>(
                 allUserPermissions

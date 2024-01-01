@@ -1,15 +1,12 @@
 ﻿using Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.UserRoles.Requests
 {
-    public record GetUserRoleByIdRequest : IQuery<UserRoleByIdResponse>
+    public record GetUserRoleByIdRequest : IRequest<UserRoleByIdResponse?>
     {
         public int RoleId { get; set; }
 
-        public GetUserRoleByIdRequest(int roleId)
-        {
-            RoleId = roleId;
-        }
+        public GetUserRoleByIdRequest(int roleId) => RoleId = roleId;
     }
 }

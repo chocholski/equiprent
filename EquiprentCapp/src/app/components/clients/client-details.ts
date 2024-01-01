@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
-import { AccessControlFormComponent } from "../abstract/access-control-form";
-import { Confirmation, ConfirmationService, SelectItem } from "primeng/api";
+import { ConfirmationService, SelectItem } from "primeng/api";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
@@ -11,9 +10,7 @@ import { HttpClient } from "@angular/common/http";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { TranslateService } from "@ngx-translate/core";
 import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
-import { Routes } from "src/app/routes";
 import { ApiRoutes } from "src/app/api-routes";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { ClientTypeEnum } from "src/app/enums/client-type-enum";
 import { ClientDetailsModel } from "src/app/interfaces/client";
 import { AddressComponent } from "../addresses/address";
@@ -21,19 +18,28 @@ import { CompanyClientAddressComponent } from "../addresses/company-client-addre
 import { PrivateClientAddressComponent } from "../addresses/private-client-address";
 import { PrivateClientComponent } from "./private-client";
 import { ClientAddress, addressFormFields } from "src/app/interfaces/address";
+import { AccessControlFormComponent } from "../abstract/forms/access-control-form";
+import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { Routes } from "src/app/routes";
 
 @Component({
   selector: "client-details",
   templateUrl: "./client-details.html"
 })
 export class ClientDetailsComponent
-  extends AccessControlFormComponent
+  extends AccessControlFormComponent<ClientDetailsModel>
   implements OnInit, AfterViewInit {
 
-  @ViewChild('addressForm') addressForm: AddressComponent;
-  @ViewChild('companyClientAddressForm') companyClientAddressForm?: CompanyClientAddressComponent;
-  @ViewChild('privateClientAddressForm') privateClientAddressForm?: PrivateClientAddressComponent;
-  @ViewChild('privateClientForm') privateClientForm?: PrivateClientComponent;
+  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareClientDetailsModel;
+
+  protected override afterSubmitionCustomOperationsHandler = undefined;
+  protected override readonly deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+  protected override readonly entityId: string;
+
+  activeTab: number = 0;
+  client: ClientDetailsModel;
+  clientTypes: SelectItem[];
+  routes = Routes;
 
   readonly clientAddressRequiredFields: string[] = [
     addressFormFields.City,
@@ -52,32 +58,42 @@ export class ClientDetailsComponent
       (this.privateClientForm?.form.invalid ?? false);
   }
 
-  public override readonly deletionKey: string = 'deleteClient';
-
-  private clientId: string;
-
-  activeTab: number = 0;
-  client: ClientDetailsModel;
-  clientTypes: SelectItem[];
-  routes = Routes;
+  @ViewChild('addressForm') addressForm: AddressComponent;
+  @ViewChild('companyClientAddressForm') companyClientAddressForm?: CompanyClientAddressComponent;
+  @ViewChild('privateClientAddressForm') privateClientAddressForm?: PrivateClientAddressComponent;
+  @ViewChild('privateClientForm') privateClientForm?: PrivateClientComponent;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    protected override formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    private router: Router,
-    private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService
-  ) {
-    super(authorizationService, formBuilder, [UserPermissionEnum.Clients_CanModify]);
+    protected override readonly activatedRoute: ActivatedRoute,
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    private readonly selectOptionsService: SelectOptionsService,
+    public override readonly translate: TranslateService) {
 
-    this.clientId = this.activatedRoute.snapshot.params["id"];
-    this.isDisabled = true;
+    super(
+      activatedRoute,
+      authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteClient',
+      ApiRoutes.client.delete,
+      dialogMessageService,
+      'Client',
+      errorService,
+      formBuilder,
+      httpClient,
+      FormModeEnum.Edition,
+      router,
+      ApiRoutes.client.put,
+      translate,
+      [UserPermissionEnum.Clients_CanModify],
+      Routes.clients.navigations.list);
 
     this.createForm({
       ClientTypeId: null,
@@ -102,20 +118,50 @@ export class ClientDetailsComponent
     this.router.navigate([Routes.clients.navigations.list]);
   }
 
-  public onDelete() {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('Client.DeletionConfirmation')} '${this.client.Name}'?`,
-      accept: () => {
-        this.isExecuting = true;
-        this.deleteClient();
-      }
-    });
+  public switchActiveTab(tabIndex: number) {
+    this.activeTab = tabIndex;
   }
 
-  public onSubmit() {
-    this.isExecuting = true;
+  private getClientNationalId(): string {
+    switch (Number(this.form.value.ClientTypeId)) {
+      case ClientTypeEnum.Private:
+        return this.privateClientAddressForm?.form.value.NationalCitizenId;
+      case ClientTypeEnum.Company:
+        return this.companyClientAddressForm?.form.value.NationalCompanyId;
+      default:
+        return '';
+    }
+  }
 
+  private getEntityInstanceName(): string {
+    return this.client.Name;
+  }
+
+  private loadClient() {
+    if (!this.entityId)
+      return;
+
+    this.httpClient
+      .get<ClientDetailsModel>(ApiRoutes.client.getById(this.entityId))
+      .subscribe(result => {
+        this.client = result;
+
+        this.updateForm({
+          ClientTypeId: this.client.TypeId.toString(),
+          Name: this.client.Name,
+        });
+      });
+  }
+
+  private populateDropdowns() {
+    this.selectOptionsService
+      .getClientTypes()
+      .subscribe(options => {
+        this.clientTypes = options;
+      });
+  }
+
+  private prepareClientDetailsModel(): ClientDetailsModel {
     const clientAddress = <ClientAddress>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
@@ -137,90 +183,6 @@ export class ClientDetailsComponent
       TypeId: this.form.value.ClientTypeId
     };
 
-    this.putClient(client);
-  }
-
-  switchActiveTab(tabIndex: number) {
-    this.activeTab = tabIndex;
-  }
-
-  private deleteClient() {
-    this.httpClient
-      .delete<string>(ApiRoutes.client.delete(this.client.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('Client.Deleted'));
-            this.router.navigate([Routes.clients.navigations.list]);
-          }
-          else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('Client', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      });
-  }
-
-  private getClientNationalId(): string {
-    switch (Number(this.form.value.ClientTypeId)) {
-      case ClientTypeEnum.Private:
-        return this.privateClientAddressForm?.form.value.NationalCitizenId;
-      case ClientTypeEnum.Company:
-        return this.companyClientAddressForm?.form.value.NationalCompanyId;
-      default:
-        return '';
-    }
-  }
-
-  private loadClient() {
-    if (!this.clientId)
-      return;
-
-    this.httpClient
-      .get<ClientDetailsModel>(ApiRoutes.client.getById(this.clientId))
-      .subscribe(result => {
-        this.client = result;
-
-        this.updateForm({
-          ClientTypeId: this.client.TypeId.toString(),
-          Name: this.client.Name,
-        });
-      });
-  }
-
-  private populateDropdowns() {
-    this.selectOptionsService
-      .getClientTypes()
-      .subscribe(options => {
-        this.clientTypes = options;
-      });
-  }
-
-  private putClient(client: ClientDetailsModel) {
-    this.httpClient
-      .put<string>(ApiRoutes.client.put, client)
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.router.navigate([Routes.clients.navigations.list]);
-            this.dialogMessageService.addSuccess(this.translate.instant('Client.Updated'));
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterUpdate('Client', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      });
+    return client;
   }
 }

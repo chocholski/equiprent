@@ -16,9 +16,9 @@ export class AppFooterComponent {
     isDarkModeThemeSelected: boolean = false;
 
     constructor(
-        private httpClient: HttpClient,
-        public layoutService: LayoutService,
-        public translate: TranslateService) {
+        private readonly httpClient: HttpClient,
+        public readonly layoutService: LayoutService,
+        public readonly translate: TranslateService) {
 
         const isDarkModeThemeSelectedFromStorage = localStorage.getItem('isDarkModeThemeSelected');
 

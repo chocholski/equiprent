@@ -7,36 +7,43 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Routes } from "src/app/routes";
 import { TranslateService } from "@ngx-translate/core";
-import { AccessControlOpenableAsDialogForm } from "../abstract/access-control-openable-as-dialog-form";
+import { AccessControlOpenableAsDialogForm } from "../abstract/forms/access-control-openable-as-dialog-form";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
 import { HttpClient } from "@angular/common/http";
 import { ApiRoutes } from "src/app/api-routes";
-import { Confirmation, ConfirmationService } from "primeng/api";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { ConfirmationService } from "primeng/api";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
+import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { StringBuilder } from "src/app/tools/stringBuilder";
 
 @Component({
   selector: "client-representative-details",
   templateUrl: "./client-representative-details.html"
 })
 export class ClientRepresentativeDetailsComponent
-  extends AccessControlOpenableAsDialogForm<ClientRepresentativeDialogConfigData>
+  extends AccessControlOpenableAsDialogForm<ClientRepresentativeDialogConfigData, ClientRepresentativeDetailsModel>
   implements OnInit {
 
-  @Input('clientId') clientId?: string;
-
-  @ViewChild('addressForm') addressForm: AddressComponent;
-
-  public static OPEN_AS_DIALOG_SETTINGS = <DynamicDialogConfig>{
+  public static readonly OPEN_AS_DIALOG_SETTINGS = <DynamicDialogConfig>{
     header: 'ClientRepresentative.Details',
     height: 'auto',
     modal: true,
     style: { margin: 0, padding: 0 },
     width: '50vw'
   };
+
+  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareClientRepresentativeDetailsModel;
+
+  protected override readonly afterSubmitionCustomOperationsHandler = undefined;
+  protected override readonly deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+  protected override readonly entityId: string;
+
+  @Input('clientId') clientId?: string;
+
+  @ViewChild('addressForm') addressForm: AddressComponent;
 
   readonly clientRepresentativeAddressRequiredFields: string[] = [
     addressFormFields.City,
@@ -48,42 +55,48 @@ export class ClientRepresentativeDetailsComponent
     addressFormFields.StreetNumber
   ];
 
+  clientRepresentative: ClientRepresentativeDetailsModel;
+
   public override get shouldActionsBeDisabled() {
     return super.shouldActionsBeDisabled ||
       (this.addressForm?.form.invalid ?? false);
   }
 
-  public override deletionKey: string = 'deleteClientRepresentative';
-
-  private clientRepresentativeId: string;
-
-  clientRepresentative: ClientRepresentativeDetailsModel;
-
   constructor(
-    private activatedRoute: ActivatedRoute,
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    protected override formBuilder: FormBuilder,
-    private httpClient: HttpClient,
-    public override openedAsDialogConfig: DynamicDialogConfig,
-    public override openedAsDialogRef: DynamicDialogRef,
-    protected override router: Router,
-    public translate: TranslateService
-  ) {
+    protected override readonly activatedRoute: ActivatedRoute,
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    protected override readonly formBuilder: FormBuilder,
+    protected override readonly httpClient: HttpClient,
+    public override readonly openedAsDialogConfig: DynamicDialogConfig,
+    public override readonly openedAsDialogRef: DynamicDialogRef,
+    protected override readonly router: Router,
+    public override readonly translate: TranslateService) {
+
     super(
+      activatedRoute,
       authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteClientRepresentative',
+      ApiRoutes.clientRepresentative.delete,
+      dialogMessageService,
+      'ClientRepresentative',
+      errorService,
+      formBuilder,
+      httpClient,
+      FormModeEnum.Edition,
       openedAsDialogConfig,
       openedAsDialogRef,
-      formBuilder,
       router,
-      [UserPermissionEnum.ClientRepresentatives_CanModify]
+      ApiRoutes.clientRepresentative.put,
+      translate,
+      [UserPermissionEnum.ClientRepresentatives_CanModify],
+      Routes.clientRepresentatives.navigations.list
     );
-
-    this.clientRepresentativeId = this.getClientRepresentativeId();
-    this.isDisabled = true;
 
     this.createForm({
       FirstName: ['', Validators.required],
@@ -96,24 +109,30 @@ export class ClientRepresentativeDetailsComponent
   ngOnInit() {
   }
 
-  public onBack() {
-    this.onBackNavigateUsingLink(Routes.clientRepresentatives.navigations.list);
+  private getEntityInstanceName(): string {
+    return new StringBuilder(this.clientRepresentative.LastName)
+      .append(' ')
+      .append(this.clientRepresentative.FirstName)
+      .toString();
   }
 
-  public onDelete() {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('ClientRepresentative.DeletionConfirmation')} '${this.clientRepresentative.LastName} ${this.clientRepresentative.FirstName}'?`,
-      accept: () => {
-        this.isExecuting = true;
-        this.deleteClientRepresentative();
-      }
-    });
+  private loadClientRepresentative() {
+    if (!this.entityId)
+      return;
+
+    this.httpClient
+      .get<ClientRepresentativeDetailsModel>(ApiRoutes.clientRepresentative.getById(this.entityId))
+      .subscribe(result => {
+        this.clientRepresentative = result;
+
+        this.updateForm({
+          FirstName: this.clientRepresentative.FirstName,
+          LastName: this.clientRepresentative.LastName
+        });
+      });
   }
 
-  public onSubmit() {
-    this.isExecuting = true;
-
+  private prepareClientRepresentativeDetailsModel(): ClientRepresentativeDetailsModel {
     const clientRepresentativeAddress = <Address>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
@@ -129,78 +148,10 @@ export class ClientRepresentativeDetailsComponent
       Address: clientRepresentativeAddress,
       ClientId: this.clientRepresentative.ClientId,
       FirstName: this.form.value.FirstName,
-      Id: this.clientRepresentativeId,
+      Id: this.entityId,
       LastName: this.form.value.LastName
     }
 
-    this.putClientRepresentative(clientRepresentative);
-  }
-
-  private deleteClientRepresentative() {
-    this.httpClient
-      .delete<string>(ApiRoutes.clientRepresentative.delete(this.clientRepresentative.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('ClientRepresentative.Deleted'));
-            super.onAfterDeletionSuccessNavigateUsingLink(Routes.clientRepresentatives.navigations.list);
-          }
-          else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('ClientRepresentative', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      })
-  }
-
-  private getClientRepresentativeId() {
-    if (this.openedAsDialogRef) {
-      return this._dialogConfigData?.Id;
-    }
-    else {
-      return this.activatedRoute.snapshot.params["id"];
-    }
-  }
-
-  private loadClientRepresentative() {
-    if (!this.clientRepresentativeId)
-      return;
-
-    this.httpClient
-      .get<ClientRepresentativeDetailsModel>(ApiRoutes.clientRepresentative.getById(this.clientRepresentativeId))
-      .subscribe(result => {
-        this.clientRepresentative = result;
-
-        this.updateForm({
-          FirstName: this.clientRepresentative.FirstName,
-          LastName: this.clientRepresentative.LastName
-        });
-      });
-  }
-
-  private putClientRepresentative(clientRepresentative: ClientRepresentativeDetailsModel) {
-    this.httpClient
-      .put<string>(ApiRoutes.clientRepresentative.put, clientRepresentative)
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.onAfterSubmitSuccessNavigateUsingLink(Routes.clientRepresentatives.navigations.list);
-            this.dialogMessageService.addSuccess(this.translate.instant('ClientRepresentative.Updated'));
-          }
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        },
-        complete: () => {
-          this.isExecuting = false;
-        }
-      })
+    return clientRepresentative;
   }
 }

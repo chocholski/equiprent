@@ -1,14 +1,15 @@
 ﻿using Equiprent.Logic.Queries.Users.Requests;
 using Equiprent.ApplicationInterfaces.Languageables;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Application.Users;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Users.Handlers
 {
-    public class GetPagedUsersListHandler : IQueryHandler<GetPagedUsersListRequest, PagedUsersListResponse>
+    public class GetPagedUsersListHandler : IRequestHandler<GetPagedUsersListRequest, PagedUsersListResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILanguageableService _languageableService;
@@ -24,19 +25,21 @@ namespace Equiprent.Logic.Queries.Users.Handlers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<PagedUsersListResponse?> HandleAsync(GetPagedUsersListRequest request)
+        public async Task<PagedUsersListResponse?> Handle(GetPagedUsersListRequest request, CancellationToken cancellationToken)
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUsersListResponse, User, UserListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetUserListQueryUsingRequest(request),
-                _serviceProvider);
+                _serviceProvider,
+                cancellationToken);
 
             if (response is not null)
             {
                 await _languageableService.TranslateListLanguageableValuesAsync<UserListItemViewModel, UserRoleToLanguage>(
                     response.List,
                     idPropertyName: nameof(UserListItemViewModel.UserRoleId),
-                    namePropertyName: nameof(UserListItemViewModel.UserRoleName));
+                    namePropertyName: nameof(UserListItemViewModel.UserRoleName),
+                    cancellationToken: cancellationToken);
             }
 
             return response;

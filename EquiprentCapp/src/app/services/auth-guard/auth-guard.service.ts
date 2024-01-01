@@ -9,8 +9,8 @@ import { Routes } from '../../routes';
 export class AuthGuard {
 
   constructor(
-    private authorizationService: AuthorizationService,
-    private router: Router) {
+    private readonly authorizationService: AuthorizationService,
+    private readonly router: Router) {
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {

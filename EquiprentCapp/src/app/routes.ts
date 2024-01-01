@@ -57,6 +57,9 @@ export const Routes = {
       },
       representatives: {
         index: 1
+      },
+      audits: {
+        index: 2
       }
     }
   },

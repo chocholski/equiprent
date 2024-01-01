@@ -6,7 +6,10 @@ export class AccessControl {
   permissions?: number[];
   hasAccessToButtons: boolean;
 
-  constructor(public translate: TranslateService, private authorizationService: AuthorizationService) {
+  constructor(
+    public readonly translate: TranslateService,
+    private readonly authorizationService: AuthorizationService
+  ) {
     this.hasAccessToButtons = true;
   }
 
@@ -20,10 +23,9 @@ export class AccessControl {
   }
 
   getOnEditLabel(additionalConditionStatement?: boolean): string {
-
     let label = undefined;
 
-    if (this.hasAccessToButtons && (additionalConditionStatement == undefined || additionalConditionStatement)) {
+    if (this.hasAccessToButtons && (additionalConditionStatement === undefined || additionalConditionStatement)) {
       label = 'General.Edit';
     }
     else {

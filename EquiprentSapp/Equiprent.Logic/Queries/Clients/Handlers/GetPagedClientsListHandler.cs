@@ -4,11 +4,12 @@ using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientsList;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Handlers
 {
-    public class GetPagedClientsListHandler : IQueryHandler<GetPagedClientsListRequest, PagedClientsListResponse>
+    public class GetPagedClientsListHandler : IRequestHandler<GetPagedClientsListRequest, PagedClientsListResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILanguageableService _languageableService;
@@ -24,19 +25,21 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<PagedClientsListResponse?> HandleAsync(GetPagedClientsListRequest request)
+        public async Task<PagedClientsListResponse?> Handle(GetPagedClientsListRequest request, CancellationToken cancellationToken = default)
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedClientsListResponse, Client, ClientListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetClientListQuery(),
-                _serviceProvider);
+                _serviceProvider,
+                cancellationToken);
 
             if (response is not null)
             {
                 await _languageableService.TranslateListLanguageableValuesAsync<ClientListItemViewModel, ClientTypeToLanguage>(
                     response.List,
                     idPropertyName: nameof(ClientListItemViewModel.TypeId),
-                    namePropertyName: nameof(ClientListItemViewModel.TypeName));
+                    namePropertyName: nameof(ClientListItemViewModel.TypeName),
+                    cancellationToken: cancellationToken);
             }
 
             return response;

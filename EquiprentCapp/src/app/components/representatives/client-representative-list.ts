@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { AccessControlComponent } from "../abstract/access-control";
+import { AccessControlComponent } from "../abstract/access-controls/access-control";
 import { Confirmation, ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { PngTableColumn } from "src/app/interfaces/png";
 import { Table } from "primeng/table";
@@ -107,6 +107,10 @@ export class ClientRepresentativeListComponent
     }
   }
 
+  handleErrors(withResult: string): string {
+    return this.errorService.getDefaultErrorMessage();
+  }
+
   public loadClientRepresentativesLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -149,13 +153,13 @@ export class ClientRepresentativeListComponent
               .subscribe(result => this._dataPopulator.clientRepresentatives.set(result));
           }
           else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+            this.dialogMessageService.addError(this.handleErrors(result));
           }
 
           console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('ClientRepresentative', result));
         },
-        error: () => {
-          this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+        error: e => {
+          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
         }
       });
   }

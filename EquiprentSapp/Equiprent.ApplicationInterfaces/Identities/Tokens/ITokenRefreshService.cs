@@ -2,6 +2,6 @@
 {
     public interface ITokenRefreshService
     {
-        public Task SetTokenRefreshRequiredForUsersAsync(IEnumerable<Guid> userIds);
+        public Task SetTokenRefreshRequiredForUsersAsync(IEnumerable<Guid> userIds, CancellationToken cancellationToken = default);
     }
 }

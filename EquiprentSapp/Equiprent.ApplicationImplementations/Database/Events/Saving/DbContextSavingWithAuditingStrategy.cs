@@ -39,8 +39,8 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
                 await NotifyAuditorsWithEntriesAsync(entry);
             }
 
-            await dbContext.SaveChangesAsync();
             _auditEntries.Clear();
+            await dbContext.SaveChangesAsync();
 
             return;
         }

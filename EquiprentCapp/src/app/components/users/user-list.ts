@@ -16,7 +16,7 @@ import { DialogMessageService } from 'src/app/services/messages/dialog-message.s
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
-import { AccessControlComponent } from '../abstract/access-control';
+import { AccessControlComponent } from '../abstract/access-controls/access-control';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 
@@ -115,6 +115,10 @@ export class UserListComponent
       .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
+  handleErrors(withError: string): string {
+    return this.errorService.getDefaultErrorMessage();
+  }
+
   public loadUsersLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -154,13 +158,13 @@ export class UserListComponent
               .subscribe(result => this._dataPopulator.users.set(result));
           }
           else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+            this.dialogMessageService.addError(this.handleErrors(result));
           }
 
           console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('User', result));
         },
-        error: () => {
-          this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+        error: e => {
+          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
         }
       });
   }

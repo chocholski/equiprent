@@ -3,12 +3,9 @@ using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Requests.Create;
 using Equiprent.Logic.Commands.Clients.Requests.Delete;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
-using Equiprent.Logic.Infrastructure.CQRS;
 using Equiprent.Logic.Queries.Clients.Requests;
-using Equiprent.Logic.Queries.Clients.Responses.ClientById;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientsList;
 using Equiprent.Web.Filters;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
 
 namespace Equiprent.Web.Controllers
 {
@@ -16,24 +13,17 @@ namespace Equiprent.Web.Controllers
     [PermissionRequirement((int)UserPermissionEnum.Clients_CanList)]
     public partial class ClientController : BaseApiController
     {
-        protected readonly ICommandDispatcher _commandDispatcher;
-        protected readonly IQueryDispatcher _queryDispatcher;
-
         public ClientController(
             ApplicationDbContext context,
-            IConfiguration configuration,
-            ICommandDispatcher commandDispatcher,
-            IQueryDispatcher queryDispatcher) : base(context, configuration)
+            IServiceProvider serviceProvider) : base(context, serviceProvider)
         {
-            _queryDispatcher = queryDispatcher;
-            _commandDispatcher = commandDispatcher;
         }
 
         [HttpGet]
         public async Task<ActionResult<PagedClientsListResponse>> GetPagedClientsList([FromQuery] RequestParameters requestParameters)
         {
-            var parameters = new GetPagedClientsListRequest(requestParameters);
-            var result = await _queryDispatcher.SendQueryAsync<GetPagedClientsListRequest, PagedClientsListResponse>(parameters);
+            var request = new GetPagedClientsListRequest(requestParameters);
+            var result = await _mediator.Send(request);
             return new JsonResult(result);
         }
 
@@ -41,8 +31,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetClientById(Guid id)
         {
-            var parameters = new GetClientByIdRequest(id);
-            var result = await _queryDispatcher.SendQueryAsync<GetClientByIdRequest, ClientByIdResponse>(parameters);
+            var request = new GetClientByIdRequest(id);
+            var result = await _mediator.Send(request);
             return result is not null ? Ok(result) : NotFound();
         }
 
@@ -50,7 +40,7 @@ namespace Equiprent.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClient([FromBody] CreateRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(request);
+            var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
@@ -58,7 +48,7 @@ namespace Equiprent.Web.Controllers
         [HttpPut]
         public async Task<IActionResult> SaveClient([FromBody] SaveRequest request)
         {
-            var result = await _commandDispatcher.SendCommandAsync(request);
+            var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
@@ -66,7 +56,7 @@ namespace Equiprent.Web.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClient(Guid id)
         {
-            var result = await _commandDispatcher.SendCommandAsync(new DeleteRequest(id));
+            var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);
         }
     }

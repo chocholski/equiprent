@@ -1,14 +1,15 @@
-﻿using Equiprent.ApplicationImplementations.CommandResults;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.Addresses;
 using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;
-using Equiprent.Logic.Infrastructure.CQRS;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
 {
-    public class CreateHandler : ICommandHandler<CreateRequest>
+    public class CreateHandler : IRequestHandler<CreateRequest, CommandResult?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserService _userService;
@@ -21,7 +22,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
             _userService = userService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateRequest request)
+        public async Task<CommandResult?> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
             var createdById = _userService.GetUserId();
 
@@ -55,25 +56,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
             };
             _dbContext.ClientRepresentatives.Add(clientRepresentative);
 
-            await _dbContext.SaveChangesAsync();
-
-            return CommandResult.OK;
-        }
-
-        public async Task<CommandResult> ValidateAsync(CreateRequest request)
-        {
-            if (await _dbContext.ClientRepresentatives
-                .Include(representative => representative.Address)
-                .AnyAsync(representative =>
-                    representative.ClientId == request.ClientId &&
-                    !representative.IsDeleted &&
-                    representative.LastName == request.LastName &&
-                    representative.FirstName == request.FirstName &&
-                    representative.Address!.Email == request.Address.Email &&
-                    representative.Address!.PhoneNumber == request.Address.PhoneNumber))
-            {
-                return CommandResult.ClientRepresentative_RepresentativeExists;
-            }
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return CommandResult.OK;
         }

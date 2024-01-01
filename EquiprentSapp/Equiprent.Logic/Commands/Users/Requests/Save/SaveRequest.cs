@@ -1,8 +1,9 @@
-﻿using Equiprent.Logic.Infrastructure.CQRS;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
+using MediatR;
 
 namespace Equiprent.Logic.Commands.Users.Requests.Save
 {
-    public record SaveRequest : ICommand
+    public record SaveRequest : IRequest<CommandResult>
     {
         public string? Email { get; set; }
         public string FirstName { get; set; } = null!;

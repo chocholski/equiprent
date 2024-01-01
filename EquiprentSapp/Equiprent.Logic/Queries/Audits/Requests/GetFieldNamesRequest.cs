@@ -1,9 +1,10 @@
-﻿using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+﻿using Equiprent.Data.CustomQueryTypes.Audits;
+using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
+using MediatR;
 
 namespace Equiprent.Logic.Queries.Audits.Requests
 {
-    public class GetFieldNamesRequest : IQuery<FieldNamesResponse>
+    public class GetFieldNamesRequest : IRequest<FieldNamesResponse?>
     {
         public RequestParameters RequestParameters { get; } = new();
         public string EntityId { get; set; }
@@ -12,11 +13,10 @@ namespace Equiprent.Logic.Queries.Audits.Requests
         public GetFieldNamesRequest(RequestParameters requestParameters, string entityId, string entityTableName)
         {
             RequestParameters = requestParameters;
-
             if (string.IsNullOrEmpty(RequestParameters.SortColumnName) ||
                 RequestParameters.SortColumnName == "null")
             {
-                RequestParameters.SortColumnName = "FieldName";
+                RequestParameters.SortColumnName = nameof(AuditListQueryModel.FieldName);
             }
 
             EntityId = entityId;

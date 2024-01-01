@@ -13,7 +13,10 @@ namespace Equiprent.Web.Controllers
     {
         private readonly ILanguageableService _languageableService;
         
-        public SelectOptionsController(ApplicationDbContext context, IConfiguration configuration, ILanguageableService languageableService) : base(context, configuration)
+        public SelectOptionsController(
+            ApplicationDbContext context,
+            IServiceProvider serviceProvider,
+            ILanguageableService languageableService) : base(context, serviceProvider)
         {
             _languageableService = languageableService;
         }
@@ -22,9 +25,9 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.SelectOptions.ClientTypes)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientTypesSelectOptions()
         {
-            var clientTypesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<ClientTypeToLanguage>();
+            var clientTypesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<ClientTypeToLanguage>();
 
-            var model = clientTypesIdsWithNames
+            var model = clientTypesTranslations
                 .Select(clientTypeIdWithName => new SelectListItemModel
                 {
                     Value = clientTypeIdWithName.Id.ToString(),
@@ -38,8 +41,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.SelectOptions.Countries)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetCountriesSelectOptions()
         {
-            var countriesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<CountryToLanguage>();
-            var model = countriesIdsWithNames
+            var countriesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<CountryToLanguage>();
+            var model = countriesTranslations
                 .Select(c => new SelectListItemModel
                 {
                     Value = c.Id.ToString(),
@@ -71,8 +74,8 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.SelectOptions.UserRoles)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptions()
         {
-            var userRolesIdsWithNames = await _languageableService.GetEntityIdsWithNamesInCurrentUserLanguageAsync<UserRoleToLanguage>();
-            var model = userRolesIdsWithNames
+            var userRolesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<UserRoleToLanguage>();
+            var model = userRolesTranslations
                 .Select(userRoleIdWithName => new SelectListItemModel
                 {
                     Value = userRoleIdWithName.Id.ToString(),

@@ -5,7 +5,7 @@ import { MessageType, MessageTypes } from '../../tools/message-type';
 @Injectable()
 export class DialogMessageService {
 
-  constructor(private messageService: MessageService) {
+  constructor(private readonly messageService: MessageService) {
   }
 
   public addError(summary: string) {

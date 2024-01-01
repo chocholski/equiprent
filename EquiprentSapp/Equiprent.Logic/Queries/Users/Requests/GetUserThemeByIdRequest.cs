@@ -1,8 +1,8 @@
-﻿using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+﻿using MediatR;
 
 namespace Equiprent.Logic.Queries.Users.Requests
 {
-    public class GetUserThemeByIdRequest : IQuery<bool>
+    public class GetUserThemeByIdRequest : IRequest<bool>
     {
         public Guid UserId { get; set; }
 

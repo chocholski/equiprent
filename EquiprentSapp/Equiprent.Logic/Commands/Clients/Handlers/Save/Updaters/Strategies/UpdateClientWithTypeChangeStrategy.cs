@@ -4,6 +4,7 @@ using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddressesUpdaters;
 using Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.Strategies
 {
@@ -16,17 +17,17 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.Strategies
             _dbContext = dbContext;
         }
 
-        public async Task<bool> UpdateClientAddressesWithRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest)
+        public async Task<bool> UpdateClientAddressesWithRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             if (updatingRequest.TypeId == (int)ClientTypeEnum.Private)
             {
                 return await new PrivateClientAddressesUpdater(_dbContext)
-                    .UpdateClientAddressesWithTypeChangingRequestAsync(client, updatedClient, updatingRequest);
+                    .UpdateClientAddressesWithTypeChangingRequestAsync(client, updatedClient, updatingRequest, cancellationToken);
             }
             else if (updatingRequest.TypeId == (int)ClientTypeEnum.Company)
             {
                 return await new CompanyClientAddressesUpdater(_dbContext)
-                    .UpdateClientAddressesWithTypeChangingRequestAsync(client, updatedClient, updatingRequest);
+                    .UpdateClientAddressesWithTypeChangingRequestAsync(client, updatedClient, updatingRequest, cancellationToken);
             }
             else
             {
@@ -34,17 +35,17 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.Strategies
             }
         }
 
-        public async Task<Client?> UpdateClientWithRequestAsync(Client client, SaveRequest updatingRequest)
+        public async Task<Client?> UpdateClientWithRequestAsync(Client client, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             if (updatingRequest.TypeId == (int)ClientTypeEnum.Private)
             {
                 return await new PrivateClientUpdater(_dbContext)
-                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest);
+                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest, cancellationToken);
             }
             else if (updatingRequest.TypeId == (int)ClientTypeEnum.Company)
             {
                 return await new CompanyClientUpdater(_dbContext)
-                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest);
+                    .UpdateClientWithTypeChangingRequestAsync(client, updatingRequest, cancellationToken);
             }
             else
             {

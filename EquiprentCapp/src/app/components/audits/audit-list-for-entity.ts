@@ -37,10 +37,10 @@ export class AuditListForEntityComponent implements OnInit {
   @Input() entityTableName: string;
 
   constructor(
-    public filterService: FilterService,
-    private httpClient: HttpClient,
-    private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    public readonly filterService: FilterService,
+    private readonly httpClient: HttpClient,
+    private readonly selectOptionsService: SelectOptionsService,
+    public readonly translate: TranslateService) {
   }
 
   ngOnInit() {

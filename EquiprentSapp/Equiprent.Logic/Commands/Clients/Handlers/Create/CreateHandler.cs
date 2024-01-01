@@ -1,15 +1,15 @@
-﻿using Equiprent.ApplicationImplementations.CommandResults;
+﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Handlers.Create.Compositions;
 using Equiprent.Logic.Commands.Clients.Handlers.Create.Creators;
 using Equiprent.Logic.Commands.Clients.Requests.Create;
-using Equiprent.Logic.Infrastructure.CQRS;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Create
 {
-    public class CreateHandler : ICommandHandler<CreateRequest>
+    public class CreateHandler : IRequestHandler<CreateRequest, CommandResult?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IUserService _userService;
@@ -22,7 +22,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create
             _userService = userService;
         }
 
-        public async Task<CommandResult> HandleAsync(CreateRequest request)
+        public async Task<CommandResult?> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
             var createdById = _userService.GetUserId();
 
@@ -40,61 +40,9 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create
                 return CommandResult.BadRequest;
 
             clientCreator.CreateClientAddressesWithRequest(client, request);
-            await _dbContext.Clients.AddAndSaveAsync(client);
+            await _dbContext.Clients.AddAndSaveAsync(client, cancellationToken);
 
             return CommandResult.OK;
-        }
-
-        public async Task<CommandResult> ValidateAsync(CreateRequest request)
-        {
-            if (await ValidateIfExistClientWithSameNameAsync(request))
-                return CommandResult.Client_NameExists;
-
-            if (await ValidateIfExistClientWithSameNationalIdAsync(request))
-                return CommandResult.Client_NationalIdExists;
-
-            return CommandResult.OK;
-        }
-
-        private async Task<bool> ValidateIfExistClientWithSameNameAsync(CreateRequest request)
-        {
-            return await _dbContext.Clients
-                .Where(c =>
-                    !c.IsDeleted &&
-                    c.Name == request.Name)
-                .AnyAsync();
-        }
-
-        private async Task<bool> ValidateIfExistClientWithSameNationalIdAsync(CreateRequest request)
-        {
-            return request.TypeId switch
-            {
-                (int)ClientTypeEnum.Private => await ValidateIfExistPrivateClientWithSameCitizenNationalIdAsync(request),
-                (int)ClientTypeEnum.Company => await ValidateIfExistCompanyClientWithSameCompanyNationalIdAsync(request),
-                _ => false
-            };
-        }
-
-        private async Task<bool> ValidateIfExistPrivateClientWithSameCitizenNationalIdAsync(CreateRequest request)
-        {
-            return await _dbContext.PrivateClientAddresses
-                .Include(clientAddress => clientAddress.PrivateClient)
-                .Where(clientAddress =>
-                    !clientAddress.PrivateClient.IsDeleted &&
-                    !string.IsNullOrEmpty(clientAddress.NationalCitizenId) &&
-                    request.Addresses.Select(address => address.NationalId).Contains(clientAddress.NationalCitizenId))
-                .AnyAsync();
-        }
-
-        private async Task<bool> ValidateIfExistCompanyClientWithSameCompanyNationalIdAsync(CreateRequest request)
-        {
-            return await _dbContext.CompanyClientAddresses
-                .Include(clientAddress => clientAddress.CompanyClient)
-                .Where(clientAddress =>
-                    !clientAddress.CompanyClient.IsDeleted &&
-                    !string.IsNullOrEmpty(clientAddress.NationalCompanyId) &&
-                    request.Addresses.Select(address => address.NationalId).Contains(clientAddress.NationalCompanyId))
-                .AnyAsync();
         }
     }
 }

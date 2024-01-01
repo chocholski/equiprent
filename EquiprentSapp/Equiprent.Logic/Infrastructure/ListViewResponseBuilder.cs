@@ -1,4 +1,5 @@
 ﻿using Equiprent.Logic.Abstractions;
+using System.Threading;
 
 namespace Equiprent.Logic.Infrastructure
 {
@@ -7,7 +8,8 @@ namespace Equiprent.Logic.Infrastructure
         public static async Task<TEntityViewModel?> GetListViewResponseAsync<TEntityViewModel, TEntity, TEntityViewItemModel>(
             RequestParameters requestParameters,
             IQueryable<TEntity> query,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            CancellationToken cancellationToken = default)
                 where TEntityViewModel : ListViewModelBaseResponse<TEntity, TEntityViewItemModel>
                 where TEntity : class
                 where TEntityViewItemModel : class
@@ -16,7 +18,7 @@ namespace Equiprent.Logic.Infrastructure
 
             if (listViewModel is TEntityViewModel entityViewModel)
             {
-                await entityViewModel.FetchAsync();
+                await entityViewModel.FetchAsync(cancellationToken);
 
                 return entityViewModel;
             }

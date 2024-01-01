@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Equiprent.Entities\Equiprent.Entities.csproj" />
     <ProjectReference Include="..\Equiprent.Extensions\Equiprent.Extensions.csproj" />
   </ItemGroup>

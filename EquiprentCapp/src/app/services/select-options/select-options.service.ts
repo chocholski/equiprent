@@ -10,7 +10,9 @@ import { PngTableColumn } from "../../interfaces/png";
 @Injectable()
 export class SelectOptionsService {
 
-  constructor(private httpClient: HttpClient, public translate: TranslateService) {
+  constructor(
+    private readonly httpClient: HttpClient,
+    public readonly translate: TranslateService) {
   }
 
   getClientTypes(): Observable<SelectItem[]> {

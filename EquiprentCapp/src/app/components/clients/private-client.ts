@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormComponent } from "../abstract/form";
+import { SimpleFormComponent } from "../abstract/forms/simple-form";
 import { FormBuilder, Validators } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { ClientDetailsModel } from "src/app/interfaces/client";
@@ -9,7 +9,7 @@ import { ClientDetailsModel } from "src/app/interfaces/client";
   templateUrl: "./private-client.html"
 })
 export class PrivateClientComponent
-  extends FormComponent
+  extends SimpleFormComponent
   implements OnInit {
 
   @Input('client') client?: ClientDetailsModel;

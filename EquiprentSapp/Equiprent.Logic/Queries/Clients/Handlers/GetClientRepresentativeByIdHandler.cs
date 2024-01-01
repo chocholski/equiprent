@@ -2,11 +2,12 @@
 using Equiprent.Logic.Commands.Addresses.Models;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Handlers
 {
-    public class GetClientRepresentativeByIdHandler : IQueryHandler<GetClientRepresentativeByIdRequest, ClientRepresentativeByIdResponse>
+    public class GetClientRepresentativeByIdHandler : IRequestHandler<GetClientRepresentativeByIdRequest, ClientRepresentativeByIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -15,13 +16,14 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
             _dbContext = dbContext;
         }
 
-        public async Task<ClientRepresentativeByIdResponse?> HandleAsync(GetClientRepresentativeByIdRequest request)
+        public async Task<ClientRepresentativeByIdResponse?> Handle(GetClientRepresentativeByIdRequest request, CancellationToken cancellationToken = default)
         {
             var clientRepresentative = await _dbContext.ClientRepresentatives
                 .Include(representative => representative.Address)
                 .SingleOrDefaultAsync(representative =>
                     !representative.IsDeleted &&
-                    representative.Id == request.ClientRepresentativeId);
+                    representative.Id == request.ClientRepresentativeId,
+                    cancellationToken);
 
             if (clientRepresentative is null)
                 return null;

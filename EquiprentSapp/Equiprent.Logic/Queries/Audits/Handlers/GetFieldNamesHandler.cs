@@ -3,11 +3,12 @@ using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.FieldNames;
 using Equiprent.Logic.Queries.Audits.Requests;
-using static Equiprent.Logic.Infrastructure.CQRS.Queries;
+using MediatR;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Audits.Handlers
 {
-    public class GetFieldNamesHandler : IQueryHandler<GetFieldNamesRequest, FieldNamesResponse>
+    public class GetFieldNamesHandler : IRequestHandler<GetFieldNamesRequest, FieldNamesResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IServiceProvider _serviceProvider;
@@ -20,17 +21,18 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<FieldNamesResponse?> HandleAsync(GetFieldNamesRequest request)
+        public async Task<FieldNamesResponse?> Handle(GetFieldNamesRequest request, CancellationToken cancellationToken)
         {
             return await ListViewResponseBuilder.GetListViewResponseAsync<FieldNamesResponse, AuditListQueryModel, FieldNamesItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: GetAuditFieldNamesQueryUsingRequest(request),
-                _serviceProvider);
+                query: GetAuditFieldNamesQueryWithRequest(request),
+                _serviceProvider,
+                cancellationToken);
         }
 
-        private IQueryable<AuditListQueryModel> GetAuditFieldNamesQueryUsingRequest(GetFieldNamesRequest request)
+        private IQueryable<AuditListQueryModel> GetAuditFieldNamesQueryWithRequest(GetFieldNamesRequest request)
         {
-            return _dbContext!.AuditListItems
+            return _dbContext.AuditListItems
                 .FromSqlRaw(AuditQueries.GetAuditQuery(request.EntityId, request.EntityTableName));
         }
     }

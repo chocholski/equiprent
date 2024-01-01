@@ -1,4 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
+using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
 {
@@ -11,6 +12,6 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
             _dbContext = dbContext;
         }
 
-        public abstract Task MapToResponseAsync(ClientByIdResponse response);
+        public abstract Task MapToResponseAsync(ClientByIdResponse response, CancellationToken cancellationToken = default);
     }
 }

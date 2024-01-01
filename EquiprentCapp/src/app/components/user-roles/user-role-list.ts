@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 import { UserPermissionEnum } from 'src/app/enums/user-permission-enum';
 import { Routes } from 'src/app/routes';
 import { ApiResultEnum } from 'src/app/enums/api-result-enum';
-import { AccessControlComponent } from '../abstract/access-control';
+import { AccessControlComponent } from '../abstract/access-controls/access-control';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 
 @Component({
@@ -94,6 +94,17 @@ export class UserRoleListComponent
       .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
+  handleErrors(withResult: string): string {
+    switch (withResult) {
+      case ApiResultEnum[ApiResultEnum.AssignedRoleDeletionAttempt]:
+      case ApiResultEnum[ApiResultEnum.TheOnlyAssignedRoleDeletionAttempt]:
+        return this.translate.instant('UserRole.AssignedRoleDeletionAttempt');
+
+      default:
+        return this.errorService.getDefaultErrorMessage();
+    }
+  }
+
   public loadUserRolesLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -125,29 +136,21 @@ export class UserRoleListComponent
       .delete<string>(ApiRoutes.userRole.delete(userRole.Id))
       .subscribe({
         next: result => {
-          switch (result) {
-            case ApiResultEnum[ApiResultEnum.OK]:
-              this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Deleted'));
+          if (result === ApiResultEnum[ApiResultEnum.OK]) {
+            this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Deleted'));
 
-              this._dataPopulator.userRoles
-                .get(this.tempLazyLoadEvent)
-                .subscribe(result => this._dataPopulator.userRoles.set(result));
-              break;
-
-            case ApiResultEnum[ApiResultEnum.AssignedRoleDeletionAttempt]:
-            case ApiResultEnum[ApiResultEnum.TheOnlyAssignedRoleDeletionAttempt]:
-              this.dialogMessageService.addError(this.translate.instant('UserRole.AssignedRoleDeletionAttempt'));
-              break;
-
-            default:
-              this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-              break;
+            this._dataPopulator.userRoles
+              .get(this.tempLazyLoadEvent)
+              .subscribe(result => this._dataPopulator.userRoles.set(result));
+          }
+          else {
+            this.dialogMessageService.addError(this.handleErrors(result));
           }
 
           console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('UserRole', result));
         },
-        error: () => {
-          this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+        error: e => {
+          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
         }
       });
   }

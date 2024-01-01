@@ -2,6 +2,7 @@
 using Equiprent.Entities.Business.ClientAddresses;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddressesUpdaters
 {
@@ -11,7 +12,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
         {
         }
 
-        public async override Task<bool> UpdateClientAddressesWithoutTypeChangingRequestAsync(Client client, SaveRequest updatingRequest)
+        public async override Task<bool> UpdateClientAddressesWithoutTypeChangingRequestAsync(Client client, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             var companyClient = (CompanyClient)client;
 
@@ -22,7 +23,8 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
                     .SingleOrDefaultAsync(clientAddress =>
                         !clientAddress.CompanyClient.IsDeleted &&
                         clientAddress.CompanyClientId == companyClient.Id &&
-                        clientAddress.AddressId == addressFromRequest.Id);
+                        clientAddress.AddressId == addressFromRequest.Id,
+                        cancellationToken);
 
                 if (companyClientAddress is null)
                     return false;
@@ -33,11 +35,11 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
             return true;
         }
 
-        public async override Task<bool> UpdateClientAddressesWithTypeChangingRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest)
+        public async override Task<bool> UpdateClientAddressesWithTypeChangingRequestAsync(Client client, Client updatedClient, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             if (client is PrivateClient privateClient)
             {
-                await RemoveOldPrivateClientAddressesAsync(privateClient);
+                await RemoveOldPrivateClientAddressesAsync(privateClient, cancellationToken);
             }
             else
             {
@@ -65,18 +67,18 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
             }
         }
 
-        private async Task RemoveOldPrivateClientAddressesAsync(PrivateClient privateClient)
+        private async Task RemoveOldPrivateClientAddressesAsync(PrivateClient privateClient, CancellationToken cancellationToken = default)
         {
             var clientAddressesToRemove = await _dbContext.PrivateClientAddresses
                 .Where(clientAddress => clientAddress.PrivateClientId == privateClient.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             _dbContext.PrivateClientAddresses.RemoveRange(clientAddressesToRemove);
 
             var addressesToRemoveIds = clientAddressesToRemove
                 .Select(clientAddress => clientAddress.AddressId);
 
-            await RemoveOldAddressesAsync(addressesToRemoveIds);
+            await RemoveOldAddressesAsync(addressesToRemoveIds, cancellationToken);
         }
     }
 }

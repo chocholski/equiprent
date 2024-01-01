@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import { SelectItem } from "primeng/api";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
 import { Address } from "src/app/interfaces/address";
-import { DynamicRequirementFormComponent } from "../abstract/dynamic-requirement-form";
+import { DynamicRequirementFormComponent } from "../abstract/forms/dynamic-requirement-form";
 
 @Component({
   selector: 'address',
@@ -20,9 +20,9 @@ export class AddressComponent
   countries: SelectItem[];
 
   constructor(
-    protected override formBuilder: FormBuilder,
-    private selectOptionsService: SelectOptionsService,
-    public translate: TranslateService
+    protected override readonly formBuilder: FormBuilder,
+    private readonly selectOptionsService: SelectOptionsService,
+    public readonly translate: TranslateService
   ) {
     super(formBuilder);
     this.createForm({

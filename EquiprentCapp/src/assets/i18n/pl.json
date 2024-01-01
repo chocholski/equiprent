@@ -126,6 +126,10 @@
         "FirstName": "Imię",
         "LastName": "Nazwisko",
         "List": "Lista klientów",
+        "Messages": {
+            "NameExists": "Klient o podanej nazwie istnieje już w bazie danych",
+            "NationalIdExists": "Klient o podanym identyfikatorze istnieje już w bazie danych"
+        },
         "Name": "Nazwa",
         "RepresentativesTab": "Przedstawiciele",
         "SelectType": "Wybierz typ",
@@ -262,7 +266,9 @@
         "LastName": "Nazwisko",
         "List": "Lista użytkowników",
         "Login": "Login",
-        "LoginAlreadyExists": "Użytkownik o podanym loginie istnieje już w bazie danych.",
+        "Messages": {
+            "LoginExists": "Użytkownik o podanym loginie istnieje już w bazie danych."
+        },
         "Password": "Hasło",
         "PasswordChange": "Zmiana hasła",
         "Plural": "Użytkownicy",
@@ -284,11 +290,13 @@
         "Deleted": "Rola została usunięta.",
         "Deletion": "Usuwanie",
         "DeletionConfirmation": "Czy na pewno chcesz usunąć rolę",
-        "ExistsInDatabase": "Rola z wprowadzoną nazwą/nazwami istnieje już w bazie danych.",
         "Id": "Id",
         "List": "Lista ról",
+        "Messages": {
+            "ExistsInDatabase": "Rola z wprowadzoną nazwą/nazwami istnieje już w bazie danych.",
+            "NoUserPermissionAssigned": "Roli nie przypisano żadnych uprawnień."
+        },
         "Name": "Nazwa",
-        "NoUserPermissionAssigned": "Roli nie przypisano żadnych uprawnień.",
         "Updated": "Rola została zaktualizowana.",
         "UserRolePicker": "Wybór roli"
     }

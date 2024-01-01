@@ -2,6 +2,7 @@
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Extensions;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
 {
@@ -21,7 +22,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.UpdateStates
             return companyClient;
         }
 
-        public async Task<Client?> UpdateClientWithTypeChangingRequestAsync(Client client, SaveRequest updatingRequest)
+        public async Task<Client?> UpdateClientWithTypeChangingRequestAsync(Client client, SaveRequest updatingRequest, CancellationToken cancellationToken = default)
         {
             CompanyClient companyClient;
 
