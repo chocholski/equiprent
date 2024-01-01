@@ -11,7 +11,6 @@ import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
 import { ApiRoutes } from "src/app/api-routes";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
@@ -25,8 +24,10 @@ import { ClientRepresentativeDetailsComponent } from "./client-representative-de
   templateUrl: "./client-representative-list.html"
 })
 export class ClientRepresentativeListComponent
-  extends AccessControlComponent
+  extends AccessControlComponent<ClientRepresentativeListItemModel>
   implements OnInit, OnDestroy {
+
+  protected override deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
 
   @Input('clientId') clientId: string;
 
@@ -39,8 +40,6 @@ export class ClientRepresentativeListComponent
     }
   };
 
-  public override readonly deletionKey: string = 'deleteClientRepresentative';
-
   private clientRepresentativeCreationDialog: DynamicDialogRef | undefined;
   private tempLazyLoadEvent: LazyLoadEvent;
 
@@ -49,18 +48,35 @@ export class ClientRepresentativeListComponent
   totalRecords: number;
 
   constructor(
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private dialogService: DialogService,
-    private errorService: ErrorService,
-    public filterService: FilterService,
-    private httpClient: HttpClient,
-    private router: Router,
-    public translate: TranslateService
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    private readonly dialogService: DialogService,
+    protected override readonly errorService: ErrorService,
+    public readonly filterService: FilterService,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    public override readonly translate: TranslateService
   ) {
-    super(authorizationService, [UserPermissionEnum.ClientRepresentatives_CanModify]);
+    super(
+      authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteClientRepresentative',
+      ApiRoutes.clientRepresentative.delete,
+      dialogMessageService,
+      'ClientRepresentative',
+      errorService,
+      httpClient,
+      () => {
+        this._dataPopulator.clientRepresentatives
+          .get(this.tempLazyLoadEvent)
+          .subscribe(result => this._dataPopulator.clientRepresentatives.set(result));
+      },
+      router,
+      translate,
+      [UserPermissionEnum.ClientRepresentatives_CanModify]);
   }
 
   ngOnInit() {
@@ -107,10 +123,6 @@ export class ClientRepresentativeListComponent
     }
   }
 
-  handleErrors(withResult: string): string {
-    return this.errorService.getDefaultErrorMessage();
-  }
-
   public loadClientRepresentativesLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -126,42 +138,8 @@ export class ClientRepresentativeListComponent
     this.openClientRepresentativeDialog();
   }
 
-  public onDelete(clientRepresentative: ClientRepresentativeListItemModel) {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('ClientRepresentative.DeletionConfirmation')} ${clientRepresentative.LastName} ${clientRepresentative.FirstName}?`,
-      accept: () => {
-        this.deleteClientRepresentative(clientRepresentative);
-      }
-    });
-  }
-
   public onEdit(clientRepresentative: ClientRepresentativeListItemModel) {
     this.openClientRepresentativeDialog(clientRepresentative);
-  }
-
-  private deleteClientRepresentative(clientRepresentative: ClientRepresentativeListItemModel) {
-    this.httpClient
-      .delete<string>(ApiRoutes.clientRepresentative.delete(clientRepresentative.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('ClientRepresentative.Deleted'));
-
-            this._dataPopulator.clientRepresentatives
-              .get(this.tempLazyLoadEvent)
-              .subscribe(result => this._dataPopulator.clientRepresentatives.set(result));
-          }
-          else {
-            this.dialogMessageService.addError(this.handleErrors(result));
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('ClientRepresentative', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        }
-      });
   }
 
   private getClientRepresentatives(event: LazyLoadEvent) {
@@ -169,6 +147,10 @@ export class ClientRepresentativeListComponent
 
     return this.httpClient
       .get<ClientRepresentativeListModel>(ApiRoutes.clientRepresentative.getAll(event, this.cols, this.clientId));
+  }
+
+  private getEntityInstanceName(clientRepresentative: ClientRepresentativeListItemModel): string {
+    return `${clientRepresentative.LastName} ${clientRepresentative.FirstName}`;
   }
 
   private openClientRepresentativeDialog(clientRepresentative?: ClientRepresentativeListItemModel) {

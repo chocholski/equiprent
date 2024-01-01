@@ -5,7 +5,7 @@ import { Table } from 'primeng/table';
 import { PngTableColumn } from 'src/app/interfaces/png';
 import { UserRoleListItemModel, UserRoleListModel } from 'src/app/interfaces/user-role';
 import { FilterService } from 'src/app/services/filters/filter.service';
-import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
 import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
 import { ApiRoutes } from 'src/app/api-routes';
@@ -24,8 +24,10 @@ import { AuthorizationService } from 'src/app/services/authorization/authorizati
   templateUrl: "./user-role-list.html"
 })
 export class UserRoleListComponent
-  extends AccessControlComponent
+  extends AccessControlComponent<UserRoleListItemModel>
   implements OnInit {
+
+  protected override deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
 
   private readonly _dataPopulator = {
     multiSelects: {
@@ -40,8 +42,6 @@ export class UserRoleListComponent
     }
   };
 
-  public override readonly deletionKey: string = 'deleteUserRole';
-
   private tempLazyLoadEvent: LazyLoadEvent;
 
   cols: PngTableColumn[];
@@ -52,18 +52,35 @@ export class UserRoleListComponent
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    public filterService: FilterService,
-    private httpClient: HttpClient,
-    private router: Router,
-    public selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    public readonly filterService: FilterService,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    public readonly selectOptionsService: SelectOptionsService,
+    public override readonly translate: TranslateService) {
 
-    super(authorizationService, [UserPermissionEnum.UserRoles_CanModify]);
+    super(
+      authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteUserRole',
+      ApiRoutes.userRole.delete,
+      dialogMessageService,
+      'UserRole',
+      errorService,
+      httpClient,
+      () => {
+        this._dataPopulator.userRoles
+          .get(this.tempLazyLoadEvent)
+          .subscribe(result => this._dataPopulator.userRoles.set(result));
+      },
+      router,
+      translate,
+      [UserPermissionEnum.UserRoles_CanModify]);
   }
 
   ngOnInit(): void {
@@ -94,17 +111,6 @@ export class UserRoleListComponent
       .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
-  handleErrors(withResult: string): string {
-    switch (withResult) {
-      case ApiResultEnum[ApiResultEnum.AssignedRoleDeletionAttempt]:
-      case ApiResultEnum[ApiResultEnum.TheOnlyAssignedRoleDeletionAttempt]:
-        return this.translate.instant('UserRole.AssignedRoleDeletionAttempt');
-
-      default:
-        return this.errorService.getDefaultErrorMessage();
-    }
-  }
-
   public loadUserRolesLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -117,42 +123,12 @@ export class UserRoleListComponent
     this.router.navigate([Routes.userRoles.navigations.creation]);
   }
 
-  public onDelete(userRole: UserRoleListItemModel) {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('UserRole.DeletionConfirmation')} '${userRole.Name}'?`,
-      accept: () => {
-        this.deleteUserRole(userRole);
-      }
-    });
-  }
-
   public onEdit(userRole: UserRoleListItemModel) {
     this.router.navigate([Routes.userRoles.navigations.edition(userRole.Id)]);
   }
 
-  private deleteUserRole(userRole: UserRoleListItemModel) {
-    this.httpClient
-      .delete<string>(ApiRoutes.userRole.delete(userRole.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('UserRole.Deleted'));
-
-            this._dataPopulator.userRoles
-              .get(this.tempLazyLoadEvent)
-              .subscribe(result => this._dataPopulator.userRoles.set(result));
-          }
-          else {
-            this.dialogMessageService.addError(this.handleErrors(result));
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('UserRole', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        }
-      });
+  private getEntityInstanceName(userRole: UserRoleListItemModel): string {
+    return userRole.Name;
   }
 
   private getUserRoleMultiSelectData() {

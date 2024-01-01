@@ -3,7 +3,7 @@ import { PngTableColumn } from '../../interfaces/png';
 import { UserListItemModel, UserListModel } from 'src/app/interfaces/user';
 import { Table } from 'primeng/table';
 import { HttpClient } from '@angular/common/http';
-import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { FilterService } from '../../services/filters/filter.service';
 import { SelectOptionsService } from 'src/app/services/select-options/select-options.service';
@@ -15,7 +15,6 @@ import { ErrorService } from 'src/app/services/errors/error.service';
 import { DialogMessageService } from 'src/app/services/messages/dialog-message.service';
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
 import { Routes } from 'src/app/routes';
-import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { AccessControlComponent } from '../abstract/access-controls/access-control';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
 import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
@@ -25,8 +24,10 @@ import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
   templateUrl: "./user-list.html"
 })
 export class UserListComponent
-  extends AccessControlComponent
+  extends AccessControlComponent<UserListItemModel>
   implements OnInit {
+
+  protected override deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
 
   private readonly _dataPopulator = {
     multiSelects: {
@@ -41,8 +42,6 @@ export class UserListComponent
     }
   };
 
-  public override readonly deletionKey: string = 'deleteUser';
-
   private tempLazyLoadEvent: LazyLoadEvent;
 
   cols: PngTableColumn[];
@@ -53,18 +52,35 @@ export class UserListComponent
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    public filterService: FilterService,
-    private httpClient: HttpClient,
-    private router: Router,
-    public selectOptionsService: SelectOptionsService,
-    public translate: TranslateService) {
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    public readonly filterService: FilterService,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    public readonly selectOptionsService: SelectOptionsService,
+    public override readonly translate: TranslateService) {
 
-    super(authorizationService, [UserPermissionEnum.Users_CanModify]);
+    super(
+      authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteUser',
+      ApiRoutes.user.delete,
+      dialogMessageService,
+      'User',
+      errorService,
+      httpClient,
+      () => {
+        this._dataPopulator.users
+          .get(this.tempLazyLoadEvent)
+          .subscribe(result => this._dataPopulator.users.set(result));
+      },
+      router,
+      translate,
+      [UserPermissionEnum.Users_CanModify]);
   }
 
   ngOnInit() {
@@ -115,10 +131,6 @@ export class UserListComponent
       .subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
   }
 
-  handleErrors(withError: string): string {
-    return this.errorService.getDefaultErrorMessage();
-  }
-
   public loadUsersLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
 
@@ -131,42 +143,15 @@ export class UserListComponent
     this.router.navigate([Routes.users.navigations.creation]);
   }
 
-  public onDelete(user: UserListItemModel) {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('User.DeletionConfirmation')} '${new StringBuilder(user.LastName).append(' ').append(user.FirstName).toString()}'?`,
-      accept: () => {
-        this.deleteUser(user);
-      }
-    });
-  }
-
   public onEdit(user: UserListItemModel) {
     this.router.navigate([Routes.users.navigations.edition(user.Id)]);
   }
 
-  private deleteUser(user: UserListItemModel) {
-    this.httpClient
-      .delete<string>(ApiRoutes.user.delete(user.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('User.Deleted'));
-
-            this._dataPopulator.users
-              .get(this.tempLazyLoadEvent)
-              .subscribe(result => this._dataPopulator.users.set(result));
-          }
-          else {
-            this.dialogMessageService.addError(this.handleErrors(result));
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('User', result));
-        },
-        error: e => {
-          this.dialogMessageService.addError(this.errorService.getFirstTranslatedErrorMessage(e));
-        }
-      });
+  private getEntityInstanceName(user: UserListItemModel): string {
+    return new StringBuilder(user.LastName)
+      .append(' ')
+      .append(user.FirstName)
+      .toString();
   }
 
   private getUserRoleMultiSelectData() {

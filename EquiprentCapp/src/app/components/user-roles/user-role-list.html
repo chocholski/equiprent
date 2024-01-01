@@ -19,7 +19,7 @@
               <div class="grid formgrid">
                 <div class="col-12 mb-2 lg:col-4 lg:mb-0">
                   <span class="p-input-icon-right">
-                    <i *ngIf="!filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                    <i *ngIf="filter.value && !filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
                     <input type="text" pInputText #filter id="filter"
                       (input)="filterService.onFilterGlobal(dataTable, filter.value)"
                       [placeholder]="translate.instant('General.SearchKeyword')" />

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccessControlComponent } from '../abstract/access-controls/access-control';
-import { Confirmation, ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { PngTableColumn } from 'src/app/interfaces/png';
 import { Table } from 'primeng/table';
 import { AuthorizationService } from 'src/app/services/authorization/authorization.service';
@@ -11,7 +11,6 @@ import { Routes } from 'src/app/routes';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiRoutes } from 'src/app/api-routes';
-import { ApiResultEnum } from 'src/app/enums/api-result-enum';
 import { DialogMessageService } from 'src/app/services/messages/dialog-message.service';
 import { ErrorService } from 'src/app/services/errors/error.service';
 import { ConsoleMessageService } from 'src/app/services/messages/console-message.service';
@@ -24,8 +23,10 @@ import { FilterTypeEnum } from 'src/app/enums/filter-type-enum';
   templateUrl: "./client-list.html"
 })
 export class ClientListComponent
-  extends AccessControlComponent
+  extends AccessControlComponent<ClientListItemModel>
   implements OnInit {
+
+  protected override deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
 
   private readonly _dataPopulator = {
     multiSelects: {
@@ -40,8 +41,6 @@ export class ClientListComponent
     }
   };
 
-  public override readonly deletionKey: string = 'deleteClient';
-
   private tempLazyLoadEvent: LazyLoadEvent;
 
   clients: ClientListItemModel[];
@@ -52,18 +51,35 @@ export class ClientListComponent
   @ViewChild('dataTable') dataTable: Table;
 
   constructor(
-    protected override authorizationService: AuthorizationService,
-    private confirmationService: ConfirmationService,
-    private consoleMessageService: ConsoleMessageService,
-    private dialogMessageService: DialogMessageService,
-    private errorService: ErrorService,
-    public filterService: FilterService,
-    private httpClient: HttpClient,
-    private router: Router,
-    private selectOptionService: SelectOptionsService,
-    public translate: TranslateService
+    protected override readonly authorizationService: AuthorizationService,
+    protected override readonly confirmationService: ConfirmationService,
+    protected override readonly consoleMessageService: ConsoleMessageService,
+    protected override readonly dialogMessageService: DialogMessageService,
+    protected override readonly errorService: ErrorService,
+    public readonly filterService: FilterService,
+    protected override readonly httpClient: HttpClient,
+    protected override readonly router: Router,
+    private readonly selectOptionService: SelectOptionsService,
+    public override readonly translate: TranslateService
   ) {
-    super(authorizationService, [UserPermissionEnum.Clients_CanModify]);
+    super(
+      authorizationService,
+      confirmationService,
+      consoleMessageService,
+      'deleteClient',
+      ApiRoutes.client.delete,
+      dialogMessageService,
+      'Client',
+      errorService,
+      httpClient,
+      () => {
+        this._dataPopulator.clients
+          .get(this.tempLazyLoadEvent)
+          .subscribe(result => this._dataPopulator.clients.set(result));
+      },
+      router,
+      translate,
+      [UserPermissionEnum.Clients_CanModify]);
   }
 
   ngOnInit() {
@@ -119,42 +135,8 @@ export class ClientListComponent
     this.router.navigate([Routes.clients.navigations.creation]);
   }
 
-  public onDelete(client: ClientListItemModel) {
-    this.confirmationService.confirm(<Confirmation>{
-      key: this.deletionKey,
-      message: `${this.translate.instant('Client.DeletionConfirmation')} ${client.Name}?`,
-      accept: () => {
-        this.deleteClient(client);
-      }
-    });
-  }
-
   public onEdit(client: ClientListItemModel) {
     this.router.navigate([Routes.clients.navigations.edition(client.Id)]);
-  }
-
-  private deleteClient(client: ClientListItemModel) {
-    this.httpClient
-      .delete<string>(ApiRoutes.client.delete(client.Id))
-      .subscribe({
-        next: result => {
-          if (result === ApiResultEnum[ApiResultEnum.OK]) {
-            this.dialogMessageService.addSuccess(this.translate.instant('Client.Deleted'));
-
-            this._dataPopulator.clients
-              .get(this.tempLazyLoadEvent)
-              .subscribe(result => this._dataPopulator.clients.set(result));
-          }
-          else {
-            this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-          }
-
-          console.log(this.consoleMessageService.getConsoleMessageWithResultForEntityAfterDeletion('Client', result));
-        },
-        error: () => {
-          this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-        }
-      });
   }
 
   private getClients(event: LazyLoadEvent) {
@@ -166,6 +148,10 @@ export class ClientListComponent
 
   private getClientTypeMultiSelectData() {
     return this.selectOptionService.getClientTypes();
+  }
+
+  private getEntityInstanceName(client: ClientListItemModel): string {
+    return client.Name;
   }
 
   private setClientTypeMultiSelectData(clientTypes: SelectItem[]) {
