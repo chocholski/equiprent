@@ -38,5 +38,13 @@
         /// Client representatives - modifying
         /// </summary>
         ClientRepresentatives_CanModify = 8,
+        /// <summary>
+        /// Equipments - listing
+        /// </summary>
+        Equipments_CanList = 9,
+        /// <summary>
+        /// Equipments - modifying
+        /// </summary>
+        Equipments_CanModify = 10,
     }
 }

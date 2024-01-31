@@ -6,6 +6,7 @@ using Equiprent.Web.Contracts;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
 using Equiprent.Entities.Business.CountryToLanguages;
+using Equiprent.Entities.Business.EquipmentTypeToLanguages;
 
 namespace Equiprent.Web.Controllers
 {
@@ -26,7 +27,6 @@ namespace Equiprent.Web.Controllers
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientTypesSelectOptions()
         {
             var clientTypesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<ClientTypeToLanguage>();
-
             var model = clientTypesTranslations
                 .Select(clientTypeIdWithName => new SelectListItemModel
                 {
@@ -47,6 +47,21 @@ namespace Equiprent.Web.Controllers
                 {
                     Value = c.Id.ToString(),
                     Name = c.Name
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [HttpGet(ApiRoutes.SelectOptions.EquipmentTypes)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetEquipmentTypesSelectOptions()
+        {
+            var equipmentTypesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<EquipmentTypeToLanguage>();
+            var model = equipmentTypesTranslations
+                .Select(type => new SelectListItemModel
+                {
+                    Value = type.Id.ToString(),
+                    Name = type.Name
                 })
                 .ToList();
 
