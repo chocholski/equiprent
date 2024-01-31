@@ -19,11 +19,14 @@ namespace Equiprent.Data.DbContext
         public DbSet<CompanyClient> CompanyClients { get; set; } = null!;
         public DbSet<ClientType> ClientTypes { get; set; } = null!;
         public DbSet<ClientTypeToLanguage> ClientTypeToLanguages { get; set; } = null!;
+        public DbSet<LeaseRental> LeaseRentals { get; set; } = null!;
         public DbSet<PrivateClientAddress> PrivateClientAddresses { get; set; } = null!;
         public DbSet<PrivateClient> PrivateClients { get; set; } = null!;
         public DbSet<RentalCategory> RentalCategories { get; set; } = null!;
-        public DbSet<RentalCategoryToLanguage> RentalCategoriesToLanguages { get; set; } = null!;
+        public DbSet<RentalCategoryToLanguage> RentalCategoryToLanguages { get; set; } = null!;
         public DbSet<Rental> Rentals { get; set; } = null!;
+        public DbSet<RentToOwnRental> RentToOwnRentals { get; set; } = null!;
         public DbSet<Representative> Representatives { get; set; } = null!;
+        public DbSet<SubleaseRental> SubleaseRentals { get; set; } = null!;
     }
 }

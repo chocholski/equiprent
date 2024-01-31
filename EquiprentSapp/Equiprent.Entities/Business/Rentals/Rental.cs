@@ -1,19 +1,27 @@
 ﻿using Equiprent.Entities.Application.Users;
+using Equiprent.Entities.Business.Clients;
+using Equiprent.Entities.Business.RentalCategories;
 
 namespace Equiprent.Entities.Business.Rentals
 {
-    public partial class Rental
+    public abstract partial class Rental
     {
-        public DateTime? ExpectedStart { get; set; }
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
+        public virtual RentalCategory Category { get; set; } = null!;
 
         [Key]
         public Guid Id { get; set; }
 
-        public bool IsComingFromExternalSource { get; set; }
-
         public string Number { get; set; } = null!;
 
-        public DateTime? Start { get; set; }
+        [ForeignKey(nameof(Renter))]
+        public Guid RenterId { get; set; }
+        public virtual Client Renter { get; set; } = null!;
+
+        [ForeignKey(nameof(Rentier))]
+        public Guid RentierId { get; set; }
+        public virtual Client Rentier { get; set; } = null!;
 
         [ForeignKey(nameof(UserResponsibleForHandling))]
         public Guid? UserResponsibleForHandlingId { get; set; }
