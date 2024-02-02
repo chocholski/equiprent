@@ -61,7 +61,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
 
             clientRepresentativeAddress.ApartmentNumber = request.Address.ApartmentNumber;
             clientRepresentativeAddress.City = request.Address.City;
-            clientRepresentativeAddress.CountryId = request.Address.CountryId;
+            clientRepresentativeAddress.CountryId = request.Address.Country.Id;
             clientRepresentativeAddress.Email = request.Address.Email;
             clientRepresentativeAddress.PhoneNumber = request.Address.PhoneNumber;
             clientRepresentativeAddress.PostalCode = request.Address.PostalCode;

@@ -42,6 +42,7 @@ import { CompanyClientAddressComponent } from './components/addresses/company-cl
 import { DeletionDialogComponent } from './components/dialogs/deletion-dialog';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
+import { ManufacturerListComponent } from './components/manufacturers/manufacturer-list';
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages';
 import { PrivateClientAddressComponent } from './components/addresses/private-client-address';
 import { PrivateClientComponent } from './components/clients/private-client';
@@ -96,6 +97,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         DeletionDialogComponent,
         LoginComponent,
         LoginResetPasswordComponent,
+        ManufacturerListComponent,
         NameInLanguagesComponent,
         PrivateClientAddressComponent,
         PrivateClientComponent,

@@ -46,7 +46,7 @@ export class AddressComponent
       this.updateForm({
         ApartmentNumber: this.entityAddress.ApartmentNumber,
         City: this.entityAddress.City,
-        CountryId: this.entityAddress.CountryId,
+        CountryId: this.entityAddress.Country.Id,
         Email: this.entityAddress.Email,
         Id: this.entityAddress.Id,
         PhoneNumber: this.entityAddress.PhoneNumber,

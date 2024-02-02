@@ -1,6 +1,18 @@
 {
-    "AppName": "Equiprent",
     "primeng": {
+        "accept": "Accept",
+        "addRule": "Add rule",
+        "after": "After",
+        "apply": "Apply",
+        "before": "Before",
+        "cancel": "Cancel",
+        "choose": "Choose",
+        "contains": "Contains",
+        "clear": "Clear",
+        "dateIs": "Date is",
+        "dateIsAfter": "Date is after",
+        "dateIsBefore": "Date is before",
+        "dateIsNot": "Date is not",
         "dayNames": [
             "Sunday",
             "Monday",
@@ -28,6 +40,19 @@
             "Fr",
             "Sa"
         ],
+        "emptyFilterMessage": "No results found",
+        "emptyMessage": "No results found",
+        "endsWith": "Ends with",
+        "equals": "Equals",
+        "gt": "Greater than",
+        "gte": "Greater than or equal to",
+        "is": "Is",
+        "isNot": "Is not",
+        "lt": "Less than",
+        "lte": "Less than or equal to",
+        "matchAll": "Match all",
+        "matchAny": "Match any",
+        "medium": "Medium",
         "monthNames": [
             "January",
             "February",
@@ -56,54 +81,223 @@
             "Nov",
             "Dec"
         ],
+        "noFilter": "No filter",
+        "notContains": "Not contains",
+        "notEquals": "Not equals",
+        "passwordPrompt": "Enter a password",
+        "reject": "Reject",
+        "removeRule": "Remove rule",
+        "startsWith": "Starts with",
+        "strong": "Strong",
         "today": "Today",
-        "clear": "Clear",
+        "upload": "Upload",
+        "weak": "Weak",
         "weekHeader": "Wk"
     },
-    "General": {
-        "Yes": "Yes",
-        "No": "No",
-        "Create": "Create",
+    "AppName": "Equiprent",
+    "Address": {
+        "ApartmentNumber": "Apartment number",
+        "City": "City",
+        "Country": "Country",
+        "Email": "Email",
+        "PhoneNumber": "Phone number",
+        "PostalCode": "Postal code",
+        "SelectCountry": "Select country",
+        "StreetName": "Street name",
+        "StreetNumber": "Street number"
+    },
+    "Audit": {
+        "CreatedOn": "Created on",
+        "FieldName": "Field name",
+        "History": "History",
+        "NewValue": "New value",
+        "OldValue": "Old value",
+        "UserName": "User name"
+    },
+    "Client": {
+        "ClientTypePicker": "Type picker",
+        "Create": "Client creation",
+        "Created": "The client has been created.",
+        "CreatedOn": "Created on",
+        "Deleted": "The client has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete client",
         "Edit": "Edit",
-        "Save": "Save",
-        "Delete": "Delete",
-        "Cancel": "Cancel",
-        "ClearFilters": "Clear filters",
-        "GeneralTab": "General information",
-        "Choose": "Choose",
-        "All": "-- All --",
-        "Add": "Add",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "List": "Clients list",
+        "Messages": {
+            "NameExists": "The client with a given name already exists in the database",
+            "NationalIdExists": "The client with a given national id already exists in the database"
+        },
         "Name": "Name",
-        "Empty": "-- Empty --",
-        "Unassigned": "-- Unassigned --",
-        "File": "File",
-        "Details": "Details",
-        "Filters": "Filters",
-        "Legend": "Legend",
-        "Erase": "Erase",
+        "RepresentativesTab": "Representatives",
+        "SelectType": "Select type",
+        "Type": "Type",
+        "TypeName": "Type",
+        "Updated": "The client has been updated."
+    },
+    "ClientRepresentative": {
+        "Create": "Client representative creation",
+        "Created": "The client representative has been created.",
+        "Deleted": "The client representative has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete client representative",
+        "Email": "Email",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "List": "Client representatives list",
+        "Messages": {
+            "RepresentativeExists": "The representative with the data provided already exists for the client."
+        },
+        "PhoneNumber": "Phone number",
+        "Updated": "The client representative has been updated."
+    },
+    "CompanyClientAddress": {
+        "NationalCompanyId": "National company identification"
+    },
+    "General": {
+        "Add": "Add",
+        "All": "-- All --",
+        "Cancel": "Cancel",
         "CannotDownloadFile": "The file cannot be downloaded.",
+        "Choose": "Choose",
+        "Clear": "Clear",
+        "ClearFilters": "Clear filters",
+        "Create": "Create",
+        "Dashboard": "Dashboard",
+        "DarkMode": "Dark mode",
+        "Delete": "Delete",
+        "Details": "Details",
+        "Edit": "Edit",
+        "Empty": "-- Empty --",
+        "Erase": "Erase",
+        "Error": {
+            "Global": "Error",
+            "HasIncorrectLength": "has an incorrect length. The length should be between {minLength} and {maxLength}",
+            "IsEmpty": "should not be empty",
+            "IsNotMatchingAllowedLetters": "is containing unallowed characters",
+            "IsNotMatchingSmallLetters": "should be written in small letters only",
+            "IsNotValidEmail": "is not a valid email address"
+        },
+        "Field": "Field",
+        "File": "File",
+        "Filters": "Filters",
+        "ForgotPassword": "Forgot password",
+        "GeneralTab": "General information",
+        "Legend": "Legend",
         "Loading": "Loading...",
-        "Error": "Error",
-        "Welcome": "Welcome",
+        "LogOut": "Log out",
+        "Name": "Name",
+        "No": "No",
+        "Profile": "Profile",
+        "RememberMe": "Remember me",
+        "Save": "Save",
+        "SearchFor": "Search for",
+        "SearchKeyword": "Search by keyword",
+        "Send": "Send",
         "SignIn": "Sign in",
         "SignInToContinue": "Sign in to continue",
-        "RememberMe": "Remember me",
-        "ForgotPassword": "Forgot password"
+        "Unassigned": "-- Unassigned --",
+        "Welcome": "Welcome",
+        "Yes": "Yes"
     },
-    "Messages": {
-        "EnterLoginFirst": "Please enter login first.",
-        "AccountIsNotActive": "The account is not active.",
-        "PleaseContactAdmin": "Please contact the administrator of the application.",
-        "InvalidLoginData": "Invalid login data."
+    "Language": {
+        "Plural": "Languages"
     },
     "Menu": {
-        "Title": "Menu",
         "Administration": "Administration",
-        "Users": "Users",
-        "UserRoles": "Roles"
+        "Clients": "Clients",
+        "Title": "Menu",
+        "UserRoles": "Roles",
+        "Users": "Users"
+    },
+    "Messages": {
+        "AccountIsNotActive": "The account is not active.",
+        "CantChangeUserPassword": "Cannot change user password.",
+        "EnterEmailFirst": "Please enter email first.",
+        "EnterLoginFirst": "Please enter login first.",
+        "FieldInvalid": "Field has an invalid value.",
+        "FieldMustContainCharacters": "Field must contain {{numberOfCharacters}} characters, min. one special character and number.",
+        "FieldRequired": "The field is required.",
+        "InvalidLoginData": "Invalid login data.",
+        "PleaseContactAdmin": "Please contact the administrator of the application.",
+        "ProvidedEmailDoesNotExist": "The email provided does not exist.",
+        "TheValueOfTheField": "The value of the field"
+    },
+    "Permissions": {
+        "Client": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "ClientRepresentative": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "User": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "UserRole": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
+        "Clients": "Clients",
+        "ClientRepresentatives": "Client representatives",
+        "UserRoles": "Roles",
+        "Users": "Users"
+    },
+    "PrivateClientAddress": {
+        "NationalCitizenId": "National citizen identification"
     },
     "User": {
+        "Create": "User creation",
+        "Created": "The user has been created.",
+        "CreatedOn": "Creation date",
+        "Deleted": "The user has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete user",
+        "Edit": "User edition",
+        "Email": "Email",
+        "FirstName": "First name",
+        "IsActive": "Is active",
+        "Language": "Language",
+        "LanguageId": "Language",
+        "LastName": "Last name",
+        "List": "Users list",
         "Login": "Login",
-        "Password": "Password"
+        "Messages": {
+            "LoginExists": "The user with login provided already exists in the database."
+        },
+        "Password": "Password",
+        "PasswordChange": "Password change",
+        "Plural": "Users",
+        "SelectLanguage": "Select language",
+        "SelectUserRole": "Select user role",
+        "Updated": "The user has been updated.",
+        "UserRole": "Role",
+        "UserRoleId": "Role",
+        "UserRoleName": "Role",
+        "UserRolePicker": "Role picker"
+    },
+    "UserPermission": {
+        "Name": "Permissions"
+    },
+    "UserRole": {
+        "AssignedRoleDeletionAttempt": "There is a user who has current role assigned.",
+        "Create": "User role creation",
+        "Created": "The role has been created.",
+        "Deleted": "The role has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete user role",
+        "Id": "Id",
+        "List": "Roles",
+        "Messages": {
+            "ExistsInDatabase": "User role with name/names provided already exists in the database.",
+            "NoUserPermissionAssigned": "No permissions assigned to the role."
+        },
+        "Name": "Name",
+        "Updated": "The role has been updated.",
+        "UserRolePicker": "Role picker"
     }
 }

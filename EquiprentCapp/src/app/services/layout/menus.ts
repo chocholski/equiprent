@@ -18,6 +18,10 @@ export const Menus = {
       clients: {
         label: 'Menu.Clients',
         icon: 'fa fa-solid fa-face-smile'
+      },
+      manufacturers: {
+        label: 'Menu.Manufacturers',
+        icon: 'fa fa-solid fa-industry'
       }
     }
   }

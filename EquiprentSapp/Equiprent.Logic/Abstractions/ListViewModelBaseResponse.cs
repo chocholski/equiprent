@@ -32,7 +32,6 @@ namespace Equiprent.Logic.Abstractions
         public async Task FetchAsync(CancellationToken cancellationToken = default)
         {
             var list = await GetFetchedQueryAsync(cancellationToken);
-
             if (list is null)
                 return;
 
@@ -45,7 +44,7 @@ namespace Equiprent.Logic.Abstractions
                 }
             }
 
-            TotalRowsCount = await (await GetTotalRowsQueryAsync(cancellationToken)).CountAsync();
+            TotalRowsCount = await (await GetTotalRowsQueryAsync(cancellationToken)).CountAsync(cancellationToken: cancellationToken);
         }
 
         protected abstract Task<TEntityItemViewModel> MapEntityToViewModelAsync(TEntity entity, CancellationToken cancellationToken = default);
@@ -53,17 +52,15 @@ namespace Equiprent.Logic.Abstractions
         private async Task<List<TEntity>?> GetFetchedQueryAsync(CancellationToken cancellationToken = default)
         {
             var sortColumnName = GetSortColumnName();
-
             if (sortColumnName is null)
                 return null;
 
             var dbStatementBuilder = _serviceProvider.GetService<IDbStatementBuilder>();
-
             if (dbStatementBuilder is null)
                 return null;
 
             return await _query
-                .Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria))
+                .Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria, cancellationToken))
                 .OrderBy(dbStatementBuilder.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
                 .Skip(_requestParameters.StartRow)
                 .Take(_requestParameters.PageCount)

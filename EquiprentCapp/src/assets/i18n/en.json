@@ -205,9 +205,17 @@
     "Language": {
         "Plural": "Languages"
     },
+    "Manufacturer": {
+        "List": "Manufacturers list",
+        "Name": "Name",
+        "IsOperational": "Is operational",
+        "NationalId": "National identification",
+        "AddressSummary": "Address"
+    },
     "Menu": {
         "Administration": "Administration",
         "Clients": "Clients",
+        "Manufacturers": "Manufacturers",
         "Title": "Menu",
         "UserRoles": "Roles",
         "Users": "Users"
@@ -234,6 +242,10 @@
             "CanList": "Can list",
             "CanModify": "Can modify"
         },
+        "Manufacturer": {
+            "CanList": "Can list",
+            "CanModify": "Can modify"
+        },
         "User": {
             "CanList": "Can list",
             "CanModify": "Can modify"
@@ -244,6 +256,7 @@
         },
         "Clients": "Clients",
         "ClientRepresentatives": "Client representatives",
+        "Manufacturers": "Manufacturers",
         "UserRoles": "Roles",
         "Users": "Users"
     },

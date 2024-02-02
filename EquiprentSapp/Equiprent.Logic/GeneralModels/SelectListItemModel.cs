@@ -1,7 +1,7 @@
 ﻿using Equiprent.Logic.Attributes;
 
-namespace Equiprent.Logic.QueryData.UIModels
-{   
+namespace Equiprent.Logic.GeneralModels
+{
     public class SelectListItemModel
     {
         public bool IsSelected { get; set; }

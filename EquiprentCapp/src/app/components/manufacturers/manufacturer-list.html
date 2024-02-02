@@ -1,0 +1,85 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <div class="col-12">
+        <div class="flex flex-column md:flex-row">
+          <button *ngIf="hasAccessToButtons" pButton [label]="translate.instant('General.Create')"
+            class="p-button-outlined ml-auto" icon="fa fa-industry" (click)="onCreate()"></button>
+        </div>
+      </div>
+      <div class="col-12">
+        <p-table #dataTable [value]="manufacturers" [columns]="cols" dataKey="Id" sortField="Name" [lazy]="true"
+          (onLazyLoad)="loadManufacturersLazy($event)" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+          [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+          responsiveLayout="scroll">
+          <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+              <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
+                icon="pi pi-filter-slash" (click)="filterService.onClearFilters(dataTable)"></button>
+              <div class="grid formgrid">
+                <div class="col-12 mb-2 lg:col-4 lg:mb-0 mt-2">
+                  <span class="p-input-icon-right">
+                    <i *ngIf="filter.value && !filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                    <input type="text" pInputText #filter id="filter"
+                      (input)="filterService.onFilterGlobal(dataTable, filter.value)"
+                      [placeholder]="translate.instant('General.SearchKeyword')" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
+                <div class="flex justify-content-between align-items-center">
+                  {{ col.header | translate }}
+                  <p-columnFilter *ngSwitchCase="'Name'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="Name">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'IsOperational'" type="boolean" display="menu" field="IsOperational">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'NationalId'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="NationalId">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'AddressSummary'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="AddressSummary">
+                  </p-columnFilter>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-manufacturer let-columns="columns">
+            <tr>
+              <td>
+                {{manufacturer.Name}}
+              </td>
+              <td>
+                <input type="checkbox" [checked]="manufacturer.IsOperational" disabled />
+              </td>
+              <td>
+                {{manufacturer.NationalId}}
+              </td>
+              <td>
+                {{manufacturer.AddressSummary}}
+              </td>
+              <td class="items-centered gap-2">
+                <button *ngIf="hasAccessToButtons" pButton pRipple class="p-button-raised" type="button"
+                  [class]="hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'"
+                  icon="pi pi-pencil" [label]="translate.instant(onEditLabelId)"
+                  (click)="onEdit(manufacturer)"></button>
+                <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
+                  [label]="translate.instant(onDeleteLabelId)" class="p-button-raised p-button-danger"
+                  (click)="onDelete(manufacturer)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
+  </div>
+</div>
+<router-outlet></router-outlet>

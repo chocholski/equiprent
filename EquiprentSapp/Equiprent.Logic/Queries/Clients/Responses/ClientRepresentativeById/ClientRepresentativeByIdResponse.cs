@@ -1,4 +1,4 @@
-﻿using Equiprent.Logic.Commands.Addresses.Models;
+﻿using Equiprent.Logic.GeneralModels;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById
 {

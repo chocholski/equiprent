@@ -1,4 +1,4 @@
-﻿namespace Equiprent.Logic.Commands.Addresses.Models
+﻿namespace Equiprent.Logic.GeneralModels
 {
     public class ClientAddressModel : AddressModel
     {

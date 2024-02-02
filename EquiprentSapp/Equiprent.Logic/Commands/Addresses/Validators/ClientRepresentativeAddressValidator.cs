@@ -1,5 +1,5 @@
 ﻿using Equiprent.Entities.Business.ClientRepresentatives;
-using Equiprent.Logic.Commands.Addresses.Models;
+using Equiprent.Logic.GeneralModels;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;
 

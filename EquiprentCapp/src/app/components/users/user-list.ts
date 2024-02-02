@@ -61,8 +61,8 @@ export class UserListComponent
     protected override readonly httpClient: HttpClient,
     protected override readonly router: Router,
     public readonly selectOptionsService: SelectOptionsService,
-    public override readonly translate: TranslateService) {
-
+    public override readonly translate: TranslateService
+  ) {
     super(
       authorizationService,
       confirmationService,
@@ -133,7 +133,6 @@ export class UserListComponent
 
   public loadUsersLazy(event: LazyLoadEvent) {
     this.tempLazyLoadEvent = event;
-
     this._dataPopulator.users
       .get(event)
       .subscribe(result => this._dataPopulator.users.set(result));

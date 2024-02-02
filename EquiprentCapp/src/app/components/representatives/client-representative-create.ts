@@ -3,7 +3,7 @@ import { AddressComponent } from "../addresses/address";
 import { FormBuilder, Validators } from "@angular/forms";
 import { Routes } from "src/app/routes";
 import { Router } from "@angular/router";
-import { Address, addressFormFields } from "src/app/interfaces/address";
+import { Address, Country, addressFormFields } from "src/app/interfaces/address";
 import { ClientRepresentativeDialogConfigData, ClientRepresentativeCreationModel } from "src/app/interfaces/client";
 import { TranslateService } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
@@ -95,7 +95,9 @@ export class ClientRepresentativeCreationComponent
     const clientRepresentativeAddress = <Address>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
-      CountryId: this.addressForm.form.value.CountryId,
+      Country: <Country>{
+        Id: this.addressForm.form.value.CountryId
+      },
       Email: this.addressForm.form.value.Email,
       PhoneNumber: this.addressForm.form.value.PhoneNumber,
       PostalCode: this.addressForm.form.value.PostalCode,

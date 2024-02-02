@@ -46,5 +46,13 @@
         /// Equipments - modifying
         /// </summary>
         Equipments_CanModify = 10,
+        /// <summary>
+        /// Manufacturers - listing
+        /// </summary>
+        Manufacturers_CanList = 11,
+        /// <summary>
+        /// Manufacturers - modifying
+        /// </summary>
+        Manufacturers_CanModify = 12,
     }
 }

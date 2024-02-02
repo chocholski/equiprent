@@ -15,6 +15,7 @@ import { UserRoleDetailsComponent } from './components/user-roles/user-role-deta
 import { ClientListComponent } from './components/clients/client-list';
 import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientDetailsComponent } from './components/clients/client-details';
+import { ManufacturerListComponent } from './components/manufacturers/manufacturer-list';
 
 @NgModule({
     imports: [
@@ -58,6 +59,25 @@ import { ClientDetailsComponent } from './components/clients/client-details';
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Clients_CanModify],
                                     breadcrumb: Routes.clients.breadcrumbs.edition
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: Routes.manufacturers.paths.list,
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.Manufacturers_CanList],
+                            breadcrumb: Routes.manufacturers.breadcrumbs.list
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: ManufacturerListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Manufacturers_CanList],
+                                    breadcrumb: null
                                 }
                             }
                         ]

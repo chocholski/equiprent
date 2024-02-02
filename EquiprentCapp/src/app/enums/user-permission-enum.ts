@@ -8,4 +8,6 @@ export enum UserPermissionEnum {
   Clients_CanModify = 6,
   ClientRepresentatives_CanList = 7,
   ClientRepresentatives_CanModify = 8,
+  Manufacturers_CanList = 11,
+  Manufacturers_CanModify = 12,
 }

@@ -26,17 +26,8 @@ export class MenuService {
   }
 
   private getFirstMenuItemUserIsAuthorizedFor(): Menu | undefined {
-
-    let firstMenuUserIsAuthorizedFor: Menu | undefined;
-
-    for (const menu of this.menu) {
-      for (const menuItem of menu.Items || []) {
-        if (this.authorizationService.isAuthorized(menuItem.Permissions)) {
-          firstMenuUserIsAuthorizedFor = menu;
-          break;
-        }
-      }
-    }
+    const firstMenuUserIsAuthorizedFor = this.menu.find(menu =>
+      (menu.Items || []).some(menuItem => this.authorizationService.isAuthorized(menuItem.Permissions)));
 
     return firstMenuUserIsAuthorizedFor;
   }
@@ -71,6 +62,16 @@ export class MenuService {
       Label: Menus.main.items.clients.label,
       Icon: Menus.main.items.clients.icon,
       RouterLink: [`/${Routes.clients.navigations.list}`]
+    });
+
+    //MANUFACTURERS
+    mainMenuItems?.push(<Menu>{
+      Permissions: [
+        UserPermissionEnum.Manufacturers_CanList
+      ],
+      Label: Menus.main.items.manufacturers.label,
+      Icon: Menus.main.items.manufacturers.icon,
+      RouterLink: [`/${Routes.manufacturers.navigations.list}`]
     });
 
     const administrationItems = this.getAdministrationItems();

@@ -1,5 +1,4 @@
-﻿using Equiprent.Logic.QueryData.UIModels;
-using Equiprent.ApplicationInterfaces.Languageables;
+﻿using Equiprent.ApplicationInterfaces.Languageables;
 using Equiprent.Entities.Enums;
 using Equiprent.Data.DbContext;
 using Equiprent.Web.Contracts;
@@ -7,6 +6,7 @@ using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
 using Equiprent.Entities.Business.CountryToLanguages;
 using Equiprent.Entities.Business.EquipmentTypeToLanguages;
+using Equiprent.Logic.GeneralModels;
 
 namespace Equiprent.Web.Controllers
 {

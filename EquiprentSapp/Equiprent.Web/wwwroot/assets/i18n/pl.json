@@ -1,6 +1,18 @@
 {
-    "AppName": "Equiprent",
     "primeng": {
+        "accept": "Zaakceptuj",
+        "addRule": "Dodaj regułę",
+        "after": "Po",
+        "apply": "Zastosuj",
+        "before": "Przed",
+        "cancel": "Wróć",
+        "choose": "Wybierz",
+        "contains": "Zawiera",
+        "clear": "Wyczyść",
+        "dateIs": "Równe",
+        "dateIsAfter": "Po",
+        "dateIsBefore": "Przed",
+        "dateIsNot": "Nie równe",
         "dayNames": [
             "Niedziela",
             "Poniedziałek",
@@ -28,6 +40,19 @@
             "Pi",
             "So"
         ],
+        "emptyFilterMessage": "Nie znaleziono wyników",
+        "emptyMessage": "Nie znaleziono wyników",
+        "endsWith": "Kończy się na",
+        "equals": "Równe",
+        "gt": "Większe niż",
+        "gte": "Większe niż lub równe",
+        "is": "Równe",
+        "isNot": "Nie równe",
+        "lt": "Mniejsze niż",
+        "lte": "Mniejsze niż lub równe",
+        "matchAll": "Dopasuj całość",
+        "matchAny": "Dopasuj dowolny",
+        "medium": "Średnie",
         "monthNames": [
             "Styczeń",
             "Luty",
@@ -56,54 +81,223 @@
             "Lis",
             "Gru"
         ],
+        "noFilter": "Bez filtrowania",
+        "notContains": "Nie zawiera",
+        "notEquals": "Nie równe",
+        "passwordPrompt": "Wpisz hasło",
+        "reject": "Odrzuć",
+        "removeRule": "Usuń regułę",
+        "startsWith": "Zaczyna się na",
+        "strong": "Mocne",
         "today": "Dzisiaj",
-        "clear": "Wyczyść",
-        "weekHeader": "Ty"
+        "upload": "Wgraj",
+        "weak": "Słabe",
+        "weekHeader": "Tydz"
+    },
+    "AppName": "Equiprent",
+    "Address": {
+        "ApartmentNumber": "Numer mieszkania",
+        "City": "Miejscowość",
+        "Country": "Kraj",
+        "Email": "Email",
+        "PhoneNumber": "Numer telefonu",
+        "PostalCode": "Kod pocztowy",
+        "SelectCountry": "Wybierz kraj",
+        "StreetName": "Nazwa ulicy",
+        "StreetNumber": "Numer ulicy"
+    },
+    "Audit": {
+        "CreatedOn": "Utworzony",
+        "FieldName": "Nazwa pola",
+        "History": "Historia",
+        "NewValue": "Nowa wartość",
+        "OldValue": "Stara wartość",
+        "UserName": "Nazwa użytkownika"
+    },
+    "Client": {
+        "ClientTypePicker": "Wybór typu klienta",
+        "Create": "Tworzenie klienta",
+        "Created": "Klient został utworzony.",
+        "CreatedOn": "Data utworzenia",
+        "Deleted": "Klient został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć klienta",
+        "Edit": "Edycja klienta",
+        "FirstName": "Imię",
+        "LastName": "Nazwisko",
+        "List": "Lista klientów",
+        "Messages": {
+            "NameExists": "Klient o podanej nazwie istnieje już w bazie danych",
+            "NationalIdExists": "Klient o podanym identyfikatorze istnieje już w bazie danych"
+        },
+        "Name": "Nazwa",
+        "RepresentativesTab": "Przedstawiciele",
+        "SelectType": "Wybierz typ",
+        "Type": "Typ",
+        "TypeName": "Typ",
+        "Updated": "Klient został zaktualizowany."
+    },
+    "ClientRepresentative": {
+        "Create": "Tworzenie przedstawiciela klienta",
+        "Created": "Przedstawiciel klienta został utworzony.",
+        "Deleted": "Przedstawiciel klienta został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć przedstawiciela klienta",
+        "Email": "Email",
+        "FirstName": "Imię",
+        "LastName": "Nazwisko",
+        "List": "Lista przedstawicieli klienta",
+        "Messages": {
+            "RepresentativeExists": "Dla klienta istnieje już przedstawiciel z jednakowymi danymi."
+        },
+        "PhoneNumber": "Numer telefonu",
+        "Updated": "Przedstawiciel klienta został zaktualizowany."
+    },
+    "CompanyClientAddress": {
+        "NationalCompanyId": "Narodowy identyfikator firmy"
     },
     "General": {
-        "Yes": "Tak",
-        "No": "Nie",
-        "Create": "Utwórz",
-        "Edit": "Edytuj",
-        "Save": "Zapisz",
-        "Delete": "Skasuj",
-        "Cancel": "Anuluj",
-        "ClearFilters": "Wyczyść filtry",
-        "GeneralTab": "Dane ogólne",
-        "Choose": "Wybierz",
-        "All": "-- Wszystkie --",
         "Add": "Dodaj",
-        "Name": "Nazwa",
-        "Empty": "-- Brak --",
-        "Unassigned": "-- Nieprzypisany --",
-        "File": "Plik",
-        "Details": "Szczegóły",
-        "Filters": "Filtry",
-        "Legend": "Legenda",
-        "Erase": "Wyczyść",
+        "All": "-- Wszystkie --",
+        "Cancel": "Anuluj",
         "CannotDownloadFile": "Nie można pobrać pliku.",
+        "Choose": "Wybierz",
+        "Clear": "Wyczyść",
+        "ClearFilters": "Wyczyść filtry",
+        "Create": "Utwórz",
+        "Dashboard": "Pulpit",
+        "DarkMode": "Tryb ciemny",
+        "Delete": "Skasuj",
+        "Details": "Szczegóły",
+        "Edit": "Edytuj",
+        "Empty": "-- Brak --",
+        "Erase": "Wyczyść",
+        "Error": {
+            "Global": "Błąd",
+            "HasIncorrectLength": "ma nieprawidłową długość. Długość powinna mieścić się w przedziale pomiędzy {minLength} a {maxLength}",
+            "IsEmpty": "powinna być uzupełniona",
+            "IsNotMatchingAllowedLetters": "zawiera niedozwolone znaki",
+            "IsNotMatchingSmallLetters": "powinna zawierać tylko małe litery",
+            "IsNotValidEmail": "nie jest prawidłowym adresem email"
+        },
+        "Field": "Pole",
+        "File": "Plik",
+        "Filters": "Filtry",
+        "ForgotPassword": "Nie pamiętasz hasła",
+        "GeneralTab": "Dane ogólne",
+        "Legend": "Legenda",
         "Loading": "Ładowanie...",
-        "Error": "Błąd",
-        "Welcome": "Witaj",
+        "LogOut": "Wyloguj się",
+        "Name": "Nazwa",
+        "No": "Nie",
+        "Profile": "Profil",
+        "RememberMe": "Zapamiętaj mnie",
+        "Save": "Zapisz",
+        "SearchFor": "Wyszukaj po",
+        "SearchKeyword": "Wyszukaj po kluczu",
+        "Send": "Wyślij",
         "SignIn": "Zaloguj",
         "SignInToContinue": "Zaloguj się, aby kontynuować",
-        "RememberMe": "Zapamiętaj mnie",
-        "ForgotPassword": "Nie pamiętasz hasła"
+        "Unassigned": "-- Nieprzypisany --",
+        "Welcome": "Witaj",
+        "Yes": "Tak"
     },
-    "Messages": {
-        "EnterLoginFirst": "Proszę wprowadzić login.",
-        "AccountIsNotActive": "Konto nieaktywne.",
-        "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
-        "InvalidLoginData": "Nieprawidłowe dane logowania."
+    "Language": {
+        "Plural": "Języki"
     },
     "Menu": {
-        "Title": "Menu",
         "Administration": "Administracja",
-        "Users": "Użytkownicy",
-        "UserRoles": "Role"
+        "Clients": "Klienci",
+        "Title": "Menu",
+        "UserRoles": "Role",
+        "Users": "Użytkownicy"
+    },
+    "Messages": {
+        "AccountIsNotActive": "Konto nieaktywne.",
+        "CantChangeUserPassword": "Nie można zmienić hasła użytkownika.",
+        "EnterEmailFirst": "Proszę wprowadzić email.",
+        "EnterLoginFirst": "Proszę wprowadzić login.",
+        "FieldInvalid": "Pole ma niepoprawną wartość.",
+        "FieldMustContainCharacters": "Pole musi zawierać {{numberOfCharacters}} znaków, min. jeden znak specjalny oraz liczbę.",
+        "FieldRequired": "Pole jest wymagane.",
+        "InvalidLoginData": "Nieprawidłowe dane logowania.",
+        "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
+        "ProvidedEmailDoesNotExist": "Podany email nie istnieje.",
+        "TheValueOfTheField": "Wartość pola"
+    },
+    "Permissions": {
+        "Client": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "ClientRepresentative": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "User": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "UserRole": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
+        "Clients": "Klienci",
+        "ClientRepresentatives": "Przedstawiciele klientów",
+        "UserRoles": "Role",
+        "Users": "Użytkownicy"
+    },
+    "PrivateClientAddress": {
+        "NationalCitizenId": "Narodowy identyfikator obywatela"
     },
     "User": {
+        "Create": "Tworzenie użytkownika",
+        "Created": "Użytkownik został utworzony.",
+        "CreatedOn": "Data utworzenia",
+        "Deleted": "Użytkownik został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć użytkownika",
+        "Edit": "Edycja użytkownika",
+        "Email": "Email",
+        "FirstName": "Imię",
+        "IsActive": "Aktywny",
+        "Language": "Język",
+        "LanguageId": "Język",
+        "LastName": "Nazwisko",
+        "List": "Lista użytkowników",
         "Login": "Login",
-        "Password": "Hasło"
+        "Messages": {
+            "LoginExists": "Użytkownik o podanym loginie istnieje już w bazie danych."
+        },
+        "Password": "Hasło",
+        "PasswordChange": "Zmiana hasła",
+        "Plural": "Użytkownicy",
+        "SelectLanguage": "Wybierz język",
+        "SelectUserRole": "Wybierz rolę",
+        "Updated": "Użytkownik został zaktualizowany.",
+        "UserRole": "Rola",
+        "UserRoleId": "Rola",
+        "UserRoleName": "Rola",
+        "UserRolePicker": "Wybór roli"
+    },
+    "UserPermission": {
+        "Name": "Uprawnienia"
+    },
+    "UserRole": {
+        "AssignedRoleDeletionAttempt": "Istnieje użytkownik, który ma przypisaną obecną rolę.",
+        "Create": "Tworzenie roli",
+        "Created": "Rola została utworzona.",
+        "Deleted": "Rola została usunięta.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć rolę",
+        "Id": "Id",
+        "List": "Lista ról",
+        "Messages": {
+            "ExistsInDatabase": "Rola z wprowadzoną nazwą/nazwami istnieje już w bazie danych.",
+            "NoUserPermissionAssigned": "Roli nie przypisano żadnych uprawnień."
+        },
+        "Name": "Nazwa",
+        "Updated": "Rola została zaktualizowana.",
+        "UserRolePicker": "Wybór roli"
     }
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { ClientRepresentativeDetailsModel, ClientRepresentativeDialogConfigData } from "src/app/interfaces/client";
 import { AddressComponent } from "../addresses/address";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
-import { Address, addressFormFields } from "src/app/interfaces/address";
+import { Address, Country, addressFormFields } from "src/app/interfaces/address";
 import { FormBuilder, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Routes } from "src/app/routes";
@@ -136,7 +136,9 @@ export class ClientRepresentativeDetailsComponent
     const clientRepresentativeAddress = <Address>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
-      CountryId: this.addressForm.form.value.CountryId,
+      Country: <Country>{
+        Id: this.addressForm.form.value.CountryId
+      },
       Email: this.addressForm.form.value.Email,
       Id: this.addressForm.form.value.Id,
       PhoneNumber: this.addressForm.form.value.PhoneNumber,

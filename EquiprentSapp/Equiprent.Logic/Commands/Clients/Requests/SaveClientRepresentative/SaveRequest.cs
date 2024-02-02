@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
-using Equiprent.Logic.Commands.Addresses.Models;
+using Equiprent.Logic.GeneralModels;
 using MediatR;
 
 namespace Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative

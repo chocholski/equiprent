@@ -36,7 +36,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
             {
                 ApartmentNumber = request.Address.ApartmentNumber,
                 City = request.Address.City,
-                CountryId = request.Address.CountryId,
+                CountryId = request.Address.Country.Id,
                 Email = request.Address.Email,
                 PhoneNumber = request.Address.PhoneNumber,
                 PostalCode = request.Address.PostalCode,

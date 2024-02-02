@@ -1456,7 +1456,7 @@ a {
   flex-direction: column;
   min-height: 100vh;
   justify-content: space-between;
-  padding: 7rem 2rem 2rem 4rem;
+  padding: 7rem 2rem 0rem 4rem;
   transition: margin-left 0.2s;
 }
 
@@ -21778,7 +21778,7 @@ p:last-child {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./node_modules/@fortawesome/fontawesome-free/css/all.css?ngGlobalStyle ***!
   \**************************************************************************************************************************************************************************************************************************************************************/
 /*!
- * Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -29571,10 +29571,30 @@ readers do not read off random characters that represent icons */
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./src/assets/layout/styles/styles.css?ngGlobalStyle ***!
   \*******************************************************************************************************************************************************************************************************************************************/
+.login-body {
+  background-image: url('app-background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+img {
+  opacity: 0.5;
+}
+
 .login-panel {
   border-radius: 56px;
   padding: 0.3rem;
   background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.no-border {
+  border: none !important;
+}
+
+.items-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map*/

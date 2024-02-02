@@ -205,9 +205,17 @@
     "Language": {
         "Plural": "Języki"
     },
+    "Manufacturer": {
+        "List": "Lista producentów",
+        "Name": "Nazwa",
+        "IsOperational": "Obecnie działa na rynku",
+        "NationalId": "Identyfikator narodowy",
+        "AddressSummary": "Adres"
+    },
     "Menu": {
         "Administration": "Administracja",
         "Clients": "Klienci",
+        "Manufacturers": "Producenci",
         "Title": "Menu",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
@@ -234,6 +242,10 @@
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
         },
+        "Manufacturer": {
+            "CanList": "Wyświetlanie listy",
+            "CanModify": "Edycja"
+        },
         "User": {
             "CanList": "Wyświetlanie listy",
             "CanModify": "Edycja"
@@ -244,6 +256,7 @@
         },
         "Clients": "Klienci",
         "ClientRepresentatives": "Przedstawiciele klientów",
+        "Manufacturers": "Producenci",
         "UserRoles": "Role",
         "Users": "Użytkownicy"
     },

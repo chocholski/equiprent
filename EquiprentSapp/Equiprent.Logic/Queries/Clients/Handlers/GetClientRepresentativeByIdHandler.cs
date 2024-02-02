@@ -1,5 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
-using Equiprent.Logic.Commands.Addresses.Models;
+using Equiprent.Logic.GeneralModels;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById;
 using MediatR;
@@ -20,6 +20,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
         {
             var clientRepresentative = await _dbContext.ClientRepresentatives
                 .Include(representative => representative.Address)
+                .ThenInclude(address => address!.Country)
                 .SingleOrDefaultAsync(representative =>
                     !representative.IsDeleted &&
                     representative.Id == request.ClientRepresentativeId,
@@ -34,7 +35,11 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
                 {
                     ApartmentNumber = clientRepresentative.Address!.ApartmentNumber,
                     City = clientRepresentative.Address!.City,
-                    CountryId = clientRepresentative.Address!.CountryId,
+                    Country = new CountryModel
+                    {
+                        Id = clientRepresentative.Address!.CountryId,
+                        Code = clientRepresentative.Address!.Country.Code,
+                    },
                     Email = clientRepresentative.Address!.Email,
                     Id = clientRepresentative.AddressId!.Value,
                     PhoneNumber = clientRepresentative.Address!.PhoneNumber,

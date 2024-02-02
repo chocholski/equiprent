@@ -1,6 +1,6 @@
 ﻿using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
-using Equiprent.Logic.Commands.Addresses.Models;
+using Equiprent.Logic.GeneralModels;
 using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers.Mappers
@@ -24,6 +24,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
 
             var clientAddress = await _dbContext.CompanyClientAddresses
                 .Include(clientAddress => clientAddress.Address)
+                .ThenInclude(clientAddress => clientAddress.Country)
                 .Where(clientAddress => clientAddress.CompanyClientId == _client.Id)
                 .SingleOrDefaultAsync(cancellationToken);
 
@@ -34,7 +35,11 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
             {
                 ApartmentNumber = clientAddress.Address.ApartmentNumber,
                 City = clientAddress.Address.City,
-                CountryId = clientAddress.Address.CountryId,
+                Country = new CountryModel
+                {
+                    Id = clientAddress.Address.CountryId,
+                    Code = clientAddress.Address.Country.Code,
+                },
                 Email = clientAddress.Address.Email,
                 Id = clientAddress.Address.Id,
                 NationalId = clientAddress.NationalCompanyId!,

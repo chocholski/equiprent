@@ -2,8 +2,8 @@
 using Equiprent.Entities.Business.ClientAddresses;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Extensions;
-using Equiprent.Logic.Commands.Addresses.Models;
 using Equiprent.Logic.Commands.Clients.Requests.Create;
+using Equiprent.Logic.GeneralModels;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Create.Creators.ClientAddressesCreators
 {

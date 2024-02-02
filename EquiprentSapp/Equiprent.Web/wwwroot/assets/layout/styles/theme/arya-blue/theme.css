@@ -21,6 +21,12 @@
   --surface-700: #FFF8A8;
   --surface-800: #FFF8B3;
   --surface-900: #FFF895;
+  --surface-1000: #FFF9AE;
+  --surface-1100: #FFFAC0;
+  --surface-1200: #FFFAD2;
+  --surface-1300: #FFFBE4;
+  --surface-1400: #FFFBF6;
+  --surface-1500: #FFFDF9;
   --gray-50: #e7e7e7;
   --gray-100: #d0d0d0;
   --gray-200: #b8b8b8;
@@ -1301,7 +1307,7 @@ p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-input
 }
 
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
-  background: rgba(255, 255, 255, 0.87);
+  background: #383838;
 }
 
 .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
@@ -7645,4 +7651,10 @@ p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
 
 .p-datatable .p-datatable-tbody>tr.p-datatable-dragpoint-bottom>td {
   box-shadow: inset 0 -2px 0 0 var(--surface-900);
+}
+
+.form-grid {
+  max-width: 50%;
+  position: relative;
+  left: 21%;
 }

@@ -1,5 +1,25 @@
+.login-body {
+  background-image: url("../images/app-background.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+img {
+  opacity: 0.5;
+}
+
 .login-panel {
   border-radius: 56px;
   padding: 0.3rem;
   background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.no-border {
+  border: none !important;
+}
+
+.items-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

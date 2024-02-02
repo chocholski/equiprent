@@ -1,8 +1,8 @@
 ﻿using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.Addresses;
 using Equiprent.Entities.Business.Clients;
-using Equiprent.Logic.Commands.Addresses.Models;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
+using Equiprent.Logic.GeneralModels;
 using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddressesUpdaters
@@ -37,7 +37,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Save.Updaters.ClientAddresse
         {
             address.ApartmentNumber = modelFromRequest.ApartmentNumber;
             address.City = modelFromRequest.City;
-            address.CountryId = modelFromRequest.CountryId;
+            address.CountryId = modelFromRequest.Country.Id;
             address.Email = modelFromRequest.Email;
             address.PhoneNumber = modelFromRequest.PhoneNumber;
             address.PostalCode = modelFromRequest.PostalCode;

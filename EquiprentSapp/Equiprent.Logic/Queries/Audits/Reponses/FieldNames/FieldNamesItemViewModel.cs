@@ -1,4 +1,4 @@
-﻿using Equiprent.Logic.QueryData.UIModels;
+﻿using Equiprent.Logic.GeneralModels;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.FieldNames
 {

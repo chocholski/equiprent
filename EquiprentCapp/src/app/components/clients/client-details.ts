@@ -17,7 +17,7 @@ import { AddressComponent } from "../addresses/address";
 import { CompanyClientAddressComponent } from "../addresses/company-client-address";
 import { PrivateClientAddressComponent } from "../addresses/private-client-address";
 import { PrivateClientComponent } from "./private-client";
-import { ClientAddress, addressFormFields } from "src/app/interfaces/address";
+import { ClientAddress, Country, addressFormFields } from "src/app/interfaces/address";
 import { AccessControlFormComponent } from "../abstract/forms/access-control-form";
 import { FormModeEnum } from "src/app/enums/form-mode-enum";
 import { Routes } from "src/app/routes";
@@ -165,7 +165,9 @@ export class ClientDetailsComponent
     const clientAddress = <ClientAddress>{
       ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
       City: this.addressForm.form.value.City,
-      CountryId: this.addressForm.form.value.CountryId,
+      Country: <Country>{
+        Id: this.addressForm.form.value.CountryId
+      },
       Email: this.addressForm.form.value.Email,
       Id: this.addressForm.form.value.Id,
       NationalId: this.getClientNationalId(),

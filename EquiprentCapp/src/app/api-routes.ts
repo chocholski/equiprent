@@ -25,6 +25,13 @@ export const ApiRoutes = {
     authenticate: "identity/authenticate",
     refreshToken: "identity/refreshToken"
   },
+  manufacturer: {
+    delete: (manufacturerId: string) => `manufacturer/${manufacturerId}`,
+    getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `manufacturer${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: (manufacturerId: string) => `manufacturer/${manufacturerId}`,
+    post: "manufacturer",
+    put: "manufacturer"
+  },
   selectOptions: {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     clientTypes: "selectoptions/clientTypes",

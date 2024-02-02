@@ -19,7 +19,6 @@ namespace Equiprent.Logic.Infrastructure
             if (listViewModel is TEntityViewModel entityViewModel)
             {
                 await entityViewModel.FetchAsync(cancellationToken);
-
                 return entityViewModel;
             }
 
