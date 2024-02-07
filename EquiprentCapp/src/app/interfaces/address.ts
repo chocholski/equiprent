@@ -27,5 +27,9 @@ export interface ClientAddress extends Address {
 
 export interface Country {
   Id: string,
-  Code: string
+  Code?: string
+}
+
+export interface ManufacturerAddress extends Address {
+  NationalId: string;
 }

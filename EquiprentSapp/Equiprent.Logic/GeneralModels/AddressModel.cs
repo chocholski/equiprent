@@ -31,11 +31,12 @@ namespace Equiprent.Logic.GeneralModels
 
         public string GetSummary()
         {
-            var summaryBuilder = new StringBuilder();
-            summaryBuilder.Append($"{StreetName} {StreetNumber}");
-            summaryBuilder.Append(!string.IsNullOrEmpty(ApartmentNumber) ? $"/{ApartmentNumber}" : string.Empty);
-            summaryBuilder.Append($", {City}");
-            summaryBuilder.Append($", {Country.Code}");
+            var summaryBuilder = new StringBuilder()
+                .Append($"{StreetName} {StreetNumber}")
+                .Append(!string.IsNullOrEmpty(ApartmentNumber) ? $"/{ApartmentNumber}" : string.Empty)
+                .Append($", {PostalCode}")
+                .Append($", {City}")
+                .Append(!string.IsNullOrEmpty(Country.Code) ? $", {Country.Code}" : string.Empty);
 
             return summaryBuilder.ToString();
         }

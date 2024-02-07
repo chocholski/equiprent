@@ -8,13 +8,13 @@ using System.Threading;
 
 namespace Equiprent.Logic.Commands.Clients.Handlers.Delete
 {
-    public class DeleteHandler : IRequestHandler<DeleteRequest, CommandResult?>
+    public class DeleteHandler : IRequestHandler<DeleteRequest, CommandResult>
     {
         private readonly ApplicationDbContext _dbContext;
 
         public DeleteHandler(ApplicationDbContext dbContext) { _dbContext = dbContext; }
 
-        public async Task<CommandResult?> Handle(DeleteRequest request, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(DeleteRequest request, CancellationToken cancellationToken)
         {
             var client = await _dbContext.Clients
                 .SingleOrDefaultAsync(c => !c.IsDeleted && c.Id == request.Id, cancellationToken);

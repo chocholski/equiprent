@@ -32,5 +32,9 @@
 
         //ClientRepresentative
         ClientRepresentative_RepresentativeExists = 500,
+
+        //Manufacturers
+        Manufacturer_NameExists = 600,
+        Manufacturer_NationalIdExists = 601,
     }
 }

@@ -16,6 +16,8 @@ import { ClientListComponent } from './components/clients/client-list';
 import { ClientCreationComponent } from './components/clients/client-create';
 import { ClientDetailsComponent } from './components/clients/client-details';
 import { ManufacturerListComponent } from './components/manufacturers/manufacturer-list';
+import { ManufacturerCreationComponent } from './components/manufacturers/manufacturer-create';
+import { ManufacturerDetailsComponent } from './components/manufacturers/manufacturer-details';
 
 @NgModule({
     imports: [
@@ -78,6 +80,24 @@ import { ManufacturerListComponent } from './components/manufacturers/manufactur
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Manufacturers_CanList],
                                     breadcrumb: null
+                                }
+                            },
+                            {
+                                path: Routes.manufacturers.paths.create,
+                                component: ManufacturerCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Manufacturers_CanModify],
+                                    breadcrumb: Routes.manufacturers.breadcrumbs.creation
+                                }
+                            },
+                            {
+                                path: Routes.manufacturers.paths.edit,
+                                component: ManufacturerDetailsComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Manufacturers_CanModify],
+                                    breadcrumb: Routes.manufacturers.breadcrumbs.edition
                                 }
                             }
                         ]

@@ -100,6 +100,11 @@ export class ManufacturerListComponent
         width: '10%',
         filterType: FilterTypeEnum.Text,
       },
+      <PngTableColumn>{
+        field: 'Actions',
+        header: '',
+        width: '20%'
+      }
     ];
   }
 

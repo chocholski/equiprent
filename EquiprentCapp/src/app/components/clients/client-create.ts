@@ -123,14 +123,14 @@ export class ClientCreationComponent
       PhoneNumber: this.addressForm.form.value.PhoneNumber,
       PostalCode: this.addressForm.form.value.PostalCode,
       StreetName: this.addressForm.form.value.StreetName,
-      StreetNumber: this.addressForm.form.value.StreetNumber
+      StreetNumber: this.addressForm.form.value.StreetNumber,
     };
     const client = <ClientCreationModel>{
       Addresses: [clientAddress],
       FirstName: this.privateClientForm?.form.value.FirstName,
       LastName: this.privateClientForm?.form.value.LastName,
       Name: this.form.value.Name,
-      TypeId: this.form.value.ClientTypeId
+      TypeId: this.form.value.ClientTypeId,
     };
 
     return client;

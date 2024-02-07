@@ -1,0 +1,64 @@
+<div class="grid form-grid">
+  <div class="col-12">
+    <div class="card pb-0">
+      <p-tabView>
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+          <form [formGroup]="form">
+            <div class="col-12 pb-0 px-0">
+              <div class="card no-border p-0">
+                <div class="p-fluid p-formgrid grid mb-3">
+                  <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Manufacturer.Name' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="name" formControlName="Name" type="text" />
+                      <p-message *ngIf="formValidator.hasError('Name')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                  </div>
+                  <div class="field col-12 md:col-6">
+                    <div class="grid formgrid">
+                      <div class="field col-12 md:col-2"></div>
+                      <div class="field col-12 md:col-10">
+                        <div class="flex-wrap mb-3">
+                          <div class="field-checkbox mt-6">
+                            <p-checkbox name="isOperational" formControlName="IsOperational" id="isOperational"
+                              [binary]="true"></p-checkbox>
+                            <label for="isOperational">{{ 'Manufacturer.IsOperational' | translate }}</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="manufacturer" class="p-formgrid grid mb-3">
+                  <div class="field col-12 px-0 py-0">
+                    <address #addressForm [entityAddress]="manufacturer.Address"
+                      [requiredFields]="manufacturerAddressRequiredFields" [showTitle]="true"></address>
+                  </div>
+                  <div class="field col-12 px-0 py-0">
+                    <manufacturer-address #manufacturerAddressForm [manufacturerAddress]="manufacturer.Address">
+                    </manufacturer-address>
+                  </div>
+                </div>
+                <div class="p-formgrid grid">
+                  <div class="field col-12 items-centered mb-0">
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-save"
+                      [label]="translate.instant('General.Save')" class="p-button-raised p-button-success mr-2"
+                      [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
+                    <button *ngIf="hasAccessToButtons && !isDisabled" pButton pRipple type="button" icon="pi pi-trash"
+                      [label]="translate.instant('General.Delete')" class="p-button-raised p-button-danger mr-2"
+                      [disabled]="shouldActionsBeDisabled" (click)="onDelete()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+    <deletion-dialog [deletionKey]="deletionKey"></deletion-dialog>
+  </div>
+</div>

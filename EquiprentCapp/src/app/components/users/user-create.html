@@ -8,14 +8,12 @@
               <div class="card no-border p-0">
                 <div class="p-fluid p-formgrid grid mb-3">
                   <div class="field col-12 md:col-6">
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Login' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="login" formControlName="Login" type="text" />
                       <p-message *ngIf="formValidator.hasError('Login')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.FirstName' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="firstName" formControlName="FirstName"
@@ -23,7 +21,6 @@
                       <p-message *ngIf="formValidator.hasError('FirstName')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.LastName' | translate
                         }}</label>
@@ -31,7 +28,6 @@
                       <p-message *ngIf="formValidator.hasError('LastName')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Password' | translate
                         }}</label>
@@ -40,7 +36,6 @@
                       <p-message *ngIf="formValidator.hasError('Password')" severity="error"
                         [text]="translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })"></p-message>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <div class="field-checkbox">
                         <p-checkbox name="isActive" formControlName="IsActive" id="isActive"
@@ -48,11 +43,8 @@
                         <label for="isActive">{{ 'User.IsActive' | translate }}</label>
                       </div>
                     </div>
-
                   </div>
-
                   <div class="field col-12 md:col-6">
-
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Language' | translate }}</label>
                       <p-dropdown class="mb-2" [options]="languages" formControlName="LanguageId"
@@ -65,7 +57,6 @@
                         </ng-template>
                       </p-dropdown>
                     </div>
-
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'User.UserRole' | translate }}</label>
                       <p-dropdown class="mb-2" [options]="userRoles" formControlName="UserRoleId"
@@ -78,7 +69,6 @@
                         </ng-template>
                       </p-dropdown>
                     </div>
-
                     <div class="flex-wrap mb-3">
                       <label class="block text-900 font-medium mb-2">{{ 'User.Email' | translate }}</label>
                       <input pInputText class="p-inputtext mb-2" id="email" formControlName="Email" type="email"
@@ -86,7 +76,6 @@
                       <p-message *ngIf="formValidator.hasError('Email')" severity="error"
                         [text]="translate.instant('Messages.FieldInvalid')"></p-message>
                     </div>
-
                   </div>
                 </div>
                 <div class="p-formgrid grid">

@@ -2,7 +2,7 @@
 {
     public class CountryModel
     {
-        public string Code { get; set; } = null!;
+        public string? Code { get; set; }
 
         public Guid Id { get; set; }
     }

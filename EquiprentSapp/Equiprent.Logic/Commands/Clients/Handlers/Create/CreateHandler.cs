@@ -25,7 +25,6 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create
         public async Task<CommandResult?> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
             var createdById = _userService.GetUserId();
-
             if (!createdById.HasValue)
                 return CommandResult.BadRequest;
 
