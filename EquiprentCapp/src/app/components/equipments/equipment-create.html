@@ -1,0 +1,83 @@
+<div class="grid form-grid">
+  <div class="col-12">
+    <div class="card pb-0">
+      <p-tabView>
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+          <form [formGroup]="form">
+            <div class="col-12 pb-0 px-0">
+              <div class="card no-border p-0">
+                <div class="p-fluid p-formgrid grid mb-3">
+                  <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.Name' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="name" formControlName="Name" type="text" />
+                      <p-message *ngIf="formValidator.hasError('Name')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.SerialNumber' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="serialNumber" formControlName="SerialNumber"
+                        type="text" />
+                      <p-message *ngIf="formValidator.hasError('SerialNumber')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.MarketValue' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="marketValue" formControlName="MarketValue"
+                        type="text" />
+                      <p-message *ngIf="formValidator.hasError('MarketValue')" severity="error"
+                        [text]="translate.instant('Messages.NotANumber')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.PricePerDay' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="pricePerDay" formControlName="PricePerDay"
+                        type="text" />
+                      <p-message *ngIf="formValidator.hasError('PricePerDay')" severity="error"
+                        [text]="translate.instant('Messages.NotANumber')"></p-message>
+                    </div>
+                  </div>
+                  <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.Manufacturer' | translate }}</label>
+                      <p-dropdown class="mb-2" [options]="manufacturers" formControlName="ManufacturerId"
+                        [placeholder]="translate.instant('Equipment.SelectManufacturer')" [showClear]="false">
+                        <ng-template let-role pTemplate="selectedItem">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                        <ng-template let-role pTemplate="item">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.Type' | translate }}</label>
+                      <p-dropdown class="mb-2" [options]="types" formControlName="TypeId"
+                        [placeholder]="translate.instant('Equipment.SelectType')" [showClear]="false">
+                        <ng-template let-role pTemplate="selectedItem">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                        <ng-template let-role pTemplate="item">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-formgrid grid">
+                  <div class="field col-12 items-centered mb-0">
+                    <button pButton pRipple type="button" icon="pi pi-save"
+                      [label]="translate.instant('General.Create')" class="p-button-raised p-button-success mr-2"
+                      [disabled]="shouldActionsBeDisabled" (click)="onSubmit()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

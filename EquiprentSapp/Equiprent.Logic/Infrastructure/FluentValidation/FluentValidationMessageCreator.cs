@@ -7,7 +7,10 @@
         public static string CreateMessageForEmptyPropertyValue(string propertyName) => CreateMessage(propertyName, FluentValidationMessageTypeEnum.Empty);
 
         public static string CreateMessageForExceedingTheRangeOfLengths(string propertyName, Range possibleLengthsRange) =>
-            $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}MIN:{possibleLengthsRange.Start.Value}{MessageSeparator}MAX:{possibleLengthsRange.End.Value}";
+            $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}MIN:{possibleLengthsRange.Start.Value}{MessageSeparator}MAX:{possibleLengthsRange.End.Value}TYPE:{FluentValidationMessageTypeEnum.Length}";
+
+        public static string CreateMessageForNegativeNumber(string propertyName) =>
+            $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}TYPE:{FluentValidationMessageTypeEnum.NegativeNumber}";
 
         public static string CreateMessageForUnmatchingAllowedLetters(string propertyName) => CreateMessage(propertyName, FluentValidationMessageTypeEnum.MatchAllowedLetters);
 

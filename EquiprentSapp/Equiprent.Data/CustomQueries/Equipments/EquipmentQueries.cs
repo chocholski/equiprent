@@ -19,7 +19,7 @@ namespace Equiprent.Data.CustomQueries.Equipments
                     {manufacturersAlias}.{nameof(Manufacturer.Name)} AS {nameof(EquipmentListQueryModel.ManufacturerName)},
                     {equipmentsAlias}.{nameof(Equipment.Name)},
                     {equipmentsAlias}.{nameof(Equipment.PricePerDay)},
-                    {equipmentsAlias}.{nameof(Equipment.PricePerDay)},
+                    {equipmentsAlias}.{nameof(Equipment.SerialNumber)},
                     {equipmentsAlias}.{nameof(Equipment.TypeId)},
                     '' AS {nameof(EquipmentListQueryModel.TypeName)}
                 FROM

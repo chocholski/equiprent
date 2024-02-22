@@ -27,8 +27,16 @@ export class SelectOptionsService {
     return this.getOptions(ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
   }
 
+  getEquipmentTypes(): Observable<SelectItem[]> {
+    return this.getOptions(ApiRoutes.selectOptions.equipmentTypes);
+  }
+
   getLanguages(): Observable<SelectItem[]> {
     return this.getOptions(ApiRoutes.selectOptions.languages);
+  }
+
+  getManufacturers(): Observable<SelectItem[]> {
+    return this.getOptions(ApiRoutes.selectOptions.manufacturers);
   }
 
   getUserRoles(): Observable<SelectItem[]> {

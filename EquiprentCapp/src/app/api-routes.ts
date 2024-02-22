@@ -21,6 +21,13 @@ export const ApiRoutes = {
     post: "client/representative",
     put: "client/representative"
   },
+  equipment: {
+    delete: (equipmentId: string) => `equipment/${equipmentId}`,
+    getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `equipment${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: (equipmentId: string) => `equipment/${equipmentId}`,
+    post: "equipment",
+    put: "equipment"
+  },
   identity: {
     authenticate: "identity/authenticate",
     refreshToken: "identity/refreshToken"
@@ -36,7 +43,9 @@ export const ApiRoutes = {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     clientTypes: "selectoptions/clientTypes",
     countries: "selectoptions/countries",
+    equipmentTypes: "selectoptions/equipmentTypes",
     languages: "selectoptions/languages",
+    manufacturers: "selectoptions/manufacturers",
     userRoles: "selectoptions/userRoles",
     yesNoOptions: "selectoptions/yesNo"
   },

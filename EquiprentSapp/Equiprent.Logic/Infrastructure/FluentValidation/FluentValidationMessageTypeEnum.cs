@@ -7,6 +7,7 @@
         Length,
         MatchAllowedLetters,
         MatchSmallLetters,
+        NegativeNumber,
         PhoneNumber
     }
 }

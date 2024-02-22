@@ -18,6 +18,9 @@ import { ClientDetailsComponent } from './components/clients/client-details';
 import { ManufacturerListComponent } from './components/manufacturers/manufacturer-list';
 import { ManufacturerCreationComponent } from './components/manufacturers/manufacturer-create';
 import { ManufacturerDetailsComponent } from './components/manufacturers/manufacturer-details';
+import { EquipmentListComponent } from './components/equipments/equipment-list';
+import { EquipmentCreationComponent } from './components/equipments/equipment-create';
+import { EquipmentDetailsComponent } from './components/equipments/equipment-details';
 
 @NgModule({
     imports: [
@@ -61,6 +64,43 @@ import { ManufacturerDetailsComponent } from './components/manufacturers/manufac
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Clients_CanModify],
                                     breadcrumb: Routes.clients.breadcrumbs.edition
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        path: Routes.equipments.paths.list,
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.Equipments_CanList],
+                            breadcrumb: Routes.equipments.breadcrumbs.list
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: EquipmentListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Equipments_CanList],
+                                    breadcrumb: null
+                                }
+                            },
+                            {
+                                path: Routes.equipments.paths.create,
+                                component: EquipmentCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Equipments_CanModify],
+                                    breadcrumb: Routes.equipments.breadcrumbs.creation
+                                }
+                            },
+                            {
+                                path: Routes.equipments.paths.edit,
+                                component: EquipmentDetailsComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Equipments_CanModify],
+                                    breadcrumb: Routes.equipments.breadcrumbs.edition
                                 }
                             }
                         ]

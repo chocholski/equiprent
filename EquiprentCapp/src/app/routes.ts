@@ -63,6 +63,23 @@ export const Routes = {
       }
     }
   },
+  equipments: {
+    breadcrumbs: {
+      creation: 'Equipment.Create',
+      edition: 'Equipment.Edit',
+      list: 'Equipment.List'
+    },
+    navigations: {
+      creation: 'home/equipments/create',
+      edition: (id: string) => `home/equipments/edit/${id}`,
+      list: `home/equipments`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'equipments'
+    }
+  },
   manufacturers: {
     breadcrumbs: {
       creation: 'Manufacturer.Create',

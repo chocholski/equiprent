@@ -156,6 +156,36 @@
     "CompanyClientAddress": {
         "NationalCompanyId": "National company identification"
     },
+    "Equipment": {
+        "Create": "Equipment creation",
+        "Created": "The equipment has been created.",
+        "Deleted": "The equipment has been deleted.",
+        "Deletion": "Deletion",
+        "DeletionConfirmation": "Are you sure to delete equipment",
+        "Description": "Description",
+        "Edit": "Equipment edition",
+        "Id": "Id",
+        "List": "Equipments list",
+        "Manufacturer": "Manufacturer",
+        "ManufacturerId": "Manufacturer",
+        "ManufacturerName": "Manufacturer",
+        "ManufacturerPicker": "Manufacturer picker",
+        "MarketValue": "Market value",
+        "Messages": {
+            "SerialNumberExists": "The equipment with serial number provided already exists in the database."
+        },
+        "Name": "Name",
+        "Plural": "Equipments",
+        "PricePerDay": "Price per day",
+        "SelectManufacturer": "Select manufacturer",
+        "SelectType": "Select type",
+        "SerialNumber": "Serial number",
+        "Type": "Type",
+        "TypeId": "Type",
+        "TypeName": "Type",
+        "TypePicker": "Type picker",
+        "Updated": "The equipment has been updated."
+    },
     "General": {
         "Add": "Add",
         "All": "-- All --",
@@ -215,6 +245,7 @@
     "Menu": {
         "Administration": "Administration",
         "Clients": "Clients",
+        "Equipments": "Equipments",
         "Manufacturers": "Manufacturers",
         "Title": "Menu",
         "UserRoles": "Roles",
@@ -229,6 +260,7 @@
         "FieldMustContainCharacters": "Field must contain {{numberOfCharacters}} characters, min. one special character and number.",
         "FieldRequired": "The field is required.",
         "InvalidLoginData": "Invalid login data.",
+        "NotANumber": "The value is not a number.",
         "PleaseContactAdmin": "Please contact the administrator of the application.",
         "ProvidedEmailDoesNotExist": "The email provided does not exist.",
         "TheValueOfTheField": "The value of the field"

@@ -21,7 +21,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Manufacturers_CanList)]
         [HttpGet]
-        public async Task<ActionResult<PagedManufacturersListResponse?>> GetPagedManufacturersList([FromQuery] RequestParameters requestParameters)
+        public async Task<ActionResult<PagedManufacturersListResponse?>> GetPagedManufacturersListAsync([FromQuery] RequestParameters requestParameters)
         {
             var request = new GetPagedManufacturersListRequest(requestParameters);
             var result = await _mediator.Send(request);
@@ -47,7 +47,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Manufacturers_CanModify)]
         [HttpPut]
-        public async Task<IActionResult> SaveUser([FromBody] SaveRequest request)
+        public async Task<IActionResult> SaveManufacturerAsync([FromBody] SaveRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -55,7 +55,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Manufacturers_CanModify)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteManufacturerAsync(Guid id)
         {
             var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);

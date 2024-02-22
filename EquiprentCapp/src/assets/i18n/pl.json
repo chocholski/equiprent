@@ -156,6 +156,35 @@
     "CompanyClientAddress": {
         "NationalCompanyId": "Narodowy identyfikator firmy"
     },
+    "Equipment": {
+        "Create": "Tworzenie srzętu",
+        "Created": "Sprzęt został utworzony.",
+        "Deleted": "Sprzęt został usunięty.",
+        "Deletion": "Usuwanie",
+        "DeletionConfirmation": "Czy na pewno chcesz usunąć sprzęt",
+        "Edit": "Edycja sprzętu",
+        "Id": "Id",
+        "List": "Lista sprzętów",
+        "Manufacturer": "Producent",
+        "ManufacturerId": "Producent",
+        "ManufacturerName": "Producent",
+        "ManufacturerPicker": "Wybór producenta",
+        "MarketValue": "Wartość rynkowa",
+        "Messages": {
+            "SerialNumberExists": "Sprzęt o podanym numerze seryjnym istnieje już w bazie danych."
+        },
+        "Name": "Nazwa",
+        "Plural": "Sprzęty",
+        "PricePerDay": "Cena za dzień",
+        "SelectManufacturer": "Wybierz producenta",
+        "SelectType": "Wybierz typ",
+        "SerialNumber": "Numer seryjny",
+        "Type": "Typ",
+        "TypeId": "Typ",
+        "TypeName": "Typ",
+        "TypePicker": "Wybór typu",
+        "Updated": "Sprzęt został zaktualizowany."
+    },
     "General": {
         "Add": "Dodaj",
         "All": "-- Wszystkie --",
@@ -215,6 +244,7 @@
     "Menu": {
         "Administration": "Administracja",
         "Clients": "Klienci",
+        "Equipments": "Sprzęty",
         "Manufacturers": "Producenci",
         "Title": "Menu",
         "UserRoles": "Role",
@@ -229,6 +259,7 @@
         "FieldMustContainCharacters": "Pole musi zawierać {{numberOfCharacters}} znaków, min. jeden znak specjalny oraz liczbę.",
         "FieldRequired": "Pole jest wymagane.",
         "InvalidLoginData": "Nieprawidłowe dane logowania.",
+        "NotANumber": "Podana wartość nie jest wartością liczbową.",
         "PleaseContactAdmin": "Skontaktuj się z administratorem aplikacji.",
         "ProvidedEmailDoesNotExist": "Podany email nie istnieje.",
         "TheValueOfTheField": "Wartość pola"

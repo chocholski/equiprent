@@ -22,24 +22,25 @@ namespace Equiprent.Logic.Commands.Manufacturers.Requests.Create
 
         protected override CommandResult ValidateRequestWithDatabase(CreateRequest request)
         {
-            if (ValidateIfExistManufacturerWithSameName(request))
+            if (IfExistManufacturerWithSameName(request))
                 return CommandResult.Manufacturer_NameExists;
 
-            if (ValidateIfExistManufacturerWithSameNationalId(request))
+            if (IfExistManufacturerWithSameNationalId(request))
                 return CommandResult.Manufacturer_NationalIdExists;
 
             return base.ValidateRequestWithDatabase(request);
         }
 
-        private bool ValidateIfExistManufacturerWithSameName(CreateRequest request)
+        private bool IfExistManufacturerWithSameName(CreateRequest request)
         {
             return _dbContext.Manufacturers
                 .Where(m => 
-                    !m.IsDeleted && m.Name == request.Name)
+                    !m.IsDeleted &&
+                    m.Name == request.Name)
                 .Any();
         }
 
-        private bool ValidateIfExistManufacturerWithSameNationalId(CreateRequest request)
+        private bool IfExistManufacturerWithSameNationalId(CreateRequest request)
         {
             return _dbContext.Manufacturers
                 .Include(m => m.Address)

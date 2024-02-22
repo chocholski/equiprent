@@ -64,6 +64,16 @@ export class MenuService {
       RouterLink: [`/${Routes.clients.navigations.list}`]
     });
 
+    //EQUIPMENTS
+    mainMenuItems?.push(<Menu>{
+      Permissions: [
+        UserPermissionEnum.Equipments_CanList
+      ],
+      Label: Menus.main.items.equipments.label,
+      Icon: Menus.main.items.equipments.icon,
+      RouterLink: [`/${Routes.equipments.navigations.list}`]
+    });
+
     //MANUFACTURERS
     mainMenuItems?.push(<Menu>{
       Permissions: [

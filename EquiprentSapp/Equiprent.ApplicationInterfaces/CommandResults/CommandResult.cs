@@ -3,38 +3,41 @@
     public enum CommandResult
     {
         //Generic
-        None = 0,
-        OK = 1,
-        BadRequest = 2,
-        NotFound = 3,
+        None,
+        OK,
+        BadRequest,
+        NotFound,
 
         //User
-        User_LoginExists = 100,
-        User_WrongOldPassword = 101,
+        User_LoginExists,
+        User_WrongOldPassword,
 
         //Token
-        Token_Invalid = 200,
-        Token_NotActive = 201,
-        Token_DoesNotExist = 202,
-        Token_Used = 203,
-        Token_DoesNotMatchJWT = 204,
+        Token_Invalid,
+        Token_NotActive,
+        Token_DoesNotExist,
+        Token_Used,
+        Token_DoesNotMatchJWT,
 
         //UserRole
-        UserRole_ExistsInDatabase = 300,
-        UserRole_NoUserPermissionAssigned = 301,
-        UserRole_TheOnlyAssignedRoleDeletionAttempt = 302,
-        UserRole_AssignedRoleDeletionAttempt = 303,
-        UserRole_UserHasBeenAlreadyAssignedToRole = 304,
+        UserRole_ExistsInDatabase,
+        UserRole_NoUserPermissionAssigned,
+        UserRole_TheOnlyAssignedRoleDeletionAttempt,
+        UserRole_AssignedRoleDeletionAttempt,
+        UserRole_UserHasBeenAlreadyAssignedToRole,
 
         //Client
-        Client_NameExists = 400,
-        Client_NationalIdExists = 401,
+        Client_NameExists,
+        Client_NationalIdExists,
 
         //ClientRepresentative
-        ClientRepresentative_RepresentativeExists = 500,
+        ClientRepresentative_RepresentativeExists,
 
         //Manufacturers
-        Manufacturer_NameExists = 600,
-        Manufacturer_NationalIdExists = 601,
+        Manufacturer_NameExists,
+        Manufacturer_NationalIdExists,
+
+        //Equipments
+        Equipment_SerialNumberExists,
     }
 }

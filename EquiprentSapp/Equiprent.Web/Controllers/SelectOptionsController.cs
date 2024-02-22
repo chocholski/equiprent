@@ -71,16 +71,28 @@ namespace Equiprent.Web.Controllers
         [HttpGet(ApiRoutes.SelectOptions.Languages)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptions()
         {
-            var languages = await _dbContext!.Languages
-                .ToListAsync();
-
-            var model = languages
+            var model = await _dbContext!.Languages
                 .Select(language => new SelectListItemModel
                 {
                     Value = language.Id.ToString(),
                     Name = language.Name
                 })
-                .ToList();
+                .ToListAsync();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [HttpGet(ApiRoutes.SelectOptions.Manufacturers)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetManufacturersSelectOptions()
+        {
+            var model = await _dbContext!.Manufacturers
+                .Where(m => !m.IsDeleted)
+                .Select(m => new SelectListItemModel
+                {
+                    Value = m.Id.ToString(),
+                    Name = m.Name,
+                })
+                .ToListAsync();
 
             return new JsonResult(model, new JsonSerializerSettings { });
         }
