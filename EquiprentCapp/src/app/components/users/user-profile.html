@@ -1,0 +1,81 @@
+<div class="grid form-grid">
+  <div class="col-12">
+    <div class="card pb-0">
+      <p-tabView>
+        <p-tabPanel header="{{ 'General.GeneralTab' | translate }}">
+          <form [formGroup]="form">
+            <div class="col-12 pb-0 px-0">
+              <div class="card no-border p-0">
+                <div class="p-fluid p-formgrid grid mb-3">
+                  <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-3">
+                      <label class="block font-medium mb-2">{{ 'User.Login' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="login" formControlName="Login" type="text"
+                        readonly />
+                      <p-message *ngIf="formValidator.hasError('Login')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'User.FirstName' | translate
+                        }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="firstName" formControlName="FirstName"
+                        type="text" />
+                      <p-message *ngIf="formValidator.hasError('FirstName')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'User.Password' | translate
+                        }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="password" formControlName="Password"
+                        type="password" />
+                      <p-message *ngIf="formValidator.hasError('Password')" severity="error"
+                        [text]="translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })"></p-message>
+                    </div>
+                  </div>
+                  <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'User.UserRole' | translate }}</label>
+                      <p-dropdown class="mb-2" [options]="userRoles" formControlName="UserRoleId"
+                        [placeholder]="translate.instant('User.SelectUserRole')" [showClear]="false" [readonly]="true">
+                        <ng-template let-role pTemplate="selectedItem">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                        <ng-template let-role pTemplate="item">
+                          <div>{{ role.label | translate }}</div>
+                        </ng-template>
+                      </p-dropdown>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'User.LastName' | translate
+                        }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="lastName" formControlName="LastName" type="text" />
+                      <p-message *ngIf="formValidator.hasError('LastName')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'User.Email' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="email" formControlName="Email" type="email"
+                        maxlength="100" />
+                      <p-message *ngIf="formValidator.hasError('Email')" severity="error"
+                        [text]="translate.instant('Messages.FieldInvalid')"></p-message>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-formgrid grid">
+                  <div class="field col-12 items-centered mb-0">
+                    <button pButton pRipple type="button" icon="pi pi-save" [label]="translate.instant('General.Save')"
+                      class="p-button-raised p-button-success mr-2" [disabled]="shouldActionsBeDisabled"
+                      (click)="onSubmit()"></button>
+                    <button pButton pRipple type="button" icon="pi pi-undo"
+                      [label]="translate.instant('General.Cancel')" class="p-button-raised" [disabled]="isExecuting"
+                      (click)="onBack()"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ using Equiprent.Logic.Queries.Users.Requests;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using Equiprent.Web.Contracts;
 using Equiprent.Logic.Commands.Users.Requests.ChangeTheme;
+using Equiprent.Logic.Commands.Users.Requests.SaveProfile;
 
 namespace Equiprent.Web.Controllers
 {
@@ -47,6 +48,14 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(result);
         }
 
+        [HttpGet($"{ApiRoutes.User.GetProfile}/{{userId}}")]
+        public async Task<IActionResult> GetUserProfileByIdAsync(Guid userId)
+        {
+            var request = new GetUserProfileByIdRequest(userId);
+            var result = await _mediator.Send(request);
+            return new JsonResult(result);
+        }
+
         [HttpGet($"{ApiRoutes.User.GetTheme}/{{userId}}")]
         public async Task<IActionResult> GetUserThemeByIdAsync(Guid userId)
         {
@@ -66,6 +75,14 @@ namespace Equiprent.Web.Controllers
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPut]
         public async Task<IActionResult> SaveUserAsync([FromBody] SaveRequest request)
+        {
+            var result = await _mediator.Send(request);
+            return GetActionResult(result);
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
+        [HttpPut($"{ApiRoutes.User.SaveProfile}")]
+        public async Task<IActionResult> SaveUserProfileAsync([FromBody] SaveProfileRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);

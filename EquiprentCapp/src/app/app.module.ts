@@ -55,6 +55,7 @@ import { PrivateClientComponent } from './components/clients/private-client';
 import { UserCreationComponent } from './components/users/user-create';
 import { UserDetailsComponent } from './components/users/user-details';
 import { UserListComponent } from './components/users/user-list';
+import { UserProfileComponent } from './components/users/user-profile';
 import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
 import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
@@ -116,6 +117,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,
+        UserProfileComponent,
         UserRoleCreationComponent,
         UserRoleDetailsComponent,
         UserRoleListComponent,

@@ -21,6 +21,7 @@ import { ManufacturerDetailsComponent } from './components/manufacturers/manufac
 import { EquipmentListComponent } from './components/equipments/equipment-list';
 import { EquipmentCreationComponent } from './components/equipments/equipment-create';
 import { EquipmentDetailsComponent } from './components/equipments/equipment-details';
+import { UserProfileComponent } from './components/users/user-profile';
 
 @NgModule({
     imports: [
@@ -31,6 +32,15 @@ import { EquipmentDetailsComponent } from './components/equipments/equipment-det
                     breadcrumb: Routes.home.breadcrumbs.default
                 },
                 children: [
+                    {
+                        path: Routes.users.paths.profile,
+                        component: UserProfileComponent,
+                        canActivate: [AuthGuard],
+                        data: {
+                            allowedPermissions: [UserPermissionEnum.ForAll],
+                            breadcrumb: Routes.users.breadcrumbs.profile
+                        }
+                    },
                     {
                         path: Routes.clients.paths.list,
                         canActivate: [AuthGuard],

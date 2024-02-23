@@ -52,6 +52,10 @@ export class AppTopBarComponent {
         this.updateWithLanguageOnInit();
     }
 
+    public onProfileButtonClick() {
+        this.router.navigate([Routes.users.navigations.profile]);
+    }
+
     public setTheme(withDarkMode: boolean) {
         const theme = withDarkMode ? 'arya-blue' : 'saga-orange';
         const colorScheme = withDarkMode ? 'dark' : 'light';
