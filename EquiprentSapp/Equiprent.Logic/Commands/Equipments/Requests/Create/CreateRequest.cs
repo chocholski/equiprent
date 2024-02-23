@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Equiprent.Logic.Commands.Equipments.Requests.Create
 {
-    public class CreateRequest : IRequest<CommandResult>
+    public partial class CreateRequest : IRequest<CommandResult>
     {
         public string? Description { get; set; }
 

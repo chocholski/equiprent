@@ -5,7 +5,7 @@ using Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Clients.Handlers
+namespace Equiprent.Logic.Queries.Clients.Handlers.ClientRepresentativeById
 {
     public class GetClientRepresentativeByIdHandler : IRequestHandler<GetClientRepresentativeByIdRequest, ClientRepresentativeByIdResponse?>
     {

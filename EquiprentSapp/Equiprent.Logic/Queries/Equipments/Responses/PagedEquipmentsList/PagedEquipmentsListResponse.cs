@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Equiprent.Logic.Queries.Equipments.Responses.PagedEquipmentsList
 {
-    public class PagedEquipmentsListResponse : ListViewModelBaseResponse<EquipmentListQueryModel, EquipmentListItemViewModel>
+    public class PagedEquipmentsListResponse : ListViewModelBaseResponse<EquipmentListQueryModel, EquipmentListQueryModel, EquipmentListItemViewModel>
     {
         public PagedEquipmentsListResponse(
             RequestParameters requestParameters,

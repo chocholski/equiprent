@@ -59,6 +59,7 @@ export class ClientRepresentativeDetailsComponent
 
   public override get shouldActionsBeDisabled() {
     return super.shouldActionsBeDisabled ||
+      !this.clientRepresentative ||
       (this.addressForm?.form.invalid ?? false);
   }
 

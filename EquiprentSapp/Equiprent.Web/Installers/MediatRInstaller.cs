@@ -1,4 +1,7 @@
-﻿namespace Equiprent.Web.Installers
+﻿using Equiprent.Web.Pipelines;
+using MediatR;
+
+namespace Equiprent.Web.Installers
 {
     public class MediatRInstaller : IInstaller
     {
@@ -8,6 +11,8 @@
             {
                 config.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(RequestParameters).Assembly);
             });
+
+            builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CreatorPipelineBehavior<,>));
         }
     }
 }

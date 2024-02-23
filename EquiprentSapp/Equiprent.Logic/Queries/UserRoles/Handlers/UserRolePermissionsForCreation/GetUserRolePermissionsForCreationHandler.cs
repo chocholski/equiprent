@@ -4,7 +4,7 @@ using Equiprent.Logic.Queries.UserRoles.Responses.UserRolePermissionsForCreation
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.UserRoles.Handlers
+namespace Equiprent.Logic.Queries.UserRoles.Handlers.UserRolePermissionsForCreation
 {
     public class GetUserRolePermissionsForCreationHandler : IRequestHandler<GetUserRolePermissionsForCreationRequest, UserRolePermissionsForCreationResponse?>
     {

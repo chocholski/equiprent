@@ -17,6 +17,7 @@ export interface ManufacturerDetailsModel {
 export interface ManufacturerListItemModel {
   AddressSummary: string;
   Id: string;
+  IsDeleted: boolean;
   IsOperational: boolean;
   Name: string;
   NationalId: string;

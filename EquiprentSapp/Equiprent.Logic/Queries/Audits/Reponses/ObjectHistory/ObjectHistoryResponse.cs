@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
 {
-    public class ObjectHistoryResponse : ListViewModelBaseResponse<AuditListQueryModel, ObjectHistoryItemViewModel>
+    public class ObjectHistoryResponse : ListViewModelBaseResponse<AuditListQueryModel, AuditListQueryModel, ObjectHistoryItemViewModel>
     {
         private readonly IAuditMemberTranslatorService _auditMemberTranslatorService;
 

@@ -5,7 +5,7 @@ using Equiprent.Logic.Queries.Manufacturers.Responses.ManufacturerById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Manufacturers.Handlers
+namespace Equiprent.Logic.Queries.Manufacturers.Handlers.ManufacturerById
 {
     public class GetManufacturerByIdHandler : IRequestHandler<GetManufacturerByIdRequest, ManufacturerByIdResponse?>
     {

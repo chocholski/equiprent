@@ -4,6 +4,7 @@
     {
         Date,
         Numeric,
+        Special,
         Text,
     }
 }

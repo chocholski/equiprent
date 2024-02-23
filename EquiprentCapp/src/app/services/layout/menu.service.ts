@@ -17,19 +17,19 @@ export class MenuService {
     this.initializeMenuItems();
   }
 
-  getMenu(): MenuArray {
+  public getMenu(): MenuArray {
     return this.menu;
   }
 
-  private getAdministrationItems() {
-    return this.menu.getItemsForLabel(Menus.administration.label);
-  }
-
-  private getFirstMenuItemUserIsAuthorizedFor(): Menu | undefined {
+  public getFirstMenuItemUserIsAuthorizedFor(): Menu | undefined {
     const firstMenuUserIsAuthorizedFor = this.menu.find(menu =>
       (menu.Items || []).some(menuItem => this.authorizationService.isAuthorized(menuItem.Permissions)));
 
     return firstMenuUserIsAuthorizedFor;
+  }
+
+  private getAdministrationItems() {
+    return this.menu.getItemsForLabel(Menus.administration.label);
   }
 
   private getMainMenuItems() {

@@ -5,7 +5,7 @@ using Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Clients.Handlers
+namespace Equiprent.Logic.Queries.Clients.Handlers.PagedClientRepresentativesList
 {
     public class GetPagedClientRepresentativesListHandler : IRequestHandler<GetPagedClientRepresentativesListRequest, PagedClientRepresentativesListResponse?>
     {
@@ -22,7 +22,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers
 
         public async Task<PagedClientRepresentativesListResponse?> Handle(GetPagedClientRepresentativesListRequest request, CancellationToken cancellationToken = default)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedClientRepresentativesListResponse, ClientRepresentative, ClientRepresentativeListItemViewModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedClientRepresentativesListResponse, ClientRepresentative, ClientRepresentativeDto, ClientRepresentativeListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetClientRepresentativesListQuery(request),
                 _serviceProvider,

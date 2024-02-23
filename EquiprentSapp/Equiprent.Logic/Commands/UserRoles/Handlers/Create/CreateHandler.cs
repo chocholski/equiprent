@@ -26,7 +26,12 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Create
 
         public async Task<CommandResult> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
-            var userRole = new UserRole();
+            var userRole = new UserRole
+            {
+                CreatedById = request.CreatedById,
+                CreatedOn = DateTime.Now,
+                IsDeleted = false,
+            };
             _dbContext.UserRoles.Add(userRole);
 
             AddUserRoleToLanguages(userRole, request.NameInLanguages);

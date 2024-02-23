@@ -8,6 +8,7 @@ namespace Equiprent.ApplicationImplementations.Database.DbStatementBuilders.Mode
         {
             { "date", FilterTypeEnum.Date },
             { "numeric", FilterTypeEnum.Numeric },
+            { "special", FilterTypeEnum.Special },
             { "text", FilterTypeEnum.Text },
         };
 

@@ -91,14 +91,11 @@ export class ManufacturerListComponent
         field: 'NationalId',
         header: 'Manufacturer.NationalId',
         width: '10%',
-        filterType: FilterTypeEnum.Text,
-        applyGlobalFiltering: true
       },
       <PngTableColumn>{
         field: 'AddressSummary',
         header: 'Manufacturer.AddressSummary',
         width: '10%',
-        filterType: FilterTypeEnum.Text,
       },
       <PngTableColumn>{
         field: 'Actions',

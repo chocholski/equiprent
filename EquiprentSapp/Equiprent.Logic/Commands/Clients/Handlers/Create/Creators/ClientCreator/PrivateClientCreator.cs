@@ -1,6 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
-using Equiprent.Logic.Commands.Clients.Handlers.Create.Compositions;
 using Equiprent.Logic.Commands.Clients.Handlers.Create.Creators.ClientAddressesCreators;
 using Equiprent.Logic.Commands.Clients.Requests.Create;
 
@@ -20,7 +19,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create.Creators.ClientCreato
             new PrivateClientAddressesCreator(_dbContext).CreateClientAddressesWithRequest(client, creatingRequest);
         }
 
-        public Client? CreateClientWithRequest(CreateRequestWithCreatorId creatingRequest)
+        public Client? CreateClientWithRequest(CreateRequest creatingRequest)
         {
             return new PrivateClient
             {

@@ -40,6 +40,11 @@ export class UserRoleDetailsComponent
   userPermissionGroups: UserPermissionNode[] = [];
   userRole: UserRoleDetailsModel;
 
+  public override get shouldActionsBeDisabled(): boolean {
+    return super.shouldActionsBeDisabled ||
+      !this.userRole;
+  }
+
   @ViewChild('nameInLanguages') nameInLanguages: NameInLanguagesComponent;
   @ViewChild('userRolePermissions') userRolePermissions: UserRolePermissionsComponent;
 

@@ -33,11 +33,8 @@ export class AppMenuComponent implements OnInit {
     public buildMenu() {
         this.authorizationService.decodeTokenAndSetData();
         this.model = [];
-
-        var menu = this.menuService.getMenu();
-
+        const menu = this.menuService.getMenu();
         menu.forEach(menu => this.appendMenu(menu));
-
         this.model = [...this.model];
     }
 
@@ -45,61 +42,22 @@ export class AppMenuComponent implements OnInit {
         if (!this.model)
             return;
 
-        const allMenuPermissions: number[] = [];
+        const menuItemsCurrentUserIsAuthorizedFor = menu.Items!.filter(item => this.isLoggedUserAuthorizedForMenu(item.Permissions!));
+        const menuItems: { label: string; icon: string | undefined; routerLink: string[] | undefined; }[] = [];
 
-        menu.Items?.forEach(menuItem => menuItem.Permissions?.forEach(permission => allMenuPermissions.push(permission)));
+        menuItemsCurrentUserIsAuthorizedFor.forEach(m => menuItems.push({
+            label: this.translate.instant(m.Label),
+            icon: m.Icon,
+            routerLink: m.RouterLink
+        }));
 
-        //TODO
-        const isAuthorized = this.isAuthorized(allMenuPermissions);
-
-        if (isAuthorized) {
-
-            const menuItems: { label: string; icon: string | undefined; routerLink: string[] | undefined; }[] = [];
-
-            menu.Items?.forEach(m => menuItems.push({
-                label: this.translate.instant(m.Label),
-                icon: m.Icon,
-                routerLink: m.RouterLink
-            }));
-
-            this.model.push({
-                label: this.translate.instant(menu.Label),
-                items: menuItems
-            });
-        }
+        this.model.push({
+            label: this.translate.instant(menu.Label),
+            items: menuItems
+        });
     }
 
-    private appendMenuItem(menuItemLabel: string, permissions: number[], label: string, icon: string, routerLink?: string[]) {
-        if (!this.model)
-            return;
-
-        const isAuthorized = this.isAuthorized(permissions);
-
-        if (isAuthorized) {
-            var menuItem = this.model.find(x => x.label == this.translate.instant(menuItemLabel));
-
-            if (menuItem) {
-                if (!menuItem.items) {
-                    menuItem.items = [];
-                }
-
-                menuItem.items = menuItem.items.concat([
-                    { label: this.translate.instant(label), icon: icon, routerLink: routerLink }
-                ]);
-            }
-        }
-    }
-
-    private isAuthorized(permissions: number[]): boolean {
-        let isAuthorized = false;
-
-        for (const permission of permissions) {
-            if (this.authorizationService.isAuthorized([permission])) {
-                isAuthorized = true;
-                break;
-            }
-        }
-
-        return isAuthorized;
+    private isLoggedUserAuthorizedForMenu(permissions: number[]): boolean {
+        return permissions.some(permission => this.authorizationService.isAuthorized([permission]));
     }
 }

@@ -4,7 +4,7 @@ using Equiprent.Logic.Queries.Users.Responses.UserLanguageById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Users.Handlers
+namespace Equiprent.Logic.Queries.Users.Handlers.UserLanguageById
 {
     public class GetUserLanguageByIdHandler : IRequestHandler<GetUserLanguageByIdRequest, UserLanguageByIdResponse?>
     {

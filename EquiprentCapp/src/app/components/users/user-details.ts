@@ -36,6 +36,11 @@ export class UserDetailsComponent
   user: UserDetailsModel;
   userRoles: SelectItem<number>[];
 
+  public override get shouldActionsBeDisabled(): boolean {
+    return super.shouldActionsBeDisabled ||
+      !this.user;
+  }
+
   constructor(
     protected override readonly activatedRoute: ActivatedRoute,
     protected override readonly authorizationService: AuthorizationService,

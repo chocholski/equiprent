@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Equiprent.Logic.Queries.Audits.Reponses.FieldNames
 {
-    public class FieldNamesResponse : ListViewModelBaseResponse<AuditListQueryModel, FieldNamesItemViewModel>
+    public class FieldNamesResponse : ListViewModelBaseResponse<AuditListQueryModel, AuditListQueryModel, FieldNamesItemViewModel>
     {
         private readonly IAuditMemberTranslatorService _auditMemberTranslatorService;
 

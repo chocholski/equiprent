@@ -38,40 +38,42 @@ namespace Equiprent.ApplicationImplementations.Database.DbStatementBuilders
             foreach (var criterion in criteria!)
             {
                 var conditionBuilder = new StringBuilder(
-                    criterion!.Mode switch
-                    {
-                        MatchModeEnum.Contains =>
-                            GetContainsCondition(criterion!),
-                        MatchModeEnum.DateIs =>
-                            GetDateIsCondition(criterion!),
-                        MatchModeEnum.DateIsAfter =>
-                            GetDateIsAfterCondition(criterion!),
-                        MatchModeEnum.DateIsBefore =>
-                            GetDateIsBeforeCondition(criterion!),
-                        MatchModeEnum.DateIsNot =>
-                            GetDateIsNotCondition(criterion!),
-                        MatchModeEnum.EndsWith =>
-                            $"{criterion.FieldName}.EndsWith(\"{criterion.FieldValue}\")",
-                        MatchModeEnum.Equals =>
-                            $"({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
-                        MatchModeEnum.GreaterThan =>
-                            GetNumberGreaterThanCondition(criterion!),
-                        MatchModeEnum.GreaterThanOrEqualTo =>
-                            GetNumberGreaterThanOrEqualToCondition(criterion!),
-                        MatchModeEnum.In =>
-                            $"new[] {{ {string.Join(",", criterion.FieldValue!.Split(",").Select(value => $"\"{value}\""))} }}.Contains({criterion.FieldName}.ToString())",
-                        MatchModeEnum.LessThan =>
-                            GetNumberLessThanCondition(criterion!),
-                        MatchModeEnum.LessThanOrEqualTo =>
-                            GetNumberLessThanOrEqualToCondition(criterion!),
-                        MatchModeEnum.NotContains =>
-                            $"!{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
-                        MatchModeEnum.NotEquals =>
-                            $"!({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
-                        MatchModeEnum.StartsWith =>
-                            $"{criterion.FieldName}.StartsWith(\"{criterion.FieldValue}\")",
-                        _ => string.Empty
-                    });
+                    criterion!.Type == FilterTypeEnum.Special
+                        ? await _specialFilterBuilder.BuildSpecialConditionAsync(criterion)
+                        : criterion!.Mode switch
+                            {
+                                MatchModeEnum.Contains =>
+                                    GetContainsCondition(criterion!),
+                                MatchModeEnum.DateIs =>
+                                    GetDateIsCondition(criterion!),
+                                MatchModeEnum.DateIsAfter =>
+                                    GetDateIsAfterCondition(criterion!),
+                                MatchModeEnum.DateIsBefore =>
+                                    GetDateIsBeforeCondition(criterion!),
+                                MatchModeEnum.DateIsNot =>
+                                    GetDateIsNotCondition(criterion!),
+                                MatchModeEnum.EndsWith =>
+                                    $"{criterion.FieldName}.EndsWith(\"{criterion.FieldValue}\")",
+                                MatchModeEnum.Equals =>
+                                    $"({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
+                                MatchModeEnum.GreaterThan =>
+                                    GetNumberGreaterThanCondition(criterion!),
+                                MatchModeEnum.GreaterThanOrEqualTo =>
+                                    GetNumberGreaterThanOrEqualToCondition(criterion!),
+                                MatchModeEnum.In =>
+                                    $"new[] {{ {string.Join(",", criterion.FieldValue!.Split(",").Select(value => $"\"{value}\""))} }}.Contains({criterion.FieldName}.ToString())",
+                                MatchModeEnum.LessThan =>
+                                    GetNumberLessThanCondition(criterion!),
+                                MatchModeEnum.LessThanOrEqualTo =>
+                                    GetNumberLessThanOrEqualToCondition(criterion!),
+                                MatchModeEnum.NotContains =>
+                                    $"!{criterion.FieldName}.Contains(\"{criterion.FieldValue}\")",
+                                MatchModeEnum.NotEquals =>
+                                    $"!({criterion.FieldName}{(criterion.Type == FilterTypeEnum.Numeric ? ".ToString()" : string.Empty)}).Equals(\"{criterion.FieldValue}\")",
+                                MatchModeEnum.StartsWith =>
+                                    $"{criterion.FieldName}.StartsWith(\"{criterion.FieldValue}\")",
+                                _ => string.Empty
+                            });
 
                 if (conditionBuilder.Length > 0)
                 {
@@ -93,7 +95,7 @@ namespace Equiprent.ApplicationImplementations.Database.DbStatementBuilders
             if (resultBuilder.Length == 0)
                 return "1 = 1";
 
-            return await Task.FromResult(resultBuilder.ToString());
+            return resultBuilder.ToString();
         }
 
         private static string GetContainsCondition(IWhereClauseCriteria criteria) =>

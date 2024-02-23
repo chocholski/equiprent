@@ -30,7 +30,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
 
             var clientUpdateResult = await UpdateClientRepresentativeWithRequestAsync(clientRepresentative, request, cancellationToken);
 
-            if (clientUpdateResult == CommandResult.OK)
+            if (clientUpdateResult.IsOk())
                 await _dbContext.SaveChangesAsync(cancellationToken);
 
             return clientUpdateResult;
@@ -40,7 +40,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.SaveClientRepresentative
         {
             var clientRepresentativeAddressUpdateResult = await UpdateClientRepresentativeAddressWithRequestAsync(request, cancellationToken);
 
-            if (clientRepresentativeAddressUpdateResult != CommandResult.OK)
+            if (!clientRepresentativeAddressUpdateResult.IsOk())
                 return clientRepresentativeAddressUpdateResult;
 
             representative.FirstName = request.FirstName;

@@ -4,7 +4,7 @@ using Equiprent.Logic.Queries.Users.Responses.UserById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Users.Handlers
+namespace Equiprent.Logic.Queries.Users.Handlers.UserById
 {
     public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, UserByIdResponse?>
     {

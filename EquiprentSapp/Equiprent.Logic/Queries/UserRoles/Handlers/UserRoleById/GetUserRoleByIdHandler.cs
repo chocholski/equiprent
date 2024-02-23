@@ -8,7 +8,7 @@ using Equiprent.Logic.Queries.UserRoles.Responses.UserRoleById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.UserRoles.Handlers
+namespace Equiprent.Logic.Queries.UserRoles.Handlers.UserRoleById
 {
     public class GetUserRoleByIdHandler : IRequestHandler<GetUserRoleByIdRequest, UserRoleByIdResponse?>
     {

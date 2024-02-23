@@ -3,6 +3,7 @@ import { FilterMatchMode, FilterMetadata, LazyLoadEvent, SelectItem } from 'prim
 import { StringBuilder } from './stringBuilder';
 import { PrimeNgHelper } from './primeNgHelper';
 import { SearchOperatorEnum } from '../enums/search-operator-enum';
+import { FilterTypeEnum } from '../enums/filter-type-enum';
 
 export class PngTableSearchQueryBuilder {
 
@@ -64,6 +65,9 @@ export class PngTableSearchQueryBuilder {
             const filtersGroup = this.event.filters?.[column.field];
 
             if (filtersGroup === undefined)
+                continue;
+
+            if (column.filterType === FilterTypeEnum.Special && column.replaceWith === undefined)
                 continue;
 
             const replaceWith = column.replaceWith ?? column.field;

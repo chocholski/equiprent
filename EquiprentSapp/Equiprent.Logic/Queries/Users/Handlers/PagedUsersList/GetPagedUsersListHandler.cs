@@ -7,7 +7,7 @@ using Equiprent.Entities.Application.Users;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Users.Handlers
+namespace Equiprent.Logic.Queries.Users.Handlers.PagedUsersList
 {
     public class GetPagedUsersListHandler : IRequestHandler<GetPagedUsersListRequest, PagedUsersListResponse?>
     {
@@ -27,7 +27,7 @@ namespace Equiprent.Logic.Queries.Users.Handlers
 
         public async Task<PagedUsersListResponse?> Handle(GetPagedUsersListRequest request, CancellationToken cancellationToken)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUsersListResponse, User, UserListItemViewModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUsersListResponse, User, UserDto, UserListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetUserListQueryUsingRequest(request),
                 _serviceProvider,

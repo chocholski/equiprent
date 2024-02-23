@@ -4,7 +4,7 @@ using Equiprent.Logic.Queries.Equipments.Responses.EquipmentById;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Equipments.Handlers
+namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentById
 {
     public class GetEquipmentByIdHandler : IRequestHandler<GetEquipmentByIdRequest, EquipmentByIdResponse?>
     {

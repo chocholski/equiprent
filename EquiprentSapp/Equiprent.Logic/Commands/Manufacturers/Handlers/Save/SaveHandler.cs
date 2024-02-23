@@ -28,7 +28,7 @@ namespace Equiprent.Logic.Commands.Manufacturers.Handlers.Save
             manufacturer.IsOperational = request.IsOperational;
             manufacturer.Name = request.Name;
 
-            if (UpdateManufacturerAddressWithRequest(manufacturer.Address, request) != CommandResult.OK)
+            if (!UpdateManufacturerAddressWithRequest(manufacturer.Address, request).IsOk())
                 return CommandResult.BadRequest;
 
             await _dbContext.Manufacturers.UpdateAndSaveAsync(manufacturer, cancellationToken);

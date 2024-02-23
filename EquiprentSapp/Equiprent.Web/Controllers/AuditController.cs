@@ -15,7 +15,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetObjectHistory([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
+        public async Task<IActionResult> GetObjectHistoryAsync([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
         {
             var request = new GetObjectHistoryRequest(requestParameters, entityId, entityTableName);
             var result = await _mediator.Send(request);
@@ -23,7 +23,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.Audit.GetFieldNames)]
-        public async Task<ActionResult> GetFieldNames([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
+        public async Task<ActionResult> GetFieldNamesAsync([FromQuery]RequestParameters requestParameters, string entityId, string entityTableName)
         {
             var request = new GetFieldNamesRequest(requestParameters, entityId, entityTableName);
             var result = await _mediator.Send(request);

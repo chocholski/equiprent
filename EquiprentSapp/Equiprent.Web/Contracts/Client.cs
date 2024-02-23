@@ -7,6 +7,7 @@
             public static class Representative
             {
                 public const string Delete = "representative/{id}";
+                public const string DeleteManyForClient = "representative/{clientId}";
                 public const string GetAll = "representative";
                 public const string GetById = "representative/{id}";
                 public const string Post = "representative";

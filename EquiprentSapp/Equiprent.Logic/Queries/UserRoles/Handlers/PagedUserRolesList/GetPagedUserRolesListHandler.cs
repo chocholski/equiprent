@@ -7,7 +7,7 @@ using Equiprent.Logic.Queries.UserRoles.Responses.PagedUserRolesList;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.UserRoles.Handlers
+namespace Equiprent.Logic.Queries.UserRoles.Handlers.PagedUserRolesList
 {
     public class GetPagedUserRolesListHandler : IRequestHandler<GetPagedUserRolesListRequest, PagedUserRolesListResponse?>
     {
@@ -27,7 +27,7 @@ namespace Equiprent.Logic.Queries.UserRoles.Handlers
 
         public async Task<PagedUserRolesListResponse?> Handle(GetPagedUserRolesListRequest request, CancellationToken cancellationToken = default)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleListItemModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUserRolesListResponse, UserRole, UserRoleDto, UserRoleListItemModel>(
                 requestParameters: request.RequestParameters,
                 query: GetUserRoleListQuery(),
                 _serviceProvider,

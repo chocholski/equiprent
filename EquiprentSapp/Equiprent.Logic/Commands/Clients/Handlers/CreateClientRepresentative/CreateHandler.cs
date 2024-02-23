@@ -1,5 +1,4 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
-using Equiprent.ApplicationInterfaces.Users;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.Addresses;
 using Equiprent.Entities.Business.ClientRepresentatives;
@@ -12,25 +11,16 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
     public class CreateHandler : IRequestHandler<CreateRequest, CommandResult?>
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IUserService _userService;
 
-        public CreateHandler(
-            ApplicationDbContext dbContext,
-            IUserService userService)
+        public CreateHandler(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-            _userService = userService;
         }
 
         public async Task<CommandResult?> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
-            var createdById = _userService.GetUserId();
-
-            if (!createdById.HasValue ||
-                !request.ClientId.HasValue)
-            {
+            if (!request.ClientId.HasValue)
                 return CommandResult.BadRequest;
-            }
 
             var clientRepresentativeAddress = new Address
             {
@@ -49,7 +39,7 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.CreateClientRepresentative
             {
                 Address = clientRepresentativeAddress,
                 ClientId = request.ClientId.Value,
-                CreatedById = createdById.Value,
+                CreatedById = request.CreatedById,
                 CreatedOn = DateTime.Now,
                 FirstName = request.FirstName,
                 LastName = request.LastName,

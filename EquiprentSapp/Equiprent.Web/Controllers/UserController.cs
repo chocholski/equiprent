@@ -23,7 +23,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet]
-        public async Task<ActionResult<PagedUsersListResponse?>> GetPagedUsersList([FromQuery] RequestParameters requestParameters, [FromQuery] int? userRoleId)
+        public async Task<ActionResult<PagedUsersListResponse?>> GetPagedUsersListAsync([FromQuery] RequestParameters requestParameters, [FromQuery] int? userRoleId)
         {
             var request = new GetPagedUsersListRequest(requestParameters, userRoleId);
             var result = await _mediator.Send(request);
@@ -32,7 +32,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(Guid id)
+        public async Task<IActionResult> GetUserByIdAsync(Guid id)
         {
             var request = new GetUserByIdRequest(id);
             var result = await _mediator.Send(request);
@@ -40,7 +40,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet($"{ApiRoutes.User.GetLanguage}/{{userId}}")]
-        public async Task<IActionResult> GetUserLanguageById(Guid userId)
+        public async Task<IActionResult> GetUserLanguageByIdAsync(Guid userId)
         {
             var request = new GetUserLanguageByIdRequest(userId);
             var result = await _mediator.Send(request);
@@ -48,7 +48,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet($"{ApiRoutes.User.GetTheme}/{{userId}}")]
-        public async Task<IActionResult> GetUserThemeById(Guid userId)
+        public async Task<IActionResult> GetUserThemeByIdAsync(Guid userId)
         {
             var request = new GetUserThemeByIdRequest(userId);
             var result = await _mediator.Send(request);
@@ -57,7 +57,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateRequest request)
+        public async Task<IActionResult> CreateUserAsync([FromBody] CreateRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -65,14 +65,14 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPut]
-        public async Task<IActionResult> SaveUser([FromBody] SaveRequest request)
+        public async Task<IActionResult> SaveUserAsync([FromBody] SaveRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
         [HttpPut(ApiRoutes.User.ChangeLanguage)]
-        public async Task<IActionResult> ChangeLanguage([FromBody] ChangeLanguageRequest request)
+        public async Task<IActionResult> ChangeLanguageAsync([FromBody] ChangeLanguageRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -80,14 +80,14 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpPost(ApiRoutes.User.ChangeRole)]
-        public async Task<IActionResult> ChangeRole([FromBody] ChangeRoleRequest request)
+        public async Task<IActionResult> ChangeRoleAsync([FromBody] ChangeRoleRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
         }
 
         [HttpPost(ApiRoutes.User.ChangeTheme)]
-        public async Task<IActionResult> ChangeTheme([FromBody] ChangeThemeRequest request)
+        public async Task<IActionResult> ChangeThemeAsync([FromBody] ChangeThemeRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -95,7 +95,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanModify)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
             var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);

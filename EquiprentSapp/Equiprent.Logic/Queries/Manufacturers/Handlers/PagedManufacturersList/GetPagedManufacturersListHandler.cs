@@ -5,7 +5,7 @@ using Equiprent.Logic.Queries.Manufacturers.Responses.PagedManufacturersList;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Manufacturers.Handlers
+namespace Equiprent.Logic.Queries.Manufacturers.Handlers.PagedManufacturersList
 {
     public class GetPagedManufacturersListHandler : IRequestHandler<GetPagedManufacturersListRequest, PagedManufacturersListResponse?>
     {
@@ -20,7 +20,7 @@ namespace Equiprent.Logic.Queries.Manufacturers.Handlers
 
         public async Task<PagedManufacturersListResponse?> Handle(GetPagedManufacturersListRequest request, CancellationToken cancellationToken = default)
         {
-            return await ListViewResponseBuilder.GetListViewResponseAsync<PagedManufacturersListResponse, Manufacturer, ManufacturerListItemViewModel>(
+            return await ListViewResponseBuilder.GetListViewResponseAsync<PagedManufacturersListResponse, Manufacturer, ManufacturerDto, ManufacturerListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetManufacturersQuery(),
                 _serviceProvider,

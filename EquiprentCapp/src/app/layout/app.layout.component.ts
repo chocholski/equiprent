@@ -6,6 +6,7 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { Routes } from '../routes';
+import { MenuService } from '../services/layout/menu.service';
 
 @Component({
     selector: 'app-layout',
@@ -22,10 +23,11 @@ export class AppLayoutComponent implements OnDestroy {
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
 
     constructor(
-        private authenticationService: AuthenticationService,
-        public layoutService: LayoutService,
-        public renderer: Renderer2,
-        public router: Router) {
+        private readonly authenticationService: AuthenticationService,
+        public readonly layoutService: LayoutService,
+        private readonly menuService: MenuService,
+        public readonly renderer: Renderer2,
+        public readonly router: Router) {
 
         this.isUserLoggedIn = this.authenticationService.isLoggedIn();
 
@@ -66,6 +68,10 @@ export class AppLayoutComponent implements OnDestroy {
                     this.hideMenu();
                     this.hideProfileMenu();
                 });
+
+            const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
+            if (firstMenuItemUserIsAuthorizedFor?.Items && firstMenuItemUserIsAuthorizedFor.Items[0]?.RouterLink)
+                this.router.navigate(firstMenuItemUserIsAuthorizedFor!.Items![0].RouterLink!);
         }
     }
 

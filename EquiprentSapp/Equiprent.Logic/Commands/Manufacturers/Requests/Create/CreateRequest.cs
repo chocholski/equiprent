@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Equiprent.Logic.Commands.Manufacturers.Requests.Create
 {
-    public class CreateRequest : IRequest<CommandResult?>
+    public partial class CreateRequest : IRequest<CommandResult?>
     {
         public ManufacturerAddressModel Address { get; set; } = null!;
         public bool IsOperational { get; set; }

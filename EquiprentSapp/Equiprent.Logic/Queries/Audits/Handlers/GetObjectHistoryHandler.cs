@@ -23,7 +23,7 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
 
         public async Task<ObjectHistoryResponse?> Handle(GetObjectHistoryRequest request, CancellationToken cancellationToken)
         {
-            return await ListViewResponseBuilder.GetListViewResponseAsync<ObjectHistoryResponse, AuditListQueryModel, ObjectHistoryItemViewModel>(
+            return await ListViewResponseBuilder.GetListViewResponseAsync<ObjectHistoryResponse, AuditListQueryModel, AuditListQueryModel, ObjectHistoryItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetObjectHistoryQueryWithRequest(request),
                 _serviceProvider,

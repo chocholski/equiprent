@@ -22,7 +22,7 @@ namespace Equiprent.ApplicationImplementations.Identities.Tokens
                     .FirstOrDefaultAsync(cancellationToken);
 
                 if (refreshToken is null)
-                    return;
+                    continue;
 
                 refreshToken.IsTokenRefreshRequired = true;
 

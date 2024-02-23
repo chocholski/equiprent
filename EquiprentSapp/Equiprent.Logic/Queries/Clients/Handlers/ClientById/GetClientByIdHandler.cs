@@ -5,7 +5,7 @@ using Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Clients.Handlers
+namespace Equiprent.Logic.Queries.Clients.Handlers.ClientById
 {
     public class GetClientByIdHandler : IRequestHandler<GetClientByIdRequest, ClientByIdResponse?>
     {

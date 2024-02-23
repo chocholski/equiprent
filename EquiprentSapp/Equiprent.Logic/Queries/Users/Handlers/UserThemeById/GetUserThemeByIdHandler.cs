@@ -3,7 +3,7 @@ using Equiprent.Logic.Queries.Users.Requests;
 using MediatR;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Users.Handlers
+namespace Equiprent.Logic.Queries.Users.Handlers.UserThemeById
 {
     public class GetUserThemeByIdHandler : IRequestHandler<GetUserThemeByIdRequest, bool>
     {

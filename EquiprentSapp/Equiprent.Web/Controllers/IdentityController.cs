@@ -12,7 +12,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpPost(ApiRoutes.Identity.Authenticate)]
-        public async Task<IActionResult> Authenticate([FromBody] AuthenticationRequest? request)
+        public async Task<IActionResult> AuthenticateAsync([FromBody] AuthenticationRequest? request)
         {
             if (request is null)
                 return new StatusCodeResult(500);                
@@ -25,7 +25,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpPost(ApiRoutes.Identity.RefreshToken)]
-        public async Task<IActionResult> Refresh(RefreshTokenRequest request)
+        public async Task<IActionResult> RefreshAsync(RefreshTokenRequest request)
         {
             return new JsonResult(await _mediator.Send(request));
         }

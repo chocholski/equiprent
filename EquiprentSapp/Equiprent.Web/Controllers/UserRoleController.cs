@@ -19,7 +19,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedUserRolesListResponse?>> GetUserRoles([FromQuery] RequestParameters requestParameters)
+        public async Task<ActionResult<PagedUserRolesListResponse?>> GetUserRolesAsync([FromQuery] RequestParameters requestParameters)
         {
             var request = new GetPagedUserRolesListRequest(requestParameters);
             var result = await _mediator.Send(request);
@@ -27,7 +27,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserRole(int id)
+        public async Task<IActionResult> GetUserRoleAsync(int id)
         {
             var request = new GetUserRoleByIdRequest(id);
             var result = await _mediator.Send(request);
@@ -36,7 +36,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.UserRole.GetUserRolePermissionsForCreation)]
-        public async Task<IActionResult> GetUserRolePermissionsForCreation()
+        public async Task<IActionResult> GetUserRolePermissionsForCreationAsync()
         {
             var request = new GetUserRolePermissionsForCreationRequest();
             var result = await _mediator.Send(request);
@@ -46,7 +46,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPut]
-        public async Task<IActionResult> SaveUserRole([FromBody] SaveRequest request)
+        public async Task<IActionResult> SaveUserRoleAsync([FromBody] SaveRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -54,7 +54,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpPost]
-        public async Task<IActionResult> CreateUserRole([FromBody] CreateRequest request)
+        public async Task<IActionResult> CreateUserRoleAsync([FromBody] CreateRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -62,7 +62,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.UserRoles_CanModify)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUserRole(int id)
+        public async Task<IActionResult> DeleteUserRoleAsync(int id)
         {
             var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);

@@ -52,6 +52,7 @@ export class ClientDetailsComponent
 
   public override get shouldActionsBeDisabled(): boolean {
     return super.shouldActionsBeDisabled ||
+      !this.client ||
       (this.addressForm?.form.invalid ?? false) ||
       (this.companyClientAddressForm?.form.invalid ?? false) ||
       (this.privateClientAddressForm?.form.invalid ?? false) ||

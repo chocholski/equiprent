@@ -8,6 +8,8 @@ namespace Equiprent.Logic.Queries.Manufacturers.Responses.PagedManufacturersList
 
         public Guid Id { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public bool IsOperational { get; set; }
 
         [SortColumn]

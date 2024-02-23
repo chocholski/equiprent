@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientsList
 {
-    public class PagedClientsListResponse : ListViewModelBaseResponse<Client, ClientListItemViewModel>
+    public class PagedClientsListResponse : ListViewModelBaseResponse<Client, Client, ClientListItemViewModel>
     {
         public PagedClientsListResponse(
             RequestParameters requestParameters,

@@ -9,7 +9,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 
-namespace Equiprent.Logic.Queries.Equipments.Handlers
+namespace Equiprent.Logic.Queries.Equipments.Handlers.PagedEquipmentsList
 {
     public class GetPagedEquipmentsListHandler : IRequestHandler<GetPagedEquipmentsListRequest, PagedEquipmentsListResponse?>
     {
@@ -28,7 +28,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers
 
         public async Task<PagedEquipmentsListResponse?> Handle(GetPagedEquipmentsListRequest request, CancellationToken cancellationToken = default)
         {
-            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedEquipmentsListResponse, EquipmentListQueryModel, EquipmentListItemViewModel>(
+            var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedEquipmentsListResponse, EquipmentListQueryModel, EquipmentListQueryModel, EquipmentListItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetEquipmentsQuery(),
                 _serviceProvider,

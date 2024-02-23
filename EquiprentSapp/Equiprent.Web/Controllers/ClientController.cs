@@ -20,7 +20,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedClientsListResponse>> GetPagedClientsList([FromQuery] RequestParameters requestParameters)
+        public async Task<ActionResult<PagedClientsListResponse>> GetPagedClientsListAsync([FromQuery] RequestParameters requestParameters)
         {
             var request = new GetPagedClientsListRequest(requestParameters);
             var result = await _mediator.Send(request);
@@ -29,7 +29,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Clients_CanList)]
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetClientById(Guid id)
+        public async Task<IActionResult> GetClientByIdAsync(Guid id)
         {
             var request = new GetClientByIdRequest(id);
             var result = await _mediator.Send(request);
@@ -38,7 +38,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Clients_CanModify)]
         [HttpPost]
-        public async Task<IActionResult> CreateClient([FromBody] CreateRequest request)
+        public async Task<IActionResult> CreateClientAsync([FromBody] CreateRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -46,7 +46,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Clients_CanModify)]
         [HttpPut]
-        public async Task<IActionResult> SaveClient([FromBody] SaveRequest request)
+        public async Task<IActionResult> SaveClientAsync([FromBody] SaveRequest request)
         {
             var result = await _mediator.Send(request);
             return GetActionResult(result);
@@ -54,7 +54,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Clients_CanModify)]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteClient(Guid id)
+        public async Task<IActionResult> DeleteClientAsync(Guid id)
         {
             var result = await _mediator.Send(new DeleteRequest(id));
             return GetActionResult(result);

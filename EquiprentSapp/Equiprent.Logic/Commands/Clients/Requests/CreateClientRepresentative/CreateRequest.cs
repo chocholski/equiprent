@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative
 {
-    public class CreateRequest : IRequest<CommandResult?>
+    public partial class CreateRequest : IRequest<CommandResult?>
     {
         public AddressModel Address { get; set; } = null!;
         public Guid? ClientId { get; set; }

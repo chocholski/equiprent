@@ -23,7 +23,7 @@ namespace Equiprent.Logic.Queries.Audits.Handlers
 
         public async Task<FieldNamesResponse?> Handle(GetFieldNamesRequest request, CancellationToken cancellationToken)
         {
-            return await ListViewResponseBuilder.GetListViewResponseAsync<FieldNamesResponse, AuditListQueryModel, FieldNamesItemViewModel>(
+            return await ListViewResponseBuilder.GetListViewResponseAsync<FieldNamesResponse, AuditListQueryModel, AuditListQueryModel, FieldNamesItemViewModel>(
                 requestParameters: request.RequestParameters,
                 query: GetAuditFieldNamesQueryWithRequest(request),
                 _serviceProvider,

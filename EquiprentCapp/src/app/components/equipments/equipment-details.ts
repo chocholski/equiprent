@@ -37,6 +37,11 @@ export class EquipmentDetailsComponent
   manufacturers: SelectItem[];
   types: SelectItem[];
 
+  public override get shouldActionsBeDisabled(): boolean {
+    return super.shouldActionsBeDisabled ||
+      !this.equipment;
+  }
+
   constructor(
     protected override readonly activatedRoute: ActivatedRoute,
     protected override readonly authorizationService: AuthorizationService,

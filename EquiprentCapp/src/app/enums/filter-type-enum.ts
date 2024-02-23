@@ -1,5 +1,6 @@
 export enum FilterTypeEnum {
   Date = "date",
   Numeric = "numeric",
-  Text = "text"
+  Special = "special",
+  Text = "text",
 }

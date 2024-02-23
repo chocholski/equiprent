@@ -24,7 +24,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
         [HttpGet(ApiRoutes.SelectOptions.ClientTypes)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientTypesSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientTypesSelectOptionsAsync()
         {
             var clientTypesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<ClientTypeToLanguage>();
             var model = clientTypesTranslations
@@ -39,7 +39,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.SelectOptions.Countries)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetCountriesSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetCountriesSelectOptionsAsync()
         {
             var countriesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<CountryToLanguage>();
             var model = countriesTranslations
@@ -54,7 +54,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.SelectOptions.EquipmentTypes)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetEquipmentTypesSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetEquipmentTypesSelectOptionsAsync()
         {
             var equipmentTypesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<EquipmentTypeToLanguage>();
             var model = equipmentTypesTranslations
@@ -69,7 +69,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.SelectOptions.Languages)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetLanguagesSelectOptionsAsync()
         {
             var model = await _dbContext!.Languages
                 .Select(language => new SelectListItemModel
@@ -83,7 +83,7 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.SelectOptions.Manufacturers)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetManufacturersSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetManufacturersSelectOptionsAsync()
         {
             var model = await _dbContext!.Manufacturers
                 .Where(m => !m.IsDeleted)
@@ -99,7 +99,7 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet(ApiRoutes.SelectOptions.UserRoles)]
-        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptions()
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptionsAsync()
         {
             var userRolesTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<UserRoleToLanguage>();
             var model = userRolesTranslations
@@ -115,12 +115,12 @@ namespace Equiprent.Web.Controllers
 
         [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
         [HttpGet(ApiRoutes.SelectOptions.YesNoOptions)]
-        public ActionResult<IEnumerable<SelectListItemModel>> GetYesNoSelectOptions()
+        public ActionResult<IEnumerable<SelectListItemModel>> GetYesNoSelectOptionsAsync()
         {
             var model = new List<SelectListItemModel>
             {
-                new SelectListItemModel { Value = 0.ToString(), Name = "Nie" },
-                new SelectListItemModel { Value = 1.ToString(), Name = "Tak" }
+                new() { Value = 0.ToString(), Name = "Nie" },
+                new() { Value = 1.ToString(), Name = "Tak" }
             };
 
             return new JsonResult(model, new JsonSerializerSettings { });

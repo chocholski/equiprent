@@ -3,7 +3,6 @@ using Equiprent.Logic.Commands.Users.Requests.Create;
 using Equiprent.Entities.Application.Users;
 using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationInterfaces.Users.Passwords;
-using Equiprent.ApplicationInterfaces.Users;
 using MediatR;
 using System.Threading;
 
@@ -13,16 +12,13 @@ namespace Equiprent.Logic.Commands.Users.Handlers
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IPasswordHasher _passwordHasher;
-        private readonly IUserService _userService;
 
         public CreateHandler(
             ApplicationDbContext dbContext,
-            IPasswordHasher passwordHasher,
-            IUserService userResolverService)
+            IPasswordHasher passwordHasher)
         {
             _dbContext = dbContext;
             _passwordHasher = passwordHasher;
-            _userService = userResolverService;
         }
 
         public async Task<CommandResult> Handle(CreateRequest request, CancellationToken cancellationToken)
@@ -33,10 +29,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
             if (loginExists)
                 return CommandResult.User_LoginExists;
 
-            var createdById = _userService.GetUserId();
-
-            if (!createdById.HasValue ||
-                !request.LanguageId.HasValue ||
+            if (!request.LanguageId.HasValue ||
                 !request.UserRoleId.HasValue)
             {
                 return CommandResult.BadRequest;
@@ -44,7 +37,7 @@ namespace Equiprent.Logic.Commands.Users.Handlers
 
             var user = new User
             {
-                CreatedById = createdById.Value,
+                CreatedById = request.CreatedById,
                 CreatedOn = DateTime.Now,
                 Email = request.Email,
                 FirstName = request.FirstName,

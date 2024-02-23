@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="flex flex-column md:flex-row">
           <button *ngIf="hasAccessToButtons" pButton [label]="translate.instant('General.Create')"
-            class="p-button-outlined ml-auto" icon="fa fa-industry" (click)="onCreate()"></button>
+            class="p-button-outlined ml-auto" icon="pi pi-plus" (click)="onCreate()"></button>
         </div>
       </div>
       <div class="col-12">
@@ -39,14 +39,6 @@
                   </p-columnFilter>
                   <p-columnFilter *ngSwitchCase="'IsOperational'" type="boolean" display="menu" field="IsOperational">
                   </p-columnFilter>
-                  <p-columnFilter *ngSwitchCase="'NationalId'" pInputText type="text"
-                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
-                    field="NationalId">
-                  </p-columnFilter>
-                  <p-columnFilter *ngSwitchCase="'AddressSummary'" pInputText type="text"
-                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
-                    field="AddressSummary">
-                  </p-columnFilter>
                 </div>
               </th>
             </tr>
@@ -72,7 +64,7 @@
                   (click)="onEdit(manufacturer)"></button>
                 <button *ngIf="hasAccessToButtons" pButton pRipple type="button" icon="pi pi-trash"
                   [label]="translate.instant(onDeleteLabelId)" class="p-button-raised p-button-danger"
-                  (click)="onDelete(manufacturer)"></button>
+                  [disabled]="manufacturer.IsDeleted" (click)="onDelete(manufacturer)"></button>
               </td>
             </tr>
           </ng-template>
