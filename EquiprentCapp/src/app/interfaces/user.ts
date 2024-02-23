@@ -45,3 +45,13 @@ export interface UserListItemModel {
   UserRoleId: number;
   UserRoleName: string;
 }
+
+export class UserProfileModel {
+  Email?: string;
+  FirstName: string;
+  Id: string;
+  LastName: string;
+  Login: string;
+  Password: string;
+  UserRoleId: number;
+}

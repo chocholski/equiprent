@@ -118,17 +118,20 @@ export const Routes = {
     breadcrumbs: {
       creation: 'User.Create',
       edition: 'User.Edit',
-      list: 'User.List'
+      list: 'User.List',
+      profile: 'User.Profile',
     },
     navigations: {
       creation: 'home/users/create',
       edition: (id: string) => `home/users/edit/${id}`,
-      list: 'home/users'
+      list: 'home/users',
+      profile: 'home/profile'
     },
     paths: {
       create: 'create',
       edit: 'edit/:id',
-      list: 'users'
+      list: 'users',
+      profile: 'profile',
     }
   }
 }

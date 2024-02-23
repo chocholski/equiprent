@@ -1,67 +1,53 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { ConfirmationService, SelectItem } from "primeng/api";
+import { SelectItem } from "primeng/api";
 import { ApiRoutes } from "src/app/api-routes";
-import { UserPermissionEnum } from "src/app/enums/user-permission-enum";
+import { UserDetailsModel, UserProfileModel } from "src/app/interfaces/user";
 import { SelectOptionsService } from "src/app/services/select-options/select-options.service";
-import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { Routes } from "src/app/routes";
-import { AuthorizationService } from "src/app/services/authorization/authorization.service";
-import { AccessControlFormComponent } from "../abstract/forms/access-control-form";
+import { MenuService } from "src/app/services/layout/menu.service";
+import { FormComponent } from "../abstract/forms/form";
 import { FormModeEnum } from "src/app/enums/form-mode-enum";
-import { StringBuilder } from "src/app/tools/stringBuilder";
-import { UserDetailsModel } from "src/app/interfaces/user";
+import { AuthorizationService } from "src/app/services/authorization/authorization.service";
 
 @Component({
-  selector: "user-details",
-  templateUrl: "./user-details.html"
+  selector: "user-profile",
+  templateUrl: "./user-profile.html"
 })
-export class UserDetailsComponent
-  extends AccessControlFormComponent<UserDetailsModel>
+export class UserProfileComponent
+  extends FormComponent<UserProfileModel>
   implements OnInit {
 
-  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareUserDetailsModel;
+  public override readonly beforeSubmitionCustomOperationsHandler = this.prepareUserProfileModel;
 
   protected override afterSubmitionCustomOperationsHandler = undefined;
-  protected override deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
-  protected override entityId: string;
 
-  user: UserDetailsModel;
+  private readonly entityId: string;
+
+  user: UserProfileModel;
   userRoles: SelectItem<number>[];
 
-  public override get shouldActionsBeDisabled(): boolean {
-    return super.shouldActionsBeDisabled ||
-      !this.user;
-  }
-
   constructor(
-    protected override readonly activatedRoute: ActivatedRoute,
-    protected override readonly authorizationService: AuthorizationService,
-    protected override confirmationService: ConfirmationService,
     protected override readonly consoleMessageService: ConsoleMessageService,
     protected override readonly dialogMessageService: DialogMessageService,
     protected override readonly errorService: ErrorService,
     protected override readonly formBuilder: FormBuilder,
     protected override readonly httpClient: HttpClient,
+    private readonly menuService: MenuService,
     protected override readonly router: Router,
     private readonly selectOptionsService: SelectOptionsService,
     public override readonly translate: TranslateService
   ) {
 
     super(
-      activatedRoute,
-      authorizationService,
-      confirmationService,
       consoleMessageService,
-      'deleteUser',
-      ApiRoutes.user.delete,
       dialogMessageService,
       'User',
       errorService,
@@ -69,22 +55,20 @@ export class UserDetailsComponent
       httpClient,
       FormModeEnum.Edition,
       router,
-      ApiRoutes.user.put,
+      ApiRoutes.user.saveProfile,
       translate,
-      [UserPermissionEnum.Users_CanModify],
-      Routes.users.navigations.list);
+      Routes.home.navigations.default);
 
     this.createForm({
-      CreatedOn: [{ value: '', disabled: true }],
       Email: ['', Validators.pattern(RegexPatterns.emailPattern)],
       FirstName: ['', Validators.required],
-      IsActive: false,
       LastName: ['', Validators.required],
       Login: [{ value: '', disabled: true }],
       UserRoleId: null,
       Password: ['', Validators.pattern(RegexPatterns.passwordPattern)]
     });
 
+    this.entityId = AuthorizationService.currentUserId!;
     this.loadUser();
   }
 
@@ -93,14 +77,8 @@ export class UserDetailsComponent
   }
 
   public onBack() {
-    this.router.navigate([Routes.users.navigations.list]);
-  }
-
-  private getEntityInstanceName(): string {
-    return new StringBuilder(this.user.LastName)
-      .append(' ')
-      .append(this.user.FirstName)
-      .toString();
+    const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
+    this.router.navigate([Routes.home.navigations.default]);
   }
 
   private isPasswordFieldFilled() {
@@ -112,15 +90,13 @@ export class UserDetailsComponent
       return;
 
     this.httpClient
-      .get<UserDetailsModel>(ApiRoutes.user.getById(this.entityId))
+      .get<UserProfileModel>(ApiRoutes.user.getProfileById(this.entityId))
       .subscribe(result => {
         this.user = result;
 
         this.updateForm({
-          CreatedOn: PrimeNgHelper.getDateFromCalendarAsString(new Date(this.user.CreatedOn ?? "")),
           Email: this.user.Email,
           FirstName: this.user.FirstName,
-          IsActive: this.user.IsActive,
           LastName: this.user.LastName,
           Login: this.user.Login,
           UserRoleId: this.user.UserRoleId.toString(),
@@ -136,14 +112,12 @@ export class UserDetailsComponent
       });
   }
 
-  private prepareUserDetailsModel(): UserDetailsModel {
-    const user = <UserDetailsModel>{
+  private prepareUserProfileModel(): UserProfileModel {
+    const user = <UserProfileModel>{
       Email: this.form.value.Email,
       FirstName: this.form.value.FirstName,
       Id: this.user.Id,
-      IsActive: this.form.value.IsActive,
-      LastName: this.form.value.LastName,
-      UserRoleId: this.form.value.UserRoleId
+      LastName: this.form.value.LastName
     };
 
     if (this.isPasswordFieldFilled()) {

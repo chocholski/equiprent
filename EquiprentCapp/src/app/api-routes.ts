@@ -57,9 +57,11 @@ export const ApiRoutes = {
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `user${new PngTableSearchQueryBuilder(event, columns).create()}`,
     getById: (userId: string) => `user/${userId}`,
     getLanguage: (userId: string) => `user/getLanguage/${userId}`,
+    getProfileById: (userId: string) => `user/profile/${userId}`,
     getTheme: (userId: string) => `user/getTheme/${userId}`,
     post: "user",
-    put: "user"
+    put: "user",
+    saveProfile: "user/profile"
   },
   userRole: {
     delete: (userRoleId: number) => `userRole/${userRoleId}`,
