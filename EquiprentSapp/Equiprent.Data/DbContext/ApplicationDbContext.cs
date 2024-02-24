@@ -28,7 +28,6 @@ namespace Equiprent.Data.DbContext
                 await _dbContextSavingHandler!.OnBeforeSaveChangesAsync(this);
                 var result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
                 await _dbContextSavingHandler!.OnAfterSaveChangesAsync(this);
-
                 return result;
             }
             catch (Exception)
@@ -40,7 +39,6 @@ namespace Equiprent.Data.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.AppendUsingAppendersInAssembly();
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(entityType => entityType.GetForeignKeys()))

@@ -5,6 +5,7 @@ using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.UserPermissionToRoles;
 using Equiprent.Entities.Application.UserRoles;
 using Equiprent.Entities.Application.UserRoleToLanguages;
+using Equiprent.Extensions;
 using Equiprent.Logic.Commands.UserRoles.Requests.Save;
 using MediatR;
 using System.Threading;
@@ -59,29 +60,25 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
             CancellationToken cancellationToken)
         {
             var currentUserRolePermissions = await _userPermissionsService.GetUserRolePermissionsAsync(roleId, cancellationToken);
+            var currentUserRolePermissionIds = currentUserRolePermissions.Select(p => p.Id);
+            var userPermissionsFromRequestIds = userPermissionsFromRequest.Select(p => p.Id);
 
-            var userPermissionsToUserRolesToRemoveIds = currentUserRolePermissions
-                .Select(p => p.Id)
-                .ToList();
+            await RemovePermissionsAsync(currentUserRolePermissionIds, userPermissionsFromRequestIds, roleId, cancellationToken);
+            await AddPermissionsAsync(currentUserRolePermissionIds, userPermissionsFromRequestIds, roleId, cancellationToken);
+        }
 
-            var userPermissionsToUserRolesToRemove = await _dbContext.UserPermissionToRoles
-                .Where(permissionToRole =>
-                    userPermissionsToUserRolesToRemoveIds.Contains(permissionToRole.UserPermissionId) &&
-                    permissionToRole.UserRoleId == roleId)
-                .ToListAsync(cancellationToken);
+        private async Task AddPermissionsAsync(IEnumerable<int> currentUserRolePermissionIds, IEnumerable<int> userPermissionsFromRequestIds, int roleId, CancellationToken cancellationToken = default)
+        {
+            var userPermissionsToUserRolesToAddIds = userPermissionsFromRequestIds.Except(currentUserRolePermissionIds);
+            if (userPermissionsToUserRolesToAddIds.IsNullOrEmpty())
+                return;
 
-            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsToUserRolesToRemove, cancellationToken);
+            var allUserPermissionIds = (await _userPermissionsService
+                .GetAllUserPermissionsAsync(cancellationToken))
+                .Select(p => p.Id);
 
-            var allUserPermissions = await _userPermissionsService
-                .GetAllUserPermissionsAsync(cancellationToken);
-
-            var allUserPermissionsIds = allUserPermissions
-                .Select(p => p.Id)
-                .ToList();
-
-            var userPermissionIdsFromRequest = userPermissionsFromRequest
-                .Where(model => allUserPermissionsIds.Contains(model.Id))
-                .Select(model => model.Id)
+            var userPermissionIdsFromRequest = userPermissionsToUserRolesToAddIds
+                .Where(permissionId => allUserPermissionIds.Contains(permissionId))
                 .ToList();
 
             var userPermissionIdsForRoleBeingUpdated = await _userPermissionsService
@@ -94,6 +91,21 @@ namespace Equiprent.Logic.Commands.UserRoles.Handlers.Save
                     UserRoleId = roleId
                 }),
                 cancellationToken);
+        }
+
+        private async Task RemovePermissionsAsync(IEnumerable<int> currentUserRolePermissionIds, IEnumerable<int> userPermissionsFromRequestIds, int roleId, CancellationToken cancellationToken = default)
+        {
+            var userPermissionsToUserRolesToRemoveIds = currentUserRolePermissionIds.Except(userPermissionsFromRequestIds);
+            if (userPermissionsToUserRolesToRemoveIds.IsNullOrEmpty())
+                return;
+
+            var userPermissionsToUserRolesToRemove = await _dbContext.UserPermissionToRoles
+                .Where(permissionToRole =>
+                    userPermissionsToUserRolesToRemoveIds.Contains(permissionToRole.UserPermissionId) &&
+                    permissionToRole.UserRoleId == roleId)
+                .ToListAsync(cancellationToken);
+
+            await _dbContext.UserPermissionToRoles.RemoveRangeAndSaveAsync(userPermissionsToUserRolesToRemove, cancellationToken);
         }
 
         private async Task UpdateUserRoleToLanguagesAsync(SaveRequest request, CancellationToken cancellationToken = default)
