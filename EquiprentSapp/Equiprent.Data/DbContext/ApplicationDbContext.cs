@@ -20,6 +20,42 @@ namespace Equiprent.Data.DbContext
             ConfigureDbContextSavingHandler();
         }
 
+        public static string? GetPropertyName(string tableName)
+        {
+            var property = typeof(ApplicationDbContext)
+                .GetProperties()
+                .FirstOrDefault(p =>
+                    p.PropertyType.IsGenericType &&
+                    p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
+                    p.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase));
+
+            return property?.Name;
+        }
+
+        public bool HasTableAColumnOfName(string tableName, string columnName)
+        {
+            var entityType = Model.GetEntityTypes()
+                .FirstOrDefault(type =>
+                    type.ClrType != null &&
+                    type.ClrType.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase));
+
+            if (entityType?.ClrType is null)
+                return false;
+
+            return entityType.ClrType
+                .GetProperties()
+                .Any(p =>
+                    p.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static bool HasTableOfName(string name) =>
+            typeof(ApplicationDbContext)
+                .GetProperties()
+                .Any(p =>
+                    p.PropertyType.IsGenericType &&
+                    p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
+                    p.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
         public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
         {
             try
