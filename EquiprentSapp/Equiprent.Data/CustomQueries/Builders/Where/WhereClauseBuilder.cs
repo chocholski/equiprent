@@ -3,7 +3,7 @@ using Equiprent.Extensions;
 using Mapster;
 using System.Text;
 
-namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Where
+namespace Equiprent.Data.CustomQueries.Builders.Where
 {
     internal sealed class WhereClauseBuilder
     {
@@ -50,9 +50,24 @@ namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Where
                 .Append(_whereClause)
                 .AppendLine();
 
-            foreach (var item in _whereClauseBuilderItems)
+            var firstClause = _whereClauseBuilderItems.First();
+            _whereClauseBuilder
+                    .Append('\t')
+                    .Append(firstClause.TableName)
+                    .Append('.')
+                    .Append(firstClause.ColumnName)
+                    .Append(' ')
+                    .Append(WhereOperator.GetValue(firstClause.Operator))
+                    .Append(firstClause.Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t({Environment.NewLine}\t\t" : ' ')
+                    .Append(firstClause.Condition)
+                    .Append(firstClause.Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t\t){Environment.NewLine}\t" : $"{Environment.NewLine}\t")
+                    .Append(_whereClauseBuilderItems.Count != 1 ? Environment.NewLine : string.Empty);
+
+            var remainingClauses = _whereClauseBuilderItems.Skip(1);
+            foreach (var item in remainingClauses)
             {
                 _whereClauseBuilder
+                    .AppendLine(WhereOuterLogicalOperator.GetValue(item.OuterLogicalOperator))
                     .Append('\t')
                     .Append(item.TableName)
                     .Append('.')
@@ -61,18 +76,10 @@ namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Where
                     .Append(WhereOperator.GetValue(item.Operator))
                     .Append(item.Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t({Environment.NewLine}\t\t" : ' ')
                     .Append(item.Condition)
-                    .Append(item.Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t\t){Environment.NewLine}\t" : $"{Environment.NewLine}\t")
-                    .Append(WhereOuterLogicalOperator.GetValue(item.OuterLogicalOperator))
-                    .AppendLine();
+                    .Append(item.Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t\t){Environment.NewLine}\t" : $"{Environment.NewLine}\t");
             }
 
-            _whereClauseBuilder.RemoveFromEnd($"{Environment.NewLine}");
-            foreach (var whereOperator in WhereOuterLogicalOperator.GetValues())
-            {
-                _whereClauseBuilder.RemoveFromEnd(whereOperator);
-            }
-
-            _whereClauseBuilder.AppendLine();
+            _whereClauseBuilder.RemoveFromEnd($"{(_whereClauseBuilderItems.Last().Operator == WhereOperatorEnum.In ? $"{Environment.NewLine}\t\t){Environment.NewLine}\t" : $"{Environment.NewLine}\t")}");
 
             return _whereClauseBuilder.ToString();
         }

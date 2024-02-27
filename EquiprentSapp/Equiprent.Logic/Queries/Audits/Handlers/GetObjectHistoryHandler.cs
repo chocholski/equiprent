@@ -1,4 +1,4 @@
-﻿using Equiprent.Data.CustomQueries.Audits;
+﻿using Equiprent.Data.CustomQueries.Queries.Audits;
 using Equiprent.Data.CustomQueryTypes.Audits;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory;

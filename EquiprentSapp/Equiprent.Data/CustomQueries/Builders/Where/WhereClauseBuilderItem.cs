@@ -1,4 +1,4 @@
-﻿namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Where
+﻿namespace Equiprent.Data.CustomQueries.Builders.Where
 {
     internal sealed class WhereClauseBuilderItem
     {

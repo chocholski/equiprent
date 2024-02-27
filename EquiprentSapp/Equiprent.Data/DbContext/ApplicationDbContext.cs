@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using Equiprent.Data.DbContext.ModelBuilderAppenders;
 using Equiprent.ApplicationInterfaces.Database.Events.Saving;
-using Equiprent.ApplicationImplementations.Audits.Auditor;
 using Equiprent.ApplicationInterfaces.Audits.Auditor;
 
 namespace Equiprent.Data.DbContext
@@ -34,18 +33,22 @@ namespace Equiprent.Data.DbContext
 
         public bool HasTableAColumnOfName(string tableName, string columnName)
         {
-            var entityType = Model.GetEntityTypes()
-                .FirstOrDefault(type =>
-                    type.ClrType != null &&
-                    type.ClrType.Name.Equals(tableName, StringComparison.OrdinalIgnoreCase));
+            var dbSetProperty = GetType()
+                .GetProperties()
+                .FirstOrDefault(p =>
+                    p.PropertyType.IsGenericType &&
+                    p.PropertyType.GetGenericTypeDefinition() == typeof(DbSet<>) &&
+                    p.PropertyType.GenericTypeArguments.Length == 1 &&
+                    p.Name == tableName);
 
-            if (entityType?.ClrType is null)
+            if (dbSetProperty is null)
                 return false;
 
-            return entityType.ClrType
-                .GetProperties()
-                .Any(p =>
-                    p.Name.Equals(columnName, StringComparison.OrdinalIgnoreCase));
+            var entityType = dbSetProperty.PropertyType.GenericTypeArguments.FirstOrDefault();
+            if (entityType is null)
+                return false;
+
+            return entityType.GetProperty(columnName) != null;
         }
 
         public static bool HasTableOfName(string name) =>

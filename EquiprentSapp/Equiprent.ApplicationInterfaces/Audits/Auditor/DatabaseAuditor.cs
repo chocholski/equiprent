@@ -1,8 +1,7 @@
-﻿using Equiprent.ApplicationInterfaces.Audits.Auditor;
-using Equiprent.ApplicationInterfaces.Audits.Entries;
+﻿using Equiprent.ApplicationInterfaces.Audits.Entries;
 using Microsoft.EntityFrameworkCore;
 
-namespace Equiprent.ApplicationImplementations.Audits.Auditor
+namespace Equiprent.ApplicationInterfaces.Audits.Auditor
 {
     public class DatabaseAuditor : IAuditor
     {

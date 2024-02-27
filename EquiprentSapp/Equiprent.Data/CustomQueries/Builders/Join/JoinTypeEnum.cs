@@ -1,4 +1,4 @@
-﻿namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Join
+﻿namespace Equiprent.Data.CustomQueries.Builders.Join
 {
     public enum JoinTypeEnum
     {

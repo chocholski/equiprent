@@ -2,7 +2,7 @@
 using Equiprent.Extensions;
 using System.Text;
 
-namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Join
+namespace Equiprent.Data.CustomQueries.Builders.Join
 {
     internal sealed class JoinClauseBuilder
     {
@@ -38,12 +38,13 @@ namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Join
             }
 
             _joinClauseBuilderItems.Add(new JoinClauseBuilderItem(
-                TableName: !string.IsNullOrEmpty(column.TableAlias) ? column.TableAlias : column.TableName,
-                JoinedForeignKey: column.JoinedForeignKey!,
-                JoinedTableName: !string.IsNullOrEmpty(column.JoinedTable!.Alias) ? column.JoinedTable!.Alias : column.JoinedTable!.Name,
-                JoinedTableAlias: column.JoinedTable!.Alias,
-                JoinedTableColumnName: column.JoinedTable!.ColumnName,
-                JoinType: column.JoinedTable!.JoinType));
+                tableName: !string.IsNullOrEmpty(column.TableAlias) ? column.TableAlias : column.TableName,
+                joinedForeignKey: column.JoinedForeignKey!,
+                joinedTableName: column.JoinedTable!.Name,
+                joinedTableAlias: column.JoinedTable!.TableAlias,
+                joinedTableColumnKey: column.JoinedTable!.ColumnKey,
+                joinedTableColumnName: column.JoinedTable!.ColumnName,
+                joinType: column.JoinedTable!.JoinType));
 
             return this;
         }
@@ -73,7 +74,7 @@ namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Join
                     .Append(" = ")
                     .Append(isAliasUsedForJoinedTable ? item.JoinedTableAlias : item.JoinedTableName)
                     .Append('.')
-                    .Append(item.JoinedTableColumnName)
+                    .Append(item.JoinedTableColumnKey)
                     .AppendLine();
             }
 
@@ -85,8 +86,8 @@ namespace Equiprent.ApplicationImplementations.Database.CustomQueries.Join
             !string.IsNullOrEmpty(column.JoinedTable?.ColumnName) &&
             !string.IsNullOrEmpty(column.JoinedForeignKey) &&
             !(
-                HaveTablesSameName(column.TableName, column.JoinedTable.Name) &&
-                HaveTablesSameAlias(column.TableAlias, column.JoinedTable.Alias)
+                HaveTablesSameName(column.TableName!, column.JoinedTable.Name) &&
+                HaveTablesSameAlias(column.TableAlias, column.JoinedTable.TableAlias)
             );
 
         private static bool HaveTablesSameName(string firstTableName, string secondTableName) =>

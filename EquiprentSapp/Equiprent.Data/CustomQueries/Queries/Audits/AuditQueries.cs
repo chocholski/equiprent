@@ -1,4 +1,4 @@
-﻿namespace Equiprent.Data.CustomQueries.Audits
+﻿namespace Equiprent.Data.CustomQueries.Queries.Audits
 {
     public static class AuditQueries
     {

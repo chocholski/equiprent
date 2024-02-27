@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationInterfaces.Languageables;
-using Equiprent.Data.CustomQueries.Equipments;
+using Equiprent.Data.CustomQueries.Queries.Equipments;
 using Equiprent.Data.CustomQueryTypes.Equipments;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.EquipmentTypeToLanguages;
@@ -49,7 +49,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.PagedEquipmentsList
         private IQueryable<EquipmentListQueryModel> GetEquipmentsQuery()
         {
             return _dbContext.EquipmentListItems
-                .FromSqlRaw(EquipmentQueries.GetEquipmentsQuery());
+                .FromSqlRaw(EquipmentQueries.GetEquipmentsQuery(_dbContext));
         }
     }
 }

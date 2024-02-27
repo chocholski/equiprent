@@ -1,24 +1,16 @@
-﻿namespace Equiprent.ApplicationImplementations.Database.CustomQueries
+﻿namespace Equiprent.Data.CustomQueries.Builders
 {
-    public class CustomQueryColumn
+    public record CustomQueryColumn(string ColumnName)
     {
         public string? ColumnAlias { get; set; }
-
-        public string ColumnName { get; set; } = null!;
 
         public JoinedTable? JoinedTable { get; set; }
 
         public string? TableAlias { get; set; }
 
+        public string? TableName { get; set; }
+
         public string? JoinedForeignKey { get; set; }
-
-        public string TableName { get; set; } = null!;
-
-        public CustomQueryColumn(string tableName, string columnName)
-        {
-            TableName = tableName;
-            ColumnName = columnName;
-        }
 
         public bool Validate()
         {
