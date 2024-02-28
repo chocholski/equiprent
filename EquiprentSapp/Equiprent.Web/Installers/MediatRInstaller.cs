@@ -1,4 +1,5 @@
-﻿using Equiprent.Web.Pipelines;
+﻿using Equiprent.Data.DbContext;
+using Equiprent.Web.Pipelines;
 using MediatR;
 
 namespace Equiprent.Web.Installers
@@ -10,6 +11,7 @@ namespace Equiprent.Web.Installers
             builder.Services.AddMediatR(config =>
             {
                 config.RegisterServicesFromAssemblies(typeof(Program).Assembly, typeof(RequestParameters).Assembly);
+                config.RegisterServicesFromAssemblies(typeof(ApplicationDbContext).Assembly, typeof(RequestParameters).Assembly);
             });
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CreatorPipelineBehavior<,>));

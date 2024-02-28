@@ -1,5 +1,7 @@
 ﻿using Equiprent.ApplicationInterfaces.Languageables;
+using Equiprent.Data.CustomQueries;
 using Equiprent.Data.CustomQueries.Queries.Equipments;
+using Equiprent.Data.CustomQueries.Queries.Equipments.Requests;
 using Equiprent.Data.CustomQueryTypes.Equipments;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.EquipmentTypeToLanguages;
@@ -15,6 +17,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.PagedEquipmentsList
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILanguageableService _languageableService;
+        private readonly IMediator _mediator;
         private readonly IServiceProvider _serviceProvider;
 
         public GetPagedEquipmentsListHandler(
@@ -24,13 +27,14 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.PagedEquipmentsList
             _dbContext = dbContext;
             _serviceProvider = serviceProvider;
             _languageableService = serviceProvider.GetRequiredService<ILanguageableService>();
+            _mediator = serviceProvider.GetRequiredService<IMediator>();
         }
 
         public async Task<PagedEquipmentsListResponse?> Handle(GetPagedEquipmentsListRequest request, CancellationToken cancellationToken = default)
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedEquipmentsListResponse, EquipmentListQueryModel, EquipmentListQueryModel, EquipmentListItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: GetEquipmentsQuery(),
+                query: await GetEquipmentsQueryAsync(),
                 _serviceProvider,
                 cancellationToken);
 
@@ -46,10 +50,10 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.PagedEquipmentsList
             return response;
         }
 
-        private IQueryable<EquipmentListQueryModel> GetEquipmentsQuery()
+        private async Task<IQueryable<EquipmentListQueryModel>> GetEquipmentsQueryAsync()
         {
             return _dbContext.EquipmentListItems
-                .FromSqlRaw(EquipmentQueries.GetEquipmentsQuery(_dbContext));
+                .FromSqlRaw(await _mediator.Send(new GetEquipmentListQueryRequest(_dbContext)));
         }
     }
 }

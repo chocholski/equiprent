@@ -1,16 +1,19 @@
-﻿using Equiprent.Data.CustomQueries.Builders;
-using Equiprent.Data.CustomQueries.Builders.Join;
+﻿using Equiprent.Data.CustomQueries.Builders.Join;
 using Equiprent.Data.CustomQueries.Builders.Where;
+using Equiprent.Data.CustomQueries.Builders;
+using Equiprent.Data.CustomQueries.Queries.Equipments.Requests;
 using Equiprent.Data.CustomQueryTypes.Equipments;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Equipment;
 using Equiprent.Entities.Business.Manufacturers;
+using MediatR;
+using System.Threading;
 
-namespace Equiprent.Data.CustomQueries.Queries.Equipments
+namespace Equiprent.Data.CustomQueries.Queries.Equipments.Handlers
 {
-    public static class EquipmentQueries
+    public class GetEquipmentListQueryHandler : IRequestHandler<GetEquipmentListQueryRequest, string>
     {
-        public static string GetEquipmentsQuery(ApplicationDbContext dbContext)
+        public async Task<string> Handle(GetEquipmentListQueryRequest request, CancellationToken cancellationToken)
         {
             var equipmentTableName = nameof(ApplicationDbContext.Equipments);
             var manufacturerTableName = nameof(ApplicationDbContext.Manufacturers);
@@ -19,14 +22,19 @@ namespace Equiprent.Data.CustomQueries.Queries.Equipments
             var baseManufacturerTableJoinColumn = new CustomQueryColumn(nameof(Equipment.ManufacturerId)) with
             {
                 JoinedForeignKey = nameof(Equipment.ManufacturerId),
-                JoinedTable = new JoinedTable(manufacturerTableName, nameof(Manufacturer.Id), nameof(Manufacturer.Id), JoinTypeEnum.Inner) with
+                JoinedTable = new JoinedTable(
+                    Name: manufacturerTableName,
+                ColumnKey: nameof(Manufacturer.Id),
+                    ColumnName: nameof(Manufacturer.Id),
+                    JoinType: JoinTypeEnum.Inner)
+                with
                 {
                     ColumnAlias = nameof(EquipmentListQueryModel.ManufacturerId),
                     TableAlias = "m"
                 }
             };
 
-            var query = new CustomQueryBuilder(dbContext, tableName: nameof(ApplicationDbContext.Equipments), tableAlias: "e")
+            var query = new CustomQueryBuilder(request.DbContext, tableName: equipmentTableName, tableAlias: "e")
                 .AddSelectColumn(baseEquipmentTableColumn)
                 .AddSelectColumnWithJoin(baseManufacturerTableJoinColumn)
                 .AddSelectColumnWithJoin(baseManufacturerTableJoinColumn with
@@ -45,7 +53,7 @@ namespace Equiprent.Data.CustomQueries.Queries.Equipments
                 .Where(new WhereClause(equipmentTableName, nameof(Equipment.IsDeleted), WhereOuterLogicalOperatorEnum.And, WhereOperatorEnum.Equals, Condition: "0"))
                 .Build();
 
-            return query;
+            return await Task.FromResult(query);
         }
     }
 }

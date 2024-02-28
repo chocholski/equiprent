@@ -25,7 +25,7 @@ namespace Equiprent.Data.CustomQueries.Builders.Select
             _dbContext = dbContext;
             _fromTable = fromTable;
             _fromTableAlias = fromTableAlias;
-            _selectClauseBuilder.Append(_selectClause).Append(' ');
+            _selectClauseBuilder.Append(_selectClause).AppendLine();
         }
 
         public SelectClauseBuilder AddColumn(CustomQueryColumn column)
@@ -78,6 +78,7 @@ namespace Equiprent.Data.CustomQueries.Builders.Select
             foreach (var item in _selectClauseBuilderItems)
             {
                 _selectClauseBuilder
+                    .Append('\t')
                     .Append(item.TableName)
                     .Append('.')
                     .Append(item.ColumnName)
@@ -89,6 +90,7 @@ namespace Equiprent.Data.CustomQueries.Builders.Select
             foreach (var item in _selectClauseBuilderEmptyColumnItems)
             {
                 _selectClauseBuilder
+                    .Append('\t')
                     .Append("\' \'")
                     .Append(' ')
                     .Append(_asClause)
@@ -100,11 +102,13 @@ namespace Equiprent.Data.CustomQueries.Builders.Select
 
             _selectClauseBuilder
                 .RemoveFromEnd($",{Environment.NewLine}")
-                .Append(' ')
+                .AppendLine()
                 .Append(_fromClause)
-                .Append(' ')
+                .AppendLine()
+                .Append('\t')
                 .Append(_fromTable)
-                .Append(!string.IsNullOrEmpty(_fromTableAlias) ? $" {_fromTableAlias}" : string.Empty);
+                .Append(!string.IsNullOrEmpty(_fromTableAlias) ? $" {_fromTableAlias}" : string.Empty)
+                .AppendLine();
 
             return _selectClauseBuilder.ToString();
         }

@@ -23,10 +23,10 @@ namespace Equiprent.Data.CustomQueries.Builders.Join
             try
             {
                 ValidateColumnForJoin(column);
-                ValidateTableExistence(column.TableName);
+                ValidateTableExistence(column.TableName!);
                 ValidateTableExistence(column.JoinedTable!.Name!);
-                ValidateColumnWithinTableExistence(column.TableName, column.ColumnName);
-                ValidateColumnWithinTableExistence(column.TableName, column.JoinedForeignKey!);
+                ValidateColumnWithinTableExistence(column.TableName!, column.ColumnName);
+                ValidateColumnWithinTableExistence(column.TableName!, column.JoinedForeignKey!);
                 ValidateColumnWithinTableExistence(column.JoinedTable!.Name, column.JoinedTable.ColumnName);
 
                 if (!column.Validate())
@@ -38,7 +38,7 @@ namespace Equiprent.Data.CustomQueries.Builders.Join
             }
 
             _joinClauseBuilderItems.Add(new JoinClauseBuilderItem(
-                tableName: !string.IsNullOrEmpty(column.TableAlias) ? column.TableAlias : column.TableName,
+                tableName: !string.IsNullOrEmpty(column.TableAlias) ? column.TableAlias : column.TableName!,
                 joinedForeignKey: column.JoinedForeignKey!,
                 joinedTableName: column.JoinedTable!.Name,
                 joinedTableAlias: column.JoinedTable!.TableAlias,
@@ -62,12 +62,14 @@ namespace Equiprent.Data.CustomQueries.Builders.Join
                 _joinClauseBuilder
                     .Append($"{(!string.IsNullOrEmpty(joinType) ? $"{joinType} " : string.Empty)}")
                     .Append(_joinClause)
-                    .Append(' ')
+                    .AppendLine()
+                    .Append('\t')
                     .Append(item.JoinedTableName)
                     .Append($"{(isAliasUsedForJoinedTable ? $" {item.JoinedTableAlias}" : string.Empty)}")
-                    .Append(' ')
+                    .AppendLine()
                     .Append(_onClause)
-                    .Append(' ')
+                    .AppendLine()
+                    .Append('\t')
                     .Append(item.TableName)
                     .Append('.')
                     .Append(item.JoinedForeignKey)
