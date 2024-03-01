@@ -175,6 +175,9 @@
             "SerialNumberExists": "The equipment with serial number provided already exists in the database."
         },
         "Name": "Name",
+        "Photos": {
+            "Title": "Photos"
+        },
         "Plural": "Equipments",
         "PricePerDay": "Price per day",
         "SelectManufacturer": "Select manufacturer",

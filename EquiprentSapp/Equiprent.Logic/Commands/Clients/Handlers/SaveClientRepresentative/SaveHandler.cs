@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ClientRepresentatives;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;
 using MediatR;
 using System.Threading;

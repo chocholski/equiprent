@@ -1,6 +1,6 @@
 ﻿using Equiprent.Entities.Business.Clients;
 
-namespace Equiprent.Entities.Business.ClientAddresses
+namespace Equiprent.Entities.Business.Clients.Addresses
 {
     [Table("CompanyClientAddresses")]
     public class CompanyClientAddress : ClientAddress

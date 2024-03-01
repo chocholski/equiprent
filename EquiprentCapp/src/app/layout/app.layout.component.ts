@@ -14,10 +14,10 @@ import { MenuService } from '../services/layout/menu.service';
 })
 export class AppLayoutComponent implements OnDestroy {
 
-    overlayMenuOpenSubscription: Subscription;
-    menuOutsideClickListener: any;
-    profileMenuOutsideClickListener: any;
     isUserLoggedIn: boolean;
+    menuOutsideClickListener: any;
+    overlayMenuOpenSubscription: Subscription;
+    profileMenuOutsideClickListener: any;
 
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     @ViewChild(AppTopBarComponent) appTopbar!: AppTopBarComponent;
@@ -27,10 +27,9 @@ export class AppLayoutComponent implements OnDestroy {
         public readonly layoutService: LayoutService,
         private readonly menuService: MenuService,
         public readonly renderer: Renderer2,
-        public readonly router: Router) {
-
+        public readonly router: Router
+    ) {
         this.isUserLoggedIn = this.authenticationService.isLoggedIn();
-
         if (!this.isUserLoggedIn) {
             this.router.navigate([Routes.login.navigations.default]);
         }
@@ -69,9 +68,14 @@ export class AppLayoutComponent implements OnDestroy {
                     this.hideProfileMenu();
                 });
 
-            const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
-            if (firstMenuItemUserIsAuthorizedFor?.Items && firstMenuItemUserIsAuthorizedFor.Items[0]?.RouterLink)
-                this.router.navigate(firstMenuItemUserIsAuthorizedFor!.Items![0].RouterLink!);
+            if (this.authenticationService.isFirstTimeLoggedIn) {
+                const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
+                if (firstMenuItemUserIsAuthorizedFor?.Items && firstMenuItemUserIsAuthorizedFor.Items[0]?.RouterLink) {
+                    this.router.navigate(firstMenuItemUserIsAuthorizedFor!.Items![0].RouterLink!);
+                }
+
+                this.authenticationService.isFirstTimeLoggedIn = false;
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import { ApiResultEnum } from '../../enums/api-result-enum';
 export class AuthenticationService {
 
     isLoggedIn$: Observable<boolean>;
+    isFirstTimeLoggedIn = false;
 
     constructor(
         private readonly authorizationService: AuthorizationService,

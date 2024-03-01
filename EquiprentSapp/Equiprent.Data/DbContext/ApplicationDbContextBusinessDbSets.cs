@@ -1,13 +1,14 @@
-﻿using Equiprent.Entities.Business.ClientAddresses;
-using Equiprent.Entities.Business.ClientRepresentatives;
-using Equiprent.Entities.Business.Clients;
+﻿using Equiprent.Entities.Business.Clients;
+using Equiprent.Entities.Business.Clients.Addresses;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Entities.Business.ClientTypes;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
 using Equiprent.Entities.Business.Equipment;
+using Equiprent.Entities.Business.Equipment.Photos;
 using Equiprent.Entities.Business.EquipmentTypes;
 using Equiprent.Entities.Business.EquipmentTypeToLanguages;
-using Equiprent.Entities.Business.ManufacturerAddresses;
 using Equiprent.Entities.Business.Manufacturers;
+using Equiprent.Entities.Business.Manufacturers.Addresses;
 using Equiprent.Entities.Business.RentalCategories;
 using Equiprent.Entities.Business.RentalCategoryToLanguages;
 using Equiprent.Entities.Business.Rentals;
@@ -25,6 +26,7 @@ namespace Equiprent.Data.DbContext
         public DbSet<ClientType> ClientTypes { get; set; } = null!;
         public DbSet<ClientTypeToLanguage> ClientTypeToLanguages { get; set; } = null!;
         public DbSet<Equipment> Equipments { get; set; } = null!;
+        public DbSet<EquipmentPhoto> EquipmentPhotos { get; set; } = null!;
         public DbSet<EquipmentType> EquipmentTypes { get; set; } = null!;
         public DbSet<EquipmentTypeToLanguage> EquipmentTypeToLanguages { get; set; } = null!;
         public DbSet<LeaseRental> LeaseRentals { get; set; } = null!;

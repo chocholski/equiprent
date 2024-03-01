@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ManufacturerAddresses;
+using Equiprent.Entities.Business.Manufacturers.Addresses;
 using Equiprent.Logic.Commands.Manufacturers.Requests.Save;
 using MediatR;
 using System.Threading;

@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.ClientRepresentatives;
+﻿using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Entities.Business.ClientTypes;
 
 namespace Equiprent.Entities.Business.Clients

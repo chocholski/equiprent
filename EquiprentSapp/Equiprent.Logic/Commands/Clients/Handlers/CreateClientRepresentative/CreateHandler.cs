@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.Addresses;
-using Equiprent.Entities.Business.ClientRepresentatives;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;
 using MediatR;
 using System.Threading;

@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.ClientRepresentatives;
+﻿using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Queries.Clients.Handlers.PagedClientRepresentativesList;
 using System.Linq.Expressions;

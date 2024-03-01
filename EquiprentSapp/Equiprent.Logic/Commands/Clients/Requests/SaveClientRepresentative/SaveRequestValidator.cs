@@ -1,5 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ClientRepresentatives;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Commands.Addresses.Validators;
 using Equiprent.Logic.Infrastructure.FluentValidation;

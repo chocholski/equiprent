@@ -1,6 +1,6 @@
 ﻿using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ClientRepresentatives;
 using Equiprent.Entities.Business.Clients;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Extensions;
 using Equiprent.Logic.Commands.Clients.Requests.Save;
 using System.Threading;

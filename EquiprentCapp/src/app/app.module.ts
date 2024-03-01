@@ -43,6 +43,7 @@ import { DeletionDialogComponent } from './components/dialogs/deletion-dialog';
 import { EquipmentCreationComponent } from './components/equipments/equipment-create';
 import { EquipmentDetailsComponent } from './components/equipments/equipment-details';
 import { EquipmentListComponent } from './components/equipments/equipment-list';
+import { EquipmentPhotosComponent } from './components/equipments/equipment-photos';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { ManufacturerAddressComponent } from './components/addresses/manufacturer-address';
@@ -71,6 +72,7 @@ import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { GalleriaModule } from 'primeng/galleria';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
@@ -105,6 +107,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         EquipmentCreationComponent,
         EquipmentDetailsComponent,
         EquipmentListComponent,
+        EquipmentPhotosComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         ManufacturerAddressComponent,
@@ -154,6 +157,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ConfirmDialogModule,
         DropdownModule,
         DynamicDialogModule,
+        GalleriaModule,
         MessageModule,
         MessagesModule,
         MultiSelectModule,

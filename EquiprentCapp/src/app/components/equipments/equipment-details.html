@@ -6,6 +6,12 @@
           <form [formGroup]="form">
             <div class="col-12 pb-0 px-0">
               <div class="card no-border p-0">
+                <div *ngIf="equipment && equipment.Photos" class="p-formgrid grid">
+                  <h5>{{ translate.instant('Equipment.Photos.Title') }}</h5>
+                  <div class="field col-12 items-centered mb-0">
+                    <equipment-photos [equipmentId]="equipment.Id" [sourcePhotos]="equipment.Photos"></equipment-photos>
+                  </div>
+                </div>
                 <div class="p-fluid p-formgrid grid mb-3">
                   <div class="field col-12 md:col-6">
                     <div class="flex-wrap mb-3">

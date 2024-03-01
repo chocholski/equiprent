@@ -1,7 +1,6 @@
-﻿using Equiprent.Entities.Business.Clients;
-using Equiprent.Entities.Business.Representatives;
+﻿using Equiprent.Entities.Business.Representatives;
 
-namespace Equiprent.Entities.Business.ClientRepresentatives
+namespace Equiprent.Entities.Business.Clients.Representatives
 {
     [Table("ClientRepresentatives")]
     public class ClientRepresentative : Representative

@@ -26,6 +26,10 @@ using Equiprent.ApplicationInterfaces.Users.Languages;
 using Equiprent.ApplicationImplementations.Users.Languages;
 using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.ApplicationImplementations.CommandResults;
+using Equiprent.ApplicationInterfaces.Files;
+using Equiprent.ApplicationImplementations.Files;
+using Equiprent.ApplicationInterfaces.Equipments.Photos;
+using Equiprent.ApplicationImplementations.Equipments.Photos;
 
 namespace Equiprent.Web.Installers
 {
@@ -38,12 +42,15 @@ namespace Equiprent.Web.Installers
             builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            builder.Services.AddTransient<IAuditKeyValueService, AuditKeyValueService>();
             builder.Services.AddTransient<IAuditMemberTranslatorService, AuditMemberTranslatorService>();
             builder.Services.AddTransient<ICommandResultService, CommandResultService>();
             builder.Services.AddTransient<ICreateableService, CreateableService>();
             builder.Services.AddTransient<IDbContextSavingStrategy, DbContextSavingWithAuditingStrategy>();
             builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
-            builder.Services.AddTransient<IAuditKeyValueService, AuditKeyValueService>();
+            builder.Services.AddTransient<IEquipmentPhotoService, EquipmentPhotoService>();
+            builder.Services.AddTransient<IFileArchivingService, FileArchivingService>();
+            builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
             builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
             builder.Services.AddTransient<ISpecialFilterBuilder, SpecialFilterBuilder>();

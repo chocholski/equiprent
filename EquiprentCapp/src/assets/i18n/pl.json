@@ -174,6 +174,9 @@
             "SerialNumberExists": "Sprzęt o podanym numerze seryjnym istnieje już w bazie danych."
         },
         "Name": "Nazwa",
+        "Photos": {
+            "Title": "Zdjęcia"
+        },
         "Plural": "Sprzęty",
         "PricePerDay": "Cena za dzień",
         "SelectManufacturer": "Wybierz producenta",

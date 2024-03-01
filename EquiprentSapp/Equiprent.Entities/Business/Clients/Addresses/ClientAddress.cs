@@ -1,6 +1,6 @@
 ﻿using Equiprent.Entities.Application.Addresses;
 
-namespace Equiprent.Entities.Business.ClientAddresses
+namespace Equiprent.Entities.Business.Clients.Addresses
 {
     [Table("ClientAddresses")]
     public abstract partial class ClientAddress

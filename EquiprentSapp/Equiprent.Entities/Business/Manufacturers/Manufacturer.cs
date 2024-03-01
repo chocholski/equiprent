@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.ManufacturerAddresses;
+﻿using Equiprent.Entities.Business.Manufacturers.Addresses;
 
 namespace Equiprent.Entities.Business.Manufacturers
 {

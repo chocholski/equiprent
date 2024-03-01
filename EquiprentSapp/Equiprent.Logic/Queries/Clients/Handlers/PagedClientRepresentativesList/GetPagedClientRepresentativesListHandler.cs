@@ -1,5 +1,5 @@
 ﻿using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ClientRepresentatives;
+using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList;
 using MediatR;

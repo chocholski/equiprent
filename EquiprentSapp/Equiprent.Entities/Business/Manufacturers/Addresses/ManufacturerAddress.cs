@@ -1,6 +1,6 @@
 ﻿using Equiprent.Entities.Application.Addresses;
 
-namespace Equiprent.Entities.Business.ManufacturerAddresses
+namespace Equiprent.Entities.Business.Manufacturers.Addresses
 {
     [Table("ManufacturerAddresses")]
     public class ManufacturerAddress : Address

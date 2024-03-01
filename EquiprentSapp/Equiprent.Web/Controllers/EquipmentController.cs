@@ -11,7 +11,7 @@ namespace Equiprent.Web.Controllers
 {
     [ApiKeyFilter]
     [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
-    public class EquipmentController : BaseApiController
+    public partial class EquipmentController : BaseApiController
     {
         public EquipmentController(ApplicationDbContext dbContext, IServiceProvider serviceProvider) : base(dbContext, serviceProvider)
         {

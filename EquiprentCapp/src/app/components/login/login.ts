@@ -80,6 +80,7 @@ export class LoginComponent
         switch (result) {
           case ApiResultEnum[ApiResultEnum.OK]:
             this.app.isUserLoggedIn = true;
+            this.authenticationService.isFirstTimeLoggedIn = true;
             this.router.navigate([Routes.home.navigations.default]);
             break;
 

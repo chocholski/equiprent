@@ -1,7 +1,7 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.ManufacturerAddresses;
 using Equiprent.Entities.Business.Manufacturers;
+using Equiprent.Entities.Business.Manufacturers.Addresses;
 using Equiprent.Logic.Commands.Manufacturers.Requests.Create;
 using Equiprent.Logic.GeneralModels;
 using MediatR;

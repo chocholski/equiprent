@@ -1,3 +1,5 @@
+import { SafeUrl } from "@angular/platform-browser";
+
 export interface EquipmentCreationModel {
   Description?: string,
   ManufacturerId: string,
@@ -14,9 +16,20 @@ export interface EquipmentDetailsModel {
   ManufacturerId: string,
   MarketValue: number,
   Name: string,
+  Photos: EquipmentPhoto[];
   PricePerDay: number;
   SerialNumber: string,
   TypeId: number,
+}
+
+export interface EquipmentPhoto {
+  File?: string;
+  FileName: string;
+  Id: string;
+  IsBeingDownloaded?: boolean;
+  IsMainThumbnail: boolean;
+  Source?: SafeUrl;
+  Thumbnail: SafeUrl;
 }
 
 export interface EquipmentListItemModel {

@@ -24,6 +24,11 @@ export const ApiRoutes = {
   equipment: {
     delete: (equipmentId: string) => `equipment/${equipmentId}`,
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `equipment${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    file: {
+      photo: {
+        download: (photoId: string) => `equipment/file/photo/download/${photoId}`
+      }
+    },
     getById: (equipmentId: string) => `equipment/${equipmentId}`,
     post: "equipment",
     put: "equipment"

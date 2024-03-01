@@ -1,4 +1,4 @@
-﻿using Equiprent.Entities.Business.ClientRepresentatives;
+﻿using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Logic.GeneralModels;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;
