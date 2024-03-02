@@ -1,7 +1,6 @@
 ﻿using Equiprent.Entities.Enums;
 using Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative;
 using Equiprent.Logic.Commands.Clients.Requests.DeleteClientRepresentative;
-using Equiprent.Logic.Commands.Clients.Requests.DeleteClientRepresentativesForClient;
 using Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientRepresentativesList;

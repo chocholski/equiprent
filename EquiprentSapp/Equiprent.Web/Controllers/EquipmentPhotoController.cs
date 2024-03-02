@@ -12,7 +12,7 @@ namespace Equiprent.Web.Controllers
         {
             var request = new GetEquipmentPhotoByIdRequest(photoId);
             var result = await _mediator.Send(request);
-            return result is not null ? Ok(result) : BadRequest();
+            return new JsonResult(result);
         }
     }
 }

@@ -3,7 +3,7 @@
     public enum FileArchiveLoadingResultEnum
     {
         Error,
-        NonExistent,
+        NotFound,
         Success,
         Unknown,
     }

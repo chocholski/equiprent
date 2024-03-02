@@ -17,6 +17,19 @@ namespace Equiprent.ApplicationInterfaces.Files.Models
 
         protected bool DoesPathContainMainFileFolderPath(string? filePath) => filePath?.Contains(_mainFolderPath) ?? false;
 
-        protected string? GetPathWithoutMainFileFolderPath(string? filePath) => filePath?.Replace(_mainFolderPath, string.Empty);
+        protected string? GetPathWithoutMainFileFolderPath(string? filePath)
+        {
+            var filePathWithoutMainFolder = filePath?.Replace(_mainFolderPath, string.Empty);
+            if (filePathWithoutMainFolder is not null &&
+                (
+                    filePathWithoutMainFolder.StartsWith("\\") ||
+                    filePathWithoutMainFolder.StartsWith("/")
+                ))
+            {
+                return filePathWithoutMainFolder.Remove(0, 1);
+            }
+
+            return filePathWithoutMainFolder;
+        }
     }
 }

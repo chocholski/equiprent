@@ -1,4 +1,4 @@
-export interface Downloadable {
-  File: string;
+export interface SimpleFileModel {
+  File?: string;
   FileName: string;
 }

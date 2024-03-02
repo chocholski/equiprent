@@ -33,8 +33,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotoById
                 return null;
 
             var equipmentPhotoLoadingResult = await _equipmentPhotoService.LoadFileAsync(equipmentPhoto.RelativePath, equipmentPhoto.FileName);
-            if (equipmentPhotoLoadingResult is null ||
-                equipmentPhotoLoadingResult.Status != EquipmentPhotoLoadingResultEnum.Success)
+            if (equipmentPhotoLoadingResult is null || !equipmentPhotoLoadingResult.Status.IsSuccess())
             {
                 return null;
             }

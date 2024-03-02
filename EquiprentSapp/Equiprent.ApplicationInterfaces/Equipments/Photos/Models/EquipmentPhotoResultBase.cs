@@ -1,5 +1,4 @@
 ﻿using Equiprent.ApplicationInterfaces.Files;
-using Equiprent.Entities.Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
@@ -11,7 +10,7 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
             get => Path.Combine(_mainFolderPath, IEquipmentPhotoService.EquipmentPhotosFolderPath);
         }
 
-        public string DirectoryPath
+        public string ZipPath
         {
             get => Path.Combine(DefaultPath, string.IsNullOrEmpty(SplitPath[0]) ? SplitPath[1] : SplitPath[0]);
         }
@@ -22,12 +21,7 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
 
         public string UnZipPath
         {
-            get => Path.Combine(DirectoryPath, $"TEMP{FileNameWithoutExtension}");
-        }
-
-        public string ZipPath
-        {
-            get => Path.Combine(DirectoryPath, SplitPath[2]);
+            get => Path.Combine(DefaultPath, $"TEMP{FileNameWithoutExtension}");
         }
 
         private readonly IFileService _fileService;

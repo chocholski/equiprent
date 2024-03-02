@@ -50,6 +50,7 @@ namespace Equiprent.Web.Installers
             builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
             builder.Services.AddTransient<IEquipmentPhotoService, EquipmentPhotoService>();
             builder.Services.AddTransient<IFileArchivingService, FileArchivingService>();
+            builder.Services.AddTransient<IFileNameNormalizer, FileNameNormalizer>();
             builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
             builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();

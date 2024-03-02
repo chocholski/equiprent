@@ -1,53 +1,106 @@
-﻿using Equiprent.ApplicationImplementations.Files.Models.Files.Loading;
+﻿using Equiprent.ApplicationImplementations.Files.Models.Files.Deletion;
+using Equiprent.ApplicationImplementations.Files.Models.Files.Loading;
 using Equiprent.ApplicationImplementations.Files.Models.Files.Saving;
 using Equiprent.ApplicationInterfaces.Files;
 using Equiprent.ApplicationInterfaces.Files.Models.Archives.Loading;
+using Equiprent.ApplicationInterfaces.Files.Models.Files.Deletion;
 using Equiprent.ApplicationInterfaces.Files.Models.Files.Loading;
 using Equiprent.ApplicationInterfaces.Files.Models.Files.Saving;
 using Microsoft.Extensions.Configuration;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using System.Text;
 
 namespace Equiprent.ApplicationImplementations.Files
 {
-    public partial class FileService : IFileService
+#pragma warning disable CA1822 // Mark members as static
+    public class FileService : IFileService
     {
         private readonly IConfiguration _configuration;
+        private readonly IFileNameNormalizer _fileNameNormalizer;
 
-        public FileService(IConfiguration configuration)
+        public FileService(IConfiguration configuration, IFileNameNormalizer fileNameNormalizer)
         {
             _configuration = configuration;
+            _fileNameNormalizer = fileNameNormalizer;
+        }
+
+        public IFileDeletionResult Delete(string filePath)
+        {
+            var result = new FileDeletionResult();
+
+            if (!File.Exists(filePath))
+                return result with { Status = FileDeletionResultEnum.NotFound };
+
+            try
+            {
+                File.Delete(filePath);
+                return result with { Status = FileDeletionResultEnum.Success };
+            }
+            catch
+            {
+                return result with { Status = FileDeletionResultEnum.Error };
+            }
+        }
+
+        public IDirectoryDeletionResult DeleteDirectory(string directoryPath, bool recursive)
+        {
+            var result = new DirectoryDeletionResult();
+
+            if (!Directory.Exists(directoryPath))
+                return result with { Status = DirectoryDeletionResultEnum.NotFound };
+
+            try
+            {
+                Directory.Delete(directoryPath, recursive);
+                return result with { Status = DirectoryDeletionResultEnum.Success };
+            }
+            catch
+            {
+                return result with { Status = DirectoryDeletionResultEnum.Error };
+            }
         }
 
         public string GetFileNameWithoutExtension(string fileName)
         {
-            var fileNameWithoutExtension = fileName[..fileName.LastIndexOf('.')];
-            var normalizedFileNameWithoutExtension = fileNameWithoutExtension.Normalize(NormalizationForm.FormD);
-            var filteredFileName = normalizedFileNameWithoutExtension
-                .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
-                .ToArray();
+            return _fileNameNormalizer.Normalize(fileName, withExtension: false);
+        }
 
-            normalizedFileNameWithoutExtension = new string(filteredFileName).Replace("ł", "l").Replace("Ł", "L");
-            normalizedFileNameWithoutExtension = Regex.Replace(normalizedFileNameWithoutExtension, "[^A-Za-z1-9| ]", string.Empty);
-            normalizedFileNameWithoutExtension = normalizedFileNameWithoutExtension.Replace(" ", "");
+        public async Task<IFileLoadingResult> LoadAsync(string filePath)
+        {
+            var result = new FileLoadingResult(_configuration, filePath);
 
-            return normalizedFileNameWithoutExtension;
+            try
+            {
+                var file = await LoadFileAsync(result.FilePath!);
+
+                return result with
+                {
+                    File = file,
+                    Status = FileLoadingResultEnum.Success,
+                };
+            }
+            catch
+            {
+                return result with { Status = FileLoadingResultEnum.Error };
+            }
         }
 
         public async Task<IFileLoadingResult> LoadAsync(IFileArchiveLoadingResult fileArchiveLoadingResult)
         {
-            var result = FileLoadingResult.Create(_configuration, fileArchiveLoadingResult);
-            if (fileArchiveLoadingResult.Status != FileArchiveLoadingResultEnum.Success)
+            var result = FileLoadingFromArchiveResult.Create(_configuration, fileArchiveLoadingResult);
+            if (!fileArchiveLoadingResult.Status.IsSuccess())
+            {
+                var directoryDeletionResult = DeleteDirectory(result.DirectoryPath, recursive: true);
+                if (!directoryDeletionResult.Status.IsSuccess())
+                    return result with { Status = directoryDeletionResult.Status.ToFileLoadingStatus() };
+
                 return result;
+            }
 
             try
             {
-                var filePath = result.FilePath!;
-                using var fileStream = File.OpenRead(filePath);
-                var file = new byte[fileStream.Length];
-                await fileStream.ReadAsync(file);
-                Directory.Delete(filePath, recursive: true);
+                var file = await LoadFileAsync(result.FilePath!);
+                var directoryDeletionResult = DeleteDirectory(result.DirectoryPath, recursive: true);
+                if (!directoryDeletionResult.Status.IsSuccess())
+                    return result with { Status = directoryDeletionResult.Status.ToFileLoadingStatus() };
 
                 return result with
                 {
@@ -79,5 +132,22 @@ namespace Equiprent.ApplicationImplementations.Files
                 return result with { Status = FileSavingResultEnum.Error };
             }
         }
+
+        private async Task<byte[]> LoadFileAsync(string filePath)
+        {
+            try
+            {
+                using var fileStream = File.OpenRead(filePath);
+                var file = new byte[fileStream.Length];
+                await fileStream.ReadAsync(file);
+
+                return file;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
+#pragma warning restore CA1822 // Mark members as static
 }

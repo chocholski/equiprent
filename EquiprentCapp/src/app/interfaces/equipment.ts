@@ -1,4 +1,5 @@
 import { SafeUrl } from "@angular/platform-browser";
+import { SimpleFileModel } from "./file";
 
 export interface EquipmentCreationModel {
   Description?: string,
@@ -22,7 +23,7 @@ export interface EquipmentDetailsModel {
   TypeId: number,
 }
 
-export interface EquipmentPhoto {
+export interface EquipmentPhoto extends SimpleFileModel {
   File?: string;
   FileName: string;
   Id: string;

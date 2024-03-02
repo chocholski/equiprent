@@ -12,6 +12,8 @@
 
         public string Name { get; set; } = null!;
 
+        public List<EquipmentPhotoResponse> Photos { get; set; } = new();
+
         public decimal PricePerDay { get; set; }
 
         public string SerialNumber { get; set; } = null!;

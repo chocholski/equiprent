@@ -2,7 +2,7 @@
 {
     public class FileResponse
     {
-        public required string File { get; set; }
+        public string? File { get; set; }
 
         public required string FileName { get; set; }
     }

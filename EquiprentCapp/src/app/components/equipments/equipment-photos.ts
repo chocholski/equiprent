@@ -1,10 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
-import { lastValueFrom } from "rxjs";
 import { ApiRoutes } from "src/app/api-routes";
 import { EquipmentPhoto } from "src/app/interfaces/equipment";
-import { Downloadable } from "src/app/interfaces/file";
+import { SimpleFileModel } from "src/app/interfaces/file";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 
 @Component({
@@ -47,7 +46,7 @@ export class EquipmentPhotosComponent
     }
   }
 
-  public async getEquipmentPhotoSourceAsync(id: string) {
+  public getEquipmentPhotoSource(id: string) {
     if (!this.equipmentId)
       return;
 
@@ -56,8 +55,12 @@ export class EquipmentPhotosComponent
       return;
 
     equipmentPhoto.IsBeingDownloaded = true;
-    const photoDownloadedFromApi = await lastValueFrom(this.httpClient.get<Downloadable>(ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id)));
-    equipmentPhoto.Source = this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${photoDownloadedFromApi.File}`);
+    this.httpClient
+      .get<SimpleFileModel>(ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id))
+      .subscribe(result => {
+        equipmentPhoto.Source = this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${result.File}`);
+        equipmentPhoto.IsBeingDownloaded = false;
+      });
   }
 
   private addPhoto(photo: EquipmentPhoto) {

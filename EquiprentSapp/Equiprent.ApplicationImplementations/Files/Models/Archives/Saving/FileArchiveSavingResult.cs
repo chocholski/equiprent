@@ -22,14 +22,7 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Saving
                 if (Status != FileArchiveSavingResultEnum.Success)
                     return null;
 
-                var zipPath = ZipPath;
-                if (_isRelativePathReturnedForTheFirstTime)
-                {
-                    zipPath = GetPathWithoutMainFileFolderPath(zipPath)!.Remove(0, 1);
-                    _isRelativePathReturnedForTheFirstTime = false;
-                }
-
-                return Path.Combine(zipPath, FileName);
+                return Path.Combine(ZipPath!, FileName);
             }
         }
 
@@ -43,8 +36,6 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Saving
 
         private string? _filePath { get; set; }
 
-        private bool _isRelativePathReturnedForTheFirstTime { get; set; } = true;
-
         private string? _zipPath { get; set; }
 
         private FileArchiveSavingResult(IConfiguration configuration) : base(configuration) { }
@@ -55,19 +46,8 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Saving
             {
                 FileName = fileSavingResult.FileName,
                 FilePath = fileSavingResult.FilePath,
-                Status = MapStatusFromFileSavingResult(fileSavingResult.Status),
+                Status = fileSavingResult.Status.ToFileArchiveSavingStatus(),
                 ZipPath = zipPath
-            };
-        }
-
-        private static FileArchiveSavingResultEnum MapStatusFromFileSavingResult(FileSavingResultEnum status)
-        {
-            return status switch
-            {
-                FileSavingResultEnum.AlreadyExists => FileArchiveSavingResultEnum.AlreadyExists,
-                FileSavingResultEnum.Error => FileArchiveSavingResultEnum.Error,
-                FileSavingResultEnum.Success => FileArchiveSavingResultEnum.Success,
-                _ => FileArchiveSavingResultEnum.Unknown,
             };
         }
     }

@@ -8,7 +8,7 @@
             {
                 public static class Photo
                 {
-                    public const string Download = "file/photo/download";
+                    public const string Download = "file/photo/download/{photoId}";
                 }
             }
         }

@@ -27,20 +27,18 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos
         public async Task<IEquipmentPhotoLoadingResult> LoadFileAsync(string photoRelativePath, string photoFileName)
         {
             var result = new EquipmentPhotoLoadingResult(_configuration, _fileService, photoRelativePath, photoFileName);
-
             if (!Directory.Exists(result.DefaultPath) ||
-                !Directory.Exists(result.DirectoryPath) ||
                 !File.Exists(result.ZipPath))
             {
                 return result with { Status = EquipmentPhotoLoadingResultEnum.NotFound };
             }
 
             var archivedFileLoadingResult = _fileArchivingService.Load(result.ZipPath, result.UnZipPath, result.FileName);
-            if (archivedFileLoadingResult.Status != FileArchiveLoadingResultEnum.Success)
+            if (!archivedFileLoadingResult.Status.IsSuccess())
                 return result with { Status = EquipmentPhotoLoadingResultEnum.Error };
 
             var fileLoadingResult = await _fileService.LoadAsync(archivedFileLoadingResult);
-            if (fileLoadingResult.Status != FileLoadingResultEnum.Success)
+            if (!fileLoadingResult.Status.IsSuccess())
                 return result with { Status = EquipmentPhotoLoadingResultEnum.Error };
 
             return result with
