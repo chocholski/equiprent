@@ -8,7 +8,7 @@
 
         public FileArchiveLoadingResultEnum Status { get; set; }
 
-        public string UnZipDestinationPath { get; }
+        public string UnZipPath { get; }
 
         public string ZipPath { get; }
     }

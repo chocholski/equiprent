@@ -17,16 +17,17 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { environment } from 'src/environments/environment';
 
 //Services
-import { MenuService } from './services/layout/menu.service';
-import { AuthorizationService } from './services/authorization/authorization.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
-import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthGuard } from './services/auth-guard/auth-guard.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './services/interceptors/auth-interceptor';
+import { AuthorizationService } from './services/authorization/authorization.service';
 import { ConsoleMessageService } from './services/messages/console-message.service';
 import { DialogMessageService } from './services/messages/dialog-message.service';
 import { ErrorService } from './services/errors/error.service';
 import { FilterService } from './services/filters/filter.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageService } from './services/images/image.service';
+import { MenuService } from './services/layout/menu.service';
 import { SelectOptionsService } from './services/select-options/select-options.service';
 
 //Components
@@ -192,6 +193,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         DialogService,
         ErrorService,
         FilterService,
+        ImageService,
         MessageService,
         MenuService,
         SelectOptionsService,

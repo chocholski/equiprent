@@ -9,11 +9,7 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Files.Loading
     {
         public byte[]? File { get; set; }
 
-        public string? FilePath
-        {
-            get => GetPathWithoutMainFileFolderPath(_filePath);
-            set => _filePath = value;
-        }
+        public string FilePath { get; }
 
         public FileLoadingResultEnum Status
         {
@@ -21,13 +17,11 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Files.Loading
             set => _status = value;
         }
 
-        private string? _filePath { get; set; }
-
-        private FileLoadingResultEnum _status { get; set; }
+        private FileLoadingResultEnum _status;
 
         public FileLoadingResult(IConfiguration configuration, string filePath) : base(configuration)
         {
-            FilePath = filePath;
+            FilePath = GetPathWithoutMainFileFolderPath(filePath)!;
             Status = FileLoadingResultEnum.Unknown;
         }
     }

@@ -85,10 +85,10 @@ namespace Equiprent.ApplicationImplementations.Files
 
         public async Task<IFileLoadingResult> LoadAsync(IFileArchiveLoadingResult fileArchiveLoadingResult)
         {
-            var result = FileLoadingFromArchiveResult.Create(_configuration, fileArchiveLoadingResult);
+            var result = new FileLoadingFromArchiveResult(_configuration, fileArchiveLoadingResult);
             if (!fileArchiveLoadingResult.Status.IsSuccess())
             {
-                var directoryDeletionResult = DeleteDirectory(result.DirectoryPath, recursive: true);
+                var directoryDeletionResult = DeleteDirectory(result.UnZipDirectoryPath, recursive: true);
                 if (!directoryDeletionResult.Status.IsSuccess())
                     return result with { Status = directoryDeletionResult.Status.ToFileLoadingStatus() };
 
@@ -98,7 +98,7 @@ namespace Equiprent.ApplicationImplementations.Files
             try
             {
                 var file = await LoadFileAsync(result.FilePath!);
-                var directoryDeletionResult = DeleteDirectory(result.DirectoryPath, recursive: true);
+                var directoryDeletionResult = DeleteDirectory(result.UnZipDirectoryPath, recursive: true);
                 if (!directoryDeletionResult.Status.IsSuccess())
                     return result with { Status = directoryDeletionResult.Status.ToFileLoadingStatus() };
 
@@ -140,7 +140,6 @@ namespace Equiprent.ApplicationImplementations.Files
                 using var fileStream = File.OpenRead(filePath);
                 var file = new byte[fileStream.Length];
                 await fileStream.ReadAsync(file);
-
                 return file;
             }
             catch

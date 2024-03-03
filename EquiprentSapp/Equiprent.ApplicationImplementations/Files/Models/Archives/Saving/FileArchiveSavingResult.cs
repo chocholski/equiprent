@@ -7,48 +7,28 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Saving
 {
     public record FileArchiveSavingResult : FileResultBase, IFileArchiveSavingResult
     {
-        public required string FileName { get; set; }
+        public string FileName { get; }
 
-        public required string FilePath
-        {
-            get => GetPathWithoutMainFileFolderPath(_filePath)!;
-            set => _filePath = value;
-        }
+        public string FilePath { get; }
 
         public string? RelativePath
         {
-            get
-            {
-                if (Status != FileArchiveSavingResultEnum.Success)
-                    return null;
-
-                return Path.Combine(ZipPath!, FileName);
-            }
+            get => Status == FileArchiveSavingResultEnum.Success ? Path.Combine(ZipPath, FileName) : null;
         }
 
-        public required FileArchiveSavingResultEnum Status { get; set; }
+        public FileArchiveSavingResultEnum Status { get; set; }
 
-        public required string ZipPath
+        public string ZipPath { get; }
+
+        public FileArchiveSavingResult(
+            IConfiguration configuration,
+            IFileSavingResult fileSavingResult,
+            string zipPath) : base(configuration)
         {
-            get => GetPathWithoutMainFileFolderPath(_zipPath)!;
-            set => _zipPath = value;
-        }
-
-        private string? _filePath { get; set; }
-
-        private string? _zipPath { get; set; }
-
-        private FileArchiveSavingResult(IConfiguration configuration) : base(configuration) { }
-
-        public static FileArchiveSavingResult Create(IConfiguration configuration, IFileSavingResult fileSavingResult, string zipPath)
-        {
-            return new FileArchiveSavingResult(configuration)
-            {
-                FileName = fileSavingResult.FileName,
-                FilePath = fileSavingResult.FilePath,
-                Status = fileSavingResult.Status.ToFileArchiveSavingStatus(),
-                ZipPath = zipPath
-            };
+            FileName = fileSavingResult.FileName;
+            FilePath = GetPathWithoutMainFileFolderPath(fileSavingResult.FilePath)!;
+            Status = fileSavingResult.Status.ToFileArchiveSavingStatus();
+            ZipPath = GetPathWithoutMainFileFolderPath(zipPath)!;
         }
     }
 }

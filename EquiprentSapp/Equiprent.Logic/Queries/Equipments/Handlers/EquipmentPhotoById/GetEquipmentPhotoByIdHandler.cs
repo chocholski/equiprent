@@ -27,6 +27,11 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotoById
                 .Where(photo =>
                     !photo.IsDeleted &&
                     photo.Id == request.PhotoId)
+                .Select(photo => new
+                {
+                    photo.FileName,
+                    photo.RelativePath
+                })
                 .SingleOrDefaultAsync(cancellationToken);
 
             if (equipmentPhoto is null)

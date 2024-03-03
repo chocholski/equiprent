@@ -10,24 +10,23 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Loading
 
         public string? FilePath
         {
-            get => Status == FileArchiveLoadingResultEnum.Success ? Path.Combine(UnZipDestinationPath, FileName) : null;
+            get => Status == FileArchiveLoadingResultEnum.Success ? Path.Combine(UnZipPath, FileName) : null;
         }
 
-        public FileArchiveLoadingResultEnum Status { get; set; }
+        public FileArchiveLoadingResultEnum Status { get; set; } = FileArchiveLoadingResultEnum.Unknown;
 
-        public string UnZipDestinationPath { get; }
+        public string UnZipPath { get; }
 
         public string ZipPath { get; }
 
         public FileArchiveLoadingResult(
             IConfiguration configuration,
             string zipPath,
-            string unZipDestinationPath,
+            string unZipPath,
             string fileName) : base(configuration)
         {
             FileName = fileName;
-            Status = FileArchiveLoadingResultEnum.Unknown;
-            UnZipDestinationPath = GetPathWithoutMainFileFolderPath(unZipDestinationPath)!;
+            UnZipPath = GetPathWithoutMainFileFolderPath(unZipPath)!;
             ZipPath = GetPathWithoutMainFileFolderPath(zipPath)!;
         }
     }

@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
 import { ApiRoutes } from "src/app/api-routes";
 import { EquipmentPhoto } from "src/app/interfaces/equipment";
 import { SimpleFileModel } from "src/app/interfaces/file";
+import { ImageService } from "src/app/services/images/image.service";
 import { PrimeNgHelper } from "src/app/tools/primeNgHelper";
 
 @Component({
@@ -33,7 +33,7 @@ export class EquipmentPhotosComponent
 
   constructor(
     private readonly httpClient: HttpClient,
-    private sanitizer: DomSanitizer
+    private readonly imageService: ImageService
   ) {
   }
 
@@ -58,7 +58,7 @@ export class EquipmentPhotosComponent
     this.httpClient
       .get<SimpleFileModel>(ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id))
       .subscribe(result => {
-        equipmentPhoto.Source = this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${result.File}`);
+        equipmentPhoto.Source = this.imageService.getImageSourceForFile(result.File);
         equipmentPhoto.IsBeingDownloaded = false;
       });
   }

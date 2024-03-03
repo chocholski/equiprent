@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Equiprent.Extensions;
+using Microsoft.Extensions.Configuration;
 
 namespace Equiprent.ApplicationInterfaces.Files.Models
 {
@@ -10,12 +11,10 @@ namespace Equiprent.ApplicationInterfaces.Files.Models
         {
             var mainFileFolderPath = configuration["Paths:MainFileFolder"];
             if (string.IsNullOrEmpty(mainFileFolderPath))
-                throw new Exception("Invalid configuration!");
+                throw new MissingEntryInConfigurationException("Main File Folder Path");
 
             _mainFolderPath = mainFileFolderPath;
         }
-
-        protected bool DoesPathContainMainFileFolderPath(string? filePath) => filePath?.Contains(_mainFolderPath) ?? false;
 
         protected string? GetPathWithoutMainFileFolderPath(string? filePath)
         {

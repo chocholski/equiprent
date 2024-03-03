@@ -1,4 +1,5 @@
 ﻿using Equiprent.ApplicationInterfaces.Files;
+using Equiprent.Extensions;
 using Microsoft.Extensions.Configuration;
 
 namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
@@ -15,9 +16,9 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
             get => Path.Combine(DefaultPath, string.IsNullOrEmpty(SplitPath[0]) ? SplitPath[1] : SplitPath[0]);
         }
 
-        public string FileNameWithoutExtension { get; private set; }
+        public string FileNameWithoutExtension { get; }
 
-        public string[] SplitPath { get; private set; }
+        public string[] SplitPath { get; }
 
         public string UnZipPath
         {
@@ -35,19 +36,19 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
         {
             var mainFileFolderPath = configuration["Paths:MainFileFolder"];
             if (string.IsNullOrEmpty(mainFileFolderPath))
-                throw new Exception("Invalid configuration!");
+                throw new MissingEntryInConfigurationException("Main File Folder Path!");
 
             _fileService = fileService;
             _mainFolderPath = mainFileFolderPath;
-            FileNameWithoutExtension = GetFileNameWithoutExtension(fileName);
+            FileNameWithoutExtension = _fileService.GetFileNameWithoutExtension(fileName);
             SplitPath = GetSplitPath(filePath);
         }
 
         private static string[] GetSplitPath(string filePath)
         {
             var normalizedFilePath = filePath
-                    .Replace(IEquipmentPhotoService.EquipmentPhotosFolderPath, string.Empty)
-                    .Replace(IEquipmentPhotoService.EquipmentPhotosFolderPath.Replace('\\', '/'), string.Empty);
+                .Replace(IEquipmentPhotoService.EquipmentPhotosFolderPath, string.Empty)
+                .Replace(IEquipmentPhotoService.EquipmentPhotosFolderPath.Replace('\\', '/'), string.Empty);
 
             var splitPath = normalizedFilePath.Split('\\');
             if (splitPath.Length == 1)
@@ -56,11 +57,6 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
             }
 
             return splitPath!;
-        }
-
-        private string GetFileNameWithoutExtension(string fileName)
-        {
-            return _fileService.GetFileNameWithoutExtension(fileName);
         }
     }
 }

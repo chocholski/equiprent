@@ -18,6 +18,7 @@ import { Routes } from "src/app/routes";
 import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { StringBuilder } from "src/app/tools/stringBuilder";
 import { formatNumber } from "@angular/common";
+import { lastValueFrom } from "rxjs";
 
 @Component({
   selector: "equipment-details",
@@ -107,7 +108,7 @@ export class EquipmentDetailsComponent
     if (!this.entityId)
       return;
 
-    this.httpClient
+    const equipment = this.httpClient
       .get<EquipmentDetailsModel>(ApiRoutes.equipment.getById(this.entityId))
       .subscribe(result => {
         this.equipment = result;

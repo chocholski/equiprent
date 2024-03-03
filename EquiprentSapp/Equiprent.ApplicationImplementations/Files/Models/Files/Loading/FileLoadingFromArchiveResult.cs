@@ -10,44 +10,34 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Files.Loading
     {
         public byte[]? File { get; set; }
 
-        public string DirectoryPath
+        public string UnZipDirectoryPath
         {
             get
             {
-                var filePathWithoutMainFolder = GetPathWithoutMainFileFolderPath(_filePath)!;
-                var splitFilePath = filePathWithoutMainFolder.Split('\\');
+                var splitFilePath = FilePath.Split('\\');
                 if (splitFilePath.Length == 1)
+                {
                     splitFilePath = splitFilePath[0].Split('/');
+                }
 
-                return filePathWithoutMainFolder.Replace(splitFilePath.Last(), string.Empty);
+                return FilePath.Replace(splitFilePath.Last(), string.Empty);
             }
         }
 
-        public required string? FilePath
-        {
-            get => GetPathWithoutMainFileFolderPath(_filePath);
-            set => _filePath = value;
-        }
+        public string FilePath { get; }
 
-        public required FileLoadingResultEnum Status
+        public FileLoadingResultEnum Status
         {
             get => _status == FileLoadingResultEnum.Success && File.IsNullOrEmpty() ? FileLoadingResultEnum.Error : _status;
             set => _status = value;
         }
 
-        private string? _filePath { get; set; }
+        private FileLoadingResultEnum _status;
 
-        private FileLoadingResultEnum _status { get; set; }
-
-        private FileLoadingFromArchiveResult(IConfiguration configuration) : base(configuration) { }
-
-        public static FileLoadingFromArchiveResult Create(IConfiguration configuration, IFileArchiveLoadingResult fileArchiveLoadingResult)
+        public FileLoadingFromArchiveResult(IConfiguration configuration, IFileArchiveLoadingResult fileArchiveLoadingResult) : base(configuration)
         {
-            return new FileLoadingFromArchiveResult(configuration)
-            {
-                FilePath = fileArchiveLoadingResult.FilePath,
-                Status = fileArchiveLoadingResult.Status.ToFileLoadingResultStatus(),
-            };
+            FilePath = GetPathWithoutMainFileFolderPath(fileArchiveLoadingResult.FilePath)!;
+            Status = fileArchiveLoadingResult.Status.ToFileLoadingResultStatus();
         }
     }
 }

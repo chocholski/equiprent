@@ -14,8 +14,6 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
 
         public string FilePath { get; }
 
-        private byte[]? _file { get; set; }
-
         public EquipmentPhotoLoadingResultEnum Status
         {
             get => _status == EquipmentPhotoLoadingResultEnum.Success && File.IsNullOrEmpty() ? EquipmentPhotoLoadingResultEnum.Error : _status;

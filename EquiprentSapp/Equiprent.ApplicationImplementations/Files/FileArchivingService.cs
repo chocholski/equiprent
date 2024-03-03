@@ -5,6 +5,7 @@ using Equiprent.ApplicationInterfaces.Files.Models.Archives.Loading;
 using Equiprent.ApplicationInterfaces.Files.Models.Archives.Saving;
 using Equiprent.ApplicationInterfaces.Files.Models.Files.Deletion;
 using Equiprent.ApplicationInterfaces.Files.Models.Files.Saving;
+using Equiprent.Extensions;
 using Microsoft.Extensions.Configuration;
 using System.IO.Compression;
 
@@ -24,19 +25,19 @@ namespace Equiprent.ApplicationImplementations.Files
             _fileService = fileService;
         }
 
-        public IFileArchiveLoadingResult Load(string zipPath, string unZipDestinationPath, string fileName)
+        public IFileArchiveLoadingResult Load(string zipPath, string unZipPath, string fileName)
         {
-            var result = new FileArchiveLoadingResult(_configuration, zipPath, unZipDestinationPath, fileName);
+            var result = new FileArchiveLoadingResult(_configuration, zipPath, unZipPath, fileName);
 
             try
             {
                 using var zipFile = ZipFile.OpenRead(result.ZipPath);
-                if (!zipFile.Entries.Any(e => e.Name.Equals(result.FileName, StringComparison.OrdinalIgnoreCase)))
+                if (zipFile is null || !zipFile.ContainsFileWithName(result.FileName))
                     return result with { Status = FileArchiveLoadingResultEnum.NotFound };
 
-                Directory.CreateDirectory(result.UnZipDestinationPath);
+                Directory.CreateDirectory(result.UnZipPath);
                 using var zipArchive = ZipFile.Open(result.ZipPath, ZipArchiveMode.Read);
-                zipArchive.ExtractToDirectory(result.UnZipDestinationPath, overwriteFiles: true);
+                zipArchive.ExtractToDirectory(result.UnZipPath, overwriteFiles: true);
                 return result with { Status = FileArchiveLoadingResultEnum.Success };
             }
             catch
@@ -47,7 +48,7 @@ namespace Equiprent.ApplicationImplementations.Files
 
         public IFileArchiveSavingResult Save(IFileSavingResult fileSavingResult, string zipPath)
         {
-            var result = FileArchiveSavingResult.Create(_configuration, fileSavingResult, zipPath);
+            var result = new FileArchiveSavingResult(_configuration, fileSavingResult, zipPath);
             if (!fileSavingResult.Status.IsSuccess())
             {
                 var fileDeletionResult = _fileService.Delete(result.FilePath);

@@ -27,8 +27,7 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos
         public async Task<IEquipmentPhotoLoadingResult> LoadFileAsync(string photoRelativePath, string photoFileName)
         {
             var result = new EquipmentPhotoLoadingResult(_configuration, _fileService, photoRelativePath, photoFileName);
-            if (!Directory.Exists(result.DefaultPath) ||
-                !File.Exists(result.ZipPath))
+            if (!Directory.Exists(result.DefaultPath) || !File.Exists(result.ZipPath))
             {
                 return result with { Status = EquipmentPhotoLoadingResultEnum.NotFound };
             }

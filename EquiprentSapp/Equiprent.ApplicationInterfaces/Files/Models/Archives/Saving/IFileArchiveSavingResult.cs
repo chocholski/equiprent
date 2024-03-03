@@ -2,14 +2,14 @@
 {
     public interface IFileArchiveSavingResult
     {
-        string FileName { get; set; }
+        string FileName { get; }
 
-        string FilePath { get; set; }
+        string FilePath { get; }
 
         string? RelativePath { get; }
 
         FileArchiveSavingResultEnum Status { get; set; }
 
-        public string ZipPath { get; set; }
+        public string ZipPath { get; }
     }
 }

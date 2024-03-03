@@ -4,7 +4,7 @@
     {
         public byte[]? File { get; set; }
 
-        public string? FilePath { get; set; }
+        public string FilePath { get; }
 
         public FileLoadingResultEnum Status { get; set; }
     }
