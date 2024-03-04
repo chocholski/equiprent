@@ -7,5 +7,7 @@ namespace Equiprent.Logic.Queries.Equipments.Responses
         public required Guid Id { get; set; }
 
         public required bool IsMainThumbnail { get; set; }
+
+        public required string ThumbnailFile { get; set; }
     }
 }

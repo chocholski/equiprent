@@ -30,6 +30,8 @@ using Equiprent.ApplicationInterfaces.Files;
 using Equiprent.ApplicationImplementations.Files;
 using Equiprent.ApplicationInterfaces.Equipments.Photos;
 using Equiprent.ApplicationImplementations.Equipments.Photos;
+using Equiprent.ApplicationInterfaces.Photos;
+using Equiprent.ApplicationImplementations.Photos;
 
 namespace Equiprent.Web.Installers
 {
@@ -50,10 +52,12 @@ namespace Equiprent.Web.Installers
             builder.Services.AddTransient<IDbStatementBuilder, DbStatementBuilder>();
             builder.Services.AddTransient<IEquipmentPhotoService, EquipmentPhotoService>();
             builder.Services.AddTransient<IFileArchivingService, FileArchivingService>();
+            builder.Services.AddTransient<IFileEncodingResolver, FileEncodingResolver>();
             builder.Services.AddTransient<IFileNameNormalizer, FileNameNormalizer>();
             builder.Services.AddTransient<IFileService, FileService>();
             builder.Services.AddTransient<ILanguageableService, LanguageableService>();
             builder.Services.AddTransient<IPasswordHasher, PasswordHasher>();
+            builder.Services.AddTransient<IPhotoResizeCalculator, PhotoResizeCalculator>();
             builder.Services.AddTransient<ISpecialFilterBuilder, SpecialFilterBuilder>();
             builder.Services.AddTransient<ITokenRefreshService, TokenRefreshService>();
             builder.Services.AddTransient<IUserLanguageService, UserLanguageService>();

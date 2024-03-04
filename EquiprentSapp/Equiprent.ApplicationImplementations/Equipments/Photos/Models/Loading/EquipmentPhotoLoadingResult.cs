@@ -1,6 +1,10 @@
-﻿using Equiprent.ApplicationInterfaces.Equipments.Photos.Models;
+﻿using Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading.Thumbnails;
+using Equiprent.ApplicationInterfaces.Equipments.Photos.Models;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading;
+using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading.Thumbnails;
 using Equiprent.ApplicationInterfaces.Files;
+using Equiprent.ApplicationInterfaces.Files.Models.Archives.Loading;
+using Equiprent.ApplicationInterfaces.Files.Models.Files.Loading;
 using Equiprent.Extensions;
 using Microsoft.Extensions.Configuration;
 
@@ -8,7 +12,14 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
 {
     public record EquipmentPhotoLoadingResult : EquipmentPhotoResultBase, IEquipmentPhotoLoadingResult
     {
-        public byte[]? File { get; set; }
+        public byte[]? File
+        {
+            get => FileLoadingResult?.File;
+        }
+
+        public IFileArchiveLoadingResult? FileArchiveLoadingResult { get; set; }
+        
+        public IFileLoadingResult? FileLoadingResult { get; set; }
 
         public string FileName { get; }
 
@@ -19,17 +30,17 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
             get => _status == EquipmentPhotoLoadingResultEnum.Success && File.IsNullOrEmpty() ? EquipmentPhotoLoadingResultEnum.Error : _status;
             set => _status = value;
         }
+        public IEquipmentPhotoThumbnailLoadingResult ThumbnailLoadingResult { get; set; } = new EquipmentPhotoThumbnailLoadingResult();
 
         private EquipmentPhotoLoadingResultEnum _status;
 
         public EquipmentPhotoLoadingResult(
             IConfiguration configuration,
             IFileService fileService,
-            string filePath,
-            string fileName) : base(configuration, fileService, filePath, fileName)
+            IEquipmentPhotoLoadingModel photo) : base(configuration, fileService, photo)
         {
-            FileName = fileName;
-            FilePath = filePath;
+            FileName = photo.FileName;
+            FilePath = photo.RelativePath;
         }
     }
 }

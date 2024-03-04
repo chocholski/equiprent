@@ -31,6 +31,7 @@ export interface EquipmentPhoto extends SimpleFileModel {
   IsMainThumbnail: boolean;
   Source?: SafeUrl;
   Thumbnail: SafeUrl;
+  ThumbnailFile?: string;
 }
 
 export interface EquipmentListItemModel {

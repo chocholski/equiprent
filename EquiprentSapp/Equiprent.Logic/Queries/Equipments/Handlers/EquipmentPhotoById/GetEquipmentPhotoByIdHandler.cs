@@ -1,4 +1,5 @@
-﻿using Equiprent.ApplicationInterfaces.Equipments.Photos;
+﻿using Equiprent.ApplicationImplementations.Equipments.Photos;
+using Equiprent.ApplicationInterfaces.Equipments.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Equipments.Requests;
@@ -37,11 +38,15 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotoById
             if (equipmentPhoto is null)
                 return null;
 
-            var equipmentPhotoLoadingResult = await _equipmentPhotoService.LoadFileAsync(equipmentPhoto.RelativePath, equipmentPhoto.FileName);
+            var equipmentPhotoLoadingResult = await _equipmentPhotoService.LoadFileWithoutThumbnailAsync(
+                new EquipmentPhotoLoadingModel
+                {
+                    FileName = equipmentPhoto.FileName,
+                    RelativePath = equipmentPhoto.RelativePath
+                });
+
             if (equipmentPhotoLoadingResult is null || !equipmentPhotoLoadingResult.Status.IsSuccess())
-            {
                 return null;
-            }
 
             var response = new EquipmentPhotoByIdReponse
             {

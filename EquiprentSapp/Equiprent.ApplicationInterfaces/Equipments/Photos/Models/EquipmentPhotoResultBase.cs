@@ -31,8 +31,7 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
         public EquipmentPhotoResultBase(
             IConfiguration configuration,
             IFileService fileService,
-            string filePath,
-            string fileName)
+            IEquipmentPhotoLoadingModel photo)
         {
             var mainFileFolderPath = configuration["Paths:MainFileFolder"];
             if (string.IsNullOrEmpty(mainFileFolderPath))
@@ -40,8 +39,8 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
 
             _fileService = fileService;
             _mainFolderPath = mainFileFolderPath;
-            FileNameWithoutExtension = _fileService.GetFileNameWithoutExtension(fileName);
-            SplitPath = GetSplitPath(filePath);
+            FileNameWithoutExtension = _fileService.GetFileNameWithoutExtension(photo.FileName);
+            SplitPath = GetSplitPath(photo.RelativePath);
         }
 
         private static string[] GetSplitPath(string filePath)

@@ -2,6 +2,6 @@
 {
     public class EquipmentPhotosByEquipmentIdResponse
     {
-        public required List<EquipmentPhotoResponse> Photos { get; set; }
+        public List<EquipmentPhotoResponse> Photos { get; set; } = new();
     }
 }

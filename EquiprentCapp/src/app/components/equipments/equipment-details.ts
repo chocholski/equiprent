@@ -19,6 +19,7 @@ import { RegexPatterns } from "src/app/tools/regexPatterns";
 import { StringBuilder } from "src/app/tools/stringBuilder";
 import { formatNumber } from "@angular/common";
 import { lastValueFrom } from "rxjs";
+import { ImageService } from "src/app/services/images/image.service";
 
 @Component({
   selector: "equipment-details",
@@ -52,6 +53,7 @@ export class EquipmentDetailsComponent
     protected override readonly errorService: ErrorService,
     protected override readonly formBuilder: FormBuilder,
     protected override readonly httpClient: HttpClient,
+    private readonly imageService: ImageService,
     protected override readonly router: Router,
     private readonly selectOptionsService: SelectOptionsService,
     public override readonly translate: TranslateService
@@ -112,6 +114,10 @@ export class EquipmentDetailsComponent
       .get<EquipmentDetailsModel>(ApiRoutes.equipment.getById(this.entityId))
       .subscribe(result => {
         this.equipment = result;
+
+        for (const photo of this.equipment.Photos.filter(photo => photo.ThumbnailFile !== undefined)) {
+          photo.Thumbnail = this.imageService.getImageSourceForFile(photo.ThumbnailFile)!;
+        }
 
         this.updateForm({
           Description: this.equipment.Description,
