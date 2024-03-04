@@ -1,6 +1,7 @@
 import { LazyLoadEvent } from "primeng/api";
 import { PngTableColumn } from "./interfaces/png";
 import { PngTableSearchQueryBuilder } from "./tools/png-table-search-query-builder";
+import { EquipmentPhotoBase } from "./interfaces/equipment";
 
 export const ApiRoutes = {
   audit: {
@@ -26,7 +27,9 @@ export const ApiRoutes = {
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `equipment${new PngTableSearchQueryBuilder(event, columns).create()}`,
     file: {
       photo: {
-        download: (photoId: string) => `equipment/file/photo/download/${photoId}`
+        download: (photoId: string) => `equipment/file/photo/download/${photoId}`,
+        makeThumbnailForFile: `equipment/file/photo/makeThumbnailForFile`,
+        uploadMultiple: `equipment/file/photo/uploadMultiple`,
       }
     },
     getById: (equipmentId: string) => `equipment/${equipmentId}`,

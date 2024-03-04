@@ -116,7 +116,7 @@ export class EquipmentDetailsComponent
         this.equipment = result;
 
         for (const photo of this.equipment.Photos.filter(photo => photo.ThumbnailFile !== undefined)) {
-          photo.ThumbnailUrl = this.imageService.getImageUrlForFile(photo.ThumbnailFile)!;
+          photo.ThumbnailUrl = this.imageService.getImageUrlForEncodedFile(photo.ThumbnailFile)!;
         }
 
         this.updateForm({

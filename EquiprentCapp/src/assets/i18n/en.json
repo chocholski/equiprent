@@ -176,6 +176,7 @@
         },
         "Name": "Name",
         "Photos": {
+            "Add": "Add",
             "Title": "Photos"
         },
         "Plural": "Equipments",

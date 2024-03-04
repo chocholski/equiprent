@@ -9,6 +9,7 @@
                 public static class Photo
                 {
                     public const string Download = "file/photo/download/{photoId}";
+                    public const string MakeThumbnailForFile = "file/photo/makeThumbnailForFile";
                 }
             }
         }

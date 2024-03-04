@@ -25,6 +25,7 @@ import { AuthorizationService } from './services/authorization/authorization.ser
 import { ConsoleMessageService } from './services/messages/console-message.service';
 import { DialogMessageService } from './services/messages/dialog-message.service';
 import { ErrorService } from './services/errors/error.service';
+import { FileService } from './services/files/file.service';
 import { FilterService } from './services/filters/filter.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageService } from './services/images/image.service';
@@ -74,6 +75,7 @@ import { ConfirmationService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
 import { GalleriaModule } from 'primeng/galleria';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
@@ -81,6 +83,7 @@ import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
@@ -159,12 +162,14 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ConfirmDialogModule,
         DropdownModule,
         DynamicDialogModule,
+        FileUploadModule,
         GalleriaModule,
         MessageModule,
         MessagesModule,
         MultiSelectModule,
         PanelMenuModule,
         PasswordModule,
+        ProgressSpinnerModule,
         SplitButtonModule,
         TableModule,
         TabViewModule,
@@ -194,6 +199,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         DialogMessageService,
         DialogService,
         ErrorService,
+        FileService,
         FilterService,
         ImageService,
         MessageService,

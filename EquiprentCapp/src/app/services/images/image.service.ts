@@ -13,7 +13,7 @@ export class ImageService {
     private readonly sanitizer: DomSanitizer) {
   }
 
-  public getImageUrlForFile(file: string | undefined): SafeUrl | undefined {
+  public getImageUrlForEncodedFile(file: string | undefined): SafeUrl | undefined {
     return file
       ? this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${file}`)
       : undefined;

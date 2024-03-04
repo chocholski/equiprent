@@ -3,13 +3,11 @@ using Equiprent.ApplicationImplementations.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading.Thumbnails;
-using Equiprent.ApplicationInterfaces.Files;
 using Equiprent.Data.DbContext;
 using Equiprent.Logic.Queries.Equipments.Requests;
 using Equiprent.Logic.Queries.Equipments.Responses;
 using Equiprent.Logic.Queries.Equipments.Responses.EquipmentPhotosByEquipmentId;
 using MediatR;
-using System.IO;
 using System.Threading;
 
 namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipmentId
@@ -19,16 +17,13 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipment
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly IEquipmentPhotoService _equipmentPhotoService;
-        private readonly IFileEncodingResolver _fileEncodingResolver;
 
         public GetEquipmentPhotosByEquipmentIdHandler(
             ApplicationDbContext dbContext,
-            IEquipmentPhotoService equipmentPhotoService,
-            IFileEncodingResolver fileEncodingResolver)
+            IEquipmentPhotoService equipmentPhotoService)
         {
             _dbContext = dbContext;
             _equipmentPhotoService = equipmentPhotoService;
-            _fileEncodingResolver = fileEncodingResolver;
         }
 
         public async Task<EquipmentPhotosByEquipmentIdResponse?> Handle(GetEquipmentPhotosByEquipmentIdRequest request, CancellationToken cancellationToken)
@@ -58,18 +53,16 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipment
                     continue;
                 }
 
-                using var memoryStream = new MemoryStream();
-                var encoder = _fileEncodingResolver.GetEncoderForFileName(photo.FileName);
-                if (encoder is null)
-                    continue;
+                var encodedThumbnail = _equipmentPhotoService.GetEncodedImage(equipmentPhotoLoadingResult.ThumbnailLoadingResult.Thumbnail!, photo.FileName);
+                if (string.IsNullOrEmpty(encodedThumbnail))
+                    return null;
 
-                equipmentPhotoLoadingResult.ThumbnailLoadingResult.Thumbnail!.Save(memoryStream, encoder, encoderParams: null);
                 response.Photos.Add(new EquipmentPhotoResponse
                 {
                     FileName = photo.FileName,
                     Id = photo.Id,
                     IsMainThumbnail = photo.IsMainThumbnail,
-                    ThumbnailFile = Convert.ToBase64String(memoryStream.ToArray()),
+                    ThumbnailFile = encodedThumbnail,
                 });
             }
 

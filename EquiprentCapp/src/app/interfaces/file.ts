@@ -1,4 +1,4 @@
 export interface SimpleFileModel {
   File?: string;
-  FileName: string;
+  FileName?: string;
 }

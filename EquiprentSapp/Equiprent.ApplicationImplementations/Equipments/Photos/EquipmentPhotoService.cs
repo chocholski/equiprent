@@ -17,21 +17,45 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos
 {
     public class EquipmentPhotoService : IEquipmentPhotoService
     {
+        public static readonly IDimensionable DefaultThumbnailDimensions = new PhotoDimensions(height: 50, width: 55);
+
         private readonly IConfiguration _configuration;
         private readonly IFileArchivingService _fileArchivingService;
+        private readonly IFileEncodingResolver _fileEncodingResolver;
         private readonly IFileService _fileService;
         private readonly IPhotoResizeCalculator _photoResizeCalculator;
 
         public EquipmentPhotoService(
             IConfiguration configuration,
             IFileArchivingService fileArchivingService,
+            IFileEncodingResolver fileEncodingResolver,
             IFileService fileService,
             IPhotoResizeCalculator photoResizeCalculator)
         {
             _configuration = configuration;
             _fileArchivingService = fileArchivingService;
+            _fileEncodingResolver = fileEncodingResolver;
             _fileService = fileService;
             _photoResizeCalculator = photoResizeCalculator;
+        }
+
+        public string? GetEncodedImage(Image image, string fileName)
+        {
+            string? encodedImage = null;
+
+            using var memoryStream = new MemoryStream();
+            var encoder = _fileEncodingResolver.GetEncoderForFileName(fileName);
+            if (encoder is null)
+                return encodedImage;
+
+            try
+            {
+                image.Save(memoryStream, encoder, encoderParams: null);
+                encodedImage = Convert.ToBase64String(memoryStream.ToArray());
+            }
+            catch { }
+
+            return encodedImage;
         }
 
         public async Task<IEquipmentPhotoLoadingResult> LoadFileWithoutThumbnailAsync(IEquipmentPhotoLoadingModel photo)
@@ -54,6 +78,19 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos
 
             result.Status = EquipmentPhotoLoadingResultEnum.Success;
             return result;
+        }
+
+        public Image? MakeThumbnailFromEncodedFile(string encodedFile)
+        {
+            try
+            {
+                var imageFile = Convert.FromBase64String(encodedFile);
+                return GetThumbnail(imageFile, targetDimensions: new PhotoDimensions(height: DefaultThumbnailDimensions.Height, width: DefaultThumbnailDimensions.Width));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private Image? GetThumbnail(byte[] imageFile, IDimensionable targetDimensions)
