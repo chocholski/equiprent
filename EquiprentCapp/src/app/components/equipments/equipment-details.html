@@ -35,13 +35,6 @@
                       <p-message *ngIf="formValidator.hasError('MarketValue')" severity="error"
                         [text]="translate.instant('Messages.NotANumber')"></p-message>
                     </div>
-                    <div class="flex-wrap mb-3">
-                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.PricePerDay' | translate }}</label>
-                      <input pInputText class="p-inputtext mb-2" id="pricePerDay" formControlName="PricePerDay"
-                        type="text" />
-                      <p-message *ngIf="formValidator.hasError('PricePerDay')" severity="error"
-                        [text]="translate.instant('Messages.NotANumber')"></p-message>
-                    </div>
                   </div>
                   <div class="field col-12 md:col-6">
                     <div class="flex-wrap mb-4">
@@ -67,6 +60,13 @@
                           <div>{{ role.label | translate }}</div>
                         </ng-template>
                       </p-dropdown>
+                    </div>
+                    <div class="flex-wrap mb-3">
+                      <label class="block text-900 font-medium mb-2">{{ 'Equipment.PricePerDay' | translate }}</label>
+                      <input pInputText class="p-inputtext mb-2" id="pricePerDay" formControlName="PricePerDay"
+                        type="text" />
+                      <p-message *ngIf="formValidator.hasError('PricePerDay')" severity="error"
+                        [text]="translate.instant('Messages.NotANumber')"></p-message>
                     </div>
                   </div>
                 </div>

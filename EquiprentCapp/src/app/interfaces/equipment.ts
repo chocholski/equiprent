@@ -23,14 +23,14 @@ export interface EquipmentDetailsModel {
   TypeId: number,
 }
 
-export interface EquipmentPhoto extends SimpleFileModel {
+export class EquipmentPhoto implements SimpleFileModel {
   File?: string;
   FileName: string;
   Id: string;
   IsBeingDownloaded?: boolean;
   IsMainThumbnail: boolean;
-  Source?: SafeUrl;
-  Thumbnail: SafeUrl;
+  SourceUrl?: SafeUrl;
+  ThumbnailUrl: SafeUrl;
   ThumbnailFile?: string;
 }
 

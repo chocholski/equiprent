@@ -15,8 +15,8 @@ import { Routes } from "src/app/routes";
 import { ApiRoutes } from "src/app/api-routes";
 import { UserRoleDetailsModel } from "src/app/interfaces/user-role";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
-import { UserRolePermissionsComponent } from "./user-role-permissions";
-import { UserPermissionNode } from "./models/user-permission-node";
+import { UserRolePermissionsComponent } from "./permissions/user-role-permissions";
+import { UserPermissionNode } from "./permissions/models/user-permission-node";
 import { AccessControlFormComponent } from "../abstract/forms/access-control-form";
 import { FormModeEnum } from "src/app/enums/form-mode-enum";
 

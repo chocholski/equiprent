@@ -1,0 +1,22 @@
+<div class="p-fluid p-formgrid grid mb-3">
+  <p-treeTable [value]="userPermissionNodes" [columns]="userRolePermissionColumns" selectionMode="checkbox"
+    [(selection)]="selectedUserPermissionNodes" (onNodeSelect)="onPermissionSelected($event.node)">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          <label class="block text-900 font-medium mb-2">{{col.header | translate}}</label>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns; let i = index">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+          <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
+          <i [class]="rowData[col.icon] + ' px-2'"></i>
+          {{rowData[col.field] | translate}}
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</div>

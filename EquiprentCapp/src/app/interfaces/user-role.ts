@@ -1,4 +1,4 @@
-import { UserPermissionNode } from "../components/user-roles/models/user-permission-node";
+import { UserPermissionNode } from "../components/user-roles/permissions/models/user-permission-node";
 import { NameInLanguagesBase } from "./name-in-language";
 import { PermissionGroupItemModel, PermissionItemModel, SelectedUserPermissionNodeArray } from "./user-permission";
 

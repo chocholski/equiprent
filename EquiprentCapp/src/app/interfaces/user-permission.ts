@@ -1,4 +1,4 @@
-import { UserPermissionNode } from "../components/user-roles/models/user-permission-node";
+import { UserPermissionNode } from "../components/user-roles/permissions/models/user-permission-node";
 
 export class PermissionGroupItemModel {
   Name: string;

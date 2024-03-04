@@ -17,6 +17,7 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { environment } from 'src/environments/environment';
 
 //Services
+import { AssetService } from './services/assets/asset.service';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { AuthGuard } from './services/auth-guard/auth-guard.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
@@ -44,7 +45,7 @@ import { DeletionDialogComponent } from './components/dialogs/deletion-dialog';
 import { EquipmentCreationComponent } from './components/equipments/equipment-create';
 import { EquipmentDetailsComponent } from './components/equipments/equipment-details';
 import { EquipmentListComponent } from './components/equipments/equipment-list';
-import { EquipmentPhotosComponent } from './components/equipments/equipment-photos';
+import { EquipmentPhotosComponent } from './components/equipments/photos/equipment-photos';
 import { LoginComponent } from './components/login/login';
 import { LoginResetPasswordComponent } from './components/login/login-reset-password';
 import { ManufacturerAddressComponent } from './components/addresses/manufacturer-address';
@@ -61,7 +62,7 @@ import { UserProfileComponent } from './components/users/user-profile';
 import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
 import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
 import { UserRoleListComponent } from './components/user-roles/user-role-list';
-import { UserRolePermissionsComponent } from './components/user-roles/user-role-permissions';
+import { UserRolePermissionsComponent } from './components/user-roles/permissions/user-role-permissions';
 
 //PrimeNG
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
@@ -184,6 +185,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
             useClass: ApiUrlInterceptor,
             multi: true
         },
+        AssetService,
         AuthenticationService,
         AuthGuard,
         AuthorizationService,

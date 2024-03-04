@@ -32,15 +32,36 @@ const ApiRoutes = {
     post: "client/representative",
     put: "client/representative"
   },
+  equipment: {
+    delete: equipmentId => `equipment/${equipmentId}`,
+    getAll: (event, columns) => `equipment${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    file: {
+      photo: {
+        download: photoId => `equipment/file/photo/download/${photoId}`
+      }
+    },
+    getById: equipmentId => `equipment/${equipmentId}`,
+    post: "equipment",
+    put: "equipment"
+  },
   identity: {
     authenticate: "identity/authenticate",
     refreshToken: "identity/refreshToken"
+  },
+  manufacturer: {
+    delete: manufacturerId => `manufacturer/${manufacturerId}`,
+    getAll: (event, columns) => `manufacturer${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: manufacturerId => `manufacturer/${manufacturerId}`,
+    post: "manufacturer",
+    put: "manufacturer"
   },
   selectOptions: {
     audits: (event, columns, entityId, entityTableName) => `audit/getFieldNames${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
     clientTypes: "selectoptions/clientTypes",
     countries: "selectoptions/countries",
+    equipmentTypes: "selectoptions/equipmentTypes",
     languages: "selectoptions/languages",
+    manufacturers: "selectoptions/manufacturers",
     userRoles: "selectoptions/userRoles",
     yesNoOptions: "selectoptions/yesNo"
   },
@@ -52,9 +73,11 @@ const ApiRoutes = {
     getAll: (event, columns) => `user${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
     getById: userId => `user/${userId}`,
     getLanguage: userId => `user/getLanguage/${userId}`,
+    getProfileById: userId => `user/profile/${userId}`,
     getTheme: userId => `user/getTheme/${userId}`,
     post: "user",
-    put: "user"
+    put: "user",
+    saveProfile: "user/profile"
   },
   userRole: {
     delete: userRoleId => `userRole/${userRoleId}`,
@@ -78,9 +101,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppRoutingModule": () => (/* binding */ AppRoutingModule)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _layout_app_layout_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./layout/app.layout.component */ 3725);
 /* harmony import */ var _components_users_user_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/users/user-list */ 4760);
 /* harmony import */ var _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/user-roles/user-role-list */ 4609);
@@ -89,13 +112,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./enums/user-permission-enum */ 8235);
 /* harmony import */ var _components_users_user_details__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/users/user-details */ 8635);
 /* harmony import */ var _components_users_user_create__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/users/user-create */ 9068);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/common */ 4666);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./routes */ 1311);
 /* harmony import */ var _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/user-roles/user-role-create */ 3746);
 /* harmony import */ var _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/user-roles/user-role-details */ 7424);
 /* harmony import */ var _components_clients_client_list__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/clients/client-list */ 550);
 /* harmony import */ var _components_clients_client_create__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/clients/client-create */ 4354);
 /* harmony import */ var _components_clients_client_details__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/clients/client-details */ 1297);
+/* harmony import */ var _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-list */ 8649);
+/* harmony import */ var _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-create */ 8514);
+/* harmony import */ var _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-details */ 856);
+/* harmony import */ var _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/equipments/equipment-list */ 6625);
+/* harmony import */ var _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/equipments/equipment-create */ 7826);
+/* harmony import */ var _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/equipments/equipment-details */ 9012);
+/* harmony import */ var _components_users_user_profile__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/users/user-profile */ 3466);
+
+
+
+
+
+
+
 
 
 
@@ -115,14 +152,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppRoutingModule = class AppRoutingModule {};
-AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.NgModule)({
-  imports: [_angular_router__WEBPACK_IMPORTED_MODULE_16__.RouterModule.forRoot([{
+AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_21__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_22__.NgModule)({
+  imports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule.forRoot([{
     path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"],
     component: _layout_app_layout_component__WEBPACK_IMPORTED_MODULE_0__.AppLayoutComponent,
     data: {
       breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.breadcrumbs["default"]
     },
     children: [{
+      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.profile,
+      component: _components_users_user_profile__WEBPACK_IMPORTED_MODULE_20__.UserProfileComponent,
+      canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+      data: {
+        allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.ForAll],
+        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.profile
+      }
+    }, {
       path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
@@ -152,6 +197,70 @@ AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angul
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Clients_CanModify],
           breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.edition
+        }
+      }]
+    }, {
+      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.list,
+      canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+      data: {
+        allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanList],
+        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.list
+      },
+      children: [{
+        path: '',
+        component: _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_17__.EquipmentListComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanList],
+          breadcrumb: null
+        }
+      }, {
+        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.create,
+        component: _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_18__.EquipmentCreationComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanModify],
+          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.creation
+        }
+      }, {
+        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.edit,
+        component: _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_19__.EquipmentDetailsComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanModify],
+          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.edition
+        }
+      }]
+    }, {
+      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.list,
+      canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+      data: {
+        allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanList],
+        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.list
+      },
+      children: [{
+        path: '',
+        component: _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_14__.ManufacturerListComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanList],
+          breadcrumb: null
+        }
+      }, {
+        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.create,
+        component: _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_15__.ManufacturerCreationComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanModify],
+          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.creation
+        }
+      }, {
+        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.edit,
+        component: _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_16__.ManufacturerDetailsComponent,
+        canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
+        data: {
+          allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanModify],
+          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.edition
         }
       }]
     }, {
@@ -239,10 +348,10 @@ AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angul
     useHash: false
   })],
   providers: [{
-    provide: _angular_common__WEBPACK_IMPORTED_MODULE_17__.LocationStrategy,
-    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_17__.PathLocationStrategy
+    provide: _angular_common__WEBPACK_IMPORTED_MODULE_24__.LocationStrategy,
+    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_24__.PathLocationStrategy
   }],
-  exports: [_angular_router__WEBPACK_IMPORTED_MODULE_16__.RouterModule]
+  exports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule]
 })], AppRoutingModule);
 
 
@@ -331,71 +440,82 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "jwtTokenGetter": () => (/* binding */ jwtTokenGetter),
 /* harmony export */   "options": () => (/* binding */ options)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! @angular/common/locales/pl */ 1499);
-/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ngx-mask */ 446);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! @ngx-translate/http-loader */ 8319);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
-/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! @auth0/angular-jwt */ 4467);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @angular/common/locales/pl */ 1499);
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ngx-mask */ 446);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! @ngx-translate/http-loader */ 8319);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! @auth0/angular-jwt */ 4467);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.component */ 5041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-routing.module */ 158);
 /* harmony import */ var _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layout/app.layout.module */ 6421);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/layout/menu.service */ 6308);
-/* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/authorization/authorization.service */ 6079);
-/* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/authentication/authentication.service */ 7020);
-/* harmony import */ var _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/interceptors/auth-interceptor */ 8617);
-/* harmony import */ var _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/auth-guard/auth-guard.service */ 3226);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/messages/console-message.service */ 5289);
-/* harmony import */ var _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _services_errors_error_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/errors/error.service */ 8813);
-/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/filters/filter.service */ 9865);
-/* harmony import */ var _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/select-options/select-options.service */ 712);
-/* harmony import */ var _components_addresses_address__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/addresses/address */ 8309);
-/* harmony import */ var _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/audits/audit-list-for-entity */ 3416);
-/* harmony import */ var _components_clients_client_create__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/clients/client-create */ 4354);
-/* harmony import */ var _components_clients_client_details__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/clients/client-details */ 1297);
-/* harmony import */ var _components_clients_client_list__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/clients/client-list */ 550);
-/* harmony import */ var _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/representatives/client-representative-create */ 6487);
-/* harmony import */ var _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/representatives/client-representative-details */ 3291);
-/* harmony import */ var _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/representatives/client-representative-list */ 9431);
-/* harmony import */ var _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/addresses/company-client-address */ 3320);
-/* harmony import */ var _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/dialogs/deletion-dialog */ 2167);
-/* harmony import */ var _components_login_login__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/login/login */ 8077);
-/* harmony import */ var _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/login/login-reset-password */ 9598);
-/* harmony import */ var _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/name-in-languages/name-in-languages */ 3679);
-/* harmony import */ var _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/addresses/private-client-address */ 4549);
-/* harmony import */ var _components_clients_private_client__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/clients/private-client */ 3821);
-/* harmony import */ var _components_users_user_create__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/users/user-create */ 9068);
-/* harmony import */ var _components_users_user_details__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/users/user-details */ 8635);
-/* harmony import */ var _components_users_user_list__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/users/user-list */ 4760);
-/* harmony import */ var _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/user-roles/user-role-create */ 3746);
-/* harmony import */ var _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/user-roles/user-role-details */ 7424);
-/* harmony import */ var _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/user-roles/user-role-list */ 4609);
-/* harmony import */ var _components_user_roles_user_role_permissions__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/user-roles/user-role-permissions */ 2650);
-/* harmony import */ var _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/interceptors/api-url-interceptor */ 4133);
-/* harmony import */ var primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! primeng/breadcrumb */ 7298);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var primeng_checkbox__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! primeng/checkbox */ 749);
-/* harmony import */ var primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! primeng/confirmdialog */ 97);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
-/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! primeng/dropdown */ 8992);
-/* harmony import */ var primeng_message__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! primeng/message */ 3589);
-/* harmony import */ var primeng_messages__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! primeng/messages */ 8547);
-/* harmony import */ var primeng_multiselect__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! primeng/multiselect */ 850);
-/* harmony import */ var primeng_panelmenu__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! primeng/panelmenu */ 9028);
-/* harmony import */ var primeng_password__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! primeng/password */ 8848);
-/* harmony import */ var primeng_splitbutton__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! primeng/splitbutton */ 3650);
-/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! primeng/table */ 7485);
-/* harmony import */ var primeng_tabview__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! primeng/tabview */ 9504);
-/* harmony import */ var primeng_toast__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! primeng/toast */ 9129);
-/* harmony import */ var primeng_treetable__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! primeng/treetable */ 2385);
+/* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/authentication/authentication.service */ 7020);
+/* harmony import */ var _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/auth-guard/auth-guard.service */ 3226);
+/* harmony import */ var _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/interceptors/auth-interceptor */ 8617);
+/* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/authorization/authorization.service */ 6079);
+/* harmony import */ var _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/messages/console-message.service */ 5289);
+/* harmony import */ var _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/messages/dialog-message.service */ 1323);
+/* harmony import */ var _services_errors_error_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/errors/error.service */ 8813);
+/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/filters/filter.service */ 9865);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _services_images_image_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/images/image.service */ 2329);
+/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/layout/menu.service */ 6308);
+/* harmony import */ var _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/select-options/select-options.service */ 712);
+/* harmony import */ var _components_addresses_address__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/addresses/address */ 8309);
+/* harmony import */ var _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/audits/audit-list-for-entity */ 3416);
+/* harmony import */ var _components_clients_client_create__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/clients/client-create */ 4354);
+/* harmony import */ var _components_clients_client_details__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/clients/client-details */ 1297);
+/* harmony import */ var _components_clients_client_list__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/clients/client-list */ 550);
+/* harmony import */ var _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/representatives/client-representative-create */ 6487);
+/* harmony import */ var _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/representatives/client-representative-details */ 3291);
+/* harmony import */ var _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/representatives/client-representative-list */ 9431);
+/* harmony import */ var _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/addresses/company-client-address */ 3320);
+/* harmony import */ var _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dialogs/deletion-dialog */ 2167);
+/* harmony import */ var _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/equipments/equipment-create */ 7826);
+/* harmony import */ var _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/equipments/equipment-details */ 9012);
+/* harmony import */ var _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/equipments/equipment-list */ 6625);
+/* harmony import */ var _components_equipments_photos_equipment_photos__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/equipments/photos/equipment-photos */ 4686);
+/* harmony import */ var _components_login_login__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/login/login */ 8077);
+/* harmony import */ var _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/login/login-reset-password */ 9598);
+/* harmony import */ var _components_addresses_manufacturer_address__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/addresses/manufacturer-address */ 9080);
+/* harmony import */ var _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-create */ 8514);
+/* harmony import */ var _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-details */ 856);
+/* harmony import */ var _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-list */ 8649);
+/* harmony import */ var _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/name-in-languages/name-in-languages */ 3679);
+/* harmony import */ var _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/addresses/private-client-address */ 4549);
+/* harmony import */ var _components_clients_private_client__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/clients/private-client */ 3821);
+/* harmony import */ var _components_users_user_create__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/users/user-create */ 9068);
+/* harmony import */ var _components_users_user_details__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/users/user-details */ 8635);
+/* harmony import */ var _components_users_user_list__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/users/user-list */ 4760);
+/* harmony import */ var _components_users_user_profile__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/users/user-profile */ 3466);
+/* harmony import */ var _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/user-roles/user-role-create */ 3746);
+/* harmony import */ var _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/user-roles/user-role-details */ 7424);
+/* harmony import */ var _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/user-roles/user-role-list */ 4609);
+/* harmony import */ var _components_user_roles_permissions_user_role_permissions__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/user-roles/permissions/user-role-permissions */ 2902);
+/* harmony import */ var _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./services/interceptors/api-url-interceptor */ 4133);
+/* harmony import */ var primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! primeng/breadcrumb */ 7298);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! primeng/button */ 6328);
+/* harmony import */ var primeng_checkbox__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! primeng/checkbox */ 749);
+/* harmony import */ var primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! primeng/confirmdialog */ 97);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
+/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! primeng/dropdown */ 8992);
+/* harmony import */ var primeng_galleria__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! primeng/galleria */ 806);
+/* harmony import */ var primeng_message__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! primeng/message */ 3589);
+/* harmony import */ var primeng_messages__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! primeng/messages */ 8547);
+/* harmony import */ var primeng_multiselect__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! primeng/multiselect */ 850);
+/* harmony import */ var primeng_panelmenu__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! primeng/panelmenu */ 9028);
+/* harmony import */ var primeng_password__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! primeng/password */ 8848);
+/* harmony import */ var primeng_splitbutton__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! primeng/splitbutton */ 3650);
+/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! primeng/table */ 7485);
+/* harmony import */ var primeng_tabview__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! primeng/tabview */ 9504);
+/* harmony import */ var primeng_toast__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! primeng/toast */ 9129);
+/* harmony import */ var primeng_treetable__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! primeng/treetable */ 2385);
 
 //Angular
 
@@ -425,7 +545,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 //Components
+
+
+
+
+
+
+
+
+
 
 
 
@@ -469,52 +599,53 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_angular_common__WEBPACK_IMPORTED_MODULE_37__.registerLocaleData)(_angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_38__["default"], 'pl');
+
+(0,_angular_common__WEBPACK_IMPORTED_MODULE_47__.registerLocaleData)(_angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_48__["default"], 'pl');
 const options = {};
 let AppModule = class AppModule {};
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_39__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_40__.NgModule)({
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_49__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_50__.NgModule)({
   declarations: [
   //[start] app components
   _app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent,
   //[end] app components
   //[start] custom components
-  _components_addresses_address__WEBPACK_IMPORTED_MODULE_14__.AddressComponent, _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_15__.AuditListForEntityComponent, _components_clients_client_create__WEBPACK_IMPORTED_MODULE_16__.ClientCreationComponent, _components_clients_client_details__WEBPACK_IMPORTED_MODULE_17__.ClientDetailsComponent, _components_clients_client_list__WEBPACK_IMPORTED_MODULE_18__.ClientListComponent, _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_19__.ClientRepresentativeCreationComponent, _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_20__.ClientRepresentativeDetailsComponent, _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_21__.ClientRepresentativeListComponent, _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_22__.CompanyClientAddressComponent, _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_23__.DeletionDialogComponent, _components_login_login__WEBPACK_IMPORTED_MODULE_24__.LoginComponent, _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_25__.LoginResetPasswordComponent, _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_26__.NameInLanguagesComponent, _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_27__.PrivateClientAddressComponent, _components_clients_private_client__WEBPACK_IMPORTED_MODULE_28__.PrivateClientComponent, _components_users_user_create__WEBPACK_IMPORTED_MODULE_29__.UserCreationComponent, _components_users_user_details__WEBPACK_IMPORTED_MODULE_30__.UserDetailsComponent, _components_users_user_list__WEBPACK_IMPORTED_MODULE_31__.UserListComponent, _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_32__.UserRoleCreationComponent, _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_33__.UserRoleDetailsComponent, _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_34__.UserRoleListComponent, _components_user_roles_user_role_permissions__WEBPACK_IMPORTED_MODULE_35__.UserRolePermissionsComponent
+  _components_addresses_address__WEBPACK_IMPORTED_MODULE_15__.AddressComponent, _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_16__.AuditListForEntityComponent, _components_clients_client_create__WEBPACK_IMPORTED_MODULE_17__.ClientCreationComponent, _components_clients_client_details__WEBPACK_IMPORTED_MODULE_18__.ClientDetailsComponent, _components_clients_client_list__WEBPACK_IMPORTED_MODULE_19__.ClientListComponent, _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_20__.ClientRepresentativeCreationComponent, _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_21__.ClientRepresentativeDetailsComponent, _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_22__.ClientRepresentativeListComponent, _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_23__.CompanyClientAddressComponent, _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_24__.DeletionDialogComponent, _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_25__.EquipmentCreationComponent, _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_26__.EquipmentDetailsComponent, _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_27__.EquipmentListComponent, _components_equipments_photos_equipment_photos__WEBPACK_IMPORTED_MODULE_28__.EquipmentPhotosComponent, _components_login_login__WEBPACK_IMPORTED_MODULE_29__.LoginComponent, _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_30__.LoginResetPasswordComponent, _components_addresses_manufacturer_address__WEBPACK_IMPORTED_MODULE_31__.ManufacturerAddressComponent, _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_32__.ManufacturerCreationComponent, _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_33__.ManufacturerDetailsComponent, _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_34__.ManufacturerListComponent, _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_35__.NameInLanguagesComponent, _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_36__.PrivateClientAddressComponent, _components_clients_private_client__WEBPACK_IMPORTED_MODULE_37__.PrivateClientComponent, _components_users_user_create__WEBPACK_IMPORTED_MODULE_38__.UserCreationComponent, _components_users_user_details__WEBPACK_IMPORTED_MODULE_39__.UserDetailsComponent, _components_users_user_list__WEBPACK_IMPORTED_MODULE_40__.UserListComponent, _components_users_user_profile__WEBPACK_IMPORTED_MODULE_41__.UserProfileComponent, _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_42__.UserRoleCreationComponent, _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_43__.UserRoleDetailsComponent, _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_44__.UserRoleListComponent, _components_user_roles_permissions_user_role_permissions__WEBPACK_IMPORTED_MODULE_45__.UserRolePermissionsComponent
   //[end] custom components
   ],
 
   imports: [
   //[start] app modules
-  _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__.AppLayoutModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser__WEBPACK_IMPORTED_MODULE_41__.BrowserModule, _angular_common__WEBPACK_IMPORTED_MODULE_37__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_42__.FormsModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_43__.HttpClientModule, _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_44__.JwtModule.forRoot({
+  _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__.AppLayoutModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__.BrowserModule, _angular_common__WEBPACK_IMPORTED_MODULE_47__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_52__.FormsModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HttpClientModule, _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_54__.JwtModule.forRoot({
     config: {
       tokenGetter: jwtTokenGetter
     }
-  }), ngx_mask__WEBPACK_IMPORTED_MODULE_45__.NgxMaskModule.forRoot(options), _angular_forms__WEBPACK_IMPORTED_MODULE_42__.ReactiveFormsModule, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_46__.TranslateModule.forRoot({
+  }), ngx_mask__WEBPACK_IMPORTED_MODULE_55__.NgxMaskModule.forRoot(options), _angular_forms__WEBPACK_IMPORTED_MODULE_52__.ReactiveFormsModule, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__.TranslateModule.forRoot({
     loader: {
-      provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_46__.TranslateLoader,
+      provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__.TranslateLoader,
       useFactory: HttpLoaderFactory,
-      deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_43__.HttpClient]
+      deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HttpClient]
     }
   }),
   //[end] app modules
   //[start] primeng Modules
-  primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_47__.BreadcrumbModule, primeng_button__WEBPACK_IMPORTED_MODULE_48__.ButtonModule, primeng_checkbox__WEBPACK_IMPORTED_MODULE_49__.CheckboxModule, primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_50__.ConfirmDialogModule, primeng_dropdown__WEBPACK_IMPORTED_MODULE_51__.DropdownModule, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_52__.DynamicDialogModule, primeng_message__WEBPACK_IMPORTED_MODULE_53__.MessageModule, primeng_messages__WEBPACK_IMPORTED_MODULE_54__.MessagesModule, primeng_multiselect__WEBPACK_IMPORTED_MODULE_55__.MultiSelectModule, primeng_panelmenu__WEBPACK_IMPORTED_MODULE_56__.PanelMenuModule, primeng_password__WEBPACK_IMPORTED_MODULE_57__.PasswordModule, primeng_splitbutton__WEBPACK_IMPORTED_MODULE_58__.SplitButtonModule, primeng_table__WEBPACK_IMPORTED_MODULE_59__.TableModule, primeng_tabview__WEBPACK_IMPORTED_MODULE_60__.TabViewModule, primeng_toast__WEBPACK_IMPORTED_MODULE_61__.ToastModule, primeng_treetable__WEBPACK_IMPORTED_MODULE_62__.TreeTableModule
+  primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_57__.BreadcrumbModule, primeng_button__WEBPACK_IMPORTED_MODULE_58__.ButtonModule, primeng_checkbox__WEBPACK_IMPORTED_MODULE_59__.CheckboxModule, primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_60__.ConfirmDialogModule, primeng_dropdown__WEBPACK_IMPORTED_MODULE_61__.DropdownModule, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__.DynamicDialogModule, primeng_galleria__WEBPACK_IMPORTED_MODULE_63__.GalleriaModule, primeng_message__WEBPACK_IMPORTED_MODULE_64__.MessageModule, primeng_messages__WEBPACK_IMPORTED_MODULE_65__.MessagesModule, primeng_multiselect__WEBPACK_IMPORTED_MODULE_66__.MultiSelectModule, primeng_panelmenu__WEBPACK_IMPORTED_MODULE_67__.PanelMenuModule, primeng_password__WEBPACK_IMPORTED_MODULE_68__.PasswordModule, primeng_splitbutton__WEBPACK_IMPORTED_MODULE_69__.SplitButtonModule, primeng_table__WEBPACK_IMPORTED_MODULE_70__.TableModule, primeng_tabview__WEBPACK_IMPORTED_MODULE_71__.TabViewModule, primeng_toast__WEBPACK_IMPORTED_MODULE_72__.ToastModule, primeng_treetable__WEBPACK_IMPORTED_MODULE_73__.TreeTableModule
   //[end] primeng Modules
   ],
 
   providers: [
   //[start] app services
   {
-    provide: _angular_common__WEBPACK_IMPORTED_MODULE_37__.LocationStrategy,
-    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_37__.PathLocationStrategy
+    provide: _angular_common__WEBPACK_IMPORTED_MODULE_47__.LocationStrategy,
+    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_47__.PathLocationStrategy
   }, {
-    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_43__.HTTP_INTERCEPTORS,
-    useClass: _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__.AuthInterceptor,
+    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HTTP_INTERCEPTORS,
+    useClass: _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__.AuthInterceptor,
     multi: true
   }, {
-    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_43__.HTTP_INTERCEPTORS,
-    useClass: _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_36__.ApiUrlInterceptor,
+    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HTTP_INTERCEPTORS,
+    useClass: _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_46__.ApiUrlInterceptor,
     multi: true
-  }, _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_6__.AuthenticationService, _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_8__.AuthGuard, _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_5__.AuthorizationService, primeng_api__WEBPACK_IMPORTED_MODULE_63__.ConfirmationService, _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__.ConsoleMessageService, _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_10__.DialogMessageService, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_52__.DialogService, _services_errors_error_service__WEBPACK_IMPORTED_MODULE_11__.ErrorService, _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_12__.FilterService, primeng_api__WEBPACK_IMPORTED_MODULE_63__.MessageService, _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_4__.MenuService, _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_13__.SelectOptionsService
+  }, _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__.AuthenticationService, _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_5__.AuthGuard, _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_7__.AuthorizationService, primeng_api__WEBPACK_IMPORTED_MODULE_74__.ConfirmationService, _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__.ConsoleMessageService, _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_9__.DialogMessageService, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__.DialogService, _services_errors_error_service__WEBPACK_IMPORTED_MODULE_10__.ErrorService, _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_11__.FilterService, _services_images_image_service__WEBPACK_IMPORTED_MODULE_12__.ImageService, primeng_api__WEBPACK_IMPORTED_MODULE_74__.MessageService, _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_13__.MenuService, _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_14__.SelectOptionsService
   //[end] app services
   ],
 
@@ -525,7 +656,7 @@ function jwtTokenGetter() {
   return localStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.auth_key);
 }
 function HttpLoaderFactory(http) {
-  return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_64__.TranslateHttpLoader(http);
+  return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_75__.TranslateHttpLoader(http);
 }
 
 /***/ }),
@@ -1292,6 +1423,64 @@ CompanyClientAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate
 
 /***/ }),
 
+/***/ 9080:
+/*!**************************************************************!*\
+  !*** ./src/app/components/addresses/manufacturer-address.ts ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ManufacturerAddressComponent": () => (/* binding */ ManufacturerAddressComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-address.html?ngResource */ 9800);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+
+
+
+
+
+
+let ManufacturerAddressComponent = class ManufacturerAddressComponent extends _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__.SimpleFormComponent {
+  constructor(formBuilder, translate) {
+    super(formBuilder);
+    this.formBuilder = formBuilder;
+    this.translate = translate;
+    this.createForm({
+      NationalId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required]
+    });
+  }
+  ngOnInit() {
+    if (this.manufacturerAddress) {
+      this.updateForm({
+        NationalId: this.manufacturerAddress.NationalId
+      });
+    }
+  }
+};
+ManufacturerAddressComponent.ctorParameters = () => [{
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormBuilder
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__.TranslateService
+}];
+ManufacturerAddressComponent.propDecorators = {
+  manufacturerAddress: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input,
+    args: ['manufacturerAddress']
+  }]
+};
+ManufacturerAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+  selector: 'manufacturer-address',
+  template: _manufacturer_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], ManufacturerAddressComponent);
+
+
+/***/ }),
+
 /***/ 4549:
 /*!****************************************************************!*\
   !*** ./src/app/components/addresses/private-client-address.ts ***!
@@ -1710,7 +1899,7 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
   }
   get shouldActionsBeDisabled() {
     var _a, _b, _c, _d, _e, _f, _g, _h;
-    return super.shouldActionsBeDisabled || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false) || ((_d = (_c = this.companyClientAddressForm) === null || _c === void 0 ? void 0 : _c.form.invalid) !== null && _d !== void 0 ? _d : false) || ((_f = (_e = this.privateClientAddressForm) === null || _e === void 0 ? void 0 : _e.form.invalid) !== null && _f !== void 0 ? _f : false) || ((_h = (_g = this.privateClientForm) === null || _g === void 0 ? void 0 : _g.form.invalid) !== null && _h !== void 0 ? _h : false);
+    return super.shouldActionsBeDisabled || !this.client || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false) || ((_d = (_c = this.companyClientAddressForm) === null || _c === void 0 ? void 0 : _c.form.invalid) !== null && _d !== void 0 ? _d : false) || ((_f = (_e = this.privateClientAddressForm) === null || _e === void 0 ? void 0 : _e.form.invalid) !== null && _f !== void 0 ? _f : false) || ((_h = (_g = this.privateClientForm) === null || _g === void 0 ? void 0 : _g.form.invalid) !== null && _h !== void 0 ? _h : false);
   }
   ngOnInit() {
     this.populateDropdowns();
@@ -2107,6 +2296,572 @@ DeletionDialogComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0,
 
 /***/ }),
 
+/***/ 7826:
+/*!***********************************************************!*\
+  !*** ./src/app/components/equipments/equipment-create.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentCreationComponent": () => (/* binding */ EquipmentCreationComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-create.html?ngResource */ 9138);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let EquipmentCreationComponent = class EquipmentCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.FormComponent {
+  constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
+    super(consoleMessageService, dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list);
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareEquipmentCreationModel;
+    this.createForm({
+      Description: null,
+      ManufacturerId: null,
+      MarketValue: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
+      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required],
+      PricePerDay: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
+      SerialNumber: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required],
+      TypeId: null
+    });
+  }
+  ngOnInit() {
+    this.populateDropdowns();
+  }
+  onBack() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list]);
+  }
+  populateDropdowns() {
+    this.selectOptionsService.getManufacturers().subscribe(options => {
+      this.manufacturers = options;
+    });
+    this.selectOptionsService.getEquipmentTypes().subscribe(options => {
+      this.types = options;
+    });
+  }
+  prepareEquipmentCreationModel() {
+    const equipment = {
+      Description: this.form.value.Description,
+      ManufacturerId: this.form.value.ManufacturerId,
+      MarketValue: this.form.value.MarketValue.replace(/\s/g, '').replace(',', '.'),
+      Name: this.form.value.Name,
+      PricePerDay: this.form.value.PricePerDay.replace(/\s/g, '').replace(',', '.'),
+      SerialNumber: this.form.value.SerialNumber,
+      TypeId: this.form.value.TypeId
+    };
+    return equipment;
+  }
+};
+EquipmentCreationComponent.ctorParameters = () => [{
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__.SelectOptionsService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__.TranslateService
+}];
+EquipmentCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
+  selector: "equipment-create",
+  template: _equipment_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], EquipmentCreationComponent);
+
+
+/***/ }),
+
+/***/ 9012:
+/*!************************************************************!*\
+  !*** ./src/app/components/equipments/equipment-details.ts ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentDetailsComponent": () => (/* binding */ EquipmentDetailsComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-details.html?ngResource */ 8650);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
+/* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/services/images/image.service */ 2329);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlFormComponent {
+  constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, imageService, router, selectOptionsService, translate) {
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteEquipment', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.user.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__.UserPermissionEnum.Equipments_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list);
+    this.activatedRoute = activatedRoute;
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.imageService = imageService;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareEquipmentDetailsModel;
+    this.afterSubmitionCustomOperationsHandler = undefined;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this.createForm({
+      Description: null,
+      ManufacturerId: null,
+      MarketValue: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
+      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.required],
+      PricePerDay: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
+      SerialNumber: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.required],
+      TypeId: null
+    });
+    this.loadEquipment();
+  }
+  get shouldActionsBeDisabled() {
+    return super.shouldActionsBeDisabled || !this.equipment;
+  }
+  ngOnInit() {
+    this.populateDropdowns();
+  }
+  onBack() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list]);
+  }
+  getEntityInstanceName() {
+    return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_12__.StringBuilder(this.equipment.Name).append(' ').append(this.equipment.SerialNumber).toString();
+  }
+  loadEquipment() {
+    if (!this.entityId) return;
+    const equipment = this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.getById(this.entityId)).subscribe(result => {
+      this.equipment = result;
+      for (const photo of this.equipment.Photos.filter(photo => photo.ThumbnailFile !== undefined)) {
+        photo.Thumbnail = this.imageService.getImageSourceForFile(photo.ThumbnailFile);
+      }
+      this.updateForm({
+        Description: this.equipment.Description,
+        ManufacturerId: this.equipment.ManufacturerId,
+        MarketValue: (0,_angular_common__WEBPACK_IMPORTED_MODULE_15__.formatNumber)(this.equipment.MarketValue, this.translate.getDefaultLang(), '1.2-2'),
+        Name: this.equipment.Name,
+        PricePerDay: (0,_angular_common__WEBPACK_IMPORTED_MODULE_15__.formatNumber)(this.equipment.PricePerDay, this.translate.getDefaultLang(), '1.2-2'),
+        SerialNumber: this.equipment.SerialNumber,
+        TypeId: this.equipment.TypeId.toString()
+      });
+    });
+  }
+  populateDropdowns() {
+    this.selectOptionsService.getManufacturers().subscribe(options => {
+      this.manufacturers = options;
+    });
+    this.selectOptionsService.getEquipmentTypes().subscribe(options => {
+      this.types = options;
+    });
+  }
+  prepareEquipmentDetailsModel() {
+    const equipment = {
+      Description: this.form.value.Description,
+      ManufacturerId: this.form.value.ManufacturerId,
+      MarketValue: this.form.value.MarketValue.replace(/\s/g, '').replace(',', '.'),
+      Name: this.form.value.Name,
+      PricePerDay: this.form.value.PricePerDay.replace(/\s/g, '').replace(',', '.'),
+      SerialNumber: this.form.value.SerialNumber,
+      TypeId: this.form.value.TypeId
+    };
+    return equipment;
+  }
+};
+EquipmentDetailsComponent.ctorParameters = () => [{
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_16__.ActivatedRoute
+}, {
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_17__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_14__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_18__.HttpClient
+}, {
+  type: src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_13__.ImageService
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_16__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__.SelectOptionsService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__.TranslateService
+}];
+EquipmentDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_21__.Component)({
+  selector: "equipment-details",
+  template: _equipment_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], EquipmentDetailsComponent);
+
+
+/***/ }),
+
+/***/ 6625:
+/*!*********************************************************!*\
+  !*** ./src/app/components/equipments/equipment-list.ts ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentListComponent": () => (/* binding */ EquipmentListComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-list.html?ngResource */ 8777);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let EquipmentListComponent = class EquipmentListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
+  constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionsService, translate) {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, httpClient, () => {
+      this._dataPopulator.equipments.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.equipments.set(result));
+    }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__.UserPermissionEnum.Equipments_CanModify]);
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.filterService = filterService;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.translate = translate;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this._dataPopulator = {
+      multiSelects: {
+        manufacturers: {
+          get: () => this.getManufacturerMultiSelectData(),
+          set: manufacturers => this.setManufacturerMultiSelectData(manufacturers)
+        },
+        types: {
+          get: () => this.getTypeMultiSelectData(),
+          set: types => this.setTypeMultiSelectData(types)
+        }
+      },
+      equipments: {
+        get: event => this.getEquipments(event),
+        set: equipments => this.setEquipments(equipments)
+      }
+    };
+  }
+  ngOnInit() {
+    this.cols = [{
+      field: 'Name',
+      header: 'Equipment.Name',
+      width: '10%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true
+    }, {
+      field: 'ManufacturerName',
+      header: 'Equipment.ManufacturerName',
+      width: '20%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true,
+      replaceWith: 'ManufacturerId'
+    }, {
+      field: 'SerialNumber',
+      header: 'Equipment.SerialNumber',
+      width: '10%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true
+    }, {
+      field: 'TypeName',
+      header: 'Equipment.TypeName',
+      width: '20%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true,
+      replaceWith: 'TypeId'
+    }, {
+      field: 'Actions',
+      header: '',
+      width: '20%'
+    }];
+    this._dataPopulator.multiSelects.manufacturers.get().subscribe(manufacturers => this._dataPopulator.multiSelects.manufacturers.set(manufacturers));
+    this._dataPopulator.multiSelects.types.get().subscribe(types => this._dataPopulator.multiSelects.types.set(types));
+  }
+  loadEquipmentsLazy(event) {
+    this.tempLazyLoadEvent = event;
+    this._dataPopulator.equipments.get(event).subscribe(result => this._dataPopulator.equipments.set(result));
+  }
+  onCreate() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.creation]);
+  }
+  onEdit(equipment) {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.edition(equipment.Id)]);
+  }
+  getEntityInstanceName(equipment) {
+    return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__.StringBuilder(equipment.Name).append(' ').append(equipment.SerialNumber).toString();
+  }
+  getManufacturerMultiSelectData() {
+    return this.selectOptionsService.getManufacturers();
+  }
+  getEquipments(event) {
+    var _a, _b;
+    (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = (_b = this.cols[0]) === null || _b === void 0 ? void 0 : _b.field;
+    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment.getAll(event, this.cols));
+  }
+  getTypeMultiSelectData() {
+    return this.selectOptionsService.getEquipmentTypes();
+  }
+  setManufacturerMultiSelectData(manufacturers) {
+    this.manufacturerOptions = manufacturers;
+    const manufacturerColumn = this.cols.find(c => c.field === "ManufacturerName");
+    if (manufacturerColumn) {
+      manufacturerColumn.options = this.manufacturerOptions;
+    }
+  }
+  setEquipments(equipments) {
+    this.totalRecords = equipments.TotalRowsCount;
+    this.equipments = equipments.List;
+  }
+  setTypeMultiSelectData(types) {
+    this.typeOptions = types;
+    const typeColumn = this.cols.find(c => c.field === "TypeName");
+    if (typeColumn) {
+      typeColumn.options = this.typeOptions;
+    }
+  }
+};
+EquipmentListComponent.ctorParameters = () => [{
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_13__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__.ErrorService
+}, {
+  type: src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_12__.FilterService
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_14__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_15__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_11__.SelectOptionsService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__.TranslateService
+}];
+EquipmentListComponent.propDecorators = {
+  dataTable: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_17__.ViewChild,
+    args: ['dataTable']
+  }]
+};
+EquipmentListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
+  selector: "equipment-list",
+  template: _equipment_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], EquipmentListComponent);
+
+
+/***/ }),
+
+/***/ 4686:
+/*!******************************************************************!*\
+  !*** ./src/app/components/equipments/photos/equipment-photos.ts ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentPhotosComponent": () => (/* binding */ EquipmentPhotosComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_photos_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-photos.html?ngResource */ 1928);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/images/image.service */ 2329);
+/* harmony import */ var src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/primeNgHelper */ 3833);
+
+
+
+
+
+
+
+let EquipmentPhotosComponent = class EquipmentPhotosComponent {
+  constructor(httpClient, imageService) {
+    this.httpClient = httpClient;
+    this.imageService = imageService;
+    this._activeIndex = 0;
+    this.equipmentPhotos = [];
+    this.galleriaResponsiveOptions = src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_3__.PrimeNgHelper.galleriaResponsiveOptions;
+  }
+  get activeIndex() {
+    return this._activeIndex;
+  }
+  set activeIndex(newValue) {
+    if (this.equipmentPhotos && 0 <= newValue && newValue <= this.equipmentPhotos.length - 1) {
+      this._activeIndex = newValue;
+    }
+  }
+  ngOnInit() {
+    if (!this.sourcePhotos) return;
+    for (const photo of this.sourcePhotos) {
+      this.addPhoto(photo);
+    }
+  }
+  getEquipmentPhotoSource(id) {
+    if (!this.equipmentId) return;
+    const equipmentPhoto = this.equipmentPhotos.find(p => p.Id === id);
+    if (!equipmentPhoto || equipmentPhoto.IsBeingDownloaded) return;
+    equipmentPhoto.IsBeingDownloaded = true;
+    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id)).subscribe(result => {
+      equipmentPhoto.Source = this.imageService.getImageSourceForFile(result.File);
+      equipmentPhoto.IsBeingDownloaded = false;
+    });
+  }
+  addPhoto(photo) {
+    this.equipmentPhotos.push({
+      File: undefined,
+      FileName: photo.FileName,
+      Id: photo.Id,
+      IsBeingDownloaded: false,
+      IsMainThumbnail: photo.IsMainThumbnail,
+      Source: undefined,
+      Thumbnail: photo.Thumbnail
+    });
+  }
+};
+EquipmentPhotosComponent.ctorParameters = () => [{
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient
+}, {
+  type: src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_2__.ImageService
+}];
+EquipmentPhotosComponent.propDecorators = {
+  equipmentId: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+  }],
+  sourcePhotos: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+  }]
+};
+EquipmentPhotosComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+  selector: 'equipment-photos',
+  template: _equipment_photos_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], EquipmentPhotosComponent);
+
+
+/***/ }),
+
 /***/ 9598:
 /*!**********************************************************!*\
   !*** ./src/app/components/login/login-reset-password.ts ***!
@@ -2283,6 +3038,7 @@ let LoginComponent = class LoginComponent extends _abstract_forms_simple_form__W
       switch (result) {
         case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.OK]:
           this.app.isUserLoggedIn = true;
+          this.authenticationService.isFirstTimeLoggedIn = true;
           this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.navigations["default"]]);
           break;
         case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.NotActive]:
@@ -2335,6 +3091,426 @@ LoginComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular
   selector: "login",
   template: _login_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], LoginComponent);
+
+
+/***/ }),
+
+/***/ 8514:
+/*!*****************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-create.ts ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ManufacturerCreationComponent": () => (/* binding */ ManufacturerCreationComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-create.html?ngResource */ 5063);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/routes */ 1311);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let ManufacturerCreationComponent = class ManufacturerCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.FormComponent {
+  constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
+    super(consoleMessageService, dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.navigations.list);
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareManufacturerCreationModel;
+    this.manufacturerAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetNumber];
+    this.createForm({
+      IsOperational: false,
+      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required]
+    });
+  }
+  get shouldActionsBeDisabled() {
+    var _a, _b, _c, _d;
+    return super.shouldActionsBeDisabled || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false) || ((_d = (_c = this.manufacturerAddressForm) === null || _c === void 0 ? void 0 : _c.form.invalid) !== null && _d !== void 0 ? _d : false);
+  }
+  ngOnInit() {}
+  onBack() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.navigations.list]);
+  }
+  prepareManufacturerCreationModel() {
+    const manufacturerAddress = {
+      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
+      City: this.addressForm.form.value.City,
+      Country: {
+        Id: this.addressForm.form.value.CountryId
+      },
+      Email: this.addressForm.form.value.Email,
+      NationalId: this.manufacturerAddressForm.form.value.NationalId,
+      PhoneNumber: this.addressForm.form.value.PhoneNumber,
+      PostalCode: this.addressForm.form.value.PostalCode,
+      StreetName: this.addressForm.form.value.StreetName,
+      StreetNumber: this.addressForm.form.value.StreetNumber
+    };
+    const manufacturer = {
+      Address: manufacturerAddress,
+      IsOperational: this.form.value.IsOperational,
+      Name: this.form.value.Name
+    };
+    return manufacturer;
+  }
+};
+ManufacturerCreationComponent.ctorParameters = () => [{
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__.TranslateService
+}];
+ManufacturerCreationComponent.propDecorators = {
+  addressForm: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    args: ['addressForm']
+  }],
+  manufacturerAddressForm: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    args: ['manufacturerAddressForm']
+  }]
+};
+ManufacturerCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+  selector: "manufacturer-create",
+  template: _manufacturer_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], ManufacturerCreationComponent);
+
+
+/***/ }),
+
+/***/ 856:
+/*!******************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-details.ts ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ManufacturerDetailsComponent": () => (/* binding */ ManufacturerDetailsComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-details.html?ngResource */ 8495);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlFormComponent {
+  constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__.UserPermissionEnum.Manufacturers_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.list);
+    this.activatedRoute = activatedRoute;
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareManufacturerDetailsModel;
+    this.afterSubmitionCustomOperationsHandler = undefined;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this.manufacturerAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetNumber];
+    this.createForm({
+      IsOperational: false,
+      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required]
+    });
+    this.loadManufacturer();
+  }
+  get shouldActionsBeDisabled() {
+    var _a, _b, _c, _d;
+    return super.shouldActionsBeDisabled || !this.manufacturer || this.manufacturer.IsDeleted || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false) || ((_d = (_c = this.manufacturerAddressForm) === null || _c === void 0 ? void 0 : _c.form.invalid) !== null && _d !== void 0 ? _d : false);
+  }
+  ngOnInit() {}
+  onBack() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.list]);
+  }
+  getEntityInstanceName() {
+    return this.manufacturer.Name;
+  }
+  loadManufacturer() {
+    if (!this.entityId) return;
+    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.getById(this.entityId)).subscribe(result => {
+      this.manufacturer = result;
+      this.updateForm({
+        IsOperational: this.manufacturer.IsOperational,
+        Name: this.manufacturer.Name
+      });
+    });
+  }
+  prepareManufacturerDetailsModel() {
+    const manufacturerAddress = {
+      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
+      City: this.addressForm.form.value.City,
+      Country: {
+        Id: this.addressForm.form.value.CountryId
+      },
+      Email: this.addressForm.form.value.Email,
+      Id: this.addressForm.form.value.Id,
+      NationalId: this.manufacturerAddressForm.form.value.NationalId,
+      PhoneNumber: this.addressForm.form.value.PhoneNumber,
+      PostalCode: this.addressForm.form.value.PostalCode,
+      StreetName: this.addressForm.form.value.StreetName,
+      StreetNumber: this.addressForm.form.value.StreetNumber
+    };
+    const manufacturer = {
+      Address: manufacturerAddress,
+      Id: this.manufacturer.Id,
+      IsOperational: this.form.value.IsOperational,
+      Name: this.form.value.Name
+    };
+    return manufacturer;
+  }
+};
+ManufacturerDetailsComponent.ctorParameters = () => [{
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.ActivatedRoute
+}, {
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_13__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_14__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
+}];
+ManufacturerDetailsComponent.propDecorators = {
+  addressForm: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
+    args: ['addressForm']
+  }],
+  manufacturerAddressForm: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
+    args: ['manufacturerAddressForm']
+  }]
+};
+ManufacturerDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
+  selector: "manufacturer-details",
+  template: _manufacturer_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], ManufacturerDetailsComponent);
+
+
+/***/ }),
+
+/***/ 8649:
+/*!***************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-list.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ManufacturerListComponent": () => (/* binding */ ManufacturerListComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-list.html?ngResource */ 7406);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let ManufacturerListComponent = class ManufacturerListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
+  constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, translate) {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, httpClient, () => {
+      this._dataPopulator.manufacturers.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.manufacturers.set(result));
+    }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__.UserPermissionEnum.Manufacturers_CanModify]);
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.filterService = filterService;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.translate = translate;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this._dataPopulator = {
+      manufacturers: {
+        get: event => this.getManufacturers(event),
+        set: manufacturers => this.setManufacturers(manufacturers)
+      }
+    };
+  }
+  ngOnInit() {
+    this.cols = [{
+      field: 'Name',
+      header: 'Manufacturer.Name',
+      width: '10%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_9__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true
+    }, {
+      field: 'IsOperational',
+      header: 'Manufacturer.IsOperational',
+      width: '10%'
+    }, {
+      field: 'NationalId',
+      header: 'Manufacturer.NationalId',
+      width: '10%'
+    }, {
+      field: 'AddressSummary',
+      header: 'Manufacturer.AddressSummary',
+      width: '10%'
+    }, {
+      field: 'Actions',
+      header: '',
+      width: '20%'
+    }];
+  }
+  loadManufacturersLazy(event) {
+    this.tempLazyLoadEvent = event;
+    this._dataPopulator.manufacturers.get(event).subscribe(result => this._dataPopulator.manufacturers.set(result));
+  }
+  onCreate() {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.creation]);
+  }
+  onEdit(manufacturer) {
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.edition(manufacturer.Id)]);
+  }
+  getEntityInstanceName(manufacturer) {
+    return manufacturer.Name;
+  }
+  getManufacturers(event) {
+    var _a;
+    (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = this.cols[0].field;
+    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.getAll(event, this.cols));
+  }
+  setManufacturers(manufacturers) {
+    this.totalRecords = manufacturers.TotalRowsCount;
+    this.manufacturers = manufacturers.List;
+  }
+};
+ManufacturerListComponent.ctorParameters = () => [{
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_11__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__.ErrorService
+}, {
+  type: src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_8__.FilterService
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__.TranslateService
+}];
+ManufacturerListComponent.propDecorators = {
+  dataTable: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
+    args: ['dataTable']
+  }]
+};
+ManufacturerListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
+  selector: "manufacturer-list",
+  template: _manufacturer_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], ManufacturerListComponent);
 
 
 /***/ }),
@@ -2663,7 +3839,7 @@ let ClientRepresentativeDetailsComponent = class ClientRepresentativeDetailsComp
   }
   get shouldActionsBeDisabled() {
     var _a, _b;
-    return super.shouldActionsBeDisabled || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false);
+    return super.shouldActionsBeDisabled || !this.clientRepresentative || ((_b = (_a = this.addressForm) === null || _a === void 0 ? void 0 : _a.form.invalid) !== null && _b !== void 0 ? _b : false);
   }
   ngOnInit() {}
   getEntityInstanceName() {
@@ -2940,10 +4116,10 @@ ClientRepresentativeListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__dec
 
 /***/ }),
 
-/***/ 7250:
-/*!***************************************************************************************!*\
-  !*** ./src/app/components/user-roles/fillers/user-role-permissions-filler-factory.ts ***!
-  \***************************************************************************************/
+/***/ 8690:
+/*!***************************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/fillers/user-role-permissions-filler-factory.ts ***!
+  \***************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2951,8 +4127,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserRolePermissionsFillerFactory": () => (/* binding */ UserRolePermissionsFillerFactory)
 /* harmony export */ });
 /* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var _user_role_permissions_on_creation_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-on-creation-filler */ 2543);
-/* harmony import */ var _user_role_permissions_on_edition_filler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-role-permissions-on-edition-filler */ 4685);
+/* harmony import */ var _user_role_permissions_on_creation_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-on-creation-filler */ 9596);
+/* harmony import */ var _user_role_permissions_on_edition_filler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-role-permissions-on-edition-filler */ 5760);
 
 
 
@@ -2975,10 +4151,10 @@ class UserRolePermissionsFillerFactory {
 
 /***/ }),
 
-/***/ 1781:
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/user-roles/fillers/user-role-permissions-filler.ts ***!
-  \*******************************************************************************/
+/***/ 1692:
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/fillers/user-role-permissions-filler.ts ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2995,19 +4171,19 @@ class UserRolePermissionsFiller {
 
 /***/ }),
 
-/***/ 2543:
-/*!*******************************************************************************************!*\
-  !*** ./src/app/components/user-roles/fillers/user-role-permissions-on-creation-filler.ts ***!
-  \*******************************************************************************************/
+/***/ 9596:
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/fillers/user-role-permissions-on-creation-filler.ts ***!
+  \*******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserRolePermissionsOnCreationFiller": () => (/* binding */ UserRolePermissionsOnCreationFiller)
 /* harmony export */ });
-/* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1781);
+/* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1692);
 /* harmony import */ var src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/icon-mapper */ 6554);
-/* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 7010);
+/* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 1128);
 
 
 
@@ -3051,10 +4227,10 @@ class UserRolePermissionsOnCreationFiller extends _user_role_permissions_filler_
 
 /***/ }),
 
-/***/ 4685:
-/*!******************************************************************************************!*\
-  !*** ./src/app/components/user-roles/fillers/user-role-permissions-on-edition-filler.ts ***!
-  \******************************************************************************************/
+/***/ 5760:
+/*!******************************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/fillers/user-role-permissions-on-edition-filler.ts ***!
+  \******************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3062,8 +4238,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserRolePermissionsOnEditionFiller": () => (/* binding */ UserRolePermissionsOnEditionFiller)
 /* harmony export */ });
 /* harmony import */ var src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/icon-mapper */ 6554);
-/* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1781);
-/* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 7010);
+/* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1692);
+/* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 1128);
 
 
 
@@ -3127,10 +4303,10 @@ class UserRolePermissionsOnEditionFiller extends _user_role_permissions_filler__
 
 /***/ }),
 
-/***/ 7010:
-/*!**********************************************************************!*\
-  !*** ./src/app/components/user-roles/models/user-permission-node.ts ***!
-  \**********************************************************************/
+/***/ 1128:
+/*!**********************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/models/user-permission-node.ts ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3152,6 +4328,116 @@ class UserPermissionNode {
     return (_a = this.data.isSelected) !== null && _a !== void 0 ? _a : false;
   }
 }
+
+/***/ }),
+
+/***/ 2902:
+/*!****************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/user-role-permissions.ts ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UserRolePermissionsComponent": () => (/* binding */ UserRolePermissionsComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions.html?ngResource */ 4353);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/user-permission */ 7110);
+/* harmony import */ var _fillers_user_role_permissions_filler_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fillers/user-role-permissions-filler-factory */ 8690);
+
+
+
+
+
+
+
+let UserRolePermissionsComponent = class UserRolePermissionsComponent {
+  constructor(translate) {
+    this.translate = translate;
+    this.selectedUserPermissionNodes = new src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_2__.SelectedUserPermissionNodeArray();
+    this.userPermissionNodes = [];
+    this.userRolePermissionColumns = [];
+    this.formMode = src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__.FormModeEnum.Creation;
+    this.userRolePermissionColumns = [{
+      icon: 'icon',
+      field: 'name',
+      header: 'UserPermission.Name'
+    }];
+  }
+  ngOnInit() {
+    _fillers_user_role_permissions_filler_factory__WEBPACK_IMPORTED_MODULE_3__.UserRolePermissionsFillerFactory.makeFiller(this.formMode, this.groupedUserPermissions, {
+      allItems: this.userPermissionNodes,
+      selectedItems: this.selectedUserPermissionNodes
+    }).fill();
+  }
+  getPermissionsSubmitted() {
+    const permissionsSubmitted = [];
+    for (const permissionNode of this.selectedUserPermissionNodes) {
+      if (!permissionNode.hasChildren()) {
+        permissionsSubmitted.push({
+          Id: permissionNode.data.id
+        });
+      } else {
+        for (const childPermissionNode of permissionNode.children) {
+          permissionsSubmitted.push({
+            Id: childPermissionNode.data.id
+          });
+        }
+      }
+    }
+    return permissionsSubmitted;
+  }
+  onPermissionSelected(permissionNode) {
+    if (!permissionNode.hasLinkedPermissions()) return;
+    for (const linkedPermissionId of permissionNode.data.linkedPermissionIds) {
+      const isPermissionAlreadySelected = this.selectedUserPermissionNodes.find(p => p.data.id === linkedPermissionId);
+      if (!isPermissionAlreadySelected) {
+        const permissionToBeSelected = this.getPermissionNodeToBeSelected(linkedPermissionId);
+        if (permissionToBeSelected) {
+          this.selectedUserPermissionNodes.push(permissionToBeSelected);
+        }
+      }
+    }
+  }
+  findPermissionById(permissionNode, idToFind) {
+    if (permissionNode.data && permissionNode.data.id === idToFind) return permissionNode;
+    if (permissionNode.hasChildren()) {
+      for (const nodeChild of permissionNode.children) {
+        const result = this.findPermissionById(nodeChild, idToFind);
+        if (result) return result;
+      }
+    }
+    return undefined;
+  }
+  getPermissionNodeToBeSelected(permissionId) {
+    let permission;
+    for (const userPermissionGroup of this.userPermissionNodes) {
+      permission = this.findPermissionById(userPermissionGroup, permissionId);
+      if (permission) return permission;
+    }
+    return permission;
+  }
+};
+UserRolePermissionsComponent.ctorParameters = () => [{
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
+}];
+UserRolePermissionsComponent.propDecorators = {
+  formMode: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+  }],
+  groupedUserPermissions: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+  }]
+};
+UserRolePermissionsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+  selector: 'user-role-permissions',
+  template: _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], UserRolePermissionsComponent);
+
 
 /***/ }),
 
@@ -3339,6 +4625,9 @@ let UserRoleDetailsComponent = class UserRoleDetailsComponent extends _abstract_
     this.userPermissionGroups = [];
     this.createForm();
     this.loadUserRole();
+  }
+  get shouldActionsBeDisabled() {
+    return super.shouldActionsBeDisabled || !this.userRole;
   }
   ngOnInit() {}
   onBack() {
@@ -3576,116 +4865,6 @@ UserRoleListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_
 
 /***/ }),
 
-/***/ 2650:
-/*!****************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-permissions.ts ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserRolePermissionsComponent": () => (/* binding */ UserRolePermissionsComponent)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions.html?ngResource */ 8698);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/user-permission */ 7110);
-/* harmony import */ var _fillers_user_role_permissions_filler_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fillers/user-role-permissions-filler-factory */ 7250);
-
-
-
-
-
-
-
-let UserRolePermissionsComponent = class UserRolePermissionsComponent {
-  constructor(translate) {
-    this.translate = translate;
-    this.selectedUserPermissionNodes = new src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_2__.SelectedUserPermissionNodeArray();
-    this.userPermissionNodes = [];
-    this.userRolePermissionColumns = [];
-    this.formMode = src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__.FormModeEnum.Creation;
-    this.userRolePermissionColumns = [{
-      icon: 'icon',
-      field: 'name',
-      header: 'UserPermission.Name'
-    }];
-  }
-  ngOnInit() {
-    _fillers_user_role_permissions_filler_factory__WEBPACK_IMPORTED_MODULE_3__.UserRolePermissionsFillerFactory.makeFiller(this.formMode, this.groupedUserPermissions, {
-      allItems: this.userPermissionNodes,
-      selectedItems: this.selectedUserPermissionNodes
-    }).fill();
-  }
-  getPermissionsSubmitted() {
-    const permissionsSubmitted = [];
-    for (const permissionNode of this.selectedUserPermissionNodes) {
-      if (!permissionNode.hasChildren()) {
-        permissionsSubmitted.push({
-          Id: permissionNode.data.id
-        });
-      } else {
-        for (const childPermissionNode of permissionNode.children) {
-          permissionsSubmitted.push({
-            Id: childPermissionNode.data.id
-          });
-        }
-      }
-    }
-    return permissionsSubmitted;
-  }
-  onPermissionSelected(permissionNode) {
-    if (!permissionNode.hasLinkedPermissions()) return;
-    for (const linkedPermissionId of permissionNode.data.linkedPermissionIds) {
-      const isPermissionAlreadySelected = this.selectedUserPermissionNodes.find(p => p.data.id === linkedPermissionId);
-      if (!isPermissionAlreadySelected) {
-        const permissionToBeSelected = this.getPermissionNodeToBeSelected(linkedPermissionId);
-        if (permissionToBeSelected) {
-          this.selectedUserPermissionNodes.push(permissionToBeSelected);
-        }
-      }
-    }
-  }
-  findPermissionById(permissionNode, idToFind) {
-    if (permissionNode.data && permissionNode.data.id === idToFind) return permissionNode;
-    if (permissionNode.hasChildren()) {
-      for (const nodeChild of permissionNode.children) {
-        const result = this.findPermissionById(nodeChild, idToFind);
-        if (result) return result;
-      }
-    }
-    return undefined;
-  }
-  getPermissionNodeToBeSelected(permissionId) {
-    let permission;
-    for (const userPermissionGroup of this.userPermissionNodes) {
-      permission = this.findPermissionById(userPermissionGroup, permissionId);
-      if (permission) return permission;
-    }
-    return permission;
-  }
-};
-UserRolePermissionsComponent.ctorParameters = () => [{
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
-}];
-UserRolePermissionsComponent.propDecorators = {
-  formMode: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
-  }],
-  groupedUserPermissions: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
-  }]
-};
-UserRolePermissionsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
-  selector: 'user-role-permissions',
-  template: _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
-})], UserRolePermissionsComponent);
-
-
-/***/ }),
-
 /***/ 9068:
 /*!*************************************************!*\
   !*** ./src/app/components/users/user-create.ts ***!
@@ -3890,6 +5069,9 @@ let UserDetailsComponent = class UserDetailsComponent extends _abstract_forms_ac
       Password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_5__.RegexPatterns.passwordPattern)]
     });
     this.loadUser();
+  }
+  get shouldActionsBeDisabled() {
+    return super.shouldActionsBeDisabled || !this.user;
   }
   ngOnInit() {
     this.populateDropdowns();
@@ -4152,6 +5334,148 @@ UserListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angu
 
 /***/ }),
 
+/***/ 3466:
+/*!**************************************************!*\
+  !*** ./src/app/components/users/user-profile.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UserProfileComponent": () => (/* binding */ UserProfileComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _user_profile_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-profile.html?ngResource */ 3130);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_services_layout_menu_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/layout/menu.service */ 6308);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let UserProfileComponent = class UserProfileComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__.FormComponent {
+  constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, menuService, router, selectOptionsService, translate) {
+    super(consoleMessageService, dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.saveProfile, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]);
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.menuService = menuService;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareUserProfileModel;
+    this.afterSubmitionCustomOperationsHandler = undefined;
+    this.createForm({
+      Email: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_3__.RegexPatterns.emailPattern)],
+      FirstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required],
+      LastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required],
+      Login: [{
+        value: '',
+        disabled: true
+      }],
+      UserRoleId: null,
+      Password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_3__.RegexPatterns.passwordPattern)]
+    });
+    this.entityId = src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__.AuthorizationService.currentUserId;
+    this.loadUser();
+  }
+  ngOnInit() {
+    this.populateDropdowns();
+  }
+  onBack() {
+    const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
+    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]]);
+  }
+  isPasswordFieldFilled() {
+    return this.form.value.Password.length > 0;
+  }
+  loadUser() {
+    if (!this.entityId) return;
+    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.getProfileById(this.entityId)).subscribe(result => {
+      this.user = result;
+      this.updateForm({
+        Email: this.user.Email,
+        FirstName: this.user.FirstName,
+        LastName: this.user.LastName,
+        Login: this.user.Login,
+        UserRoleId: this.user.UserRoleId.toString()
+      });
+    });
+  }
+  populateDropdowns() {
+    this.selectOptionsService.getUserRoles().subscribe(options => {
+      this.userRoles = options;
+    });
+  }
+  prepareUserProfileModel() {
+    const user = {
+      Email: this.form.value.Email,
+      FirstName: this.form.value.FirstName,
+      Id: this.user.Id,
+      LastName: this.form.value.LastName
+    };
+    if (this.isPasswordFieldFilled()) {
+      user.Password = this.form.value.Password;
+    }
+    return user;
+  }
+};
+UserProfileComponent.ctorParameters = () => [{
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClient
+}, {
+  type: src_app_services_layout_menu_service__WEBPACK_IMPORTED_MODULE_8__.MenuService
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__.SelectOptionsService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
+}];
+UserProfileComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
+  selector: "user-profile",
+  template: _user_profile_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], UserProfileComponent);
+
+
+/***/ }),
+
 /***/ 6793:
 /*!******************************************!*\
   !*** ./src/app/enums/api-result-enum.ts ***!
@@ -4241,6 +5565,7 @@ var FilterTypeEnum;
 (function (FilterTypeEnum) {
   FilterTypeEnum["Date"] = "date";
   FilterTypeEnum["Numeric"] = "numeric";
+  FilterTypeEnum["Special"] = "special";
   FilterTypeEnum["Text"] = "text";
 })(FilterTypeEnum || (FilterTypeEnum = {}));
 
@@ -4361,6 +5686,10 @@ var UserPermissionEnum;
   UserPermissionEnum[UserPermissionEnum["Clients_CanModify"] = 6] = "Clients_CanModify";
   UserPermissionEnum[UserPermissionEnum["ClientRepresentatives_CanList"] = 7] = "ClientRepresentatives_CanList";
   UserPermissionEnum[UserPermissionEnum["ClientRepresentatives_CanModify"] = 8] = "ClientRepresentatives_CanModify";
+  UserPermissionEnum[UserPermissionEnum["Equipments_CanList"] = 9] = "Equipments_CanList";
+  UserPermissionEnum[UserPermissionEnum["Equipments_CanModify"] = 10] = "Equipments_CanModify";
+  UserPermissionEnum[UserPermissionEnum["Manufacturers_CanList"] = 11] = "Manufacturers_CanList";
+  UserPermissionEnum[UserPermissionEnum["Manufacturers_CanModify"] = 12] = "Manufacturers_CanModify";
 })(UserPermissionEnum || (UserPermissionEnum = {}));
 
 /***/ }),
@@ -4654,16 +5983,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppLayoutComponent": () => (/* binding */ AppLayoutComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! tslib */ 2321);
 /* harmony import */ var _app_layout_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.layout.component.html?ngResource */ 1896);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ 116);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ 116);
 /* harmony import */ var _services_app_layout_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/app.layout.service */ 9139);
 /* harmony import */ var _app_sidebar_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.sidebar.component */ 6762);
 /* harmony import */ var _app_topbar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.topbar.component */ 1242);
 /* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/authentication/authentication.service */ 7020);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../routes */ 1311);
+/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/layout/menu.service */ 6308);
+
 
 
 
@@ -4675,9 +6006,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppLayoutComponent = class AppLayoutComponent {
-  constructor(authenticationService, layoutService, renderer, router) {
+  constructor(authenticationService, layoutService, menuService, renderer, router) {
+    var _a;
     this.authenticationService = authenticationService;
     this.layoutService = layoutService;
+    this.menuService = menuService;
     this.renderer = renderer;
     this.router = router;
     this.isUserLoggedIn = this.authenticationService.isLoggedIn();
@@ -4705,10 +6038,17 @@ let AppLayoutComponent = class AppLayoutComponent {
           this.blockBodyScroll();
         }
       });
-      this.router.events.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_6__.filter)(event => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_7__.NavigationEnd)).subscribe(() => {
+      this.router.events.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_7__.filter)(event => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_8__.NavigationEnd)).subscribe(() => {
         this.hideMenu();
         this.hideProfileMenu();
       });
+      if (this.authenticationService.isFirstTimeLoggedIn) {
+        const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
+        if ((firstMenuItemUserIsAuthorizedFor === null || firstMenuItemUserIsAuthorizedFor === void 0 ? void 0 : firstMenuItemUserIsAuthorizedFor.Items) && ((_a = firstMenuItemUserIsAuthorizedFor.Items[0]) === null || _a === void 0 ? void 0 : _a.RouterLink)) {
+          this.router.navigate(firstMenuItemUserIsAuthorizedFor.Items[0].RouterLink);
+        }
+        this.authenticationService.isFirstTimeLoggedIn = false;
+      }
     }
   }
   blockBodyScroll() {
@@ -4769,21 +6109,23 @@ AppLayoutComponent.ctorParameters = () => [{
 }, {
   type: _services_app_layout_service__WEBPACK_IMPORTED_MODULE_1__.LayoutService
 }, {
-  type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.Renderer2
+  type: _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_6__.MenuService
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router
+  type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.Renderer2
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router
 }];
 AppLayoutComponent.propDecorators = {
   appSidebar: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.ViewChild,
     args: [_app_sidebar_component__WEBPACK_IMPORTED_MODULE_2__.AppSidebarComponent]
   }],
   appTopbar: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.ViewChild,
     args: [_app_topbar_component__WEBPACK_IMPORTED_MODULE_3__.AppTopBarComponent]
   }]
 };
-AppLayoutComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+AppLayoutComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_10__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
   selector: 'app-layout',
   template: _app_layout_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], AppLayoutComponent);
@@ -4905,59 +6247,26 @@ let AppMenuComponent = class AppMenuComponent {
   buildMenu() {
     this.authorizationService.decodeTokenAndSetData();
     this.model = [];
-    var menu = this.menuService.getMenu();
+    const menu = this.menuService.getMenu();
     menu.forEach(menu => this.appendMenu(menu));
     this.model = [...this.model];
   }
   appendMenu(menu) {
-    var _a, _b;
     if (!this.model) return;
-    const allMenuPermissions = [];
-    (_a = menu.Items) === null || _a === void 0 ? void 0 : _a.forEach(menuItem => {
-      var _a;
-      return (_a = menuItem.Permissions) === null || _a === void 0 ? void 0 : _a.forEach(permission => allMenuPermissions.push(permission));
+    const menuItemsCurrentUserIsAuthorizedFor = menu.Items.filter(item => this.isLoggedUserAuthorizedForMenu(item.Permissions));
+    const menuItems = [];
+    menuItemsCurrentUserIsAuthorizedFor.forEach(m => menuItems.push({
+      label: this.translate.instant(m.Label),
+      icon: m.Icon,
+      routerLink: m.RouterLink
+    }));
+    this.model.push({
+      label: this.translate.instant(menu.Label),
+      items: menuItems
     });
-    //TODO
-    const isAuthorized = this.isAuthorized(allMenuPermissions);
-    if (isAuthorized) {
-      const menuItems = [];
-      (_b = menu.Items) === null || _b === void 0 ? void 0 : _b.forEach(m => menuItems.push({
-        label: this.translate.instant(m.Label),
-        icon: m.Icon,
-        routerLink: m.RouterLink
-      }));
-      this.model.push({
-        label: this.translate.instant(menu.Label),
-        items: menuItems
-      });
-    }
   }
-  appendMenuItem(menuItemLabel, permissions, label, icon, routerLink) {
-    if (!this.model) return;
-    const isAuthorized = this.isAuthorized(permissions);
-    if (isAuthorized) {
-      var menuItem = this.model.find(x => x.label == this.translate.instant(menuItemLabel));
-      if (menuItem) {
-        if (!menuItem.items) {
-          menuItem.items = [];
-        }
-        menuItem.items = menuItem.items.concat([{
-          label: this.translate.instant(label),
-          icon: icon,
-          routerLink: routerLink
-        }]);
-      }
-    }
-  }
-  isAuthorized(permissions) {
-    let isAuthorized = false;
-    for (const permission of permissions) {
-      if (this.authorizationService.isAuthorized([permission])) {
-        isAuthorized = true;
-        break;
-      }
-    }
-    return isAuthorized;
+  isLoggedUserAuthorizedForMenu(permissions) {
+    return permissions.some(permission => this.authorizationService.isAuthorized([permission]));
   }
 };
 AppMenuComponent.ctorParameters = () => [{
@@ -5304,6 +6613,9 @@ let AppTopBarComponent = class AppTopBarComponent {
     this.breadcrumbItems = [];
     this.userMenuItems = [];
     this.updateWithLanguageOnInit();
+  }
+  onProfileButtonClick() {
+    this.router.navigate([_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.users.navigations.profile]);
   }
   setTheme(withDarkMode) {
     const theme = withDarkMode ? 'arya-blue' : 'saga-orange';
@@ -5802,6 +7114,40 @@ const Routes = {
       }
     }
   },
+  equipments: {
+    breadcrumbs: {
+      creation: 'Equipment.Create',
+      edition: 'Equipment.Edit',
+      list: 'Equipment.List'
+    },
+    navigations: {
+      creation: 'home/equipments/create',
+      edition: id => `home/equipments/edit/${id}`,
+      list: `home/equipments`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'equipments'
+    }
+  },
+  manufacturers: {
+    breadcrumbs: {
+      creation: 'Manufacturer.Create',
+      edition: 'Manufacturer.Edit',
+      list: 'Manufacturer.List'
+    },
+    navigations: {
+      creation: 'home/manufacturers/create',
+      edition: id => `home/manufacturers/edit/${id}`,
+      list: `home/manufacturers`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'manufacturers'
+    }
+  },
   userRoles: {
     breadcrumbs: {
       creation: 'UserRole.Create',
@@ -5823,17 +7169,20 @@ const Routes = {
     breadcrumbs: {
       creation: 'User.Create',
       edition: 'User.Edit',
-      list: 'User.List'
+      list: 'User.List',
+      profile: 'User.Profile'
     },
     navigations: {
       creation: 'home/users/create',
       edition: id => `home/users/edit/${id}`,
-      list: 'home/users'
+      list: 'home/users',
+      profile: 'home/profile'
     },
     paths: {
       create: 'create',
       edit: 'edit/:id',
-      list: 'users'
+      list: 'users',
+      profile: 'profile'
     }
   }
 };
@@ -5929,6 +7278,7 @@ let AuthenticationService = class AuthenticationService {
     this.authorizationService = authorizationService;
     this.httpClient = httpClient;
     this.platformId = platformId;
+    this.isFirstTimeLoggedIn = false;
   }
   getAuth() {
     if ((0,_angular_common__WEBPACK_IMPORTED_MODULE_4__.isPlatformBrowser)(this.platformId)) {
@@ -6333,6 +7683,38 @@ FilterService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0,_angular_c
 
 /***/ }),
 
+/***/ 2329:
+/*!**************************************************!*\
+  !*** ./src/app/services/images/image.service.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ImageService": () => (/* binding */ ImageService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+
+
+
+let ImageService = class ImageService {
+  constructor(sanitizer) {
+    this.sanitizer = sanitizer;
+  }
+  getImageSourceForFile(file) {
+    return file ? this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${file}`) : undefined;
+  }
+};
+ImageService.ctorParameters = () => [{
+  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__.DomSanitizer
+}];
+ImageService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)()], ImageService);
+
+
+/***/ }),
+
 /***/ 4133:
 /*!**************************************************************!*\
   !*** ./src/app/services/interceptors/api-url-interceptor.ts ***!
@@ -6464,20 +7846,12 @@ let MenuService = class MenuService {
   getMenu() {
     return this.menu;
   }
+  getFirstMenuItemUserIsAuthorizedFor() {
+    const firstMenuUserIsAuthorizedFor = this.menu.find(menu => (menu.Items || []).some(menuItem => this.authorizationService.isAuthorized(menuItem.Permissions)));
+    return firstMenuUserIsAuthorizedFor;
+  }
   getAdministrationItems() {
     return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.label);
-  }
-  getFirstMenuItemUserIsAuthorizedFor() {
-    let firstMenuUserIsAuthorizedFor;
-    for (const menu of this.menu) {
-      for (const menuItem of menu.Items || []) {
-        if (this.authorizationService.isAuthorized(menuItem.Permissions)) {
-          firstMenuUserIsAuthorizedFor = menu;
-          break;
-        }
-      }
-    }
-    return firstMenuUserIsAuthorizedFor;
   }
   getMainMenuItems() {
     return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.label);
@@ -6502,6 +7876,20 @@ let MenuService = class MenuService {
       Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.label,
       Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.icon,
       RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.clients.navigations.list}`]
+    });
+    //EQUIPMENTS
+    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Equipments_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.icon,
+      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.equipments.navigations.list}`]
+    });
+    //MANUFACTURERS
+    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Manufacturers_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.icon,
+      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.manufacturers.navigations.list}`]
     });
     const administrationItems = this.getAdministrationItems();
     //USERS
@@ -6560,6 +7948,14 @@ const Menus = {
       clients: {
         label: 'Menu.Clients',
         icon: 'fa fa-solid fa-face-smile'
+      },
+      equipments: {
+        label: 'Menu.Equipments',
+        icon: 'fa fa-solid fa-dumbbell'
+      },
+      manufacturers: {
+        label: 'Menu.Manufacturers',
+        icon: 'fa fa-solid fa-industry'
       }
     }
   }
@@ -6692,8 +8088,14 @@ let SelectOptionsService = class SelectOptionsService {
   getFieldNamesForObjectHistory(event, columns, entityId, entityTableName) {
     return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
   }
+  getEquipmentTypes() {
+    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.equipmentTypes);
+  }
   getLanguages() {
     return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.languages);
+  }
+  getManufacturers() {
+    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.manufacturers);
   }
   getUserRoles() {
     return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.userRoles);
@@ -6828,10 +8230,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "PngTableSearchQueryBuilder": () => (/* binding */ PngTableSearchQueryBuilder)
 /* harmony export */ });
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var _stringBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stringBuilder */ 6856);
 /* harmony import */ var _primeNgHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./primeNgHelper */ 3833);
 /* harmony import */ var _enums_search_operator_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../enums/search-operator-enum */ 8144);
+/* harmony import */ var _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../enums/filter-type-enum */ 3501);
+
 
 
 
@@ -6869,13 +8273,13 @@ class PngTableSearchQueryBuilder {
       for (const column of globalFilterColumns) {
         const replaceWith = (_a = column.replaceWith) !== null && _a !== void 0 ? _a : column.field;
         let value = this.event.globalFilter;
-        let matchMode = primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.CONTAINS;
+        let matchMode = primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.CONTAINS;
         if (column.options) {
           value = column.options.filter(o => {
             var _a;
             return (_a = o.label) === null || _a === void 0 ? void 0 : _a.toLowerCase().includes(value.toLowerCase());
           }).map(o => o.value).join(", ");
-          matchMode = primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.IN;
+          matchMode = primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.IN;
         }
         whereBuilder.append(`${replaceWith}|${matchMode}|${value}|${_enums_search_operator_enum__WEBPACK_IMPORTED_MODULE_2__.SearchOperatorEnum.MatchAny}|${column.filterType}||`);
       }
@@ -6886,6 +8290,7 @@ class PngTableSearchQueryBuilder {
     for (const column of this.columns) {
       const filtersGroup = (_a = this.event.filters) === null || _a === void 0 ? void 0 : _a[column.field];
       if (filtersGroup === undefined) continue;
+      if (column.filterType === _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__.FilterTypeEnum.Special && column.replaceWith === undefined) continue;
       const replaceWith = (_b = column.replaceWith) !== null && _b !== void 0 ? _b : column.field;
       const filters = filtersGroup;
       for (const filter of filters) {
@@ -6906,7 +8311,7 @@ class PngTableSearchQueryBuilder {
     }
   }
 }
-PngTableSearchQueryBuilder.DATE_MATCH_MODES = [primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.DATE_IS, primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.DATE_AFTER, primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.DATE_BEFORE, primeng_api__WEBPACK_IMPORTED_MODULE_3__.FilterMatchMode.DATE_IS_NOT];
+PngTableSearchQueryBuilder.DATE_MATCH_MODES = [primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.DATE_IS, primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.DATE_AFTER, primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.DATE_BEFORE, primeng_api__WEBPACK_IMPORTED_MODULE_4__.FilterMatchMode.DATE_IS_NOT];
 
 /***/ }),
 
@@ -6943,6 +8348,19 @@ class PrimeNgHelper {
     })).toString();
   }
 }
+PrimeNgHelper.galleriaResponsiveOptions = [{
+  breakpoint: '1024px',
+  numVisible: 5
+}, {
+  breakpoint: '960px',
+  numVisible: 4
+}, {
+  breakpoint: '768px',
+  numVisible: 3
+}, {
+  breakpoint: '560px',
+  numVisible: 1
+}];
 
 /***/ }),
 
@@ -7146,6 +8564,16 @@ module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <
 
 /***/ }),
 
+/***/ 9800:
+/*!***************************************************************************!*\
+  !*** ./src/app/components/addresses/manufacturer-address.html?ngResource ***!
+  \***************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">\r\n            {{ 'ManufacturerAddress.NationalId' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"NationalId\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('NationalId')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
+
+/***/ }),
+
 /***/ 1231:
 /*!*****************************************************************************!*\
   !*** ./src/app/components/addresses/private-client-address.html?ngResource ***!
@@ -7192,7 +8620,7 @@ module.exports = "<div [class]=\"'grid' + (activeTab === routes.clients.tabs.gen
   \****************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"fa fa-face-smile\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clients\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadClientsLazy($event)\" [rows]=\"25\" [rowsPerPageOptions]=\"[25, 50, 100]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'TypeName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"TypeName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Client.ClientTypePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"clientTypeOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-client let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{client.Name}}\r\n              </td>\r\n              <td>\r\n                {{client.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{client.LastName}}\r\n              </td>\r\n              <td>\r\n                {{client.TypeName}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(client)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(client)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clients\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadClientsLazy($event)\" [rows]=\"25\" [rowsPerPageOptions]=\"[25, 50, 100]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'TypeName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"TypeName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Client.ClientTypePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"clientTypeOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-client let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{client.Name}}\r\n              </td>\r\n              <td>\r\n                {{client.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{client.LastName}}\r\n              </td>\r\n              <td>\r\n                {{client.TypeName}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(client)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(client)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
@@ -7216,6 +8644,46 @@ module.exports = "<p-confirmDialog *ngIf=\"deletionKey\" [header]=\"translate.in
 
 /***/ }),
 
+/***/ 9138:
+/*!************************************************************************!*\
+  !*** ./src/app/components/equipments/equipment-create.html?ngResource ***!
+  \************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
+
+/***/ }),
+
+/***/ 8650:
+/*!*************************************************************************!*\
+  !*** ./src/app/components/equipments/equipment-details.html?ngResource ***!
+  \*************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div *ngIf=\"equipment && equipment.Photos\" class=\"p-formgrid grid\">\r\n                  <h5>{{ translate.instant('Equipment.Photos.Title') }}</h5>\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <equipment-photos [equipmentId]=\"equipment.Id\" [sourcePhotos]=\"equipment.Photos\"></equipment-photos>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\">\r\n          <audit-list-for-entity #audits *ngIf=\"equipment\" [entityId]=\"equipment.Id\" entityTableName=\"Equipments\"\r\n            translation=\"Equipment\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
+
+/***/ }),
+
+/***/ 8777:
+/*!**********************************************************************!*\
+  !*** ./src/app/components/equipments/equipment-list.html?ngResource ***!
+  \**********************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"equipments\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadEquipmentsLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'ManufacturerName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"ManufacturerName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Equipment.ManufacturerPicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"manufacturerOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'SerialNumber'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"SerialNumber\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'TypeName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"TypeName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Equipment.TypePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"typeOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-equipment let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{equipment.Name}}\r\n              </td>\r\n              <td>\r\n                {{equipment.ManufacturerName}}\r\n              </td>\r\n              <td>\r\n                {{equipment.SerialNumber}}\r\n              </td>\r\n              <td>\r\n                {{equipment.TypeName}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(equipment)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(equipment)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
+
+/***/ }),
+
+/***/ 1928:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/equipment-photos.html?ngResource ***!
+  \*******************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<p-galleria [value]=\"equipmentPhotos\" [(activeIndex)]=\"activeIndex\" [responsiveOptions]=\"galleriaResponsiveOptions\"\r\n  [containerStyle]=\"{ 'max-width': '540px' }\" [numVisible]=\"5\">\r\n  <ng-template pTemplate=\"item\" let-item>\r\n    <img [src]=\"item.Source ? item.Source : getEquipmentPhotoSource(item.Id)\"\r\n      style=\"width: 100%; max-height: 420px; min-height: 420px; min-width: 450px; max-width: 450px; display: block;\" />\r\n  </ng-template>\r\n  <ng-template pTemplate=\"thumbnail\" let-item>\r\n    <div class=\"grid grid-nogutter justify-content-center\">\r\n      <img [src]=\"item.Thumbnail\" />\r\n    </div>\r\n  </ng-template>\r\n</p-galleria>";
+
+/***/ }),
+
 /***/ 8089:
 /*!***********************************************************************!*\
   !*** ./src/app/components/login/login-reset-password.html?ngResource ***!
@@ -7233,6 +8701,36 @@ module.exports = "<div\r\n  class=\"surface-ground flex align-items-center justi
 /***/ ((module) => {
 
 module.exports = "<div\r\n  class=\"surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden login-body\">\r\n  <div class=\"flex flex-column align-items-center justify-content-center\">\r\n    <div class=\"login-panel\">\r\n      <div class=\"w-full surface-card py-8 px-5 sm:px-8\" style=\"border-radius:53px\">\r\n        <div class=\"text-center mb-5\">\r\n          <div class=\"text-900 text-3xl font-medium mb-3\">{{ 'General.Welcome' | translate }}</div>\r\n          <span class=\"text-600 font-medium\">{{ 'General.SignInToContinue' | translate }}</span>\r\n        </div>\r\n\r\n        <form [formGroup]=\"form\">\r\n          <div>\r\n            <label for=\"login\" class=\"block text-900 text-xl font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n            <input pInputText id=\"login\" formControlName=\"Login\" type=\"text\" class=\"p-inputtext w-full md:w-30rem mb-5\"\r\n              style=\"padding:1rem\" autocomplete=\"off\">\r\n            <label for=\"password\" class=\"block text-900 font-medium text-xl mb-2\">{{ 'User.Password' | translate\r\n              }}</label>\r\n            <p-password id=\"password\" formControlName=\"Password\" [toggleMask]=\"true\" styleClass=\"mb-5\"\r\n              [feedback]=\"false\" inputStyleClass=\"w-full p-3 md:w-30rem\"></p-password>\r\n\r\n            <div class=\"flex align-items-center justify-content-between mb-5 gap-5\">\r\n              <!-- [TODO] Forgot password -->\r\n              <!-- <a class=\"font-medium no-underline ml-2 text-right cursor-pointer\" style=\"color: var(--primary-color)\"\r\n                [routerLink]=\"\" (click)=\"resetPassword()\">{{\r\n                'General.ForgotPassword' | translate }}?</a> -->\r\n            </div>\r\n            <button pButton pRipple label=\"{{ 'General.SignIn' | translate }}\" class=\"w-full p-3 text-xl\"\r\n              (click)=\"onSubmit()\"></button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<p-toast key=\"tst\"></p-toast>";
+
+/***/ }),
+
+/***/ 5063:
+/*!******************************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-create.html?ngResource ***!
+  \******************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Manufacturer.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"grid formgrid\">\r\n                      <div class=\"field col-12 md:col-2\"></div>\r\n                      <div class=\"field col-12 md:col-10\">\r\n                        <div class=\"flex-wrap mb-3\">\r\n                          <div class=\"field-checkbox mt-6\">\r\n                            <p-checkbox name=\"isOperational\" formControlName=\"IsOperational\" id=\"isOperational\"\r\n                              [binary]=\"true\"></p-checkbox>\r\n                            <label for=\"isOperational\">{{ 'Manufacturer.IsOperational' | translate }}</label>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [requiredFields]=\"manufacturerAddressRequiredFields\" [showTitle]=\"true\">\r\n                    </address>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <manufacturer-address #manufacturerAddressForm>\r\n                    </manufacturer-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
+
+/***/ }),
+
+/***/ 8495:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-details.html?ngResource ***!
+  \*******************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Manufacturer.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"grid formgrid\">\r\n                      <div class=\"field col-12 md:col-2\"></div>\r\n                      <div class=\"field col-12 md:col-10\">\r\n                        <div class=\"flex-wrap mb-3\">\r\n                          <div class=\"field-checkbox mt-6\">\r\n                            <p-checkbox name=\"isOperational\" formControlName=\"IsOperational\" id=\"isOperational\"\r\n                              [binary]=\"true\"></p-checkbox>\r\n                            <label for=\"isOperational\">{{ 'Manufacturer.IsOperational' | translate }}</label>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div *ngIf=\"manufacturer\" class=\"p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [entityAddress]=\"manufacturer.Address\"\r\n                      [requiredFields]=\"manufacturerAddressRequiredFields\" [showTitle]=\"true\"></address>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <manufacturer-address #manufacturerAddressForm [manufacturerAddress]=\"manufacturer.Address\">\r\n                    </manufacturer-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
+
+/***/ }),
+
+/***/ 7406:
+/*!****************************************************************************!*\
+  !*** ./src/app/components/manufacturers/manufacturer-list.html?ngResource ***!
+  \****************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"manufacturers\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadManufacturersLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'IsOperational'\" type=\"boolean\" display=\"menu\" field=\"IsOperational\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-manufacturer let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{manufacturer.Name}}\r\n              </td>\r\n              <td>\r\n                <input type=\"checkbox\" [checked]=\"manufacturer.IsOperational\" disabled />\r\n              </td>\r\n              <td>\r\n                {{manufacturer.NationalId}}\r\n              </td>\r\n              <td>\r\n                {{manufacturer.AddressSummary}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\"\r\n                  (click)=\"onEdit(manufacturer)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  [disabled]=\"manufacturer.IsDeleted\" (click)=\"onDelete(manufacturer)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
@@ -7272,7 +8770,17 @@ module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n
   \***************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons && clientId\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"fa fa-user-circle\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clientRepresentatives\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"LastName\"\r\n          [lazy]=\"true\" (onLazyLoad)=\"loadClientRepresentativesLazy($event)\" [rows]=\"10\"\r\n          [rowsPerPageOptions]=\"[10, 25, 50]\" [totalRecords]=\"totalRecords\" [rowHover]=\"true\"\r\n          styleClass=\"p-datatable-gridlines\" [paginator]=\"true\" responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Email'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Email\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'PhoneNumber'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"PhoneNumber\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-clientRepresentative let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{clientRepresentative.LastName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.Email}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.PhoneNumber}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\"\r\n                  (click)=\"onEdit(clientRepresentative)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(clientRepresentative)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n      <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n    </div>\r\n  </div>\r\n</div>";
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons && clientId\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clientRepresentatives\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"LastName\"\r\n          [lazy]=\"true\" (onLazyLoad)=\"loadClientRepresentativesLazy($event)\" [rows]=\"10\"\r\n          [rowsPerPageOptions]=\"[10, 25, 50]\" [totalRecords]=\"totalRecords\" [rowHover]=\"true\"\r\n          styleClass=\"p-datatable-gridlines\" [paginator]=\"true\" responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Email'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Email\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'PhoneNumber'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"PhoneNumber\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-clientRepresentative let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{clientRepresentative.LastName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.Email}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.PhoneNumber}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\"\r\n                  (click)=\"onEdit(clientRepresentative)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(clientRepresentative)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n      <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n    </div>\r\n  </div>\r\n</div>";
+
+/***/ }),
+
+/***/ 4353:
+/*!*****************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/user-role-permissions.html?ngResource ***!
+  \*****************************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"p-fluid p-formgrid grid mb-3\">\r\n  <p-treeTable [value]=\"userPermissionNodes\" [columns]=\"userRolePermissionColumns\" selectionMode=\"checkbox\"\r\n    [(selection)]=\"selectedUserPermissionNodes\" (onNodeSelect)=\"onPermissionSelected($event.node)\">\r\n    <ng-template pTemplate=\"header\" let-columns>\r\n      <tr>\r\n        <th *ngFor=\"let col of columns\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{col.header | translate}}</label>\r\n        </th>\r\n      </tr>\r\n    </ng-template>\r\n    <ng-template pTemplate=\"body\" let-rowNode let-rowData=\"rowData\" let-columns=\"columns\">\r\n      <tr>\r\n        <td *ngFor=\"let col of columns; let i = index\">\r\n          <p-treeTableToggler [rowNode]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableToggler>\r\n          <p-treeTableCheckbox [value]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableCheckbox>\r\n          <i [class]=\"rowData[col.icon] + ' px-2'\"></i>\r\n          {{rowData[col.field] | translate}}\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n  </p-treeTable>\r\n</div>";
 
 /***/ }),
 
@@ -7302,17 +8810,7 @@ module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n
   \**********************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-users\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"userRoles\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Id\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUserRolesLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Id'\" pInputText type=\"numeric\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Id\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\" [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('UserRole.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-userRole let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{userRole.Id}}\r\n              </td>\r\n              <td>\r\n                {{userRole.Name}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(userRole)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(userRole)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
-
-/***/ }),
-
-/***/ 8698:
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-permissions.html?ngResource ***!
-  \*****************************************************************************/
-/***/ ((module) => {
-
-module.exports = "<div class=\"p-fluid p-formgrid grid mb-3\">\r\n  <p-treeTable [value]=\"userPermissionNodes\" [columns]=\"userRolePermissionColumns\" selectionMode=\"checkbox\"\r\n    [(selection)]=\"selectedUserPermissionNodes\" (onNodeSelect)=\"onPermissionSelected($event.node)\">\r\n    <ng-template pTemplate=\"header\" let-columns>\r\n      <tr>\r\n        <th *ngFor=\"let col of columns\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{col.header | translate}}</label>\r\n        </th>\r\n      </tr>\r\n    </ng-template>\r\n    <ng-template pTemplate=\"body\" let-rowNode let-rowData=\"rowData\" let-columns=\"columns\">\r\n      <tr>\r\n        <td *ngFor=\"let col of columns; let i = index\">\r\n          <p-treeTableToggler [rowNode]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableToggler>\r\n          <p-treeTableCheckbox [value]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableCheckbox>\r\n          <i [class]=\"rowData[col.icon] + ' px-2'\"></i>\r\n          {{rowData[col.field] | translate}}\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n  </p-treeTable>\r\n</div>";
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"userRoles\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Id\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUserRolesLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Id'\" pInputText type=\"numeric\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Id\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\" [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('UserRole.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-userRole let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{userRole.Id}}\r\n              </td>\r\n              <td>\r\n                {{userRole.Name}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(userRole)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(userRole)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
@@ -7322,7 +8820,7 @@ module.exports = "<div class=\"p-fluid p-formgrid grid mb-3\">\r\n  <p-treeTable
   \**************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <div class=\"field-checkbox\">\r\n                        <p-checkbox name=\"isActive\" formControlName=\"IsActive\" id=\"isActive\"\r\n                          [binary]=\"true\"></p-checkbox>\r\n                        <label for=\"isActive\">{{ 'User.IsActive' | translate }}</label>\r\n                      </div>\r\n                    </div>\r\n\r\n                  </div>\r\n\r\n                  <div class=\"field col-12 md:col-6\">\r\n\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Language' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"languages\" formControlName=\"LanguageId\"\r\n                        [placeholder]=\"translate.instant('User.SelectLanguage')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <div class=\"field-checkbox\">\r\n                        <p-checkbox name=\"isActive\" formControlName=\"IsActive\" id=\"isActive\"\r\n                          [binary]=\"true\"></p-checkbox>\r\n                        <label for=\"isActive\">{{ 'User.IsActive' | translate }}</label>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Language' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"languages\" formControlName=\"LanguageId\"\r\n                        [placeholder]=\"translate.instant('User.SelectLanguage')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
@@ -7342,7 +8840,17 @@ module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n
   \************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-user\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"users\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Login\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUsersLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Login'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Login\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'UserRoleName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"UserRoleName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('User.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'IsActive'\" type=\"boolean\" display=\"menu\" field=\"IsActive\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-user let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{user.Login}}\r\n              </td>\r\n              <td>\r\n                {{user.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{user.LastName}}\r\n              </td>\r\n              <td>\r\n                {{user.UserRoleName}}\r\n              </td>\r\n              <td>\r\n                <input type=\"checkbox\" [checked]=\"user.IsActive\" disabled />\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(user)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(user)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
+module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"users\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Login\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUsersLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Login'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Login\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'UserRoleName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"UserRoleName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('User.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'IsActive'\" type=\"boolean\" display=\"menu\" field=\"IsActive\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-user let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{user.Login}}\r\n              </td>\r\n              <td>\r\n                {{user.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{user.LastName}}\r\n              </td>\r\n              <td>\r\n                {{user.UserRoleName}}\r\n              </td>\r\n              <td>\r\n                <input type=\"checkbox\" [checked]=\"user.IsActive\" disabled />\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(user)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(user)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
+
+/***/ }),
+
+/***/ 3130:
+/*!***************************************************************!*\
+  !*** ./src/app/components/users/user-profile.html?ngResource ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"false\" [readonly]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\" [label]=\"translate.instant('General.Save')\"\r\n                      class=\"p-button-raised p-button-success mr-2\" [disabled]=\"shouldActionsBeDisabled\"\r\n                      (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
@@ -7392,7 +8900,7 @@ module.exports = "<app-menu #appMenu></app-menu>";
   \*************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"layout-topbar\">\r\n    <a class=\"layout-topbar-logo\" routerLink=\"\">\r\n        <img src=\"assets/layout/images/logo.png\" alt=\"logo\" style=\"height: 2.5em; margin-right: 1em;\">\r\n        <span>EQUIPRENT</span>\r\n    </a>\r\n\r\n    <button #menubutton class=\"p-link layout-menu-button layout-topbar-button\" (click)=\"layoutService.onMenuToggle()\">\r\n        <i class=\"pi pi-bars\"></i>\r\n    </button>\r\n\r\n    <button #topbarmenubutton class=\"p-link layout-topbar-menu-button layout-topbar-button\"\r\n        (click)=\"layoutService.showProfileSidebar()\">\r\n        <i class=\"pi pi-ellipsis-v\"></i>\r\n    </button>\r\n\r\n    <div class=\"layout-topbar-menu\">\r\n        <p-breadcrumb #breadcrumb [model]=\"breadcrumbItems\" [home]=\"home\"></p-breadcrumb>\r\n    </div>\r\n\r\n    <div #topbarmenu class=\"layout-topbar-menu\" style=\"margin-right: 1.5em;\"\r\n        [ngClass]=\"{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}\">\r\n        <div class=\"formgroup-inline\">\r\n            <p-splitButton class=\"field p-link\" [label]=\"translate.instant('General.Profile')\"\r\n                icon=\"fa fa-solid fa-user\" [model]=\"userMenuItems\"></p-splitButton>\r\n        </div>\r\n    </div>\r\n\r\n</div>";
+module.exports = "<div class=\"layout-topbar\">\r\n    <a class=\"layout-topbar-logo\" routerLink=\"\">\r\n        <img src=\"assets/layout/images/logo.png\" alt=\"logo\" style=\"height: 2.5em; margin-right: 1em;\">\r\n        <span>EQUIPRENT</span>\r\n    </a>\r\n\r\n    <button #menubutton class=\"p-link layout-menu-button layout-topbar-button\" (click)=\"layoutService.onMenuToggle()\">\r\n        <i class=\"pi pi-bars\"></i>\r\n    </button>\r\n\r\n    <button #topbarmenubutton class=\"p-link layout-topbar-menu-button layout-topbar-button\"\r\n        (click)=\"layoutService.showProfileSidebar()\">\r\n        <i class=\"pi pi-ellipsis-v\"></i>\r\n    </button>\r\n\r\n    <div class=\"layout-topbar-menu\">\r\n        <p-breadcrumb #breadcrumb [model]=\"breadcrumbItems\" [home]=\"home\"></p-breadcrumb>\r\n    </div>\r\n\r\n    <div #topbarmenu class=\"layout-topbar-menu\" style=\"margin-right: 1.5em;\"\r\n        [ngClass]=\"{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}\">\r\n        <div class=\"formgroup-inline\">\r\n            <p-splitButton class=\"field p-link\" [label]=\"translate.instant('General.Profile')\"\r\n                icon=\"fa fa-solid fa-user\" [model]=\"userMenuItems\" (onClick)=\"onProfileButtonClick()\"></p-splitButton>\r\n        </div>\r\n    </div>\r\n\r\n</div>";
 
 /***/ }),
 

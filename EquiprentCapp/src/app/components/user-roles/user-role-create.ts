@@ -12,7 +12,7 @@ import { UserRoleCreationModel, UserRolePermissionsForCreation } from "src/app/i
 import { PermissionGroupItemModel } from "src/app/interfaces/user-permission";
 import { NameInLanguagesComponent } from "../name-in-languages/name-in-languages";
 import { ApiResultEnum } from "src/app/enums/api-result-enum";
-import { UserRolePermissionsComponent } from "./user-role-permissions";
+import { UserRolePermissionsComponent } from "./permissions/user-role-permissions";
 import { FormComponent } from "../abstract/forms/form";
 import { FormModeEnum } from "src/app/enums/form-mode-enum";
 
