@@ -28,14 +28,19 @@ export class EquipmentPhotoBase implements SimpleFileModel {
   File?: string;
   FileName: string;
   Id?: string;
+  IsMainThumbnail: boolean = false;
+  ThumbnailFile?: string;
 }
 
 export class EquipmentPhoto extends EquipmentPhotoBase {
   IsBeingDownloaded: boolean = false;
-  IsMainThumbnail: boolean = false;
   SourceUrl?: SafeUrl;
   ThumbnailUrl: SafeUrl;
-  ThumbnailFile?: string;
+}
+
+export interface EquipmentPhotosUploadRequest {
+  EquipmentId: string;
+  Photos: EquipmentPhotoBase[];
 }
 
 export interface EquipmentPhotosUploadResponse {

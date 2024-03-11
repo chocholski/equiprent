@@ -12,6 +12,7 @@ export class EquipmentPhotoUploaderFactory {
     private readonly fileService: FileService,
     private readonly httpClient: HttpClient,
     private readonly imageService: ImageService,
+    private readonly equipmentId?: string,
   ) {
   }
 
@@ -25,7 +26,7 @@ export class EquipmentPhotoUploaderFactory {
         break;
 
       case FormModeEnum.Edition:
-        uploader = new EquipmentPhotoOnEditionUploader(this.fileService, this.httpClient, this.imageService);
+        uploader = new EquipmentPhotoOnEditionUploader(this.equipmentId!, this.fileService, this.httpClient, this.imageService);
         break;
 
       default:

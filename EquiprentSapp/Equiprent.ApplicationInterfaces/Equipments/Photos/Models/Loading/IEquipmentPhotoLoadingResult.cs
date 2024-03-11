@@ -12,7 +12,7 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading
 
         public IFileLoadingResult? FileLoadingResult { get; set; }
 
-        public string FileName { get; }
+        public string FileNameWithExtension { get; }
 
         public string FilePath { get; }
 

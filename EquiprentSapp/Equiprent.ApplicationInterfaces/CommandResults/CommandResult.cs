@@ -39,5 +39,8 @@
 
         //Equipments
         Equipment_SerialNumberExists,
+
+        //EquipmentPhotos
+        EquipmentPhoto_AlreadyExists,
     }
 }

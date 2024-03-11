@@ -57,7 +57,7 @@ export class EquipmentPhotosComponent
   }
 
   public async equipmentPhotoUploadAsync(event: FileUploadEvent) {
-    const uploader = new EquipmentPhotoUploaderFactory(this.fileService, this.httpClient, this.imageService)
+    const uploader = new EquipmentPhotoUploaderFactory(this.fileService, this.httpClient, this.imageService, this.equipmentId)
       .makeUploader(!this.equipmentId ? FormModeEnum.Creation : FormModeEnum.Edition);
 
     const uploadedEquipmentPhotos: EquipmentPhoto[] = [];

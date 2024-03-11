@@ -1,5 +1,5 @@
 ﻿using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading.Thumbnails;
-using System.Drawing;
+using SkiaSharp;
 
 namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading.Thumbnails
 {
@@ -11,7 +11,7 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading.
             set => _status = value;
         }
 
-        public Image? Thumbnail { get; set; }
+        public SKBitmap? Thumbnail { get; set; }
 
         private EquipmentPhotoThumbnailLoadingResultEnum _status;
 

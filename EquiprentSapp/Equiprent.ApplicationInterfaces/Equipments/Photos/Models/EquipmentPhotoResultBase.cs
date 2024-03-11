@@ -4,11 +4,26 @@ using Microsoft.Extensions.Configuration;
 
 namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
 {
-    public record EquipmentPhotoResultBase
+    public abstract record EquipmentPhotoResultBase
     {
         public string DefaultPath
         {
             get => Path.Combine(_mainFolderPath, IEquipmentPhotoService.EquipmentPhotosFolderPath);
+        }
+
+        public string FileNameWithExtension { get; }
+
+        public string FileNameWithoutExtension { get; }
+
+        protected Guid IdSeed { get; } = Guid.NewGuid();
+
+        public string NormalizedFileNameWithoutExtension { get; }
+
+        public string[] SplitPath { get; }
+
+        public string UnZipPath
+        {
+            get => Path.Combine(DefaultPath, $"TEMP{NormalizedFileNameWithoutExtension}");
         }
 
         public string ZipPath
@@ -16,31 +31,22 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
             get => Path.Combine(DefaultPath, string.IsNullOrEmpty(SplitPath[0]) ? SplitPath[1] : SplitPath[0]);
         }
 
-        public string FileNameWithoutExtension { get; }
-
-        public string[] SplitPath { get; }
-
-        public string UnZipPath
-        {
-            get => Path.Combine(DefaultPath, $"TEMP{FileNameWithoutExtension}");
-        }
-
-        private readonly IFileService _fileService;
         private readonly string _mainFolderPath;
 
         public EquipmentPhotoResultBase(
             IConfiguration configuration,
             IFileService fileService,
-            IEquipmentPhotoLoadingModel photo)
+            IEquipmentPhotoModel photo)
         {
             var mainFileFolderPath = configuration["Paths:MainFileFolder"];
             if (string.IsNullOrEmpty(mainFileFolderPath))
                 throw new MissingEntryInConfigurationException("Main File Folder Path!");
 
-            _fileService = fileService;
             _mainFolderPath = mainFileFolderPath;
-            FileNameWithoutExtension = _fileService.GetFileNameWithoutExtension(photo.FileName);
-            SplitPath = GetSplitPath(photo.RelativePath);
+            FileNameWithExtension = photo.GetFileNameWithExtension(IdSeed);
+            FileNameWithoutExtension = FileNameWithExtension.Replace(Path.GetExtension(FileNameWithExtension), string.Empty);
+            NormalizedFileNameWithoutExtension = fileService.GetFileNameWithoutExtension(FileNameWithExtension);
+            SplitPath = GetSplitPath(photo.Path);
         }
 
         private static string[] GetSplitPath(string filePath)

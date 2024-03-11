@@ -21,8 +21,6 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
         
         public IFileLoadingResult? FileLoadingResult { get; set; }
 
-        public string FileName { get; }
-
         public string FilePath { get; }
 
         public EquipmentPhotoLoadingResultEnum Status
@@ -39,8 +37,7 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
             IFileService fileService,
             IEquipmentPhotoLoadingModel photo) : base(configuration, fileService, photo)
         {
-            FileName = photo.FileName;
-            FilePath = photo.RelativePath;
+            FilePath = photo.Path!;
         }
     }
 }

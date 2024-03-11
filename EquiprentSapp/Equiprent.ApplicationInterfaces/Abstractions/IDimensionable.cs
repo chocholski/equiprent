@@ -2,8 +2,8 @@
 {
     public interface IDimensionable
     {
-        public double Height { get; set; }
+        public float Height { get; }
 
-        public double Width { get; set; }
+        public float Width { get; }
     }
 }

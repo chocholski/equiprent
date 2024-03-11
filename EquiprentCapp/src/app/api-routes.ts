@@ -29,7 +29,9 @@ export const ApiRoutes = {
       photo: {
         download: (photoId: string) => `equipment/file/photo/download/${photoId}`,
         makeThumbnailForFile: `equipment/file/photo/makeThumbnailForFile`,
-        uploadMultiple: `equipment/file/photo/uploadMultiple`,
+        upload: {
+          multiple: `equipment/file/photo/upload/multiple`,
+        }
       }
     },
     getById: (equipmentId: string) => `equipment/${equipmentId}`,

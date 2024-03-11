@@ -1,4 +1,4 @@
-import { EquipmentPhoto, EquipmentPhotoBase, EquipmentPhotosUploadResponse } from "src/app/interfaces/equipment";
+import { EquipmentPhoto, EquipmentPhotoBase, EquipmentPhotosUploadRequest, EquipmentPhotosUploadResponse } from "src/app/interfaces/equipment";
 import { EquipmentPhotoUploader } from "./equipment-photo-uploader";
 import { FileService } from "src/app/services/files/file.service";
 import { ImageService } from "src/app/services/images/image.service";
@@ -9,6 +9,7 @@ import { lastValueFrom } from "rxjs";
 export class EquipmentPhotoOnEditionUploader extends EquipmentPhotoUploader {
 
   constructor(
+    private readonly equipmentId: string,
     private readonly fileService: FileService,
     private readonly httpClient: HttpClient,
     private readonly imageService: ImageService,
@@ -40,16 +41,25 @@ export class EquipmentPhotoOnEditionUploader extends EquipmentPhotoUploader {
       .map(photo => <EquipmentPhotoBase>{
         File: photo.File,
         FileName: photo.FileName,
-        Id: photo.Id
+        Id: photo.Id,
       });
 
-    const result = await lastValueFrom(this.httpClient
-      .post<EquipmentPhotosUploadResponse>(ApiRoutes.equipment.file.photo.uploadMultiple, photosToUploadToApi));
+    const request = <EquipmentPhotosUploadRequest>{
+      EquipmentId: this.equipmentId,
+      Photos: photosToUploadToApi
+    };
 
-    for (let uploadedPhoto of result.UploadedPhotos) {
+    const result = await lastValueFrom(this.httpClient
+      .post<EquipmentPhotosUploadResponse>(ApiRoutes.equipment.file.photo.upload.multiple, request));
+
+    for (const uploadedPhoto of result.UploadedPhotos) {
       const photo = photos.find(p => p.FileName === uploadedPhoto.FileName && !p.Id);
       if (photo) {
         photo.Id = uploadedPhoto.Id;
+        if (uploadedPhoto.ThumbnailFile) {
+          photo.ThumbnailFile = uploadedPhoto.ThumbnailFile;
+          photo.ThumbnailUrl = this.imageService.getImageUrlForEncodedFile(photo.ThumbnailFile)!;
+        }
       }
     }
 

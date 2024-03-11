@@ -8,7 +8,7 @@
         public bool IsMainThumbnail { get; set; }
 
         [ForeignKey(nameof(Equipment))]
-        public Guid EquipmentId { get; set; }
+        public required Guid EquipmentId { get; set; }
         public virtual Equipment Equipment { get; set; } = null!;
     }
 }

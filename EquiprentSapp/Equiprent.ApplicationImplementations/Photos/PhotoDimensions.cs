@@ -4,10 +4,10 @@ namespace Equiprent.ApplicationImplementations.Photos
 {
     public record PhotoDimensions : IDimensionable
     {
-        public double Height { get; set; }
-        public double Width { get; set; }
+        public float Height { get; set; }
+        public float Width { get; set; }
 
-        public PhotoDimensions(double height, double width)
+        public PhotoDimensions(float height, float width)
         {
             Height = height;
             Width = width;

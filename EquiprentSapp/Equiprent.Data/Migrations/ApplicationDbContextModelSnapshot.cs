@@ -3630,6 +3630,12 @@ namespace Equiprent.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime(6)");
 
@@ -3651,6 +3657,8 @@ namespace Equiprent.Data.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.HasIndex("EquipmentId");
 
@@ -4173,11 +4181,18 @@ namespace Equiprent.Data.Migrations
 
             modelBuilder.Entity("Equiprent.Entities.Business.Equipment.Photos.EquipmentPhoto", b =>
                 {
+                    b.HasOne("Equiprent.Entities.Application.Users.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Equiprent.Entities.Business.Equipment.Equipment", "Equipment")
                         .WithMany()
                         .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("Equipment");
                 });

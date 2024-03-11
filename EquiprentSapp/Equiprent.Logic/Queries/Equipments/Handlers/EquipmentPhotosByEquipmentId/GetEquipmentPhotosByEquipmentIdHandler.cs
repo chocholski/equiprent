@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationImplementations.Equipments.Photos;
+﻿using Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading;
 using Equiprent.ApplicationImplementations.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading;
@@ -12,7 +12,6 @@ using System.Threading;
 
 namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipmentId
 {
-#pragma warning disable CA1416 // Validate platform compatibility
     public class GetEquipmentPhotosByEquipmentIdHandler : IRequestHandler<GetEquipmentPhotosByEquipmentIdRequest, EquipmentPhotosByEquipmentIdResponse?>
     {
         private readonly ApplicationDbContext _dbContext;
@@ -32,6 +31,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipment
                 .Where(photo =>
                     !photo.IsDeleted &&
                     photo.EquipmentId == request.EquipmentId)
+                .OrderBy(photo => photo.CreatedOn)
                 .ToListAsync(cancellationToken);
 
             var response = new EquipmentPhotosByEquipmentIdResponse();
@@ -41,8 +41,8 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipment
                 var equipmentPhotoLoadingResult = await _equipmentPhotoService.LoadFileWithThumbnailAsync(
                     photo: new EquipmentPhotoLoadingModel
                     {
-                        FileName = photo.FileName,
-                        RelativePath = photo.RelativePath
+                        FileNameWithExtension = photo.FileName,
+                        Path = photo.RelativePath
                     },
                     targetDimensions: new PhotoDimensions(height: 50, width: 55));
 
@@ -69,5 +69,4 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotosByEquipment
             return response;
         }
     }
-#pragma warning restore CA1416 // Validate platform compatibility
 }

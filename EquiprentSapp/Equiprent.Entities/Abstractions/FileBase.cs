@@ -2,8 +2,8 @@
 {
     public abstract class FileBase
     {
-        public string FileName { get; set; } = null!;
+        public required string FileName { get; set; }
 
-        public string RelativePath { get; set; } = null!;
+        public required string RelativePath { get; set; }
     }
 }

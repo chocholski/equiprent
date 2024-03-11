@@ -2,12 +2,7 @@
 
 namespace Equiprent.Logic.Queries.Equipments.Responses
 {
-    public class EquipmentPhotoResponse : FileResponse
+    public class EquipmentPhotoResponse : EquipmentPhotoBase
     {
-        public required Guid Id { get; set; }
-
-        public required bool IsMainThumbnail { get; set; }
-
-        public required string ThumbnailFile { get; set; }
     }
 }

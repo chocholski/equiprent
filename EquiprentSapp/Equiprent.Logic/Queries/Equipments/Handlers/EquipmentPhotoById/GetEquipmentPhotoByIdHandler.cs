@@ -1,4 +1,4 @@
-﻿using Equiprent.ApplicationImplementations.Equipments.Photos;
+﻿using Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading;
 using Equiprent.ApplicationInterfaces.Equipments.Photos;
 using Equiprent.ApplicationInterfaces.Equipments.Photos.Models.Loading;
 using Equiprent.Data.DbContext;
@@ -41,8 +41,8 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotoById
             var equipmentPhotoLoadingResult = await _equipmentPhotoService.LoadFileWithoutThumbnailAsync(
                 new EquipmentPhotoLoadingModel
                 {
-                    FileName = equipmentPhoto.FileName,
-                    RelativePath = equipmentPhoto.RelativePath
+                    FileNameWithExtension = equipmentPhoto.FileName,
+                    Path = equipmentPhoto.RelativePath
                 });
 
             if (equipmentPhotoLoadingResult is null || !equipmentPhotoLoadingResult.Status.IsSuccess())
@@ -51,7 +51,7 @@ namespace Equiprent.Logic.Queries.Equipments.Handlers.EquipmentPhotoById
             var response = new EquipmentPhotoByIdReponse
             {
                 File = Convert.ToBase64String(equipmentPhotoLoadingResult.File!),
-                FileName = equipmentPhotoLoadingResult.FileName
+                FileName = equipmentPhotoLoadingResult.FileNameWithExtension
             };
 
             return response;

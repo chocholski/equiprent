@@ -10,6 +10,7 @@
                 {
                     public const string Download = "file/photo/download/{photoId}";
                     public const string MakeThumbnailForFile = "file/photo/makeThumbnailForFile";
+                    public const string UploadMultiple = "file/photo/upload/multiple";
                 }
             }
         }
