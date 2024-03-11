@@ -2,7 +2,7 @@
 {
     public class SecurityDefinitionInfo
     {
-        public string Name { get; set; } = null!;
-        public OpenApiSecuritySchemeInfo OpenApiSecurityScheme { get; set; } = null!;
+        public string? Name { get; set; }
+        public OpenApiSecuritySchemeInfo? OpenApiSecurityScheme { get; set; }
     }
 }

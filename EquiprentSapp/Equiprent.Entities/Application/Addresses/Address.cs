@@ -5,10 +5,10 @@ namespace Equiprent.Entities.Application.Addresses
     public partial class Address
     {
         [MaxLength(25)]
-        public string? ApartmentNumber { get; set; } = null!;
+        public required string? ApartmentNumber { get; set; }
 
         [MaxLength(200)]
-        public string City { get; set; } = null!;
+        public required string City { get; set; }
 
         [ForeignKey(nameof(Country))]
         public Guid CountryId { get; set; }
@@ -19,14 +19,14 @@ namespace Equiprent.Entities.Application.Addresses
         [Key]
         public int Id { get; set; }
 
-        public string? PhoneNumber { get; set; } = null!;
+        public string? PhoneNumber { get; set; }
 
         [MaxLength(8)]
-        public string PostalCode { get; set; } = null!;
+        public required string PostalCode { get; set; }
 
-        public string StreetName { get; set; } = null!;
+        public required string StreetName { get; set; }
 
         [MaxLength(50)]
-        public string StreetNumber { get; set; } = null!;
+        public required string StreetNumber { get; set; }
     }
 }

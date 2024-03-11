@@ -7,14 +7,14 @@ namespace Equiprent.Logic.Queries.Audits.Reponses.ObjectHistory
         [SortColumn]
         public DateTime CreatedOn { get; set; }
 
-        public string FieldName { get; set; } = null!;
+        public required string FieldName { get; set; }
 
         public string? NewValue { get; set; }
 
         public string? OldValue { get; set; }
 
-        public string Translation { get; set; } = null!;
+        public required string Translation { get; set; }
 
-        public string UserName { get; set; } = null!;
+        public required string UserName { get; set; }
     }
 }

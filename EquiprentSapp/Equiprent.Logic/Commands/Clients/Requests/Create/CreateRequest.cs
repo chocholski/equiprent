@@ -6,10 +6,10 @@ namespace Equiprent.Logic.Commands.Clients.Requests.Create
 {
     public partial class CreateRequest : IRequest<CommandResult?>
     { 
-        public List<ClientAddressModel> Addresses { get; set; } = null!;
-        public int TypeId { get; set; }
+        public required List<ClientAddressModel> Addresses { get; set; }
+        public required int TypeId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
     }
 }

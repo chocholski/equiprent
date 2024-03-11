@@ -13,6 +13,6 @@ namespace Equiprent.Entities.Business.Manufacturers
 
         public bool IsOperational { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
     }
 }

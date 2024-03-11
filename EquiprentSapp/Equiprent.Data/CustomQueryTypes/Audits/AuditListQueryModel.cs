@@ -2,9 +2,9 @@
 {
     public class AuditListQueryModel
     {
-        public DateTime CreatedOn { get; set; }
-        public string UserName { get; set; } = null!;
-        public string FieldName { get; set; } = null!;
+        public required DateTime CreatedOn { get; set; }
+        public required string UserName { get; set; }
+        public required string FieldName { get; set; }
         public string? OldValue { get; set; }
         public string? NewValue { get; set; }
     }

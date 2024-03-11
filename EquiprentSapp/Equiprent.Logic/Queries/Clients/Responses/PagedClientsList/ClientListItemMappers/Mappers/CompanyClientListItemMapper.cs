@@ -11,12 +11,15 @@ namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientsList.ClientListI
             _client = client;
         }
 
-        public override void MapToModel(ClientListItemViewModel model)
+        public override ClientListItemViewModel MapToModel()
         {
-            model.Id = _client.Id;
-            model.Name = _client.Name;
-            model.NationalId = _client.CompanyAddresses.FirstOrDefault()?.NationalCompanyId;
-            model.TypeId = _client.ClientTypeId;
+            return new ClientListItemViewModel
+            {
+                Id = _client.Id,
+                Name = _client.Name,
+                NationalId = _client.CompanyAddresses.FirstOrDefault()?.NationalCompanyId,
+                TypeId = _client.ClientTypeId
+            };
         }
     }
 }

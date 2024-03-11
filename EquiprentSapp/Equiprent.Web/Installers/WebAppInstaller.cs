@@ -38,8 +38,8 @@ namespace Equiprent.Web.Installers
 
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = jwtOptions.TokenValidationParameters.ValidateIssuerSigningKey,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters.Key)),
+                ValidateIssuerSigningKey = jwtOptions.TokenValidationParameters!.ValidateIssuerSigningKey,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.TokenValidationParameters!.Key!)),
                 ValidIssuer = jwtOptions.TokenValidationParameters.ValidIssuer,
                 ValidateIssuer = jwtOptions.TokenValidationParameters.ValidateIssuer,
                 ValidAudience = jwtOptions.TokenValidationParameters.ValidAudience,

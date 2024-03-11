@@ -7,18 +7,18 @@ namespace Equiprent.Logic.Commands.Equipments.Requests.Save
     {
         public string? Description { get; set; }
 
-        public Guid Id { get; set; }
+        public required Guid Id { get; set; }
 
-        public Guid ManufacturerId { get; set; }
+        public required Guid ManufacturerId { get; set; }
 
-        public decimal MarketValue { get; set; }
+        public required decimal MarketValue { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
-        public decimal PricePerDay { get; set; }
+        public required decimal PricePerDay { get; set; }
 
-        public string SerialNumber { get; set; } = null!;
+        public required string SerialNumber { get; set; }
 
-        public int TypeId { get; set; }
+        public required int TypeId { get; set; }
     }
 }

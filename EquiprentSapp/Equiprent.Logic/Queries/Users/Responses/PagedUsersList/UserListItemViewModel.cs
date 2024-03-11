@@ -5,18 +5,18 @@ namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
     public class UserListItemViewModel
     {
         [SortColumn]
-        public string FirstName { get; set; } = null!;
+        public required string FirstName { get; set; }
 
-        public Guid Id { get; set; }
+        public required Guid Id { get; set; }
 
-        public bool IsActive { get; set; }
+        public required bool IsActive { get; set; }
 
-        public string LastName { get; set; } = null!;
+        public required string LastName { get; set; }
 
-        public string Login { get; set; } = null!;
+        public required string Login { get; set; }
 
-        public int UserRoleId { get; set; }
+        public required int UserRoleId { get; set; }
 
-        public string UserRoleName { get; set; } = null!;
+        public required string UserRoleName { get; set; }
     }
 }

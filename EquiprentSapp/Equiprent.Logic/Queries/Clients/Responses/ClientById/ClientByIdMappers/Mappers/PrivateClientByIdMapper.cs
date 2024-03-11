@@ -16,13 +16,16 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
             _client = client;
         }
 
-        public override async Task MapToResponseAsync(ClientByIdResponse response, CancellationToken cancellationToken = default)
+        public override async Task<ClientByIdResponse> MapToResponseAsync(CancellationToken cancellationToken = default)
         {
-            response.Id = _client.Id;
-            response.FirstName = _client.FirstName;
-            response.LastName = _client.LastName;
-            response.Name = _client.Name!;
-            response.TypeId = _client.ClientTypeId;
+            var response = new ClientByIdResponse
+            {
+                Id = _client.Id,
+                FirstName = _client.FirstName,
+                LastName = _client.LastName,
+                Name = _client.Name!,
+                TypeId = _client.ClientTypeId,
+            };
 
             var clientAddress = await _dbContext.PrivateClientAddresses
                 .Include(clientAddress => clientAddress.Address)
@@ -31,7 +34,7 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
                 .SingleOrDefaultAsync(cancellationToken);
 
             if (clientAddress is null)
-                return;
+                return response;
 
             response.Addresses.Add(new ClientAddressModel
             {
@@ -50,6 +53,8 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById.ClientByIdMappers
                 StreetName = clientAddress.Address.StreetName,
                 StreetNumber = clientAddress.Address.StreetNumber,
             });
+
+            return response;
         }
     }
 }

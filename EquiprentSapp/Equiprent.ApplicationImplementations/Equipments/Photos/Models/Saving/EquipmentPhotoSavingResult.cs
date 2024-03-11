@@ -7,7 +7,7 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Saving
 {
     public record EquipmentPhotoSavingResult : EquipmentPhotoResultBase, IEquipmentPhotoSavingResult
     {
-        public string FilePath { get => Path.Combine(DefaultPath, FileNameWithExtension); }
+        public string FilePath => Path.Combine(DefaultPath, FileNameWithExtension);
 
         public string RelativePath { get; set; }
 

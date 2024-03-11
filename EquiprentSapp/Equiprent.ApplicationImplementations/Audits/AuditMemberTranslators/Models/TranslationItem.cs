@@ -2,7 +2,7 @@
 {
     internal sealed class TranslationItem
     {
-        public string DbName { get; set; } = null!;
-        public string Translation { get; set; } = null!;
+        public required string DbName { get; set; }
+        public required string Translation { get; set; }
     }
 }

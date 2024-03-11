@@ -6,18 +6,15 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Loading
 {
     public record FileArchiveLoadingResult : FileResultBase, IFileArchiveLoadingResult
     {
-        public string FileName { get; }
+        public string FileName { get; init; }
 
-        public string? FilePath
-        {
-            get => Status == FileArchiveLoadingResultEnum.Success ? Path.Combine(UnZipPath, FileName) : null;
-        }
+        public string? FilePath => Status == FileArchiveLoadingResultEnum.Success ? Path.Combine(UnZipPath, FileName) : null;
 
         public FileArchiveLoadingResultEnum Status { get; set; } = FileArchiveLoadingResultEnum.Unknown;
 
-        public string UnZipPath { get; }
+        public string UnZipPath { get; init; }
 
-        public string ZipPath { get; }
+        public string ZipPath { get; init; }
 
         public FileArchiveLoadingResult(
             IConfiguration configuration,

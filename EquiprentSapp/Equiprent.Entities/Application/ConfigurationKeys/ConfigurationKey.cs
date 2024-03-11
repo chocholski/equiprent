@@ -2,6 +2,6 @@
 {
     public class ConfigurationKey : DictionaryBase
     {
-        public string Value { get; set; } = null!;
+        public required string Value { get; set; }
     }
 }

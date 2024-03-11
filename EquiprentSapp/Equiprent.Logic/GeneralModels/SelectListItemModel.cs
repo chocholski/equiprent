@@ -7,8 +7,8 @@ namespace Equiprent.Logic.GeneralModels
         public bool IsSelected { get; set; }
 
         [SortColumn]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
-        public string Value { get; set; } = null!;
+        public required string Value { get; set; }
     }
 }

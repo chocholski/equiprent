@@ -4,8 +4,8 @@ namespace Equiprent.ApplicationImplementations.Languageables.Models
 {
     public record LanguageableItem : ILanguageableItem
     {
-        public string Id { get; }
-        public string Name { get; }
+        public string Id { get; init; }
+        public string Name { get; init; }
 
         public LanguageableItem(string id, string name)
         {

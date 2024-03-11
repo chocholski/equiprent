@@ -24,15 +24,12 @@ namespace Equiprent.Logic.Queries.Clients.Handlers.ClientById
             if (client is null)
                 return null;
 
-            var result = new ClientByIdResponse();
             var clientByIdMapper = new ClientByIdMapperFactory(_dbContext).CreateMapperFor(client);
 
             if (clientByIdMapper is null)
                 return null;
 
-            await clientByIdMapper.MapToResponseAsync(result, cancellationToken);
-
-            return result;
+            return await clientByIdMapper.MapToResponseAsync(cancellationToken);
         }
     }
 }

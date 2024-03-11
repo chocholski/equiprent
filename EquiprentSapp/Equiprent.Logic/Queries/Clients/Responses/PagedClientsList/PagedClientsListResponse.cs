@@ -16,12 +16,10 @@ namespace Equiprent.Logic.Queries.Clients.Responses.PagedClientsList
 
         protected override async Task<ClientListItemViewModel> MapEntityToViewModelAsync(Client entity, CancellationToken cancellationToken = default)
         {
-            var result = new ClientListItemViewModel();
             var clientListItemMapper = ClientListItemMapperFactory.CreateMapperFor(entity);
+            var response = clientListItemMapper?.MapToModel();
 
-            clientListItemMapper?.MapToModel(result);
-
-            return await Task.FromResult(result);
+            return await Task.FromResult(response ?? new ClientListItemViewModel { Id = default, TypeId = default, TypeName = string.Empty });
         }
     }
 }

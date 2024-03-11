@@ -2,6 +2,6 @@
 {
     public class ManufacturerAddressModel : AddressModel
     {
-        public string NationalId { get; set; } = null!;
+        public required string NationalId { get; set; }
     }
 }

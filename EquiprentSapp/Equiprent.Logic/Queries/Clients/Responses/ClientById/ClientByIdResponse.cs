@@ -1,4 +1,5 @@
 ﻿using Equiprent.Logic.GeneralModels;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Equiprent.Logic.Queries.Clients.Responses.ClientById
 {
@@ -6,9 +7,9 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientById
     {
         public List<ClientAddressModel> Addresses { get; set; } = new();
         public string? FirstName { get; set; }
-        public Guid Id { get; set; }
+        public required Guid Id { get; set; }
         public string? LastName { get; set; }
-        public string Name { get; set; } = null!;
-        public int TypeId { get; set; }
+        public required string Name { get; set; } = null!;
+        public required int TypeId { get; set; }
     }
 }

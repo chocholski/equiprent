@@ -4,10 +4,10 @@ namespace Equiprent.Logic.Queries.Clients.Responses.ClientRepresentativeById
 {
     public class ClientRepresentativeByIdResponse
     {
-        public AddressModel Address { get; set; } = null!;
-        public Guid ClientId { get; set; }
-        public string FirstName { get; set; } = null!;
-        public Guid Id { get; set; }
-        public string LastName { get; set; } = null!;
+        public required AddressModel Address { get; set; }
+        public required Guid ClientId { get; set; }
+        public required string FirstName { get; set; }
+        public required Guid Id { get; set; }
+        public required string LastName { get; set; }
     }
 }

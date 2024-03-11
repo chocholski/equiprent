@@ -1,11 +1,13 @@
 ﻿using Equiprent.ApplicationInterfaces.Audits.Entries;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Equiprent.ApplicationImplementations.Audits.Entries
 {
-    public record AuditEntry : AuditEntryBase
+    public class AuditEntry : AuditEntryBase
     {
-        public AuditEntry(EntityEntry original, Guid? currentUserId) : base(original, currentUserId)
+        [SetsRequiredMembers]
+        public AuditEntry(EntityEntry original, string tableName, Guid? currentUserId) : base(original, tableName, currentUserId)
         {
         }
     }

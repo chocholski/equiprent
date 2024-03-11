@@ -4,7 +4,7 @@
     {
         public bool RequireHttpsMetadata { get; set; } = false;
         public bool SaveToken { get; set; } = true;
-        public TokenValidationParametersOptions TokenValidationParameters { get; set; } = null!;
+        public TokenValidationParametersOptions? TokenValidationParameters { get; set; }
         public TimeSpan TokenLifetime { get; set; }
     }
 }

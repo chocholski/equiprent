@@ -1,4 +1,5 @@
 ﻿using Equiprent.Entities.Application.Addresses;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Equiprent.Entities.Business.Manufacturers.Addresses
 {
@@ -7,6 +8,7 @@ namespace Equiprent.Entities.Business.Manufacturers.Addresses
     {
         public ManufacturerAddress() { }
 
+        [SetsRequiredMembers]
         public ManufacturerAddress(Address address, string nationalId)
         {
             ApartmentNumber = address.ApartmentNumber;
@@ -20,6 +22,6 @@ namespace Equiprent.Entities.Business.Manufacturers.Addresses
             StreetNumber = address.StreetNumber;
         }
 
-        public string NationalCompanyId { get; set; } = null!;
+        public required string NationalCompanyId { get; set; } = null!;
     }
 }

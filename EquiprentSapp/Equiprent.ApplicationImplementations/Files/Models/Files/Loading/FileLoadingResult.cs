@@ -9,7 +9,7 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Files.Loading
     {
         public byte[]? File { get; set; }
 
-        public string FilePath { get; }
+        public string FilePath { get; init; }
 
         public FileLoadingResultEnum Status
         {

@@ -3,6 +3,6 @@
     public partial class UserPermission : DictionaryBase
     {
         [MaxLength(50)]
-        public string SystemName { get; set; } = null!;
+        public required string SystemName { get; set; }
     }
 }

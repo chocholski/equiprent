@@ -11,25 +11,19 @@ namespace Equiprent.ApplicationInterfaces.Equipments.Photos.Models
             get => Path.Combine(_mainFolderPath, IEquipmentPhotoService.EquipmentPhotosFolderPath);
         }
 
-        public string FileNameWithExtension { get; }
+        public string FileNameWithExtension { get; init; }
 
-        public string FileNameWithoutExtension { get; }
+        public string FileNameWithoutExtension { get; init; }
 
-        protected Guid IdSeed { get; } = Guid.NewGuid();
+        protected Guid IdSeed { get; init; } = Guid.NewGuid();
 
-        public string NormalizedFileNameWithoutExtension { get; }
+        public string NormalizedFileNameWithoutExtension { get; init; }
 
-        public string[] SplitPath { get; }
+        public string[] SplitPath { get; init; }
 
-        public string UnZipPath
-        {
-            get => Path.Combine(DefaultPath, $"TEMP{NormalizedFileNameWithoutExtension}");
-        }
+        public string UnZipPath => Path.Combine(DefaultPath, $"TEMP{NormalizedFileNameWithoutExtension}");
 
-        public string ZipPath
-        {
-            get => Path.Combine(DefaultPath, string.IsNullOrEmpty(SplitPath[0]) ? SplitPath[1] : SplitPath[0]);
-        }
+        public string ZipPath => Path.Combine(DefaultPath, string.IsNullOrEmpty(SplitPath[0]) ? SplitPath[1] : SplitPath[0]);
 
         private readonly string _mainFolderPath;
 

@@ -2,16 +2,16 @@
 {
     public class ManufacturerDto
     {
-        public string AddressSummary { get; set; } = null!;
+        public required string AddressSummary { get; set; }
 
-        public Guid Id { get; set; }
+        public required Guid Id { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public required bool IsDeleted { get; set; }
 
-        public bool IsOperational { get; set; }
+        public required bool IsOperational { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; } = null!;
 
-        public string NationalId { get; set; } = null!;
+        public required string NationalId { get; set; } = null!;
     }
 }

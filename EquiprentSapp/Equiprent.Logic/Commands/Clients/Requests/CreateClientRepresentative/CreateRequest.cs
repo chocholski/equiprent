@@ -6,9 +6,9 @@ namespace Equiprent.Logic.Commands.Clients.Requests.CreateClientRepresentative
 {
     public partial class CreateRequest : IRequest<CommandResult?>
     {
-        public AddressModel Address { get; set; } = null!;
+        public required AddressModel Address { get; set; }
         public Guid? ClientId { get; set; }
-        public string FirstName { get; set; } = null!;
-        public string LastName { get; set; } = null!;
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
     }
 }

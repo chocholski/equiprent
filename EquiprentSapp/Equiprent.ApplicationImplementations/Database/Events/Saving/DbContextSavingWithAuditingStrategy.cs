@@ -61,10 +61,10 @@ namespace Equiprent.ApplicationImplementations.Database.Events.Saving
 
         private void LoadEntryIntoAudits(DbContext dbContext, EntityEntry entry)
         {
-            var auditEntry = new AuditEntry(entry, _currentUserId)
-            {
-                TableName = entry.Metadata.GetTableName() ?? string.Empty
-            };
+            var auditEntry = new AuditEntry(
+                entry,
+                tableName: entry.Metadata.GetTableName() ?? string.Empty,
+                _currentUserId);
 
             if (!string.IsNullOrEmpty(auditEntry.TableName))
                 _auditEntries.Add(auditEntry);

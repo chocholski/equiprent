@@ -22,6 +22,7 @@ namespace Equiprent.Logic.Queries.Manufacturers.Responses.PagedManufacturersList
                 },
                 Email = entity.Address.Email,
                 Id = entity.Address.Id,
+                NationalId = entity.Address.NationalCompanyId,
                 PhoneNumber = entity.Address.PhoneNumber,
                 PostalCode = entity.Address.PostalCode,
                 StreetName = entity.Address.StreetName,

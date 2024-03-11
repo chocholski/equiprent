@@ -6,6 +6,6 @@
         public Guid Id { get; set; }
 
         [MaxLength(3)]
-        public string Code { get; set; } = null!;
+        public required string Code { get; set; }
     }
 }

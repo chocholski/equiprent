@@ -6,10 +6,10 @@ namespace Equiprent.Logic.Commands.Clients.Requests.SaveClientRepresentative
 {
     public class SaveRequest : IRequest<CommandResult?>
     {
-        public AddressModel Address { get; set; } = null!;
+        public required AddressModel Address { get; set; }
         public Guid ClientId { get; set; }
-        public string FirstName { get; set; } = null!;
+        public required string FirstName { get; set; }
         public Guid Id { get; set; }
-        public string LastName { get; set; } = null!;
+        public required string LastName { get; set; }
     }
 }

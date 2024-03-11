@@ -2,7 +2,7 @@
 {
     public record PermissionGroupItemModel
     {
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
         public List<PermissionItemModel> Permissions { get; set; } = new();
     }
 }

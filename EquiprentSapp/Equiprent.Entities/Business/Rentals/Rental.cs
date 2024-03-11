@@ -13,7 +13,7 @@ namespace Equiprent.Entities.Business.Rentals
         [Key]
         public Guid Id { get; set; }
 
-        public string Number { get; set; } = null!;
+        public required string Number { get; set; }
 
         [ForeignKey(nameof(Renter))]
         public Guid RenterId { get; set; }

@@ -5,14 +5,14 @@ namespace Equiprent.Logic.GeneralModels
     public class AddressModel
     {
         public string? ApartmentNumber { get; set; }
-        public string City { get; set; } = null!;
+        public required string City { get; set; }
         public CountryModel Country { get; set; } = new();
         public string? Email { get; set; }
         public int Id { get; set; }
         public string? PhoneNumber { get; set; }
-        public string PostalCode { get; set; } = null!;
-        public string StreetName { get; set; } = null!;
-        public string StreetNumber { get; set; } = null!;
+        public required string PostalCode { get; set; }
+        public required string StreetName { get; set; }
+        public required string StreetNumber { get; set; }
 
         public static Address CreateAddressFromModel(AddressModel model)
         {

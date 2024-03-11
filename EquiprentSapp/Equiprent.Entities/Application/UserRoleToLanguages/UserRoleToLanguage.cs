@@ -8,7 +8,7 @@ namespace Equiprent.Entities.Application.UserRoleToLanguages
         public int Id { get; set; }
 
         [MaxLength(50)]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         [ForeignKey(nameof(UserRole))]
         [TranslatedEntity(nameof(UserRole))]

@@ -8,7 +8,7 @@ namespace Equiprent.Entities.Business.ClientTypeToLanguages
         public int Id { get; set; }
 
         [MaxLength(50)]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         [ForeignKey(nameof(ClientType))]
         [TranslatedEntity(nameof(ClientType))]

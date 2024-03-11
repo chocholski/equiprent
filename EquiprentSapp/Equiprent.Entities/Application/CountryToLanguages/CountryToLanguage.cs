@@ -7,7 +7,7 @@ namespace Equiprent.Entities.Business.CountryToLanguages
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         [ForeignKey(nameof(Country))]
         [TranslatedEntity(nameof(Country))]

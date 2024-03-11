@@ -138,7 +138,7 @@ namespace Equiprent.ApplicationImplementations.Identities
                 return GetAuthenticationResult(code: (int)CommandResult.Token_NotActive);
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.TokenValidationParameters.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.TokenValidationParameters!.Key!));
             var tokenLifetime = _jwtOptions.TokenLifetime;
             var now = DateTime.UtcNow;
             var userRoleTranslations = await _languageableService

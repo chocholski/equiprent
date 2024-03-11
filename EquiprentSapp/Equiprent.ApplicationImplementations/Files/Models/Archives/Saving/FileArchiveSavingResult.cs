@@ -7,18 +7,15 @@ namespace Equiprent.ApplicationImplementations.Files.Models.Archives.Saving
 {
     public record FileArchiveSavingResult : FileResultBase, IFileArchiveSavingResult
     {
-        public string FileName { get; }
+        public string FileName { get; init; }
 
-        public string FilePath { get; }
+        public string FilePath { get; init; }
 
-        public string? RelativePath
-        {
-            get => Status == FileArchiveSavingResultEnum.Success ? Path.Combine(ZipPath, FileName) : null;
-        }
+        public string? RelativePath => Status == FileArchiveSavingResultEnum.Success ? Path.Combine(ZipPath, FileName) : null;
 
         public FileArchiveSavingResultEnum Status { get; set; }
 
-        public string ZipPath { get; }
+        public string ZipPath { get; init; }
 
         public FileArchiveSavingResult(
             IConfiguration configuration,

@@ -2,6 +2,6 @@
 {
     internal abstract class ClientListItemMapper
     {
-        public abstract void MapToModel(ClientListItemViewModel model);
+        public abstract ClientListItemViewModel MapToModel();
     }
 }

@@ -8,10 +8,10 @@ namespace Equiprent.Entities.Application.Users
         public Guid? ChangePasswordToken { get; set; }
 
         [MaxLength(100)]
-        public string? Email { get; set; } = null!;
+        public string? Email { get; set; }
 
         [MaxLength(200)]
-        public string FirstName { get; set; } = null!;
+        public required string FirstName { get; set; }
 
         [Key]
         public Guid Id { get; set; }
@@ -25,13 +25,13 @@ namespace Equiprent.Entities.Application.Users
         public virtual Language Language { get; set; } = null!;
 
         [MaxLength(50)]
-        public string Login { get; set; } = null!;
+        public required string Login { get; set; }
 
         [MaxLength(100)]
-        public string Password { get; set; } = null!;
+        public required string Password { get; set; }
 
         [MaxLength(200)]
-        public string LastName { get; set; } = null!;
+        public required string LastName { get; set; }
 
         [ForeignKey(nameof(UserRole))]
         public int UserRoleId { get; set; }

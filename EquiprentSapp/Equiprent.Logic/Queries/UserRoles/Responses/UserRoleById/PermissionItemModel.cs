@@ -2,10 +2,10 @@
 {
     public record PermissionItemModel
     {
-        public int Id { get; set; }
-        public bool IsSelected { get; set; }
+        public required int Id { get; set; }
+        public required bool IsSelected { get; set; }
         public List<int> LinkedPermissionsIds { get; set; } = new();
-        public string Name { get; set; } = null!;
-        public string SystemName { get; set; } = null!;
+        public required string Name { get; set; }
+        public required string SystemName { get; set; }
     }
 }

@@ -16,11 +16,11 @@ namespace Equiprent.Entities.Business.Equipment
 
         public decimal MarketValue { get; set; }
 
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
 
         public decimal PricePerDay { get; set; }
 
-        public string SerialNumber { get; set; } = null!;
+        public required string SerialNumber { get; set; }
 
         [ForeignKey(nameof(Type))]
         public int TypeId { get; set; }

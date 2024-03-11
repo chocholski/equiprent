@@ -3,12 +3,12 @@
     public class Language
     {
         [MaxLength(10)]
-        public string Code { get; set; } = null!;
+        public required string Code { get; set; }
 
         [Key]
         public int Id { get; set; }
 
         [MaxLength(100)]
-        public string Name { get; set; } = null!;
+        public required string Name { get; set; }
     }
 }

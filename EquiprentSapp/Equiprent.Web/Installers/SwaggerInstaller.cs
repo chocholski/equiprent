@@ -13,10 +13,10 @@ namespace Equiprent.Web.Installers
 
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc(name: swaggerOptions.Name, new OpenApiInfo { Title = $"{Program.AppName} Api", Version = swaggerOptions.OpenApiInfo.Version });
-                options.AddSecurityDefinition(name: swaggerOptions.SecurityDefinition.Name, new OpenApiSecurityScheme
+                options.SwaggerDoc(name: swaggerOptions.Name, new OpenApiInfo { Title = $"{Program.AppName} Api", Version = swaggerOptions.OpenApiInfo!.Version });
+                options.AddSecurityDefinition(name: swaggerOptions.SecurityDefinition!.Name!, new OpenApiSecurityScheme
                 {
-                    Name = swaggerOptions.SecurityDefinition.OpenApiSecurityScheme.Name,
+                    Name = swaggerOptions.SecurityDefinition.OpenApiSecurityScheme!.Name!,
                     Type = Enum.TryParse(swaggerOptions.SecurityDefinition.OpenApiSecurityScheme.Type, out SecuritySchemeType securitySchemeType)
                         ? securitySchemeType
                         : SecuritySchemeType.ApiKey,

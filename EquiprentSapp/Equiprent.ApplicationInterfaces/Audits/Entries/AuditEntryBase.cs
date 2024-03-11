@@ -1,24 +1,27 @@
 ﻿using Equiprent.Entities.Application.Audits;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Equiprent.ApplicationInterfaces.Audits.Entries
 {
-    public record AuditEntryBase
+    public class AuditEntryBase
     {
-        public EntityEntry Entry { get; }
-        public string TableName { get; set; } = null!;
-        public string KeyValue { get; private set; } = null!;
-        public Dictionary<string, object?> OldValues { get; } = new();
-        public Dictionary<string, object?> NewValues { get; } = new();
-        public List<PropertyEntry> TemporaryProperties { get; } = new();
+        public required EntityEntry Entry { get; init; }
+        public required string TableName { get; init; }
+        public string? KeyValue { get; private set; }
+        public Dictionary<string, object?> OldValues { get; init; } = new();
+        public Dictionary<string, object?> NewValues { get; init; } = new();
+        public List<PropertyEntry> TemporaryProperties { get; init; } = new();
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 
         protected readonly Guid? _currentUserId;
 
-        public AuditEntryBase(EntityEntry entry, Guid? currentUserId)
+        [SetsRequiredMembers]
+        public AuditEntryBase(EntityEntry entry, string tableName, Guid? currentUserId)
         {
             Entry = entry;
+            TableName = tableName;
             _currentUserId = currentUserId;
         }
 
@@ -58,9 +61,12 @@ namespace Equiprent.ApplicationInterfaces.Audits.Entries
 
             foreach (var newKeyValuePair in NewValues)
             {
+                if (KeyValue is null)
+                    continue;
+
                 var audit = new Audit
                 {
-                    TableName = TableName,
+                    TableName = TableName!,
                     CreatedOn = DateTime.Now,
                     KeyValue = KeyValue,
                     FieldName = newKeyValuePair.Key,

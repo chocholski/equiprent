@@ -25,7 +25,7 @@ namespace Equiprent.ApplicationInterfaces.Files.Models
                     filePathWithoutMainFolder.StartsWith("/")
                 ))
             {
-                return filePathWithoutMainFolder.Remove(0, 1);
+                return filePathWithoutMainFolder.Remove(startIndex: 0, count: 1);
             }
 
             return filePathWithoutMainFolder;

@@ -12,16 +12,13 @@ namespace Equiprent.ApplicationImplementations.Equipments.Photos.Models.Loading
 {
     public record EquipmentPhotoLoadingResult : EquipmentPhotoResultBase, IEquipmentPhotoLoadingResult
     {
-        public byte[]? File
-        {
-            get => FileLoadingResult?.File;
-        }
+        public byte[]? File => FileLoadingResult?.File;
 
         public IFileArchiveLoadingResult? FileArchiveLoadingResult { get; set; }
         
         public IFileLoadingResult? FileLoadingResult { get; set; }
 
-        public string FilePath { get; }
+        public string FilePath { get; init; }
 
         public EquipmentPhotoLoadingResultEnum Status
         {

@@ -2,16 +2,16 @@
 {
     public partial class Audit
     {
-        public string FieldName { get; set; } = null!;
+        public required string FieldName { get; set; }
 
         public Guid Id { get; set; }
 
-        public string KeyValue { get; set; } = null!;
+        public required string KeyValue { get; set; }
 
         public string? NewValue { get; set; }
 
         public string? OldValue { get; set; }
 
-        public string TableName { get; set; } = null!;
+        public required string TableName { get; set; }
     }
 }
