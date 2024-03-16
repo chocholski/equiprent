@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
-import { AccessControlFormComponent } from "./access-control-form";
+import { AccessControlForm } from "./access-control-form";
 import { ConfirmationService } from "primeng/api";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
@@ -10,10 +10,10 @@ import { ErrorService } from "src/app/services/errors/error.service";
 import { HttpClient } from "@angular/common/http";
 import { TranslateService } from "@ngx-translate/core";
 import { DialogConfigData } from "../dialogs/dialog-config-data";
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 
 export abstract class AccessControlOpenableAsDialogForm<T extends DialogConfigData, U>
-  extends AccessControlFormComponent<U> {
+  extends AccessControlForm<U> {
 
   protected readonly _dialogConfigData: T | undefined;
   protected override readonly entityId: string | number;

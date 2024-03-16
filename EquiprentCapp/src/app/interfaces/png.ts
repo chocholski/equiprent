@@ -1,5 +1,5 @@
 import { SelectItem } from "primeng/api";
-import { FilterTypeEnum } from "../enums/filter-type-enum";
+import { FilterTypeEnum } from "../enums/filter-type.enum";
 
 export class PngTable {
   cols: PngTableColumn[] = [];

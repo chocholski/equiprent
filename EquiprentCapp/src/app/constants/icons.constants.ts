@@ -1,0 +1,9 @@
+export const LIST_ICON_NAME = 'pi pi-list'
+export const MODIFY_ICON_NAME = 'pi pi-pencil';
+
+export const ICONS: { [key: string]: string } = {
+  'Permissions.Clients': 'fa fa-solid fa-face-smile',
+  'Permissions.ClientRepresentatives': 'fa fa-solid fa-circle-user',
+  'Permissions.UserRoles': 'pi pi-users',
+  'Permissions.Users': 'pi pi-user'
+}

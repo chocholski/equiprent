@@ -1,5 +1,5 @@
-import { MessageLifeTimeEnum } from "../enums/message-lifetime-enum";
-import { MessageTypeEnum } from "../enums/message-type-enum";
+import { MessageLifeTimeEnum } from "../enums/message-lifetime.enum";
+import { MessageTypeEnum } from "../enums/message-type.enum";
 
 export const MessageTypes = {
   error: <MessageType>{

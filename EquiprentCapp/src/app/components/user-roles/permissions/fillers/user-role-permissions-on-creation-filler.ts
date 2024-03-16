@@ -1,7 +1,7 @@
 import { PermissionGroupItemModel, PermissionItemModel, UserPermissionNodeData } from "src/app/interfaces/user-permission";
 import { UserRolePermissionsDestinations } from "src/app/interfaces/user-role";
 import { UserRolePermissionsFiller } from "./user-role-permissions-filler";
-import { Icons } from "src/app/icon-mapper";
+import { ICONS } from "src/app/constants/icons.constants";
 import { UserPermissionNode } from "../models/user-permission-node";
 
 export class UserRolePermissionsOnCreationFiller extends UserRolePermissionsFiller {
@@ -30,7 +30,7 @@ export class UserRolePermissionsOnCreationFiller extends UserRolePermissionsFill
 
     result.children = children;
     result.data = <UserPermissionNodeData>{
-      icon: Icons[permissionsGroup.Name],
+      icon: ICONS[permissionsGroup.Name],
       id: null,
       name: permissionsGroup.Name,
       linkedPermissionIds: [],

@@ -5,8 +5,8 @@ import { LayoutService } from "./services/app.layout.service";
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppTopBarComponent } from './app.topbar.component';
 import { AuthenticationService } from '../services/authentication/authentication.service';
-import { Routes } from '../routes';
-import { MenuService } from '../services/layout/menu.service';
+import { ROUTES } from '../constants/routes.constants';
+import { MenuService } from './services/menu.service';
 
 @Component({
     selector: 'app-layout',
@@ -31,7 +31,7 @@ export class AppLayoutComponent implements OnDestroy {
     ) {
         this.isUserLoggedIn = this.authenticationService.isLoggedIn();
         if (!this.isUserLoggedIn) {
-            this.router.navigate([Routes.login.navigations.default]);
+            this.router.navigate([ROUTES.login.navigations.default]);
         }
         else {
             this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {

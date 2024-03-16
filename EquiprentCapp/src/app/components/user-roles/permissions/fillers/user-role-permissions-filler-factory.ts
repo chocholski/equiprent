@@ -1,4 +1,4 @@
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 import { PermissionGroupItemModel } from "src/app/interfaces/user-permission";
 import { UserRolePermissionsDestinations } from "src/app/interfaces/user-role";
 import { UserRolePermissionsOnCreationFiller } from "./user-role-permissions-on-creation-filler";

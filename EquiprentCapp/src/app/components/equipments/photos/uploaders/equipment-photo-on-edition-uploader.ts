@@ -3,7 +3,7 @@ import { EquipmentPhotoUploader } from "./equipment-photo-uploader";
 import { FileService } from "src/app/services/files/file.service";
 import { ImageService } from "src/app/services/images/image.service";
 import { HttpClient } from "@angular/common/http";
-import { ApiRoutes } from "src/app/api-routes";
+import { API_ROUTES } from "src/app/constants/api-routes.constants";
 import { lastValueFrom } from "rxjs";
 
 export class EquipmentPhotoOnEditionUploader extends EquipmentPhotoUploader {
@@ -50,7 +50,7 @@ export class EquipmentPhotoOnEditionUploader extends EquipmentPhotoUploader {
     };
 
     const result = await lastValueFrom(this.httpClient
-      .post<EquipmentPhotosUploadResponse>(ApiRoutes.equipment.file.photo.upload.multiple, request));
+      .post<EquipmentPhotosUploadResponse>(API_ROUTES.equipment.file.photo.upload.multiple, request));
 
     for (const uploadedPhoto of result.UploadedPhotos) {
       const photo = photos.find(p => p.FileName === uploadedPhoto.FileName && !p.Id);

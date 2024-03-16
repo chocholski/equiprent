@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { LazyLoadEvent, SelectItem } from "primeng/api";
 import { Observable, catchError, map } from "rxjs";
 import { SelectOption } from "../../interfaces/ui-models";
-import { ApiRoutes } from "../../api-routes";
+import { API_ROUTES } from "../../constants/api-routes.constants";
 import { PngTableColumn } from "../../interfaces/png";
 
 @Injectable()
@@ -16,35 +16,35 @@ export class SelectOptionsService {
   }
 
   getClientTypes(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.clientTypes);
+    return this.getOptions(API_ROUTES.selectOptions.clientTypes);
   }
 
   getCountries(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.countries);
+    return this.getOptions(API_ROUTES.selectOptions.countries);
   }
 
   getFieldNamesForObjectHistory(event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
+    return this.getOptions(API_ROUTES.selectOptions.audits(event, columns, entityId, entityTableName), true);
   }
 
   getEquipmentTypes(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.equipmentTypes);
+    return this.getOptions(API_ROUTES.selectOptions.equipmentTypes);
   }
 
   getLanguages(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.languages);
+    return this.getOptions(API_ROUTES.selectOptions.languages);
   }
 
   getManufacturers(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.manufacturers);
+    return this.getOptions(API_ROUTES.selectOptions.manufacturers);
   }
 
   getUserRoles(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.userRoles);
+    return this.getOptions(API_ROUTES.selectOptions.userRoles);
   }
 
   getYesNoOptions(): Observable<SelectItem[]> {
-    return this.getOptions(ApiRoutes.selectOptions.yesNoOptions, true);
+    return this.getOptions(API_ROUTES.selectOptions.yesNoOptions, true);
   }
 
   private getOptions(url: string, insertAllOption: boolean = false): Observable<SelectItem[]> {

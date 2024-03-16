@@ -1,4 +1,4 @@
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 import { PostAction } from "./post-action";
 import { PutAction } from "./put-action";
 import { FormSubmitionAction } from "./form-submition-action";

@@ -1,16 +1,16 @@
 import { Router } from "@angular/router";
 import { DynamicDialogConfig, DynamicDialogRef } from "primeng/dynamicdialog";
 import { FormBuilder } from "@angular/forms";
-import { FormComponent } from "./form";
+import { Form } from "./form";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 import { HttpClient } from "@angular/common/http";
 import { TranslateService } from "@ngx-translate/core";
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 
 export abstract class OpenableAsDialogForm<T, U>
-  extends FormComponent<U> {
+  extends Form<U> {
 
   protected readonly _dialogConfigData: T | undefined;
   protected readonly onAfterDeletionSuccessNavigateUsingLinkHandler: (...args: any[]) => void = this.onAfterDeletionSuccessNavigateUsingLink;

@@ -10,17 +10,6 @@ export interface Address {
   StreetNumber: string
 }
 
-export const addressFormFields = {
-  ApartmentNumber: 'ApartmentNumber',
-  City: 'City',
-  Country: 'CountryId',
-  Email: 'Email',
-  PhoneNumber: 'PhoneNumber',
-  PostalCode: 'PostalCode',
-  StreetName: 'StreetName',
-  StreetNumber: 'StreetNumber'
-}
-
 export interface ClientAddress extends Address {
   NationalId: string
 }

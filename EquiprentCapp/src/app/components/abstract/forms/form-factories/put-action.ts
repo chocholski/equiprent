@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { FormSubmitionAction } from "./form-submition-action";
-import { FormComponent } from "../form";
+import { Form } from "../form";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { HttpClient } from "@angular/common/http";
 
@@ -15,7 +15,7 @@ export class PutAction<T>
     return this.consoleMessageService.getConsoleMessageWithResultForEntityAfterUpdate(entity, result);
   }
 
-  execute(formComponent: FormComponent<T>): Observable<string> {
+  execute(formComponent: Form<T>): Observable<string> {
     const entity = formComponent.beforeSubmitionCustomOperationsHandler();
     return this.httpClient.put<string>(formComponent.submitionLink, entity);
   }

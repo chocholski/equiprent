@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { LayoutService } from "./services/app.layout.service";
-import { ApiRoutes } from '../api-routes';
+import { API_ROUTES } from '../constants/api-routes.constants';
 import { AuthorizationService } from '../services/authorization/authorization.service';
 import { UserChangeThemeModel } from '../interfaces/user';
-import { ApiResultEnum } from '../enums/api-result-enum';
+import { ApiResultEnum } from '../enums/api-result.enum';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -27,7 +27,7 @@ export class AppFooterComponent {
         }
 
         this.httpClient
-            .get<boolean>(ApiRoutes.user.getTheme(AuthorizationService.currentUserId!))
+            .get<boolean>(API_ROUTES.user.getTheme(AuthorizationService.currentUserId!))
             .subscribe({
                 next: result => {
                     this.isDarkModeThemeSelected = result;
@@ -44,7 +44,7 @@ export class AppFooterComponent {
         };
 
         this.httpClient
-            .post<string>(ApiRoutes.user.changeTheme, model)
+            .post<string>(API_ROUTES.user.changeTheme, model)
             .subscribe({
                 next: result => {
                     if (result === ApiResultEnum[ApiResultEnum.OK]) {

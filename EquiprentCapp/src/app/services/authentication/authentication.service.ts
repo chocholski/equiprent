@@ -7,8 +7,8 @@ import { Observable, of } from "rxjs";
 import { map, catchError } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 import { TokenResponse } from '../../interfaces/identity';
-import { ApiRoutes } from '../../api-routes';
-import { ApiResultEnum } from '../../enums/api-result-enum';
+import { API_ROUTES } from '../../constants/api-routes.constants';
+import { ApiResultEnum } from '../../enums/api-result.enum';
 
 @Injectable()
 export class AuthenticationService {
@@ -50,7 +50,7 @@ export class AuthenticationService {
         };
 
         return this.httpClient
-            .post<TokenResponse>(ApiRoutes.identity.authenticate, data)
+            .post<TokenResponse>(API_ROUTES.identity.authenticate, data)
             .pipe(
                 map(res => {
                     const token = res && res.Token;
@@ -94,7 +94,7 @@ export class AuthenticationService {
         };
 
         return this.httpClient
-            .post<TokenResponse>(ApiRoutes.identity.refreshToken, data)
+            .post<TokenResponse>(API_ROUTES.identity.refreshToken, data)
             .pipe(
                 map(res => {
                     this.setAuth(res);

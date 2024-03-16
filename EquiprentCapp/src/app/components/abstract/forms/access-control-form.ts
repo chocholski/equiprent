@@ -1,7 +1,7 @@
 import { AccessControl } from "src/app/tools/access-control";
 import { FormBuilder } from "@angular/forms";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
-import { FormComponent } from "./form";
+import { Form } from "./form";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
@@ -9,11 +9,11 @@ import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Confirmation, ConfirmationService } from "primeng/api";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { ApiResultEnum } from "src/app/enums/api-result.enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 
-export abstract class AccessControlFormComponent<T>
-  extends FormComponent<T> {
+export abstract class AccessControlForm<T>
+  extends Form<T> {
 
   protected abstract override readonly afterSubmitionCustomOperationsHandler?: (...args: any[]) => void;
   protected abstract readonly deletedEntityInstanceIdentificationInitializer: (...args: any[]) => string;

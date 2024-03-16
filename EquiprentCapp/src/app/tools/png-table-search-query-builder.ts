@@ -2,8 +2,8 @@ import { PngTableColumn } from '../interfaces/png';
 import { FilterMatchMode, FilterMetadata, LazyLoadEvent, SelectItem } from 'primeng/api';
 import { StringBuilder } from './stringBuilder';
 import { PrimeNgHelper } from './primeNgHelper';
-import { SearchOperatorEnum } from '../enums/search-operator-enum';
-import { FilterTypeEnum } from '../enums/filter-type-enum';
+import { SearchOperatorEnum } from '../enums/search-operator.enum';
+import { FilterTypeEnum } from '../enums/filter-type.enum';
 
 export class PngTableSearchQueryBuilder {
 

@@ -1,96 +1,6 @@
 "use strict";
 (self["webpackChunkEquiprentCapp"] = self["webpackChunkEquiprentCapp"] || []).push([["main"],{
 
-/***/ 2061:
-/*!*******************************!*\
-  !*** ./src/app/api-routes.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ApiRoutes": () => (/* binding */ ApiRoutes)
-/* harmony export */ });
-/* harmony import */ var _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tools/png-table-search-query-builder */ 3061);
-
-const ApiRoutes = {
-  audit: {
-    getObjectHistory: (event, columns, entityId, entityTableName) => `audit${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
-    getFieldNames: "audit/getFieldNames"
-  },
-  client: {
-    delete: clientId => `client/${clientId}`,
-    getAll: (event, columns) => `client${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
-    getById: clientId => `client/${clientId}`,
-    post: "client",
-    put: "client"
-  },
-  clientRepresentative: {
-    delete: clientRepresentativeId => `client/representative/${clientRepresentativeId}`,
-    getAll: (event, columns, clientId) => `client/representative${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&clientId=${clientId}`,
-    getById: clientRepresentativeId => `client/representative/${clientRepresentativeId}`,
-    post: "client/representative",
-    put: "client/representative"
-  },
-  equipment: {
-    delete: equipmentId => `equipment/${equipmentId}`,
-    getAll: (event, columns) => `equipment${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
-    file: {
-      photo: {
-        download: photoId => `equipment/file/photo/download/${photoId}`
-      }
-    },
-    getById: equipmentId => `equipment/${equipmentId}`,
-    post: "equipment",
-    put: "equipment"
-  },
-  identity: {
-    authenticate: "identity/authenticate",
-    refreshToken: "identity/refreshToken"
-  },
-  manufacturer: {
-    delete: manufacturerId => `manufacturer/${manufacturerId}`,
-    getAll: (event, columns) => `manufacturer${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
-    getById: manufacturerId => `manufacturer/${manufacturerId}`,
-    post: "manufacturer",
-    put: "manufacturer"
-  },
-  selectOptions: {
-    audits: (event, columns, entityId, entityTableName) => `audit/getFieldNames${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
-    clientTypes: "selectoptions/clientTypes",
-    countries: "selectoptions/countries",
-    equipmentTypes: "selectoptions/equipmentTypes",
-    languages: "selectoptions/languages",
-    manufacturers: "selectoptions/manufacturers",
-    userRoles: "selectoptions/userRoles",
-    yesNoOptions: "selectoptions/yesNo"
-  },
-  user: {
-    changeLanguage: "user/changeLanguage",
-    changeRole: "user/changeRole",
-    changeTheme: "user/changeTheme",
-    delete: userId => `user/${userId}`,
-    getAll: (event, columns) => `user${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
-    getById: userId => `user/${userId}`,
-    getLanguage: userId => `user/getLanguage/${userId}`,
-    getProfileById: userId => `user/profile/${userId}`,
-    getTheme: userId => `user/getTheme/${userId}`,
-    post: "user",
-    put: "user",
-    saveProfile: "user/profile"
-  },
-  userRole: {
-    delete: userRoleId => `userRole/${userRoleId}`,
-    getAll: (event, columns) => `userRole${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
-    getById: userRoleId => `userRole/${userRoleId}`,
-    getUserRolePermissionsForCreation: "userRole/getUserRolePermissionsForCreation",
-    post: "userRole",
-    put: "userRole"
-  }
-};
-
-/***/ }),
-
 /***/ 158:
 /*!***************************************!*\
   !*** ./src/app/app-routing.module.ts ***!
@@ -105,27 +15,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _layout_app_layout_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./layout/app.layout.component */ 3725);
-/* harmony import */ var _components_users_user_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/users/user-list */ 4760);
-/* harmony import */ var _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/user-roles/user-role-list */ 4609);
-/* harmony import */ var _components_login_login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/login/login */ 8077);
+/* harmony import */ var _components_users_list_user_list_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/users/list/user-list.component */ 3597);
+/* harmony import */ var _components_user_roles_list_user_role_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/user-roles/list/user-role-list.component */ 3967);
+/* harmony import */ var _components_login_login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/login/login/login.component */ 6662);
 /* harmony import */ var _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/auth-guard/auth-guard.service */ 3226);
-/* harmony import */ var _enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./enums/user-permission-enum */ 8235);
-/* harmony import */ var _components_users_user_details__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/users/user-details */ 8635);
-/* harmony import */ var _components_users_user_create__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/users/user-create */ 9068);
+/* harmony import */ var _enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./enums/user-permission.enum */ 9937);
+/* harmony import */ var _components_users_details_user_details_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/users/details/user-details.component */ 3839);
+/* harmony import */ var _components_users_create_user_create_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/users/create/user-create.component */ 9047);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./routes */ 1311);
-/* harmony import */ var _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/user-roles/user-role-create */ 3746);
-/* harmony import */ var _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/user-roles/user-role-details */ 7424);
-/* harmony import */ var _components_clients_client_list__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/clients/client-list */ 550);
-/* harmony import */ var _components_clients_client_create__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/clients/client-create */ 4354);
-/* harmony import */ var _components_clients_client_details__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/clients/client-details */ 1297);
-/* harmony import */ var _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-list */ 8649);
-/* harmony import */ var _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-create */ 8514);
-/* harmony import */ var _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-details */ 856);
-/* harmony import */ var _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/equipments/equipment-list */ 6625);
-/* harmony import */ var _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/equipments/equipment-create */ 7826);
-/* harmony import */ var _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/equipments/equipment-details */ 9012);
-/* harmony import */ var _components_users_user_profile__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/users/user-profile */ 3466);
+/* harmony import */ var _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./constants/routes.constants */ 398);
+/* harmony import */ var _components_user_roles_create_user_role_create_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/user-roles/create/user-role-create.component */ 5587);
+/* harmony import */ var _components_user_roles_details_user_role_details_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/user-roles/details/user-role-details.component */ 1599);
+/* harmony import */ var _components_clients_list_client_list_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/clients/list/client-list.component */ 5906);
+/* harmony import */ var _components_clients_create_client_create_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/clients/create/client-create.component */ 784);
+/* harmony import */ var _components_clients_details_client_details_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/clients/details/client-details.component */ 358);
+/* harmony import */ var _components_manufacturers_list_manufacturer_list_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/manufacturers/list/manufacturer-list.component */ 6051);
+/* harmony import */ var _components_manufacturers_create_manufacturer_create_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/manufacturers/create/manufacturer-create.component */ 729);
+/* harmony import */ var _components_manufacturers_details_manufacturer_details_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/manufacturers/details/manufacturer-details.component */ 7471);
+/* harmony import */ var _components_equipments_list_equipment_list_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/equipments/list/equipment-list.component */ 9373);
+/* harmony import */ var _components_equipments_create_equipment_create_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/equipments/create/equipment-create.component */ 1615);
+/* harmony import */ var _components_equipments_details_equipment_details_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/equipments/details/equipment-details.component */ 9267);
+/* harmony import */ var _components_users_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/users/profile/user-profile.component */ 4710);
 
 
 
@@ -154,192 +64,192 @@ __webpack_require__.r(__webpack_exports__);
 let AppRoutingModule = class AppRoutingModule {};
 AppRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_21__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_22__.NgModule)({
   imports: [_angular_router__WEBPACK_IMPORTED_MODULE_23__.RouterModule.forRoot([{
-    path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"],
+    path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"],
     component: _layout_app_layout_component__WEBPACK_IMPORTED_MODULE_0__.AppLayoutComponent,
     data: {
-      breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.breadcrumbs["default"]
+      breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.home.breadcrumbs["default"]
     },
     children: [{
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.profile,
-      component: _components_users_user_profile__WEBPACK_IMPORTED_MODULE_20__.UserProfileComponent,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.profile,
+      component: _components_users_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_20__.UserProfileComponent,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.ForAll],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.profile
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.profile
       }
     }, {
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.list,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Clients_CanList],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.list
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.list
       },
       children: [{
         path: '',
-        component: _components_clients_client_list__WEBPACK_IMPORTED_MODULE_11__.ClientListComponent,
+        component: _components_clients_list_client_list_component__WEBPACK_IMPORTED_MODULE_11__.ClientListComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Clients_CanList],
           breadcrumb: null
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.create,
-        component: _components_clients_client_create__WEBPACK_IMPORTED_MODULE_12__.ClientCreationComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.create,
+        component: _components_clients_create_client_create_component__WEBPACK_IMPORTED_MODULE_12__.ClientCreationComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Clients_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.creation
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.creation
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.edit,
-        component: _components_clients_client_details__WEBPACK_IMPORTED_MODULE_13__.ClientDetailsComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.paths.edit,
+        component: _components_clients_details_client_details_component__WEBPACK_IMPORTED_MODULE_13__.ClientDetailsComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Clients_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.edition
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.clients.breadcrumbs.edition
         }
       }]
     }, {
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.list,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanList],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.list
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.list
       },
       children: [{
         path: '',
-        component: _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_17__.EquipmentListComponent,
+        component: _components_equipments_list_equipment_list_component__WEBPACK_IMPORTED_MODULE_17__.EquipmentListComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanList],
           breadcrumb: null
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.create,
-        component: _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_18__.EquipmentCreationComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.create,
+        component: _components_equipments_create_equipment_create_component__WEBPACK_IMPORTED_MODULE_18__.EquipmentCreationComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.creation
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.creation
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.edit,
-        component: _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_19__.EquipmentDetailsComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.paths.edit,
+        component: _components_equipments_details_equipment_details_component__WEBPACK_IMPORTED_MODULE_19__.EquipmentDetailsComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Equipments_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.edition
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.breadcrumbs.edition
         }
       }]
     }, {
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.list,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanList],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.list
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.list
       },
       children: [{
         path: '',
-        component: _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_14__.ManufacturerListComponent,
+        component: _components_manufacturers_list_manufacturer_list_component__WEBPACK_IMPORTED_MODULE_14__.ManufacturerListComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanList],
           breadcrumb: null
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.create,
-        component: _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_15__.ManufacturerCreationComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.create,
+        component: _components_manufacturers_create_manufacturer_create_component__WEBPACK_IMPORTED_MODULE_15__.ManufacturerCreationComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.creation
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.creation
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.edit,
-        component: _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_16__.ManufacturerDetailsComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.paths.edit,
+        component: _components_manufacturers_details_manufacturer_details_component__WEBPACK_IMPORTED_MODULE_16__.ManufacturerDetailsComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Manufacturers_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.edition
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.breadcrumbs.edition
         }
       }]
     }, {
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.list,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Users_CanList],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.list
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.list
       },
       children: [{
         path: '',
-        component: _components_users_user_list__WEBPACK_IMPORTED_MODULE_1__.UserListComponent,
+        component: _components_users_list_user_list_component__WEBPACK_IMPORTED_MODULE_1__.UserListComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Users_CanList],
           breadcrumb: null
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.create,
-        component: _components_users_user_create__WEBPACK_IMPORTED_MODULE_7__.UserCreationComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.create,
+        component: _components_users_create_user_create_component__WEBPACK_IMPORTED_MODULE_7__.UserCreationComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Users_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.creation
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.creation
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.edit,
-        component: _components_users_user_details__WEBPACK_IMPORTED_MODULE_6__.UserDetailsComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.paths.edit,
+        component: _components_users_details_user_details_component__WEBPACK_IMPORTED_MODULE_6__.UserDetailsComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Users_CanList],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.edition
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.users.breadcrumbs.edition
         }
       }]
     }, {
-      path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.list,
+      path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.list,
       canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
       data: {
         allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.UserRoles_CanList],
-        breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.list
+        breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.list
       },
       children: [{
         path: '',
-        component: _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_2__.UserRoleListComponent,
+        component: _components_user_roles_list_user_role_list_component__WEBPACK_IMPORTED_MODULE_2__.UserRoleListComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.UserRoles_CanList],
           breadcrumb: null
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.create,
-        component: _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_9__.UserRoleCreationComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.create,
+        component: _components_user_roles_create_user_role_create_component__WEBPACK_IMPORTED_MODULE_9__.UserRoleCreationComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.UserRoles_CanModify],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.creation
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.creation
         }
       }, {
-        path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.edit,
-        component: _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_10__.UserRoleDetailsComponent,
+        path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.paths.edit,
+        component: _components_user_roles_details_user_role_details_component__WEBPACK_IMPORTED_MODULE_10__.UserRoleDetailsComponent,
         canActivate: [_services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_4__.AuthGuard],
         data: {
           allowedPermissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.UserRoles_CanList],
-          breadcrumb: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.edition
+          breadcrumb: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.userRoles.breadcrumbs.edition
         }
       }]
     }]
   }, {
-    path: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.login.paths["default"],
-    component: _components_login_login__WEBPACK_IMPORTED_MODULE_3__.LoginComponent,
+    path: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.login.paths["default"],
+    component: _components_login_login_login_component__WEBPACK_IMPORTED_MODULE_3__.LoginComponent,
     data: {
       breadcrumb: null
     }
   }, {
     path: '**',
-    redirectTo: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"]
+    redirectTo: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"]
   }, {
     path: '',
-    redirectTo: _routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"],
+    redirectTo: _constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.home.paths["default"],
     pathMatch: 'full'
   }], {
     scrollPositionRestoration: 'enabled',
@@ -440,82 +350,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "jwtTokenGetter": () => (/* binding */ jwtTokenGetter),
 /* harmony export */   "options": () => (/* binding */ options)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! @angular/common */ 4666);
-/* harmony import */ var _angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! @angular/common/locales/pl */ 1499);
-/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! ngx-mask */ 446);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! @ngx-translate/http-loader */ 8319);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
-/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! @auth0/angular-jwt */ 4467);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_51__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_49__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_50__ = __webpack_require__(/*! @angular/common/locales/pl */ 1499);
+/* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! ngx-mask */ 446);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_79__ = __webpack_require__(/*! @ngx-translate/http-loader */ 8319);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_55__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_53__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_56__ = __webpack_require__(/*! @auth0/angular-jwt */ 4467);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.component */ 5041);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app-routing.module */ 158);
 /* harmony import */ var _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./layout/app.layout.module */ 6421);
 /* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/environments/environment */ 2340);
-/* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/authentication/authentication.service */ 7020);
-/* harmony import */ var _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/auth-guard/auth-guard.service */ 3226);
-/* harmony import */ var _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/interceptors/auth-interceptor */ 8617);
-/* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/authorization/authorization.service */ 6079);
-/* harmony import */ var _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/messages/console-message.service */ 5289);
-/* harmony import */ var _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _services_errors_error_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/errors/error.service */ 8813);
-/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/filters/filter.service */ 9865);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_52__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _services_images_image_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/images/image.service */ 2329);
-/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/layout/menu.service */ 6308);
-/* harmony import */ var _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/select-options/select-options.service */ 712);
-/* harmony import */ var _components_addresses_address__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/addresses/address */ 8309);
-/* harmony import */ var _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/audits/audit-list-for-entity */ 3416);
-/* harmony import */ var _components_clients_client_create__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/clients/client-create */ 4354);
-/* harmony import */ var _components_clients_client_details__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/clients/client-details */ 1297);
-/* harmony import */ var _components_clients_client_list__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/clients/client-list */ 550);
-/* harmony import */ var _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/representatives/client-representative-create */ 6487);
-/* harmony import */ var _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/representatives/client-representative-details */ 3291);
-/* harmony import */ var _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/representatives/client-representative-list */ 9431);
-/* harmony import */ var _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/addresses/company-client-address */ 3320);
-/* harmony import */ var _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/dialogs/deletion-dialog */ 2167);
-/* harmony import */ var _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/equipments/equipment-create */ 7826);
-/* harmony import */ var _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/equipments/equipment-details */ 9012);
-/* harmony import */ var _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/equipments/equipment-list */ 6625);
-/* harmony import */ var _components_equipments_photos_equipment_photos__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/equipments/photos/equipment-photos */ 4686);
-/* harmony import */ var _components_login_login__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/login/login */ 8077);
-/* harmony import */ var _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/login/login-reset-password */ 9598);
-/* harmony import */ var _components_addresses_manufacturer_address__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/addresses/manufacturer-address */ 9080);
-/* harmony import */ var _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-create */ 8514);
-/* harmony import */ var _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-details */ 856);
-/* harmony import */ var _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/manufacturers/manufacturer-list */ 8649);
-/* harmony import */ var _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/name-in-languages/name-in-languages */ 3679);
-/* harmony import */ var _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/addresses/private-client-address */ 4549);
-/* harmony import */ var _components_clients_private_client__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/clients/private-client */ 3821);
-/* harmony import */ var _components_users_user_create__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/users/user-create */ 9068);
-/* harmony import */ var _components_users_user_details__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/users/user-details */ 8635);
-/* harmony import */ var _components_users_user_list__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/users/user-list */ 4760);
-/* harmony import */ var _components_users_user_profile__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/users/user-profile */ 3466);
-/* harmony import */ var _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/user-roles/user-role-create */ 3746);
-/* harmony import */ var _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/user-roles/user-role-details */ 7424);
-/* harmony import */ var _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/user-roles/user-role-list */ 4609);
-/* harmony import */ var _components_user_roles_permissions_user_role_permissions__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/user-roles/permissions/user-role-permissions */ 2902);
-/* harmony import */ var _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./services/interceptors/api-url-interceptor */ 4133);
-/* harmony import */ var primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_57__ = __webpack_require__(/*! primeng/breadcrumb */ 7298);
-/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_58__ = __webpack_require__(/*! primeng/button */ 6328);
-/* harmony import */ var primeng_checkbox__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! primeng/checkbox */ 749);
-/* harmony import */ var primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! primeng/confirmdialog */ 97);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
-/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! primeng/dropdown */ 8992);
-/* harmony import */ var primeng_galleria__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! primeng/galleria */ 806);
-/* harmony import */ var primeng_message__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! primeng/message */ 3589);
-/* harmony import */ var primeng_messages__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! primeng/messages */ 8547);
-/* harmony import */ var primeng_multiselect__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! primeng/multiselect */ 850);
-/* harmony import */ var primeng_panelmenu__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! primeng/panelmenu */ 9028);
-/* harmony import */ var primeng_password__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! primeng/password */ 8848);
-/* harmony import */ var primeng_splitbutton__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! primeng/splitbutton */ 3650);
-/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! primeng/table */ 7485);
-/* harmony import */ var primeng_tabview__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! primeng/tabview */ 9504);
-/* harmony import */ var primeng_toast__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! primeng/toast */ 9129);
-/* harmony import */ var primeng_treetable__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! primeng/treetable */ 2385);
+/* harmony import */ var _services_assets_asset_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/assets/asset.service */ 7918);
+/* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/authentication/authentication.service */ 7020);
+/* harmony import */ var _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/auth-guard/auth-guard.service */ 3226);
+/* harmony import */ var _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/interceptors/auth-interceptor */ 8617);
+/* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/authorization/authorization.service */ 6079);
+/* harmony import */ var _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/messages/console-message.service */ 5289);
+/* harmony import */ var _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/messages/dialog-message.service */ 1323);
+/* harmony import */ var _services_errors_error_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/errors/error.service */ 8813);
+/* harmony import */ var _services_files_file_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/files/file.service */ 1184);
+/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/filters/filter.service */ 9865);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_54__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _services_images_image_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/images/image.service */ 2329);
+/* harmony import */ var _layout_services_menu_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./layout/services/menu.service */ 6403);
+/* harmony import */ var _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/select-options/select-options.service */ 712);
+/* harmony import */ var _components_addresses_address_address_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/addresses/address/address.component */ 9522);
+/* harmony import */ var _components_audits_audit_list_for_entity_audit_list_for_entity_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/audits/audit-list-for-entity/audit-list-for-entity.component */ 1764);
+/* harmony import */ var _components_clients_create_client_create_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/clients/create/client-create.component */ 784);
+/* harmony import */ var _components_clients_details_client_details_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/clients/details/client-details.component */ 358);
+/* harmony import */ var _components_clients_list_client_list_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/clients/list/client-list.component */ 5906);
+/* harmony import */ var _components_representatives_client_representatives_create_client_representative_create_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/representatives/client-representatives/create/client-representative-create.component */ 2563);
+/* harmony import */ var _components_representatives_client_representatives_details_client_representative_details_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/representatives/client-representatives/details/client-representative-details.component */ 1126);
+/* harmony import */ var _components_representatives_client_representatives_list_client_representative_list_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/representatives/client-representatives/list/client-representative-list.component */ 4363);
+/* harmony import */ var _components_addresses_company_client_address_company_client_address_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/addresses/company-client-address/company-client-address.component */ 8213);
+/* harmony import */ var _components_dialogs_deletion_deletion_dialog_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./components/dialogs/deletion/deletion-dialog.component */ 8753);
+/* harmony import */ var _components_equipments_create_equipment_create_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./components/equipments/create/equipment-create.component */ 1615);
+/* harmony import */ var _components_equipments_details_equipment_details_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./components/equipments/details/equipment-details.component */ 9267);
+/* harmony import */ var _components_equipments_list_equipment_list_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./components/equipments/list/equipment-list.component */ 9373);
+/* harmony import */ var _components_equipments_photos_equipment_photos_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./components/equipments/photos/equipment-photos.component */ 4753);
+/* harmony import */ var _components_login_login_login_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./components/login/login/login.component */ 6662);
+/* harmony import */ var _components_login_reset_password_login_reset_password_component__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./components/login/reset-password/login-reset-password.component */ 6273);
+/* harmony import */ var _components_addresses_manufacturer_address_manufacturer_address_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./components/addresses/manufacturer-address/manufacturer-address.component */ 4470);
+/* harmony import */ var _components_manufacturers_create_manufacturer_create_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./components/manufacturers/create/manufacturer-create.component */ 729);
+/* harmony import */ var _components_manufacturers_details_manufacturer_details_component__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/manufacturers/details/manufacturer-details.component */ 7471);
+/* harmony import */ var _components_manufacturers_list_manufacturer_list_component__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/manufacturers/list/manufacturer-list.component */ 6051);
+/* harmony import */ var _components_name_in_languages_name_in_languages_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/name-in-languages/name-in-languages.component */ 2641);
+/* harmony import */ var _components_addresses_private_client_address_private_client_address_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./components/addresses/private-client-address/private-client-address.component */ 9869);
+/* harmony import */ var _components_clients_private_client_private_client_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./components/clients/private-client/private-client.component */ 3088);
+/* harmony import */ var _components_users_create_user_create_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./components/users/create/user-create.component */ 9047);
+/* harmony import */ var _components_users_details_user_details_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./components/users/details/user-details.component */ 3839);
+/* harmony import */ var _components_users_list_user_list_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./components/users/list/user-list.component */ 3597);
+/* harmony import */ var _components_users_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./components/users/profile/user-profile.component */ 4710);
+/* harmony import */ var _components_user_roles_create_user_role_create_component__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./components/user-roles/create/user-role-create.component */ 5587);
+/* harmony import */ var _components_user_roles_details_user_role_details_component__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./components/user-roles/details/user-role-details.component */ 1599);
+/* harmony import */ var _components_user_roles_list_user_role_list_component__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./components/user-roles/list/user-role-list.component */ 3967);
+/* harmony import */ var _components_user_roles_permissions_user_role_permissions_component__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./components/user-roles/permissions/user-role-permissions.component */ 7083);
+/* harmony import */ var _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_48__ = __webpack_require__(/*! ./services/interceptors/api-url-interceptor */ 4133);
+/* harmony import */ var primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_59__ = __webpack_require__(/*! primeng/breadcrumb */ 7298);
+/* harmony import */ var primeng_button__WEBPACK_IMPORTED_MODULE_60__ = __webpack_require__(/*! primeng/button */ 6328);
+/* harmony import */ var primeng_checkbox__WEBPACK_IMPORTED_MODULE_61__ = __webpack_require__(/*! primeng/checkbox */ 749);
+/* harmony import */ var primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_62__ = __webpack_require__(/*! primeng/confirmdialog */ 97);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_78__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_64__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
+/* harmony import */ var primeng_dropdown__WEBPACK_IMPORTED_MODULE_63__ = __webpack_require__(/*! primeng/dropdown */ 8992);
+/* harmony import */ var primeng_fileupload__WEBPACK_IMPORTED_MODULE_65__ = __webpack_require__(/*! primeng/fileupload */ 6193);
+/* harmony import */ var primeng_galleria__WEBPACK_IMPORTED_MODULE_66__ = __webpack_require__(/*! primeng/galleria */ 806);
+/* harmony import */ var primeng_message__WEBPACK_IMPORTED_MODULE_67__ = __webpack_require__(/*! primeng/message */ 3589);
+/* harmony import */ var primeng_messages__WEBPACK_IMPORTED_MODULE_68__ = __webpack_require__(/*! primeng/messages */ 8547);
+/* harmony import */ var primeng_multiselect__WEBPACK_IMPORTED_MODULE_69__ = __webpack_require__(/*! primeng/multiselect */ 850);
+/* harmony import */ var primeng_panelmenu__WEBPACK_IMPORTED_MODULE_70__ = __webpack_require__(/*! primeng/panelmenu */ 9028);
+/* harmony import */ var primeng_password__WEBPACK_IMPORTED_MODULE_71__ = __webpack_require__(/*! primeng/password */ 8848);
+/* harmony import */ var primeng_progressspinner__WEBPACK_IMPORTED_MODULE_72__ = __webpack_require__(/*! primeng/progressspinner */ 2901);
+/* harmony import */ var primeng_splitbutton__WEBPACK_IMPORTED_MODULE_73__ = __webpack_require__(/*! primeng/splitbutton */ 3650);
+/* harmony import */ var primeng_table__WEBPACK_IMPORTED_MODULE_74__ = __webpack_require__(/*! primeng/table */ 7485);
+/* harmony import */ var primeng_tabview__WEBPACK_IMPORTED_MODULE_75__ = __webpack_require__(/*! primeng/tabview */ 9504);
+/* harmony import */ var primeng_toast__WEBPACK_IMPORTED_MODULE_76__ = __webpack_require__(/*! primeng/toast */ 9129);
+/* harmony import */ var primeng_treetable__WEBPACK_IMPORTED_MODULE_77__ = __webpack_require__(/*! primeng/treetable */ 2385);
 
 //Angular
 
@@ -534,6 +448,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 //Services
+
+
 
 
 
@@ -600,52 +516,54 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_angular_common__WEBPACK_IMPORTED_MODULE_47__.registerLocaleData)(_angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_48__["default"], 'pl');
+
+
+(0,_angular_common__WEBPACK_IMPORTED_MODULE_49__.registerLocaleData)(_angular_common_locales_pl__WEBPACK_IMPORTED_MODULE_50__["default"], 'pl');
 const options = {};
 let AppModule = class AppModule {};
-AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_49__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_50__.NgModule)({
+AppModule = (0,tslib__WEBPACK_IMPORTED_MODULE_51__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_52__.NgModule)({
   declarations: [
   //[start] app components
   _app_component__WEBPACK_IMPORTED_MODULE_0__.AppComponent,
   //[end] app components
   //[start] custom components
-  _components_addresses_address__WEBPACK_IMPORTED_MODULE_15__.AddressComponent, _components_audits_audit_list_for_entity__WEBPACK_IMPORTED_MODULE_16__.AuditListForEntityComponent, _components_clients_client_create__WEBPACK_IMPORTED_MODULE_17__.ClientCreationComponent, _components_clients_client_details__WEBPACK_IMPORTED_MODULE_18__.ClientDetailsComponent, _components_clients_client_list__WEBPACK_IMPORTED_MODULE_19__.ClientListComponent, _components_representatives_client_representative_create__WEBPACK_IMPORTED_MODULE_20__.ClientRepresentativeCreationComponent, _components_representatives_client_representative_details__WEBPACK_IMPORTED_MODULE_21__.ClientRepresentativeDetailsComponent, _components_representatives_client_representative_list__WEBPACK_IMPORTED_MODULE_22__.ClientRepresentativeListComponent, _components_addresses_company_client_address__WEBPACK_IMPORTED_MODULE_23__.CompanyClientAddressComponent, _components_dialogs_deletion_dialog__WEBPACK_IMPORTED_MODULE_24__.DeletionDialogComponent, _components_equipments_equipment_create__WEBPACK_IMPORTED_MODULE_25__.EquipmentCreationComponent, _components_equipments_equipment_details__WEBPACK_IMPORTED_MODULE_26__.EquipmentDetailsComponent, _components_equipments_equipment_list__WEBPACK_IMPORTED_MODULE_27__.EquipmentListComponent, _components_equipments_photos_equipment_photos__WEBPACK_IMPORTED_MODULE_28__.EquipmentPhotosComponent, _components_login_login__WEBPACK_IMPORTED_MODULE_29__.LoginComponent, _components_login_login_reset_password__WEBPACK_IMPORTED_MODULE_30__.LoginResetPasswordComponent, _components_addresses_manufacturer_address__WEBPACK_IMPORTED_MODULE_31__.ManufacturerAddressComponent, _components_manufacturers_manufacturer_create__WEBPACK_IMPORTED_MODULE_32__.ManufacturerCreationComponent, _components_manufacturers_manufacturer_details__WEBPACK_IMPORTED_MODULE_33__.ManufacturerDetailsComponent, _components_manufacturers_manufacturer_list__WEBPACK_IMPORTED_MODULE_34__.ManufacturerListComponent, _components_name_in_languages_name_in_languages__WEBPACK_IMPORTED_MODULE_35__.NameInLanguagesComponent, _components_addresses_private_client_address__WEBPACK_IMPORTED_MODULE_36__.PrivateClientAddressComponent, _components_clients_private_client__WEBPACK_IMPORTED_MODULE_37__.PrivateClientComponent, _components_users_user_create__WEBPACK_IMPORTED_MODULE_38__.UserCreationComponent, _components_users_user_details__WEBPACK_IMPORTED_MODULE_39__.UserDetailsComponent, _components_users_user_list__WEBPACK_IMPORTED_MODULE_40__.UserListComponent, _components_users_user_profile__WEBPACK_IMPORTED_MODULE_41__.UserProfileComponent, _components_user_roles_user_role_create__WEBPACK_IMPORTED_MODULE_42__.UserRoleCreationComponent, _components_user_roles_user_role_details__WEBPACK_IMPORTED_MODULE_43__.UserRoleDetailsComponent, _components_user_roles_user_role_list__WEBPACK_IMPORTED_MODULE_44__.UserRoleListComponent, _components_user_roles_permissions_user_role_permissions__WEBPACK_IMPORTED_MODULE_45__.UserRolePermissionsComponent
+  _components_addresses_address_address_component__WEBPACK_IMPORTED_MODULE_17__.AddressComponent, _components_audits_audit_list_for_entity_audit_list_for_entity_component__WEBPACK_IMPORTED_MODULE_18__.AuditListForEntityComponent, _components_clients_create_client_create_component__WEBPACK_IMPORTED_MODULE_19__.ClientCreationComponent, _components_clients_details_client_details_component__WEBPACK_IMPORTED_MODULE_20__.ClientDetailsComponent, _components_clients_list_client_list_component__WEBPACK_IMPORTED_MODULE_21__.ClientListComponent, _components_representatives_client_representatives_create_client_representative_create_component__WEBPACK_IMPORTED_MODULE_22__.ClientRepresentativeCreationComponent, _components_representatives_client_representatives_details_client_representative_details_component__WEBPACK_IMPORTED_MODULE_23__.ClientRepresentativeDetailsComponent, _components_representatives_client_representatives_list_client_representative_list_component__WEBPACK_IMPORTED_MODULE_24__.ClientRepresentativeListComponent, _components_addresses_company_client_address_company_client_address_component__WEBPACK_IMPORTED_MODULE_25__.CompanyClientAddressComponent, _components_dialogs_deletion_deletion_dialog_component__WEBPACK_IMPORTED_MODULE_26__.DeletionDialogComponent, _components_equipments_create_equipment_create_component__WEBPACK_IMPORTED_MODULE_27__.EquipmentCreationComponent, _components_equipments_details_equipment_details_component__WEBPACK_IMPORTED_MODULE_28__.EquipmentDetailsComponent, _components_equipments_list_equipment_list_component__WEBPACK_IMPORTED_MODULE_29__.EquipmentListComponent, _components_equipments_photos_equipment_photos_component__WEBPACK_IMPORTED_MODULE_30__.EquipmentPhotosComponent, _components_login_login_login_component__WEBPACK_IMPORTED_MODULE_31__.LoginComponent, _components_login_reset_password_login_reset_password_component__WEBPACK_IMPORTED_MODULE_32__.LoginResetPasswordComponent, _components_addresses_manufacturer_address_manufacturer_address_component__WEBPACK_IMPORTED_MODULE_33__.ManufacturerAddressComponent, _components_manufacturers_create_manufacturer_create_component__WEBPACK_IMPORTED_MODULE_34__.ManufacturerCreationComponent, _components_manufacturers_details_manufacturer_details_component__WEBPACK_IMPORTED_MODULE_35__.ManufacturerDetailsComponent, _components_manufacturers_list_manufacturer_list_component__WEBPACK_IMPORTED_MODULE_36__.ManufacturerListComponent, _components_name_in_languages_name_in_languages_component__WEBPACK_IMPORTED_MODULE_37__.NameInLanguagesComponent, _components_addresses_private_client_address_private_client_address_component__WEBPACK_IMPORTED_MODULE_38__.PrivateClientAddressComponent, _components_clients_private_client_private_client_component__WEBPACK_IMPORTED_MODULE_39__.PrivateClientComponent, _components_users_create_user_create_component__WEBPACK_IMPORTED_MODULE_40__.UserCreationComponent, _components_users_details_user_details_component__WEBPACK_IMPORTED_MODULE_41__.UserDetailsComponent, _components_users_list_user_list_component__WEBPACK_IMPORTED_MODULE_42__.UserListComponent, _components_users_profile_user_profile_component__WEBPACK_IMPORTED_MODULE_43__.UserProfileComponent, _components_user_roles_create_user_role_create_component__WEBPACK_IMPORTED_MODULE_44__.UserRoleCreationComponent, _components_user_roles_details_user_role_details_component__WEBPACK_IMPORTED_MODULE_45__.UserRoleDetailsComponent, _components_user_roles_list_user_role_list_component__WEBPACK_IMPORTED_MODULE_46__.UserRoleListComponent, _components_user_roles_permissions_user_role_permissions_component__WEBPACK_IMPORTED_MODULE_47__.UserRolePermissionsComponent
   //[end] custom components
   ],
 
   imports: [
   //[start] app modules
-  _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__.AppLayoutModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser__WEBPACK_IMPORTED_MODULE_51__.BrowserModule, _angular_common__WEBPACK_IMPORTED_MODULE_47__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_52__.FormsModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HttpClientModule, _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_54__.JwtModule.forRoot({
+  _layout_app_layout_module__WEBPACK_IMPORTED_MODULE_2__.AppLayoutModule, _app_routing_module__WEBPACK_IMPORTED_MODULE_1__.AppRoutingModule, _angular_platform_browser__WEBPACK_IMPORTED_MODULE_53__.BrowserModule, _angular_common__WEBPACK_IMPORTED_MODULE_49__.CommonModule, _angular_forms__WEBPACK_IMPORTED_MODULE_54__.FormsModule, _angular_common_http__WEBPACK_IMPORTED_MODULE_55__.HttpClientModule, _auth0_angular_jwt__WEBPACK_IMPORTED_MODULE_56__.JwtModule.forRoot({
     config: {
       tokenGetter: jwtTokenGetter
     }
-  }), ngx_mask__WEBPACK_IMPORTED_MODULE_55__.NgxMaskModule.forRoot(options), _angular_forms__WEBPACK_IMPORTED_MODULE_52__.ReactiveFormsModule, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__.TranslateModule.forRoot({
+  }), ngx_mask__WEBPACK_IMPORTED_MODULE_57__.NgxMaskModule.forRoot(options), _angular_forms__WEBPACK_IMPORTED_MODULE_54__.ReactiveFormsModule, _ngx_translate_core__WEBPACK_IMPORTED_MODULE_58__.TranslateModule.forRoot({
     loader: {
-      provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_56__.TranslateLoader,
+      provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_58__.TranslateLoader,
       useFactory: HttpLoaderFactory,
-      deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HttpClient]
+      deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_55__.HttpClient]
     }
   }),
   //[end] app modules
   //[start] primeng Modules
-  primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_57__.BreadcrumbModule, primeng_button__WEBPACK_IMPORTED_MODULE_58__.ButtonModule, primeng_checkbox__WEBPACK_IMPORTED_MODULE_59__.CheckboxModule, primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_60__.ConfirmDialogModule, primeng_dropdown__WEBPACK_IMPORTED_MODULE_61__.DropdownModule, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__.DynamicDialogModule, primeng_galleria__WEBPACK_IMPORTED_MODULE_63__.GalleriaModule, primeng_message__WEBPACK_IMPORTED_MODULE_64__.MessageModule, primeng_messages__WEBPACK_IMPORTED_MODULE_65__.MessagesModule, primeng_multiselect__WEBPACK_IMPORTED_MODULE_66__.MultiSelectModule, primeng_panelmenu__WEBPACK_IMPORTED_MODULE_67__.PanelMenuModule, primeng_password__WEBPACK_IMPORTED_MODULE_68__.PasswordModule, primeng_splitbutton__WEBPACK_IMPORTED_MODULE_69__.SplitButtonModule, primeng_table__WEBPACK_IMPORTED_MODULE_70__.TableModule, primeng_tabview__WEBPACK_IMPORTED_MODULE_71__.TabViewModule, primeng_toast__WEBPACK_IMPORTED_MODULE_72__.ToastModule, primeng_treetable__WEBPACK_IMPORTED_MODULE_73__.TreeTableModule
+  primeng_breadcrumb__WEBPACK_IMPORTED_MODULE_59__.BreadcrumbModule, primeng_button__WEBPACK_IMPORTED_MODULE_60__.ButtonModule, primeng_checkbox__WEBPACK_IMPORTED_MODULE_61__.CheckboxModule, primeng_confirmdialog__WEBPACK_IMPORTED_MODULE_62__.ConfirmDialogModule, primeng_dropdown__WEBPACK_IMPORTED_MODULE_63__.DropdownModule, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_64__.DynamicDialogModule, primeng_fileupload__WEBPACK_IMPORTED_MODULE_65__.FileUploadModule, primeng_galleria__WEBPACK_IMPORTED_MODULE_66__.GalleriaModule, primeng_message__WEBPACK_IMPORTED_MODULE_67__.MessageModule, primeng_messages__WEBPACK_IMPORTED_MODULE_68__.MessagesModule, primeng_multiselect__WEBPACK_IMPORTED_MODULE_69__.MultiSelectModule, primeng_panelmenu__WEBPACK_IMPORTED_MODULE_70__.PanelMenuModule, primeng_password__WEBPACK_IMPORTED_MODULE_71__.PasswordModule, primeng_progressspinner__WEBPACK_IMPORTED_MODULE_72__.ProgressSpinnerModule, primeng_splitbutton__WEBPACK_IMPORTED_MODULE_73__.SplitButtonModule, primeng_table__WEBPACK_IMPORTED_MODULE_74__.TableModule, primeng_tabview__WEBPACK_IMPORTED_MODULE_75__.TabViewModule, primeng_toast__WEBPACK_IMPORTED_MODULE_76__.ToastModule, primeng_treetable__WEBPACK_IMPORTED_MODULE_77__.TreeTableModule
   //[end] primeng Modules
   ],
 
   providers: [
   //[start] app services
   {
-    provide: _angular_common__WEBPACK_IMPORTED_MODULE_47__.LocationStrategy,
-    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_47__.PathLocationStrategy
+    provide: _angular_common__WEBPACK_IMPORTED_MODULE_49__.LocationStrategy,
+    useClass: _angular_common__WEBPACK_IMPORTED_MODULE_49__.PathLocationStrategy
   }, {
-    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HTTP_INTERCEPTORS,
-    useClass: _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_6__.AuthInterceptor,
+    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_55__.HTTP_INTERCEPTORS,
+    useClass: _services_interceptors_auth_interceptor__WEBPACK_IMPORTED_MODULE_7__.AuthInterceptor,
     multi: true
   }, {
-    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_53__.HTTP_INTERCEPTORS,
-    useClass: _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_46__.ApiUrlInterceptor,
+    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_55__.HTTP_INTERCEPTORS,
+    useClass: _services_interceptors_api_url_interceptor__WEBPACK_IMPORTED_MODULE_48__.ApiUrlInterceptor,
     multi: true
-  }, _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__.AuthenticationService, _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_5__.AuthGuard, _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_7__.AuthorizationService, primeng_api__WEBPACK_IMPORTED_MODULE_74__.ConfirmationService, _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__.ConsoleMessageService, _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_9__.DialogMessageService, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_62__.DialogService, _services_errors_error_service__WEBPACK_IMPORTED_MODULE_10__.ErrorService, _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_11__.FilterService, _services_images_image_service__WEBPACK_IMPORTED_MODULE_12__.ImageService, primeng_api__WEBPACK_IMPORTED_MODULE_74__.MessageService, _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_13__.MenuService, _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_14__.SelectOptionsService
+  }, _services_assets_asset_service__WEBPACK_IMPORTED_MODULE_4__.AssetService, _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_5__.AuthenticationService, _services_auth_guard_auth_guard_service__WEBPACK_IMPORTED_MODULE_6__.AuthGuard, _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_8__.AuthorizationService, primeng_api__WEBPACK_IMPORTED_MODULE_78__.ConfirmationService, _services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__.ConsoleMessageService, _services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_10__.DialogMessageService, primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_64__.DialogService, _services_errors_error_service__WEBPACK_IMPORTED_MODULE_11__.ErrorService, _services_files_file_service__WEBPACK_IMPORTED_MODULE_12__.FileService, _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_13__.FilterService, _services_images_image_service__WEBPACK_IMPORTED_MODULE_14__.ImageService, primeng_api__WEBPACK_IMPORTED_MODULE_78__.MessageService, _layout_services_menu_service__WEBPACK_IMPORTED_MODULE_15__.MenuService, _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_16__.SelectOptionsService
   //[end] app services
   ],
 
@@ -656,7 +574,7 @@ function jwtTokenGetter() {
   return localStorage.getItem(src_environments_environment__WEBPACK_IMPORTED_MODULE_3__.environment.auth_key);
 }
 function HttpLoaderFactory(http) {
-  return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_75__.TranslateHttpLoader(http);
+  return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_79__.TranslateHttpLoader(http);
 }
 
 /***/ }),
@@ -672,7 +590,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AccessControlComponent": () => (/* binding */ AccessControlComponent)
 /* harmony export */ });
 /* harmony import */ var src_app_tools_access_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/access-control */ 997);
-/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/api-result-enum */ 6793);
+/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/api-result.enum */ 4236);
 
 
 class AccessControlComponent {
@@ -748,15 +666,15 @@ class AccessControlComponent {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AccessControlFormComponent": () => (/* binding */ AccessControlFormComponent)
+/* harmony export */   "AccessControlForm": () => (/* binding */ AccessControlForm)
 /* harmony export */ });
 /* harmony import */ var src_app_tools_access_control__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/tools/access-control */ 997);
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./form */ 1151);
-/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/api-result-enum */ 6793);
+/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/api-result.enum */ 4236);
 
 
 
-class AccessControlFormComponent extends _form__WEBPACK_IMPORTED_MODULE_1__.FormComponent {
+class AccessControlForm extends _form__WEBPACK_IMPORTED_MODULE_1__.Form {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, deletionKey, deletionLinkInitializer, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, router, submitionLink, translate, userPermissions, afterSubmitionNavigationLink) {
     super(consoleMessageService, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, router, submitionLink, translate);
     this.activatedRoute = activatedRoute;
@@ -848,7 +766,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _access_control_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./access-control-form */ 6739);
 
-class AccessControlOpenableAsDialogForm extends _access_control_form__WEBPACK_IMPORTED_MODULE_0__.AccessControlFormComponent {
+class AccessControlOpenableAsDialogForm extends _access_control_form__WEBPACK_IMPORTED_MODULE_0__.AccessControlForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, deletionKey, deletionLinkInitializer, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, openedAsDialogConfig, openedAsDialogRef, router, submitionLink, translate, userPermissions, afterSubmitionNavigationLink) {
     super(activatedRoute, authorizationService, confirmationService, consoleMessageService, deletionKey, deletionLinkInitializer, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, router, submitionLink, translate, userPermissions, afterSubmitionNavigationLink);
     this.activatedRoute = activatedRoute;
@@ -926,7 +844,7 @@ class AccessControlOpenableAsDialogForm extends _access_control_form__WEBPACK_IM
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "DynamicRequirementFormComponent": () => (/* binding */ DynamicRequirementFormComponent)
+/* harmony export */   "DynamicRequirementForm": () => (/* binding */ DynamicRequirementForm)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 2321);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
@@ -936,7 +854,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let DynamicRequirementFormComponent = class DynamicRequirementFormComponent extends _simple_form__WEBPACK_IMPORTED_MODULE_0__.SimpleFormComponent {
+let DynamicRequirementForm = class DynamicRequirementForm extends _simple_form__WEBPACK_IMPORTED_MODULE_0__.SimpleFormComponent {
   constructor(formBuilder) {
     super(formBuilder);
     this.formBuilder = formBuilder;
@@ -951,18 +869,18 @@ let DynamicRequirementFormComponent = class DynamicRequirementFormComponent exte
     });
   }
 };
-DynamicRequirementFormComponent.ctorParameters = () => [{
+DynamicRequirementForm.ctorParameters = () => [{
   type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__.FormBuilder
 }];
-DynamicRequirementFormComponent.propDecorators = {
+DynamicRequirementForm.propDecorators = {
   requiredFields: [{
     type: _angular_core__WEBPACK_IMPORTED_MODULE_2__.Input,
     args: ['requiredFields']
   }]
 };
-DynamicRequirementFormComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Directive)({
+DynamicRequirementForm = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Directive)({
   selector: "dynamic-requirement-form"
-})], DynamicRequirementFormComponent);
+})], DynamicRequirementForm);
 
 
 /***/ }),
@@ -977,7 +895,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "FormSubmitionActionFactory": () => (/* binding */ FormSubmitionActionFactory)
 /* harmony export */ });
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var _post_action__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./post-action */ 6219);
 /* harmony import */ var _put_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./put-action */ 1465);
 
@@ -1064,17 +982,17 @@ class PutAction {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "FormComponent": () => (/* binding */ FormComponent)
+/* harmony export */   "Form": () => (/* binding */ Form)
 /* harmony export */ });
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var src_app_ui_controls_form_validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/ui-controls/form-validator */ 308);
 /* harmony import */ var _form_factories_form_submition_action_factory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-factories/form-submition-action-factory */ 3939);
-/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/api-result-enum */ 6793);
+/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/api-result.enum */ 4236);
 
 
 
 
-class FormComponent {
+class Form {
   constructor(consoleMessageService, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, router, submitionLink, translate, afterSubmitionNavigationLink) {
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
@@ -1171,7 +1089,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./form */ 1151);
 
-class OpenableAsDialogForm extends _form__WEBPACK_IMPORTED_MODULE_0__.FormComponent {
+class OpenableAsDialogForm extends _form__WEBPACK_IMPORTED_MODULE_0__.Form {
   constructor(consoleMessageService, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, openedAsDialogConfig, openedAsDialogRef, router, submitionLink, translate, afterSubmitionNavigationLink) {
     super(consoleMessageService, dialogMessageService, entityName, errorService, formBuilder, httpClient, mode, router, submitionLink, translate, afterSubmitionNavigationLink);
     this.consoleMessageService = consoleMessageService;
@@ -1237,7 +1155,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SimpleFormComponent": () => (/* binding */ SimpleFormComponent)
 /* harmony export */ });
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var src_app_ui_controls_form_validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/ui-controls/form-validator */ 308);
 
 
@@ -1275,23 +1193,24 @@ class SimpleFormComponent {
 
 /***/ }),
 
-/***/ 8309:
-/*!*************************************************!*\
-  !*** ./src/app/components/addresses/address.ts ***!
-  \*************************************************/
+/***/ 9522:
+/*!*******************************************************************!*\
+  !*** ./src/app/components/addresses/address/address.component.ts ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AddressComponent": () => (/* binding */ AddressComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./address.html?ngResource */ 9633);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./address.component.html?ngResource */ 8580);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var _abstract_forms_dynamic_requirement_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../abstract/forms/dynamic-requirement-form */ 7602);
+/* harmony import */ var _abstract_forms_dynamic_requirement_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../abstract/forms/dynamic-requirement-form */ 7602);
+/* harmony import */ var _address_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./address.constants */ 5164);
 
 
 
@@ -1299,22 +1218,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let AddressComponent = class AddressComponent extends _abstract_forms_dynamic_requirement_form__WEBPACK_IMPORTED_MODULE_2__.DynamicRequirementFormComponent {
+
+let AddressComponent = class AddressComponent extends _abstract_forms_dynamic_requirement_form__WEBPACK_IMPORTED_MODULE_2__.DynamicRequirementForm {
   constructor(formBuilder, selectOptionsService, translate) {
     super(formBuilder);
     this.formBuilder = formBuilder;
     this.selectOptionsService = selectOptionsService;
     this.translate = translate;
     this.createForm({
-      ApartmentNumber: [''],
-      City: [''],
-      CountryId: [''],
-      Email: [''],
-      Id: null,
-      PhoneNumber: [''],
-      PostalCode: [''],
-      StreetName: [''],
-      StreetNumber: ['']
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.ApartmentNumber]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.City]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Country]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Email]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Id]: null,
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.PhoneNumber]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.PostalCode]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.StreetName]: [''],
+      [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.StreetNumber]: ['']
     });
   }
   ngOnInit() {
@@ -1322,15 +1242,15 @@ let AddressComponent = class AddressComponent extends _abstract_forms_dynamic_re
     this.updateFormAfterInit();
     if (this.entityAddress) {
       this.updateForm({
-        ApartmentNumber: this.entityAddress.ApartmentNumber,
-        City: this.entityAddress.City,
-        CountryId: this.entityAddress.Country.Id,
-        Email: this.entityAddress.Email,
-        Id: this.entityAddress.Id,
-        PhoneNumber: this.entityAddress.PhoneNumber,
-        PostalCode: this.entityAddress.PostalCode,
-        StreetName: this.entityAddress.StreetName,
-        StreetNumber: this.entityAddress.StreetNumber
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.ApartmentNumber]: this.entityAddress.ApartmentNumber,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.City]: this.entityAddress.City,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Country]: this.entityAddress.Country.Id,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Email]: this.entityAddress.Email,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.Id]: this.entityAddress.Id,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.PhoneNumber]: this.entityAddress.PhoneNumber,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.PostalCode]: this.entityAddress.PostalCode,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.StreetName]: this.entityAddress.StreetName,
+        [_address_constants__WEBPACK_IMPORTED_MODULE_3__.ADDRESS_CONTROL_NAMES.StreetNumber]: this.entityAddress.StreetNumber
       });
     }
   }
@@ -1341,46 +1261,72 @@ let AddressComponent = class AddressComponent extends _abstract_forms_dynamic_re
   }
 };
 AddressComponent.ctorParameters = () => [{
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__.FormBuilder
 }, {
   type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_1__.SelectOptionsService
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__.TranslateService
 }];
 AddressComponent.propDecorators = {
   entityAddress: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.Input,
     args: ['entityAddress']
   }],
   showTitle: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_6__.Input,
     args: ['showTitle']
   }]
 };
-AddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+AddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
   selector: 'address',
-  template: _address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], AddressComponent);
 
 
 /***/ }),
 
-/***/ 3320:
-/*!****************************************************************!*\
-  !*** ./src/app/components/addresses/company-client-address.ts ***!
-  \****************************************************************/
+/***/ 5164:
+/*!*******************************************************************!*\
+  !*** ./src/app/components/addresses/address/address.constants.ts ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ADDRESS_CONTROL_NAMES": () => (/* binding */ ADDRESS_CONTROL_NAMES)
+/* harmony export */ });
+const ADDRESS_CONTROL_NAMES = {
+  ApartmentNumber: 'ApartmentNumber',
+  City: 'City',
+  Country: 'CountryId',
+  Email: 'Email',
+  Id: 'Id',
+  PhoneNumber: 'PhoneNumber',
+  PostalCode: 'PostalCode',
+  StreetName: 'StreetName',
+  StreetNumber: 'StreetNumber'
+};
+
+/***/ }),
+
+/***/ 8213:
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/addresses/company-client-address/company-client-address.component.ts ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "CompanyClientAddressComponent": () => (/* binding */ CompanyClientAddressComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _company_client_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./company-client-address.html?ngResource */ 9618);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _company_client_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./company-client-address.component.html?ngResource */ 9956);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _company_client_address_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./company-client-address.constants */ 7816);
+
 
 
 
@@ -1393,52 +1339,70 @@ let CompanyClientAddressComponent = class CompanyClientAddressComponent extends 
     this.formBuilder = formBuilder;
     this.translate = translate;
     this.createForm({
-      NationalCompanyId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required]
+      [_company_client_address_constants__WEBPACK_IMPORTED_MODULE_2__.COMPANY_CLIENT_ADDRESS_CONTROL_NAMES.NationalCompanyId]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
     });
   }
   ngOnInit() {
     if (this.clientAddress) {
       this.updateForm({
-        NationalCompanyId: this.clientAddress.NationalId
+        [_company_client_address_constants__WEBPACK_IMPORTED_MODULE_2__.COMPANY_CLIENT_ADDRESS_CONTROL_NAMES.NationalCompanyId]: this.clientAddress.NationalId
       });
     }
   }
 };
 CompanyClientAddressComponent.ctorParameters = () => [{
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
 }];
 CompanyClientAddressComponent.propDecorators = {
   clientAddress: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
     args: ['clientAddress']
   }]
 };
-CompanyClientAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+CompanyClientAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
   selector: 'company-client-address',
-  template: _company_client_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _company_client_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], CompanyClientAddressComponent);
 
 
 /***/ }),
 
-/***/ 9080:
-/*!**************************************************************!*\
-  !*** ./src/app/components/addresses/manufacturer-address.ts ***!
-  \**************************************************************/
+/***/ 7816:
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/addresses/company-client-address/company-client-address.constants.ts ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "COMPANY_CLIENT_ADDRESS_CONTROL_NAMES": () => (/* binding */ COMPANY_CLIENT_ADDRESS_CONTROL_NAMES)
+/* harmony export */ });
+const COMPANY_CLIENT_ADDRESS_CONTROL_NAMES = {
+  NationalCompanyId: 'NationalCompanyId'
+};
+
+/***/ }),
+
+/***/ 4470:
+/*!*********************************************************************************************!*\
+  !*** ./src/app/components/addresses/manufacturer-address/manufacturer-address.component.ts ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ManufacturerAddressComponent": () => (/* binding */ ManufacturerAddressComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _manufacturer_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-address.html?ngResource */ 9800);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-address.component.html?ngResource */ 8493);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./manufacturer-address.constants */ 7590);
+
 
 
 
@@ -1451,52 +1415,70 @@ let ManufacturerAddressComponent = class ManufacturerAddressComponent extends _a
     this.formBuilder = formBuilder;
     this.translate = translate;
     this.createForm({
-      NationalId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required]
+      [_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_2__.MANUFACTURER_ADDRESS_CONTROL_NAMES.NationalId]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
     });
   }
   ngOnInit() {
     if (this.manufacturerAddress) {
       this.updateForm({
-        NationalId: this.manufacturerAddress.NationalId
+        [_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_2__.MANUFACTURER_ADDRESS_CONTROL_NAMES.NationalId]: this.manufacturerAddress.NationalId
       });
     }
   }
 };
 ManufacturerAddressComponent.ctorParameters = () => [{
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
 }];
 ManufacturerAddressComponent.propDecorators = {
   manufacturerAddress: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
     args: ['manufacturerAddress']
   }]
 };
-ManufacturerAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+ManufacturerAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
   selector: 'manufacturer-address',
-  template: _manufacturer_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _manufacturer_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ManufacturerAddressComponent);
 
 
 /***/ }),
 
-/***/ 4549:
-/*!****************************************************************!*\
-  !*** ./src/app/components/addresses/private-client-address.ts ***!
-  \****************************************************************/
+/***/ 7590:
+/*!*********************************************************************************************!*\
+  !*** ./src/app/components/addresses/manufacturer-address/manufacturer-address.constants.ts ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MANUFACTURER_ADDRESS_CONTROL_NAMES": () => (/* binding */ MANUFACTURER_ADDRESS_CONTROL_NAMES)
+/* harmony export */ });
+const MANUFACTURER_ADDRESS_CONTROL_NAMES = {
+  NationalId: 'NationalId'
+};
+
+/***/ }),
+
+/***/ 9869:
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/addresses/private-client-address/private-client-address.component.ts ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "PrivateClientAddressComponent": () => (/* binding */ PrivateClientAddressComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _private_client_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./private-client-address.html?ngResource */ 1231);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _private_client_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./private-client-address.component.html?ngResource */ 9715);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _private_client_address_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./private-client-address.constants */ 8414);
+
 
 
 
@@ -1509,40 +1491,56 @@ let PrivateClientAddressComponent = class PrivateClientAddressComponent extends 
     this.formBuilder = formBuilder;
     this.translate = translate;
     this.createForm({
-      NationalCitizenId: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required]
+      [_private_client_address_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES.NationalCitizenId]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
     });
   }
   ngOnInit() {
     if (this.clientAddress) {
       this.updateForm({
-        NationalCitizenId: this.clientAddress.NationalId
+        [_private_client_address_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES.NationalCitizenId]: this.clientAddress.NationalId
       });
     }
   }
 };
 PrivateClientAddressComponent.ctorParameters = () => [{
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
 }];
 PrivateClientAddressComponent.propDecorators = {
   clientAddress: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
     args: ['clientAddress']
   }]
 };
-PrivateClientAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+PrivateClientAddressComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
   selector: 'private-client-address',
-  template: _private_client_address_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _private_client_address_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], PrivateClientAddressComponent);
 
 
 /***/ }),
 
-/***/ 3416:
-/*!************************************************************!*\
-  !*** ./src/app/components/audits/audit-list-for-entity.ts ***!
-  \************************************************************/
+/***/ 8414:
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/addresses/private-client-address/private-client-address.constants.ts ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES": () => (/* binding */ PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES)
+/* harmony export */ });
+const PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES = {
+  NationalCitizenId: 'NationalCitizenId'
+};
+
+/***/ }),
+
+/***/ 1764:
+/*!********************************************************************************************!*\
+  !*** ./src/app/components/audits/audit-list-for-entity/audit-list-for-entity.component.ts ***!
+  \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1550,13 +1548,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AuditListForEntityComponent": () => (/* binding */ AuditListForEntityComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _audit_list_for_entity_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./audit-list-for-entity.html?ngResource */ 7944);
+/* harmony import */ var _audit_list_for_entity_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./audit-list-for-entity.component.html?ngResource */ 3414);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var src_app_interfaces_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/interfaces/png */ 7495);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 3853);
 
@@ -1627,7 +1625,7 @@ let AuditListForEntityComponent = class AuditListForEntityComponent {
     return this.selectOptionsService.getFieldNamesForObjectHistory(this.tempLazyLoadEvent, this.table.cols, this.entityId, this.entityTableName);
   }
   getObjectHistory(event) {
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.audit.getObjectHistory(event, this.table.cols, this.entityId, this.entityTableName));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.audit.getObjectHistory(event, this.table.cols, this.entityId, this.entityTableName));
   }
   setFieldNamesForObjectHistory(options) {
     this.fieldNameOptions = options;
@@ -1657,39 +1655,43 @@ AuditListForEntityComponent.propDecorators = {
 };
 AuditListForEntityComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_9__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
   selector: "audit-list-for-entity",
-  template: _audit_list_for_entity_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _audit_list_for_entity_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], AuditListForEntityComponent);
 
 
 /***/ }),
 
-/***/ 4354:
-/*!*****************************************************!*\
-  !*** ./src/app/components/clients/client-create.ts ***!
-  \*****************************************************/
+/***/ 784:
+/*!**********************************************************************!*\
+  !*** ./src/app/components/clients/create/client-create.component.ts ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ClientCreationComponent": () => (/* binding */ ClientCreationComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-create.html?ngResource */ 229);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _client_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-create.component.html?ngResource */ 6504);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/client-type-enum */ 379);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/client-type.enum */ 2900);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var _client_create_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./client-create.constants */ 5159);
+/* harmony import */ var _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../addresses/address/address.constants */ 5164);
+/* harmony import */ var _addresses_private_client_address_private_client_address_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../addresses/private-client-address/private-client-address.constants */ 8414);
+/* harmony import */ var _addresses_company_client_address_company_client_address_constants__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../addresses/company-client-address/company-client-address.constants */ 7816);
+/* harmony import */ var _private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../private-client/private-client.constants */ 1307);
 
 
 
@@ -1707,9 +1709,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ClientCreationComponent = class ClientCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__.FormComponent {
+
+
+
+
+let ClientCreationComponent = class ClientCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__.Form {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
-    super(consoleMessageService, dialogMessageService, 'Client', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_8__.ApiRoutes.client.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_5__.Routes.clients.navigations.list);
+    super(consoleMessageService, dialogMessageService, 'Client', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__.FormModeEnum.Creation, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_5__.Routes.clients.navigations.list);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -1719,11 +1725,11 @@ let ClientCreationComponent = class ClientCreationComponent extends _abstract_fo
     this.selectOptionsService = selectOptionsService;
     this.translate = translate;
     this.beforeSubmitionCustomOperationsHandler = this.prepareClientCreationModel;
-    this.clientAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_7__.addressFormFields.StreetNumber];
+    this.clientAddressRequiredFields = [_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.ApartmentNumber, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.City, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.Country, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.PostalCode, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetName, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.clientType = src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_6__.ClientTypeEnum;
     this.createForm({
-      ClientTypeId: null,
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required]
+      [_client_create_constants__WEBPACK_IMPORTED_MODULE_10__.CLIENT_CREATE_CONTROL_NAMES.ClientType]: null,
+      [_client_create_constants__WEBPACK_IMPORTED_MODULE_10__.CLIENT_CREATE_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_15__.Validators.required]
     });
   }
   get shouldActionsBeDisabled() {
@@ -1734,15 +1740,15 @@ let ClientCreationComponent = class ClientCreationComponent extends _abstract_fo
     this.populateDropdowns();
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_5__.Routes.clients.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_5__.Routes.clients.navigations.list]);
   }
   getClientNationalId() {
     var _a, _b;
     switch (Number(this.form.value.ClientTypeId)) {
       case src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_6__.ClientTypeEnum.Private:
-        return (_a = this.privateClientAddressForm) === null || _a === void 0 ? void 0 : _a.form.value.NationalCitizenId;
+        return (_a = this.privateClientAddressForm) === null || _a === void 0 ? void 0 : _a.form.value[_addresses_private_client_address_private_client_address_constants__WEBPACK_IMPORTED_MODULE_12__.PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES.NationalCitizenId];
       case src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_6__.ClientTypeEnum.Company:
-        return (_b = this.companyClientAddressForm) === null || _b === void 0 ? void 0 : _b.form.value.NationalCompanyId;
+        return (_b = this.companyClientAddressForm) === null || _b === void 0 ? void 0 : _b.form.value[_addresses_company_client_address_company_client_address_constants__WEBPACK_IMPORTED_MODULE_13__.COMPANY_CLIENT_ADDRESS_CONTROL_NAMES.NationalCompanyId];
       default:
         return '';
     }
@@ -1755,24 +1761,24 @@ let ClientCreationComponent = class ClientCreationComponent extends _abstract_fo
   prepareClientCreationModel() {
     var _a, _b;
     const clientAddress = {
-      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
-      City: this.addressForm.form.value.City,
+      ApartmentNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.ApartmentNumber],
+      City: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.City],
       Country: {
-        Id: this.addressForm.form.value.CountryId
+        Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.Country]
       },
-      Email: this.addressForm.form.value.Email,
+      Email: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.Email],
       NationalId: this.getClientNationalId(),
-      PhoneNumber: this.addressForm.form.value.PhoneNumber,
-      PostalCode: this.addressForm.form.value.PostalCode,
-      StreetName: this.addressForm.form.value.StreetName,
-      StreetNumber: this.addressForm.form.value.StreetNumber
+      PhoneNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.PhoneNumber],
+      PostalCode: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.PostalCode],
+      StreetName: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetName],
+      StreetNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetNumber]
     };
     const client = {
       Addresses: [clientAddress],
-      FirstName: (_a = this.privateClientForm) === null || _a === void 0 ? void 0 : _a.form.value.FirstName,
-      LastName: (_b = this.privateClientForm) === null || _b === void 0 ? void 0 : _b.form.value.LastName,
-      Name: this.form.value.Name,
-      TypeId: this.form.value.ClientTypeId
+      FirstName: (_a = this.privateClientForm) === null || _a === void 0 ? void 0 : _a.form.value[_private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__.PRIVATE_CLIENT_CONTROL_NAMES.FirstName],
+      LastName: (_b = this.privateClientForm) === null || _b === void 0 ? void 0 : _b.form.value[_private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__.PRIVATE_CLIENT_CONTROL_NAMES.LastName],
+      Name: this.form.value[_client_create_constants__WEBPACK_IMPORTED_MODULE_10__.CLIENT_CREATE_CONTROL_NAMES.Name],
+      TypeId: this.form.value[_client_create_constants__WEBPACK_IMPORTED_MODULE_10__.CLIENT_CREATE_CONTROL_NAMES.ClientType]
     };
     return client;
   }
@@ -1784,72 +1790,93 @@ ClientCreationComponent.ctorParameters = () => [{
 }, {
   type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_15__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HttpClient
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_17__.Router
 }, {
   type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_4__.SelectOptionsService
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__.TranslateService
 }];
 ClientCreationComponent.propDecorators = {
   addressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['addressForm']
   }],
   companyClientAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['companyClientAddressForm']
   }],
   privateClientAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['privateClientAddressForm']
   }],
   privateClientForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['privateClientForm']
   }]
 };
-ClientCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
+ClientCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_19__.Component)({
   selector: "client-create",
-  template: _client_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientCreationComponent);
 
 
 /***/ }),
 
-/***/ 1297:
-/*!******************************************************!*\
-  !*** ./src/app/components/clients/client-details.ts ***!
-  \******************************************************/
+/***/ 5159:
+/*!**********************************************************************!*\
+  !*** ./src/app/components/clients/create/client-create.constants.ts ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CLIENT_CREATE_CONTROL_NAMES": () => (/* binding */ CLIENT_CREATE_CONTROL_NAMES)
+/* harmony export */ });
+const CLIENT_CREATE_CONTROL_NAMES = {
+  ClientType: 'ClientTypeId',
+  Name: 'Name'
+};
+
+/***/ }),
+
+/***/ 358:
+/*!************************************************************************!*\
+  !*** ./src/app/components/clients/details/client-details.component.ts ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ClientDetailsComponent": () => (/* binding */ ClientDetailsComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-details.html?ngResource */ 255);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _client_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-details.component.html?ngResource */ 9262);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/client-type-enum */ 379);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
-/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/client-type.enum */ 2900);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _client_details_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./client-details.constants */ 6482);
+/* harmony import */ var _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../addresses/address/address.constants */ 5164);
+/* harmony import */ var _private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../private-client/private-client.constants */ 1307);
+/* harmony import */ var _addresses_private_client_address_private_client_address_constants__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../addresses/private-client-address/private-client-address.constants */ 8414);
+/* harmony import */ var _addresses_company_client_address_company_client_address_constants__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../addresses/company-client-address/company-client-address.constants */ 7816);
 
 
 
@@ -1870,9 +1897,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__.AccessControlFormComponent {
+
+
+
+
+let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_9__.AccessControlForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteClient', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client["delete"], dialogMessageService, 'Client', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_6__.UserPermissionEnum.Clients_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_12__.Routes.clients.navigations.list);
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteClient', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client["delete"], dialogMessageService, 'Client', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_6__.UserPermissionEnum.Clients_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_11__.Routes.clients.navigations.list);
     this.activatedRoute = activatedRoute;
     this.authorizationService = authorizationService;
     this.confirmationService = confirmationService;
@@ -1888,12 +1919,12 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
     this.afterSubmitionCustomOperationsHandler = undefined;
     this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
     this.activeTab = 0;
-    this.routes = src_app_routes__WEBPACK_IMPORTED_MODULE_12__.Routes;
-    this.clientAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_9__.addressFormFields.StreetNumber];
+    this.routes = src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_11__.Routes;
+    this.clientAddressRequiredFields = [_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.ApartmentNumber, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.City, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.Country, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.PostalCode, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.StreetName, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.clientType = src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_8__.ClientTypeEnum;
     this.createForm({
-      ClientTypeId: null,
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_13__.Validators.required]
+      [_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.ClientType]: null,
+      [_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_17__.Validators.required]
     });
     this.loadClient();
   }
@@ -1911,7 +1942,7 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
     }
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_12__.Routes.clients.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_11__.Routes.clients.navigations.list]);
   }
   switchActiveTab(tabIndex) {
     this.activeTab = tabIndex;
@@ -1920,9 +1951,9 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
     var _a, _b;
     switch (Number(this.form.value.ClientTypeId)) {
       case src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_8__.ClientTypeEnum.Private:
-        return (_a = this.privateClientAddressForm) === null || _a === void 0 ? void 0 : _a.form.value.NationalCitizenId;
+        return (_a = this.privateClientAddressForm) === null || _a === void 0 ? void 0 : _a.form.value[_addresses_private_client_address_private_client_address_constants__WEBPACK_IMPORTED_MODULE_15__.PRIVATE_CLIENT_ADDRESS_CONTROL_NAMES.NationalCitizenId];
       case src_app_enums_client_type_enum__WEBPACK_IMPORTED_MODULE_8__.ClientTypeEnum.Company:
-        return (_b = this.companyClientAddressForm) === null || _b === void 0 ? void 0 : _b.form.value.NationalCompanyId;
+        return (_b = this.companyClientAddressForm) === null || _b === void 0 ? void 0 : _b.form.value[_addresses_company_client_address_company_client_address_constants__WEBPACK_IMPORTED_MODULE_16__.COMPANY_CLIENT_ADDRESS_CONTROL_NAMES.NationalCompanyId];
       default:
         return '';
     }
@@ -1932,11 +1963,11 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
   }
   loadClient() {
     if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client.getById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.client.getById(this.entityId)).subscribe(result => {
       this.client = result;
       this.updateForm({
-        ClientTypeId: this.client.TypeId.toString(),
-        Name: this.client.Name
+        [_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.ClientType]: this.client.TypeId.toString(),
+        [_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.Name]: this.client.Name
       });
     });
   }
@@ -1948,36 +1979,36 @@ let ClientDetailsComponent = class ClientDetailsComponent extends _abstract_form
   prepareClientDetailsModel() {
     var _a, _b;
     const clientAddress = {
-      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
-      City: this.addressForm.form.value.City,
+      ApartmentNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.ApartmentNumber],
+      City: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.City],
       Country: {
-        Id: this.addressForm.form.value.CountryId
+        Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.Country]
       },
-      Email: this.addressForm.form.value.Email,
-      Id: this.addressForm.form.value.Id,
+      Email: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.Email],
+      Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.Id],
       NationalId: this.getClientNationalId(),
-      PhoneNumber: this.addressForm.form.value.PhoneNumber,
-      PostalCode: this.addressForm.form.value.PostalCode,
-      StreetName: this.addressForm.form.value.StreetName,
-      StreetNumber: this.addressForm.form.value.StreetNumber
+      PhoneNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.PhoneNumber],
+      PostalCode: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.PostalCode],
+      StreetName: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.StreetName],
+      StreetNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_13__.ADDRESS_CONTROL_NAMES.StreetNumber]
     };
     const client = {
       Addresses: [clientAddress],
-      FirstName: (_a = this.privateClientForm) === null || _a === void 0 ? void 0 : _a.form.value.FirstName,
+      FirstName: (_a = this.privateClientForm) === null || _a === void 0 ? void 0 : _a.form.value[_private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__.PRIVATE_CLIENT_CONTROL_NAMES.FirstName],
       Id: this.client.Id,
-      LastName: (_b = this.privateClientForm) === null || _b === void 0 ? void 0 : _b.form.value.LastName,
-      Name: this.form.value.Name,
-      TypeId: this.form.value.ClientTypeId
+      LastName: (_b = this.privateClientForm) === null || _b === void 0 ? void 0 : _b.form.value[_private_client_private_client_constants__WEBPACK_IMPORTED_MODULE_14__.PRIVATE_CLIENT_CONTROL_NAMES.LastName],
+      Name: this.form.value[_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.Name],
+      TypeId: this.form.value[_client_details_constants__WEBPACK_IMPORTED_MODULE_12__.CLIENT_DETAILS_CONTROL_NAMES.ClientType]
     };
     return client;
   }
 };
 ClientDetailsComponent.ctorParameters = () => [{
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.ActivatedRoute
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_18__.ActivatedRoute
 }, {
   type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_1__.AuthorizationService
 }, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_15__.ConfirmationService
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_19__.ConfirmationService
 }, {
   type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__.ConsoleMessageService
 }, {
@@ -1985,46 +2016,63 @@ ClientDetailsComponent.ctorParameters = () => [{
 }, {
   type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_13__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_17__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_20__.HttpClient
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_18__.Router
 }, {
   type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__.SelectOptionsService
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__.TranslateService
 }];
 ClientDetailsComponent.propDecorators = {
   addressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_22__.ViewChild,
     args: ['addressForm']
   }],
   companyClientAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_22__.ViewChild,
     args: ['companyClientAddressForm']
   }],
   privateClientAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_22__.ViewChild,
     args: ['privateClientAddressForm']
   }],
   privateClientForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_22__.ViewChild,
     args: ['privateClientForm']
   }]
 };
-ClientDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_19__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_18__.Component)({
+ClientDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_23__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_22__.Component)({
   selector: "client-details",
-  template: _client_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientDetailsComponent);
 
 
 /***/ }),
 
-/***/ 550:
-/*!***************************************************!*\
-  !*** ./src/app/components/clients/client-list.ts ***!
-  \***************************************************/
+/***/ 6482:
+/*!************************************************************************!*\
+  !*** ./src/app/components/clients/details/client-details.constants.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CLIENT_DETAILS_CONTROL_NAMES": () => (/* binding */ CLIENT_DETAILS_CONTROL_NAMES)
+/* harmony export */ });
+const CLIENT_DETAILS_CONTROL_NAMES = {
+  ClientType: 'ClientTypeId',
+  Name: 'Name'
+};
+
+/***/ }),
+
+/***/ 5906:
+/*!******************************************************************!*\
+  !*** ./src/app/components/clients/list/client-list.component.ts ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2032,23 +2080,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ClientListComponent": () => (/* binding */ ClientListComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-list.html?ngResource */ 93);
+/* harmony import */ var _client_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-list.component.html?ngResource */ 3193);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/access-controls/access-control */ 6378);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
 
 
 
@@ -2069,7 +2117,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let ClientListComponent = class ClientListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
   constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionService, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteClient', src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.client["delete"], dialogMessageService, 'Client', errorService, httpClient, () => {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteClient', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.client["delete"], dialogMessageService, 'Client', errorService, httpClient, () => {
       this._dataPopulator.clients.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.clients.set(result));
     }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__.UserPermissionEnum.Clients_CanModify]);
     this.authorizationService = authorizationService;
@@ -2132,15 +2180,15 @@ let ClientListComponent = class ClientListComponent extends _abstract_access_con
     this._dataPopulator.clients.get(event).subscribe(result => this._dataPopulator.clients.set(result));
   }
   onCreate() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_4__.Routes.clients.navigations.creation]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__.Routes.clients.navigations.creation]);
   }
   onEdit(client) {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_4__.Routes.clients.navigations.edition(client.Id)]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__.Routes.clients.navigations.edition(client.Id)]);
   }
   getClients(event) {
     var _a;
     (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = this.cols[0].field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.client.getAll(event, this.cols));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.client.getAll(event, this.cols));
   }
   getClientTypeMultiSelectData() {
     return this.selectOptionService.getClientTypes();
@@ -2189,28 +2237,30 @@ ClientListComponent.propDecorators = {
 };
 ClientListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
   selector: "client-list",
-  template: _client_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientListComponent);
 
 
 /***/ }),
 
-/***/ 3821:
-/*!******************************************************!*\
-  !*** ./src/app/components/clients/private-client.ts ***!
-  \******************************************************/
+/***/ 3088:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/clients/private-client/private-client.component.ts ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "PrivateClientComponent": () => (/* binding */ PrivateClientComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _private_client_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./private-client.html?ngResource */ 8340);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _private_client_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./private-client.component.html?ngResource */ 7931);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _private_client_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./private-client.constants */ 1307);
+
 
 
 
@@ -2223,42 +2273,59 @@ let PrivateClientComponent = class PrivateClientComponent extends _abstract_form
     this.formBuilder = formBuilder;
     this.translate = translate;
     this.createForm({
-      FirstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required],
-      LastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__.Validators.required]
+      [_private_client_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_CONTROL_NAMES.FirstName]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required],
+      [_private_client_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_CONTROL_NAMES.LastName]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_3__.Validators.required]
     });
   }
   ngOnInit() {
     if (this.client) {
       this.updateForm({
-        FirstName: this.client.FirstName,
-        LastName: this.client.LastName
+        [_private_client_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_CONTROL_NAMES.FirstName]: this.client.FirstName,
+        [_private_client_constants__WEBPACK_IMPORTED_MODULE_2__.PRIVATE_CLIENT_CONTROL_NAMES.LastName]: this.client.LastName
       });
     }
   }
 };
 PrivateClientComponent.ctorParameters = () => [{
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_2__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__.FormBuilder
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__.TranslateService
 }];
 PrivateClientComponent.propDecorators = {
   client: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_4__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input,
     args: ['client']
   }]
 };
-PrivateClientComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Component)({
+PrivateClientComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
   selector: "private-client",
-  template: _private_client_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _private_client_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], PrivateClientComponent);
 
 
 /***/ }),
 
-/***/ 2167:
-/*!*******************************************************!*\
-  !*** ./src/app/components/dialogs/deletion-dialog.ts ***!
-  \*******************************************************/
+/***/ 1307:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/clients/private-client/private-client.constants.ts ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PRIVATE_CLIENT_CONTROL_NAMES": () => (/* binding */ PRIVATE_CLIENT_CONTROL_NAMES)
+/* harmony export */ });
+const PRIVATE_CLIENT_CONTROL_NAMES = {
+  FirstName: 'FirstName',
+  LastName: 'LastName'
+};
+
+/***/ }),
+
+/***/ 8753:
+/*!**************************************************************************!*\
+  !*** ./src/app/components/dialogs/deletion/deletion-dialog.component.ts ***!
+  \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2266,7 +2333,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "DeletionDialogComponent": () => (/* binding */ DeletionDialogComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _deletion_dialog_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deletion-dialog.html?ngResource */ 6514);
+/* harmony import */ var _deletion_dialog_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./deletion-dialog.component.html?ngResource */ 2455);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 
@@ -2290,38 +2357,39 @@ DeletionDialogComponent.propDecorators = {
 };
 DeletionDialogComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Component)({
   selector: "deletion-dialog",
-  template: _deletion_dialog_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _deletion_dialog_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], DeletionDialogComponent);
 
 
 /***/ }),
 
-/***/ 7826:
-/*!***********************************************************!*\
-  !*** ./src/app/components/equipments/equipment-create.ts ***!
-  \***********************************************************/
+/***/ 1615:
+/*!****************************************************************************!*\
+  !*** ./src/app/components/equipments/create/equipment-create.component.ts ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "EquipmentCreationComponent": () => (/* binding */ EquipmentCreationComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _equipment_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-create.html?ngResource */ 9138);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-create.component.html?ngResource */ 2095);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
+/* harmony import */ var _equipment_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./equipment.constants */ 9254);
 
 
 
@@ -2338,9 +2406,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let EquipmentCreationComponent = class EquipmentCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.FormComponent {
+
+let EquipmentCreationComponent = class EquipmentCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.Form {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
-    super(consoleMessageService, dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list);
+    super(consoleMessageService, dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -2351,20 +2420,20 @@ let EquipmentCreationComponent = class EquipmentCreationComponent extends _abstr
     this.translate = translate;
     this.beforeSubmitionCustomOperationsHandler = this.prepareEquipmentCreationModel;
     this.createForm({
-      Description: null,
-      ManufacturerId: null,
-      MarketValue: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required],
-      PricePerDay: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
-      SerialNumber: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required],
-      TypeId: null
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Description]: null,
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Manufacturer]: null,
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.MarketValue]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required],
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.PricePerDay]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_9__.RegexPatterns.decimalNumber)],
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.SerialNumber]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required],
+      [_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Type]: null
     });
   }
   ngOnInit() {
     this.populateDropdowns();
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.equipments.navigations.list]);
   }
   populateDropdowns() {
     this.selectOptionsService.getManufacturers().subscribe(options => {
@@ -2376,13 +2445,13 @@ let EquipmentCreationComponent = class EquipmentCreationComponent extends _abstr
   }
   prepareEquipmentCreationModel() {
     const equipment = {
-      Description: this.form.value.Description,
-      ManufacturerId: this.form.value.ManufacturerId,
-      MarketValue: this.form.value.MarketValue.replace(/\s/g, '').replace(',', '.'),
-      Name: this.form.value.Name,
-      PricePerDay: this.form.value.PricePerDay.replace(/\s/g, '').replace(',', '.'),
-      SerialNumber: this.form.value.SerialNumber,
-      TypeId: this.form.value.TypeId
+      Description: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Description],
+      ManufacturerId: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Manufacturer],
+      MarketValue: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.MarketValue].replace(/\s/g, '').replace(',', '.'),
+      Name: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Name],
+      PricePerDay: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.PricePerDay].replace(/\s/g, '').replace(',', '.'),
+      SerialNumber: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.SerialNumber],
+      TypeId: this.form.value[_equipment_constants__WEBPACK_IMPORTED_MODULE_10__.EQUIPMENT_CREATE_CONTROL_NAMES.Type]
     };
     return equipment;
   }
@@ -2394,56 +2463,79 @@ EquipmentCreationComponent.ctorParameters = () => [{
 }, {
   type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClient
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
 }, {
   type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__.SelectOptionsService
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__.TranslateService
 }];
-EquipmentCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
+EquipmentCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_15__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
   selector: "equipment-create",
-  template: _equipment_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _equipment_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], EquipmentCreationComponent);
 
 
 /***/ }),
 
-/***/ 9012:
-/*!************************************************************!*\
-  !*** ./src/app/components/equipments/equipment-details.ts ***!
-  \************************************************************/
+/***/ 9254:
+/*!*********************************************************************!*\
+  !*** ./src/app/components/equipments/create/equipment.constants.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EQUIPMENT_CREATE_CONTROL_NAMES": () => (/* binding */ EQUIPMENT_CREATE_CONTROL_NAMES)
+/* harmony export */ });
+const EQUIPMENT_CREATE_CONTROL_NAMES = {
+  Description: 'Description',
+  Manufacturer: 'ManufacturerId',
+  MarketValue: 'MarketValue',
+  Name: 'Name',
+  PricePerDay: 'PricePerDay',
+  SerialNumber: 'SerialNumber',
+  Type: 'TypeId'
+};
+
+/***/ }),
+
+/***/ 9267:
+/*!******************************************************************************!*\
+  !*** ./src/app/components/equipments/details/equipment-details.component.ts ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "EquipmentDetailsComponent": () => (/* binding */ EquipmentDetailsComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _equipment_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-details.html?ngResource */ 8650);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-details.component.html?ngResource */ 8095);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
 /* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common */ 4666);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common */ 4666);
 /* harmony import */ var src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/services/images/image.service */ 2329);
+/* harmony import */ var _equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./equipment-details.constants */ 1414);
 
 
 
@@ -2466,9 +2558,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlFormComponent {
+
+let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, imageService, router, selectOptionsService, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteEquipment', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.user.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__.UserPermissionEnum.Equipments_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list);
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteEquipment', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.user.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__.UserPermissionEnum.Equipments_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list);
     this.activatedRoute = activatedRoute;
     this.authorizationService = authorizationService;
     this.confirmationService = confirmationService;
@@ -2485,13 +2578,13 @@ let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstrac
     this.afterSubmitionCustomOperationsHandler = undefined;
     this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
     this.createForm({
-      Description: null,
-      ManufacturerId: null,
-      MarketValue: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.required],
-      PricePerDay: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
-      SerialNumber: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_14__.Validators.required],
-      TypeId: null
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Description]: null,
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Manufacturer]: null,
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.MarketValue]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_15__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_15__.Validators.required],
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.PricePerDay]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_15__.Validators.pattern(src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_11__.RegexPatterns.decimalNumber)],
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.SerialNumber]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_15__.Validators.required],
+      [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Type]: null
     });
     this.loadEquipment();
   }
@@ -2502,26 +2595,26 @@ let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstrac
     this.populateDropdowns();
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.equipments.navigations.list]);
   }
   getEntityInstanceName() {
     return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_12__.StringBuilder(this.equipment.Name).append(' ').append(this.equipment.SerialNumber).toString();
   }
   loadEquipment() {
     if (!this.entityId) return;
-    const equipment = this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.getById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.equipment.getById(this.entityId)).subscribe(result => {
       this.equipment = result;
       for (const photo of this.equipment.Photos.filter(photo => photo.ThumbnailFile !== undefined)) {
-        photo.Thumbnail = this.imageService.getImageSourceForFile(photo.ThumbnailFile);
+        photo.ThumbnailUrl = this.imageService.getImageUrlForEncodedFile(photo.ThumbnailFile);
       }
       this.updateForm({
-        Description: this.equipment.Description,
-        ManufacturerId: this.equipment.ManufacturerId,
-        MarketValue: (0,_angular_common__WEBPACK_IMPORTED_MODULE_15__.formatNumber)(this.equipment.MarketValue, this.translate.getDefaultLang(), '1.2-2'),
-        Name: this.equipment.Name,
-        PricePerDay: (0,_angular_common__WEBPACK_IMPORTED_MODULE_15__.formatNumber)(this.equipment.PricePerDay, this.translate.getDefaultLang(), '1.2-2'),
-        SerialNumber: this.equipment.SerialNumber,
-        TypeId: this.equipment.TypeId.toString()
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Description]: this.equipment.Description,
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Manufacturer]: this.equipment.ManufacturerId,
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.MarketValue]: (0,_angular_common__WEBPACK_IMPORTED_MODULE_16__.formatNumber)(this.equipment.MarketValue, this.translate.getDefaultLang(), '1.2-2'),
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Name]: this.equipment.Name,
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.PricePerDay]: (0,_angular_common__WEBPACK_IMPORTED_MODULE_16__.formatNumber)(this.equipment.PricePerDay, this.translate.getDefaultLang(), '1.2-2'),
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.SerialNumber]: this.equipment.SerialNumber,
+        [_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Type]: this.equipment.TypeId.toString()
       });
     });
   }
@@ -2535,23 +2628,23 @@ let EquipmentDetailsComponent = class EquipmentDetailsComponent extends _abstrac
   }
   prepareEquipmentDetailsModel() {
     const equipment = {
-      Description: this.form.value.Description,
-      ManufacturerId: this.form.value.ManufacturerId,
-      MarketValue: this.form.value.MarketValue.replace(/\s/g, '').replace(',', '.'),
-      Name: this.form.value.Name,
-      PricePerDay: this.form.value.PricePerDay.replace(/\s/g, '').replace(',', '.'),
-      SerialNumber: this.form.value.SerialNumber,
-      TypeId: this.form.value.TypeId
+      Description: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Description],
+      ManufacturerId: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Manufacturer],
+      MarketValue: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.MarketValue].replace(/\s/g, '').replace(',', '.'),
+      Name: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Name],
+      PricePerDay: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.PricePerDay].replace(/\s/g, '').replace(',', '.'),
+      SerialNumber: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.SerialNumber],
+      TypeId: this.form.value[_equipment_details_constants__WEBPACK_IMPORTED_MODULE_14__.EQUIPMENT_DETAILS_CONTROL_NAMES.Type]
     };
     return equipment;
   }
 };
 EquipmentDetailsComponent.ctorParameters = () => [{
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_16__.ActivatedRoute
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_17__.ActivatedRoute
 }, {
   type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__.AuthorizationService
 }, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_17__.ConfirmationService
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_18__.ConfirmationService
 }, {
   type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_2__.ConsoleMessageService
 }, {
@@ -2559,30 +2652,52 @@ EquipmentDetailsComponent.ctorParameters = () => [{
 }, {
   type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_14__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_15__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_18__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_19__.HttpClient
 }, {
   type: src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_13__.ImageService
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_16__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_17__.Router
 }, {
   type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_5__.SelectOptionsService
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_20__.TranslateService
 }];
-EquipmentDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_21__.Component)({
+EquipmentDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_21__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_22__.Component)({
   selector: "equipment-details",
-  template: _equipment_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _equipment_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], EquipmentDetailsComponent);
 
 
 /***/ }),
 
-/***/ 6625:
-/*!*********************************************************!*\
-  !*** ./src/app/components/equipments/equipment-list.ts ***!
-  \*********************************************************/
+/***/ 1414:
+/*!******************************************************************************!*\
+  !*** ./src/app/components/equipments/details/equipment-details.constants.ts ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EQUIPMENT_DETAILS_CONTROL_NAMES": () => (/* binding */ EQUIPMENT_DETAILS_CONTROL_NAMES)
+/* harmony export */ });
+const EQUIPMENT_DETAILS_CONTROL_NAMES = {
+  Description: 'Description',
+  Manufacturer: 'ManufacturerId',
+  MarketValue: 'MarketValue',
+  Name: 'Name',
+  PricePerDay: 'PricePerDay',
+  SerialNumber: 'SerialNumber',
+  Type: 'TypeId'
+};
+
+/***/ }),
+
+/***/ 9373:
+/*!************************************************************************!*\
+  !*** ./src/app/components/equipments/list/equipment-list.component.ts ***!
+  \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2590,9 +2705,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "EquipmentListComponent": () => (/* binding */ EquipmentListComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _equipment_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-list.html?ngResource */ 8777);
+/* harmony import */ var _equipment_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-list.component.html?ngResource */ 9021);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/access-controls/access-control */ 6378);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
@@ -2601,10 +2716,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
@@ -2629,7 +2744,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let EquipmentListComponent = class EquipmentListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
   constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionsService, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, httpClient, () => {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment["delete"], dialogMessageService, 'Equipment', errorService, httpClient, () => {
       this._dataPopulator.equipments.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.equipments.set(result));
     }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__.UserPermissionEnum.Equipments_CanModify]);
     this.authorizationService = authorizationService;
@@ -2700,10 +2815,10 @@ let EquipmentListComponent = class EquipmentListComponent extends _abstract_acce
     this._dataPopulator.equipments.get(event).subscribe(result => this._dataPopulator.equipments.set(result));
   }
   onCreate() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.creation]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.creation]);
   }
   onEdit(equipment) {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.edition(equipment.Id)]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.equipments.navigations.edition(equipment.Id)]);
   }
   getEntityInstanceName(equipment) {
     return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__.StringBuilder(equipment.Name).append(' ').append(equipment.SerialNumber).toString();
@@ -2714,7 +2829,7 @@ let EquipmentListComponent = class EquipmentListComponent extends _abstract_acce
   getEquipments(event) {
     var _a, _b;
     (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = (_b = this.cols[0]) === null || _b === void 0 ? void 0 : _b.field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment.getAll(event, this.cols));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.equipment.getAll(event, this.cols));
   }
   getTypeMultiSelectData() {
     return this.selectOptionsService.getEquipmentTypes();
@@ -2767,29 +2882,39 @@ EquipmentListComponent.propDecorators = {
 };
 EquipmentListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
   selector: "equipment-list",
-  template: _equipment_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _equipment_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], EquipmentListComponent);
 
 
 /***/ }),
 
-/***/ 4686:
-/*!******************************************************************!*\
-  !*** ./src/app/components/equipments/photos/equipment-photos.ts ***!
-  \******************************************************************/
+/***/ 4753:
+/*!****************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/equipment-photos.component.ts ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "EquipmentPhotosComponent": () => (/* binding */ EquipmentPhotosComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _equipment_photos_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./equipment-photos.html?ngResource */ 1928);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/images/image.service */ 2329);
-/* harmony import */ var src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/primeNgHelper */ 3833);
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _equipment_photos_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./equipment-photos.component.html?ngResource */ 7990);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/image.service */ 2329);
+/* harmony import */ var src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/primeNgHelper */ 3833);
+/* harmony import */ var _uploaders_equipment_photo_uploader_factory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./uploaders/equipment-photo-uploader-factory */ 3170);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_services_files_file_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/files/file.service */ 1184);
+
+
+
+
+
 
 
 
@@ -2798,12 +2923,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let EquipmentPhotosComponent = class EquipmentPhotosComponent {
-  constructor(httpClient, imageService) {
+  constructor(fileService, httpClient, imageService, translate) {
+    this.fileService = fileService;
     this.httpClient = httpClient;
     this.imageService = imageService;
+    this.translate = translate;
     this._activeIndex = 0;
     this.equipmentPhotos = [];
-    this.galleriaResponsiveOptions = src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_3__.PrimeNgHelper.galleriaResponsiveOptions;
+    this.galleriaResponsiveOptions = src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_4__.PrimeNgHelper.galleriaResponsiveOptions;
+    this.sourcePhotos = [];
   }
   get activeIndex() {
     return this._activeIndex;
@@ -2816,56 +2944,429 @@ let EquipmentPhotosComponent = class EquipmentPhotosComponent {
   ngOnInit() {
     if (!this.sourcePhotos) return;
     for (const photo of this.sourcePhotos) {
-      this.addPhoto(photo);
+      this.equipmentPhotos.push(photo);
     }
   }
-  getEquipmentPhotoSource(id) {
+  equipmentPhotoUploadAsync(event) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const uploader = new _uploaders_equipment_photo_uploader_factory__WEBPACK_IMPORTED_MODULE_5__.EquipmentPhotoUploaderFactory(_this.fileService, _this.httpClient, _this.imageService, _this.equipmentId).makeUploader(!_this.equipmentId ? src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation : src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Edition);
+      const uploadedEquipmentPhotos = [];
+      yield uploader.uploadToPhotosAsync(event.files, uploadedEquipmentPhotos);
+      uploadedEquipmentPhotos.splice(0, 0, ..._this.equipmentPhotos);
+      _this.equipmentPhotos = [...uploadedEquipmentPhotos];
+      _this.activeIndex = _this.equipmentPhotos.length - 1;
+      _this.equipmentPhotoUpload.clear();
+    })();
+  }
+  getEquipmentPhotoSource(item) {
+    var _this2 = this;
     if (!this.equipmentId) return;
-    const equipmentPhoto = this.equipmentPhotos.find(p => p.Id === id);
+    const equipmentPhoto = this.equipmentPhotos.find(p => p.Id === item.Id);
     if (!equipmentPhoto || equipmentPhoto.IsBeingDownloaded) return;
     equipmentPhoto.IsBeingDownloaded = true;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id)).subscribe(result => {
-      equipmentPhoto.Source = this.imageService.getImageSourceForFile(result.File);
-      equipmentPhoto.IsBeingDownloaded = false;
-    });
-  }
-  addPhoto(photo) {
-    this.equipmentPhotos.push({
-      File: undefined,
-      FileName: photo.FileName,
-      Id: photo.Id,
-      IsBeingDownloaded: false,
-      IsMainThumbnail: photo.IsMainThumbnail,
-      Source: undefined,
-      Thumbnail: photo.Thumbnail
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.equipment.file.photo.download(equipmentPhoto.Id)).subscribe({
+      next: function () {
+        var _ref = (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* (result) {
+          if (result && result.File !== undefined && result.File !== null) {
+            equipmentPhoto.SourceUrl = _this2.imageService.getImageUrlForEncodedFile(result.File);
+          } else {
+            equipmentPhoto.SourceUrl = yield _this2.imageService.getNotFoundImageUrlAsync();
+          }
+          equipmentPhoto.IsBeingDownloaded = false;
+        });
+        return function next(_x) {
+          return _ref.apply(this, arguments);
+        };
+      }(),
+      error: function () {
+        var _ref2 = (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+          equipmentPhoto.SourceUrl = yield _this2.imageService.getNotFoundImageUrlAsync();
+          equipmentPhoto.IsBeingDownloaded = false;
+        });
+        return function error() {
+          return _ref2.apply(this, arguments);
+        };
+      }()
     });
   }
 };
 EquipmentPhotosComponent.ctorParameters = () => [{
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__.HttpClient
+  type: src_app_services_files_file_service__WEBPACK_IMPORTED_MODULE_7__.FileService
 }, {
-  type: src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_2__.ImageService
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__.HttpClient
+}, {
+  type: src_app_services_images_image_service__WEBPACK_IMPORTED_MODULE_3__.ImageService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__.TranslateService
 }];
 EquipmentPhotosComponent.propDecorators = {
   equipmentId: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.Input
   }],
   sourcePhotos: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_5__.Input
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.Input
+  }],
+  equipmentPhotoUpload: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.ViewChild,
+    args: ['equipmentPhotoUpload']
   }]
 };
-EquipmentPhotosComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+EquipmentPhotosComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_11__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({
   selector: 'equipment-photos',
-  template: _equipment_photos_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _equipment_photos_component_html_ngResource__WEBPACK_IMPORTED_MODULE_1__
 })], EquipmentPhotosComponent);
 
 
 /***/ }),
 
-/***/ 9598:
-/*!**********************************************************!*\
-  !*** ./src/app/components/login/login-reset-password.ts ***!
-  \**********************************************************/
+/***/ 9076:
+/*!************************************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/uploaders/equipment-photo-on-creation-uploader.ts ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentPhotoOnCreationUploader": () => (/* binding */ EquipmentPhotoOnCreationUploader)
+/* harmony export */ });
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _equipment_photo_uploader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./equipment-photo-uploader */ 3707);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 8611);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+
+
+
+
+class EquipmentPhotoOnCreationUploader extends _equipment_photo_uploader__WEBPACK_IMPORTED_MODULE_1__.EquipmentPhotoUploader {
+  constructor(fileService, httpClient, imageService) {
+    super();
+    this.fileService = fileService;
+    this.httpClient = httpClient;
+    this.imageService = imageService;
+  }
+  uploadToPhotosAsync(files, photos) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      for (const file of files) {
+        const fileArrayBuffer = yield _this.fileService.getArrayBuffer(file);
+        if (!fileArrayBuffer) {
+          return;
+        }
+        const encodedFile = _this.fileService.convertFileToBase64String(fileArrayBuffer);
+        const thumbnail = yield (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.lastValueFrom)(_this.httpClient.post(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.equipment.file.photo.makeThumbnailForFile, {
+          File: encodedFile,
+          FileName: file.name
+        }));
+        photos.push({
+          File: encodedFile,
+          FileName: file.name,
+          SourceUrl: _this.imageService.getImageUrlForEncodedFile(encodedFile),
+          ThumbnailUrl: _this.imageService.getImageUrlForEncodedFile(thumbnail.File),
+          ThumbnailFile: thumbnail.File
+        });
+      }
+    })();
+  }
+}
+
+/***/ }),
+
+/***/ 4847:
+/*!***********************************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/uploaders/equipment-photo-on-edition-uploader.ts ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentPhotoOnEditionUploader": () => (/* binding */ EquipmentPhotoOnEditionUploader)
+/* harmony export */ });
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var _equipment_photo_uploader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./equipment-photo-uploader */ 3707);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 8611);
+
+
+
+
+class EquipmentPhotoOnEditionUploader extends _equipment_photo_uploader__WEBPACK_IMPORTED_MODULE_1__.EquipmentPhotoUploader {
+  constructor(equipmentId, fileService, httpClient, imageService) {
+    super();
+    this.equipmentId = equipmentId;
+    this.fileService = fileService;
+    this.httpClient = httpClient;
+    this.imageService = imageService;
+  }
+  uploadToPhotosAsync(files, photos) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      for (const file of files) {
+        const fileArrayBuffer = yield _this.fileService.getArrayBuffer(file);
+        if (!fileArrayBuffer) {
+          return;
+        }
+        const encodedFile = _this.fileService.convertFileToBase64String(fileArrayBuffer);
+        photos.push({
+          File: encodedFile,
+          FileName: file.name,
+          SourceUrl: _this.imageService.getImageUrlForEncodedFile(encodedFile)
+        });
+      }
+      yield _this.UploadPhotosToApiAsync(photos);
+    })();
+  }
+  UploadPhotosToApiAsync(photos) {
+    var _this2 = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const photosToUploadToApi = photos.filter(photo => photo.Id === undefined).map(photo => ({
+        File: photo.File,
+        FileName: photo.FileName,
+        Id: photo.Id
+      }));
+      const request = {
+        EquipmentId: _this2.equipmentId,
+        Photos: photosToUploadToApi
+      };
+      const result = yield (0,rxjs__WEBPACK_IMPORTED_MODULE_3__.lastValueFrom)(_this2.httpClient.post(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.equipment.file.photo.upload.multiple, request));
+      for (const uploadedPhoto of result.UploadedPhotos) {
+        const photo = photos.find(p => p.FileName === uploadedPhoto.FileName && !p.Id);
+        if (photo) {
+          photo.Id = uploadedPhoto.Id;
+          if (uploadedPhoto.ThumbnailFile) {
+            photo.ThumbnailFile = uploadedPhoto.ThumbnailFile;
+            photo.ThumbnailUrl = _this2.imageService.getImageUrlForEncodedFile(photo.ThumbnailFile);
+          }
+        }
+      }
+      photos = photos.filter(photo => photo.Id);
+    })();
+  }
+}
+
+/***/ }),
+
+/***/ 3170:
+/*!********************************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/uploaders/equipment-photo-uploader-factory.ts ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentPhotoUploaderFactory": () => (/* binding */ EquipmentPhotoUploaderFactory)
+/* harmony export */ });
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var _equipment_photo_on_creation_uploader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./equipment-photo-on-creation-uploader */ 9076);
+/* harmony import */ var _equipment_photo_on_edition_uploader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./equipment-photo-on-edition-uploader */ 4847);
+
+
+
+class EquipmentPhotoUploaderFactory {
+  constructor(fileService, httpClient, imageService, equipmentId) {
+    this.fileService = fileService;
+    this.httpClient = httpClient;
+    this.imageService = imageService;
+    this.equipmentId = equipmentId;
+  }
+  makeUploader(formMode) {
+    let uploader;
+    switch (formMode) {
+      case src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__.FormModeEnum.Creation:
+        uploader = new _equipment_photo_on_creation_uploader__WEBPACK_IMPORTED_MODULE_1__.EquipmentPhotoOnCreationUploader(this.fileService, this.httpClient, this.imageService);
+        break;
+      case src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__.FormModeEnum.Edition:
+        uploader = new _equipment_photo_on_edition_uploader__WEBPACK_IMPORTED_MODULE_2__.EquipmentPhotoOnEditionUploader(this.equipmentId, this.fileService, this.httpClient, this.imageService);
+        break;
+      default:
+        throw new Error(`[${this.constructor.name}] Unsupported form mode.`);
+    }
+    return uploader;
+  }
+}
+
+/***/ }),
+
+/***/ 3707:
+/*!************************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/uploaders/equipment-photo-uploader.ts ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "EquipmentPhotoUploader": () => (/* binding */ EquipmentPhotoUploader)
+/* harmony export */ });
+class EquipmentPhotoUploader {}
+
+/***/ }),
+
+/***/ 6662:
+/*!***********************************************************!*\
+  !*** ./src/app/components/login/login/login.component.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LoginComponent": () => (/* binding */ LoginComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _login_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login.component.html?ngResource */ 4690);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/app.component */ 5041);
+/* harmony import */ var src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/language-code.enum */ 8194);
+/* harmony import */ var src_app_services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/authentication/authentication.service */ 7020);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/api-result.enum */ 4236);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
+/* harmony import */ var _login_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./login.constants */ 6683);
+/* harmony import */ var src_app_constants_local_storage_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/constants/local-storage.constants */ 9454);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let LoginComponent = class LoginComponent extends _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_9__.SimpleFormComponent {
+  constructor(app, authenticationService, dialogMessageService, errorService, formBuilder, router, selectOptionsService, titleService, translate) {
+    super(formBuilder);
+    this.app = app;
+    this.authenticationService = authenticationService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.titleService = titleService;
+    this.translate = translate;
+    this.translate.setDefaultLang('pl');
+    this.titleService.setTitle(translate.instant('AppName'));
+    this.createForm({
+      [_login_constants__WEBPACK_IMPORTED_MODULE_10__.LOGIN_CONTROL_NAMES.Login]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required],
+      [_login_constants__WEBPACK_IMPORTED_MODULE_10__.LOGIN_CONTROL_NAMES.Password]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required]
+    });
+  }
+  ngOnInit() {
+    this.selectOptionsService.getLanguages().subscribe(options => {
+      this.languages = options;
+      const languageIdFromStorage = localStorage.getItem(src_app_constants_local_storage_constants__WEBPACK_IMPORTED_MODULE_11__.LOCAL_STORAGE_PROPERTIES.LanguageId);
+      if (languageIdFromStorage) {
+        this.languageId = Number(languageIdFromStorage);
+        this.setLanguage(this.languageId);
+      }
+    });
+  }
+  onSubmit() {
+    if (!this.form.value.Login) {
+      this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
+      return;
+    }
+    const data = {
+      Login: this.form.value[_login_constants__WEBPACK_IMPORTED_MODULE_10__.LOGIN_CONTROL_NAMES.Login],
+      Password: this.form.value[_login_constants__WEBPACK_IMPORTED_MODULE_10__.LOGIN_CONTROL_NAMES.Password]
+    };
+    this.authenticationService.login(data).subscribe(result => {
+      switch (result) {
+        case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.OK]:
+          this.app.isUserLoggedIn = true;
+          this.authenticationService.isFirstTimeLoggedIn = true;
+          this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_8__.Routes.home.navigations["default"]]);
+          break;
+        case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.NotActive]:
+          this.dialogMessageService.addError(this.translate.instant('Messages.AccountNotActive'));
+          this.dialogMessageService.addError(this.translate.instant('Messages.PleaseContactAdmin'));
+          break;
+        default:
+          this.dialogMessageService.addError(this.translate.instant('Messages.InvalidLoginData'));
+          break;
+      }
+    });
+  }
+  getLanguageCodeById(id) {
+    switch (id) {
+      case src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__.LanguageCodeEnum.Pl.valueOf():
+        return "pl";
+      case src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__.LanguageCodeEnum.En.valueOf():
+        return "en";
+      default:
+        return "---";
+    }
+  }
+  setLanguage(languageId) {
+    const lang = this.getLanguageCodeById(languageId);
+    this.translate.use(lang).subscribe(() => {
+      this.titleService.setTitle(this.translate.instant('AppName'));
+    });
+  }
+};
+LoginComponent.ctorParameters = () => [{
+  type: src_app_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent
+}, {
+  type: src_app_services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__.AuthenticationService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormBuilder
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_6__.SelectOptionsService
+}, {
+  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_14__.Title
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
+}];
+LoginComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
+  selector: "login",
+  template: _login_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], LoginComponent);
+
+
+/***/ }),
+
+/***/ 6683:
+/*!***********************************************************!*\
+  !*** ./src/app/components/login/login/login.constants.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LOGIN_CONTROL_NAMES": () => (/* binding */ LOGIN_CONTROL_NAMES)
+/* harmony export */ });
+const LOGIN_CONTROL_NAMES = {
+  Login: 'Login',
+  Password: 'Password'
+};
+
+/***/ }),
+
+/***/ 6273:
+/*!***********************************************************************************!*\
+  !*** ./src/app/components/login/reset-password/login-reset-password.component.ts ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2873,14 +3374,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "LoginResetPasswordComponent": () => (/* binding */ LoginResetPasswordComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _login_reset_password_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login-reset-password.html?ngResource */ 8089);
+/* harmony import */ var _login_reset_password_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login-reset-password.component.html?ngResource */ 1096);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
+/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../abstract/forms/simple-form */ 328);
 
 
 
@@ -2948,178 +3449,39 @@ LoginResetPasswordComponent.ctorParameters = () => [{
 }];
 LoginResetPasswordComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
   selector: "login-reset-password",
-  template: _login_reset_password_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _login_reset_password_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], LoginResetPasswordComponent);
 
 
 /***/ }),
 
-/***/ 8077:
-/*!*******************************************!*\
-  !*** ./src/app/components/login/login.ts ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LoginComponent": () => (/* binding */ LoginComponent)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _login_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login.html?ngResource */ 1320);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/app.component */ 5041);
-/* harmony import */ var src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/language-code-enum */ 1072);
-/* harmony import */ var src_app_services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/authentication/authentication.service */ 7020);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/api-result-enum */ 6793);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../abstract/forms/simple-form */ 328);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let LoginComponent = class LoginComponent extends _abstract_forms_simple_form__WEBPACK_IMPORTED_MODULE_9__.SimpleFormComponent {
-  constructor(app, authenticationService, dialogMessageService, errorService, formBuilder, router, selectOptionsService, titleService, translate) {
-    super(formBuilder);
-    this.app = app;
-    this.authenticationService = authenticationService;
-    this.dialogMessageService = dialogMessageService;
-    this.errorService = errorService;
-    this.formBuilder = formBuilder;
-    this.router = router;
-    this.selectOptionsService = selectOptionsService;
-    this.titleService = titleService;
-    this.translate = translate;
-    this.translate.setDefaultLang('pl');
-    this.titleService.setTitle(translate.instant('AppName'));
-    this.createForm({
-      Login: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required],
-      Password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_10__.Validators.required]
-    });
-  }
-  ngOnInit() {
-    this.selectOptionsService.getLanguages().subscribe(options => {
-      this.languages = options;
-      const languageIdFromStorage = localStorage.getItem('languageId');
-      if (languageIdFromStorage) {
-        this.languageId = Number(languageIdFromStorage);
-        this.setLanguage(this.languageId);
-      }
-    });
-  }
-  onSubmit() {
-    if (!this.form.value.Login) {
-      this.dialogMessageService.addError(this.errorService.getDefaultErrorMessage());
-      return;
-    }
-    const data = {
-      Login: this.form.value.Login,
-      Password: this.form.value.Password
-    };
-    this.authenticationService.login(data).subscribe(result => {
-      switch (result) {
-        case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.OK]:
-          this.app.isUserLoggedIn = true;
-          this.authenticationService.isFirstTimeLoggedIn = true;
-          this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.home.navigations["default"]]);
-          break;
-        case src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum[src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_7__.ApiResultEnum.NotActive]:
-          this.dialogMessageService.addError(this.translate.instant('Messages.AccountNotActive'));
-          this.dialogMessageService.addError(this.translate.instant('Messages.PleaseContactAdmin'));
-          break;
-        default:
-          this.dialogMessageService.addError(this.translate.instant('Messages.InvalidLoginData'));
-          break;
-      }
-    });
-  }
-  getLanguageCodeById(id) {
-    switch (id) {
-      case src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__.LanguageCodeEnum.Pl.valueOf():
-        return "pl";
-      case src_app_enums_language_code_enum__WEBPACK_IMPORTED_MODULE_2__.LanguageCodeEnum.En.valueOf():
-        return "en";
-      default:
-        return "---";
-    }
-  }
-  setLanguage(languageId) {
-    const lang = this.getLanguageCodeById(languageId);
-    this.translate.use(lang).subscribe(() => {
-      this.titleService.setTitle(this.translate.instant('AppName'));
-    });
-  }
-};
-LoginComponent.ctorParameters = () => [{
-  type: src_app_app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent
-}, {
-  type: src_app_services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__.AuthenticationService
-}, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__.DialogMessageService
-}, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
-}, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_10__.FormBuilder
-}, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
-}, {
-  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_6__.SelectOptionsService
-}, {
-  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__.Title
-}, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__.TranslateService
-}];
-LoginComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
-  selector: "login",
-  template: _login_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
-})], LoginComponent);
-
-
-/***/ }),
-
-/***/ 8514:
-/*!*****************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-create.ts ***!
-  \*****************************************************************/
+/***/ 729:
+/*!**********************************************************************************!*\
+  !*** ./src/app/components/manufacturers/create/manufacturer-create.component.ts ***!
+  \**********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ManufacturerCreationComponent": () => (/* binding */ ManufacturerCreationComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _manufacturer_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-create.html?ngResource */ 5063);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-create.component.html?ngResource */ 8986);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../addresses/address/address.constants */ 5164);
+/* harmony import */ var _addresses_manufacturer_address_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../addresses/manufacturer-address/manufacturer-address.constants */ 7590);
+/* harmony import */ var _manufacturer_create_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./manufacturer-create.constants */ 2582);
 
 
 
@@ -3135,9 +3497,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ManufacturerCreationComponent = class ManufacturerCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.FormComponent {
+
+
+let ManufacturerCreationComponent = class ManufacturerCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_1__.Form {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
-    super(consoleMessageService, dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_6__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.navigations.list);
+    super(consoleMessageService, dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_5__.FormModeEnum.Creation, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.manufacturers.navigations.list);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -3146,10 +3510,10 @@ let ManufacturerCreationComponent = class ManufacturerCreationComponent extends 
     this.router = router;
     this.translate = translate;
     this.beforeSubmitionCustomOperationsHandler = this.prepareManufacturerCreationModel;
-    this.manufacturerAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetNumber];
+    this.manufacturerAddressRequiredFields = [_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.City, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.Country, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.PostalCode, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetName, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.createForm({
-      IsOperational: false,
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required]
+      [_manufacturer_create_constants__WEBPACK_IMPORTED_MODULE_10__.MANUFACTURER_CREATE_CONTROL_NAMES.IsOperational]: false,
+      [_manufacturer_create_constants__WEBPACK_IMPORTED_MODULE_10__.MANUFACTURER_CREATE_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required]
     });
   }
   get shouldActionsBeDisabled() {
@@ -3158,91 +3522,110 @@ let ManufacturerCreationComponent = class ManufacturerCreationComponent extends 
   }
   ngOnInit() {}
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_8__.Routes.manufacturers.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.manufacturers.navigations.list]);
   }
   prepareManufacturerCreationModel() {
     const manufacturerAddress = {
-      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
-      City: this.addressForm.form.value.City,
+      ApartmentNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.ApartmentNumber],
+      City: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.City],
       Country: {
-        Id: this.addressForm.form.value.CountryId
+        Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.Country]
       },
-      Email: this.addressForm.form.value.Email,
-      NationalId: this.manufacturerAddressForm.form.value.NationalId,
-      PhoneNumber: this.addressForm.form.value.PhoneNumber,
-      PostalCode: this.addressForm.form.value.PostalCode,
-      StreetName: this.addressForm.form.value.StreetName,
-      StreetNumber: this.addressForm.form.value.StreetNumber
+      Email: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.Email],
+      NationalId: this.manufacturerAddressForm.form.value[_addresses_manufacturer_address_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_9__.MANUFACTURER_ADDRESS_CONTROL_NAMES.NationalId],
+      PhoneNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.PhoneNumber],
+      PostalCode: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.PostalCode],
+      StreetName: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetName],
+      StreetNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetNumber]
     };
     const manufacturer = {
       Address: manufacturerAddress,
-      IsOperational: this.form.value.IsOperational,
-      Name: this.form.value.Name
+      IsOperational: this.form.value[_manufacturer_create_constants__WEBPACK_IMPORTED_MODULE_10__.MANUFACTURER_CREATE_CONTROL_NAMES.IsOperational],
+      Name: this.form.value[_manufacturer_create_constants__WEBPACK_IMPORTED_MODULE_10__.MANUFACTURER_CREATE_CONTROL_NAMES.Name]
     };
     return manufacturer;
   }
 };
 ManufacturerCreationComponent.ctorParameters = () => [{
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_4__.ConsoleMessageService
 }, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
 }, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_12__.HttpClient
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__.TranslateService
 }];
 ManufacturerCreationComponent.propDecorators = {
   addressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
     args: ['addressForm']
   }],
   manufacturerAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_15__.ViewChild,
     args: ['manufacturerAddressForm']
   }]
 };
-ManufacturerCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+ManufacturerCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
   selector: "manufacturer-create",
-  template: _manufacturer_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _manufacturer_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ManufacturerCreationComponent);
 
 
 /***/ }),
 
-/***/ 856:
-/*!******************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-details.ts ***!
-  \******************************************************************/
+/***/ 2582:
+/*!**********************************************************************************!*\
+  !*** ./src/app/components/manufacturers/create/manufacturer-create.constants.ts ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MANUFACTURER_CREATE_CONTROL_NAMES": () => (/* binding */ MANUFACTURER_CREATE_CONTROL_NAMES)
+/* harmony export */ });
+const MANUFACTURER_CREATE_CONTROL_NAMES = {
+  IsOperational: 'IsOperational',
+  Name: 'Name'
+};
+
+/***/ }),
+
+/***/ 7471:
+/*!************************************************************************************!*\
+  !*** ./src/app/components/manufacturers/details/manufacturer-details.component.ts ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ManufacturerDetailsComponent": () => (/* binding */ ManufacturerDetailsComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _manufacturer_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-details.html?ngResource */ 8495);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _manufacturer_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-details.component.html?ngResource */ 2532);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../addresses/address/address.constants */ 5164);
+/* harmony import */ var _manufacturer_details_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./manufacturer-details.constants */ 9831);
+/* harmony import */ var _addresses_manufacturer_address_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../addresses/manufacturer-address/manufacturer-address.constants */ 7590);
 
 
 
@@ -3261,9 +3644,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlFormComponent {
+
+
+let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_1__.AccessControlForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_9__.UserPermissionEnum.Manufacturers_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.list);
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_7__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__.UserPermissionEnum.Manufacturers_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.manufacturers.navigations.list);
     this.activatedRoute = activatedRoute;
     this.authorizationService = authorizationService;
     this.confirmationService = confirmationService;
@@ -3277,10 +3662,10 @@ let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _a
     this.beforeSubmitionCustomOperationsHandler = this.prepareManufacturerDetailsModel;
     this.afterSubmitionCustomOperationsHandler = undefined;
     this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
-    this.manufacturerAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetNumber];
+    this.manufacturerAddressRequiredFields = [_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.City, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.Country, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.PostalCode, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.StreetName, _addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.createForm({
-      IsOperational: false,
-      Name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_11__.Validators.required]
+      [_manufacturer_details_constants__WEBPACK_IMPORTED_MODULE_11__.MANUFACTURER_DETAILS_CONTROL_NAMES.IsOperational]: false,
+      [_manufacturer_details_constants__WEBPACK_IMPORTED_MODULE_11__.MANUFACTURER_DETAILS_CONTROL_NAMES.Name]: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_13__.Validators.required]
     });
     this.loadManufacturer();
   }
@@ -3290,35 +3675,39 @@ let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _a
   }
   ngOnInit() {}
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.manufacturers.navigations.list]);
   }
   getEntityInstanceName() {
     return this.manufacturer.Name;
   }
   loadManufacturer() {
     if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.manufacturer.getById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.getById(this.entityId)).subscribe(result => {
+      var _a;
       this.manufacturer = result;
       this.updateForm({
         IsOperational: this.manufacturer.IsOperational,
         Name: this.manufacturer.Name
       });
+      if (result.IsDeleted) {
+        (_a = this.form.get(_manufacturer_details_constants__WEBPACK_IMPORTED_MODULE_11__.MANUFACTURER_DETAILS_CONTROL_NAMES.IsOperational)) === null || _a === void 0 ? void 0 : _a.disable();
+      }
     });
   }
   prepareManufacturerDetailsModel() {
     const manufacturerAddress = {
-      ApartmentNumber: this.addressForm.form.value.ApartmentNumber,
-      City: this.addressForm.form.value.City,
+      ApartmentNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.ApartmentNumber],
+      City: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.City],
       Country: {
-        Id: this.addressForm.form.value.CountryId
+        Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.Country]
       },
-      Email: this.addressForm.form.value.Email,
-      Id: this.addressForm.form.value.Id,
-      NationalId: this.manufacturerAddressForm.form.value.NationalId,
-      PhoneNumber: this.addressForm.form.value.PhoneNumber,
-      PostalCode: this.addressForm.form.value.PostalCode,
-      StreetName: this.addressForm.form.value.StreetName,
-      StreetNumber: this.addressForm.form.value.StreetNumber
+      Email: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.Email],
+      Id: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.Id],
+      NationalId: this.manufacturerAddressForm.form.value[_addresses_manufacturer_address_manufacturer_address_constants__WEBPACK_IMPORTED_MODULE_12__.MANUFACTURER_ADDRESS_CONTROL_NAMES.NationalId],
+      PhoneNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.PhoneNumber],
+      PostalCode: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.PostalCode],
+      StreetName: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.StreetName],
+      StreetNumber: this.addressForm.form.value[_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_10__.ADDRESS_CONTROL_NAMES.StreetNumber]
     };
     const manufacturer = {
       Address: manufacturerAddress,
@@ -3330,48 +3719,65 @@ let ManufacturerDetailsComponent = class ManufacturerDetailsComponent extends _a
   }
 };
 ManufacturerDetailsComponent.ctorParameters = () => [{
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.ActivatedRoute
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.ActivatedRoute
 }, {
-  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__.AuthorizationService
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_5__.AuthorizationService
 }, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_13__.ConfirmationService
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_15__.ConfirmationService
 }, {
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_4__.ConsoleMessageService
 }, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
 }, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__.ErrorService
 }, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_11__.FormBuilder
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_13__.FormBuilder
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_14__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HttpClient
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__.TranslateService
 }];
 ManufacturerDetailsComponent.propDecorators = {
   addressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
     args: ['addressForm']
   }],
   manufacturerAddressForm: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
     args: ['manufacturerAddressForm']
   }]
 };
-ManufacturerDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
+ManufacturerDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_19__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_18__.Component)({
   selector: "manufacturer-details",
-  template: _manufacturer_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _manufacturer_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ManufacturerDetailsComponent);
 
 
 /***/ }),
 
-/***/ 8649:
-/*!***************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-list.ts ***!
-  \***************************************************************/
+/***/ 9831:
+/*!************************************************************************************!*\
+  !*** ./src/app/components/manufacturers/details/manufacturer-details.constants.ts ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MANUFACTURER_DETAILS_CONTROL_NAMES": () => (/* binding */ MANUFACTURER_DETAILS_CONTROL_NAMES)
+/* harmony export */ });
+const MANUFACTURER_DETAILS_CONTROL_NAMES = {
+  IsOperational: 'IsOperational',
+  Name: 'Name'
+};
+
+/***/ }),
+
+/***/ 6051:
+/*!******************************************************************************!*\
+  !*** ./src/app/components/manufacturers/list/manufacturer-list.component.ts ***!
+  \******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3379,9 +3785,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ManufacturerListComponent": () => (/* binding */ ManufacturerListComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _manufacturer_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-list.html?ngResource */ 7406);
+/* harmony import */ var _manufacturer_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./manufacturer-list.component.html?ngResource */ 1868);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../abstract/access-controls/access-control */ 6378);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
@@ -3390,11 +3796,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
 /* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 
 
 
@@ -3414,7 +3820,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let ManufacturerListComponent = class ManufacturerListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
   constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, httpClient, () => {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteManufacturer', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer["delete"], dialogMessageService, 'Manufacturer', errorService, httpClient, () => {
       this._dataPopulator.manufacturers.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.manufacturers.set(result));
     }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_7__.UserPermissionEnum.Manufacturers_CanModify]);
     this.authorizationService = authorizationService;
@@ -3464,10 +3870,10 @@ let ManufacturerListComponent = class ManufacturerListComponent extends _abstrac
     this._dataPopulator.manufacturers.get(event).subscribe(result => this._dataPopulator.manufacturers.set(result));
   }
   onCreate() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.creation]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.creation]);
   }
   onEdit(manufacturer) {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.edition(manufacturer.Id)]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.manufacturers.navigations.edition(manufacturer.Id)]);
   }
   getEntityInstanceName(manufacturer) {
     return manufacturer.Name;
@@ -3475,7 +3881,7 @@ let ManufacturerListComponent = class ManufacturerListComponent extends _abstrac
   getManufacturers(event) {
     var _a;
     (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = this.cols[0].field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.getAll(event, this.cols));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.manufacturer.getAll(event, this.cols));
   }
   setManufacturers(manufacturers) {
     this.totalRecords = manufacturers.TotalRowsCount;
@@ -3509,16 +3915,16 @@ ManufacturerListComponent.propDecorators = {
 };
 ManufacturerListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
   selector: "manufacturer-list",
-  template: _manufacturer_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _manufacturer_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ManufacturerListComponent);
 
 
 /***/ }),
 
-/***/ 3679:
-/*!*******************************************************************!*\
-  !*** ./src/app/components/name-in-languages/name-in-languages.ts ***!
-  \*******************************************************************/
+/***/ 2641:
+/*!*****************************************************************************!*\
+  !*** ./src/app/components/name-in-languages/name-in-languages.component.ts ***!
+  \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3526,7 +3932,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NameInLanguagesComponent": () => (/* binding */ NameInLanguagesComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _name_in_languages_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./name-in-languages.html?ngResource */ 6520);
+/* harmony import */ var _name_in_languages_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./name-in-languages.component.html?ngResource */ 5900);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
@@ -3618,16 +4024,16 @@ NameInLanguagesComponent.propDecorators = {
 };
 NameInLanguagesComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Component)({
   selector: 'name-in-languages',
-  template: _name_in_languages_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _name_in_languages_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], NameInLanguagesComponent);
 
 
 /***/ }),
 
-/***/ 6487:
-/*!****************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-create.ts ***!
-  \****************************************************************************/
+/***/ 2563:
+/*!********************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/create/client-representative-create.component.ts ***!
+  \********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3635,21 +4041,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ClientRepresentativeCreationComponent": () => (/* binding */ ClientRepresentativeCreationComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_representative_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-create.html?ngResource */ 5730);
+/* harmony import */ var _client_representative_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-create.component.html?ngResource */ 9568);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
-/* harmony import */ var _abstract_forms_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../abstract/forms/openable-as-dialog-form */ 2661);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var _abstract_forms_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../abstract/forms/openable-as-dialog-form */ 2661);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/components/addresses/address/address.constants */ 5164);
 
 
 
@@ -3666,9 +4072,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ClientRepresentativeCreationComponent = class ClientRepresentativeCreationComponent extends _abstract_forms_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_7__.OpenableAsDialogForm {
+let ClientRepresentativeCreationComponent = class ClientRepresentativeCreationComponent extends _abstract_forms_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_6__.OpenableAsDialogForm {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, openedAsDialogConfig, openedAsDialogRef, router, translate) {
-    super(consoleMessageService, dialogMessageService, 'ClientRepresentative', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Creation, openedAsDialogConfig, openedAsDialogRef, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.clientRepresentative.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_1__.Routes.clientRepresentatives.navigations.list);
+    super(consoleMessageService, dialogMessageService, 'ClientRepresentative', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_7__.FormModeEnum.Creation, openedAsDialogConfig, openedAsDialogRef, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.clientRepresentative.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__.Routes.clientRepresentatives.navigations.list);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -3679,7 +4085,7 @@ let ClientRepresentativeCreationComponent = class ClientRepresentativeCreationCo
     this.router = router;
     this.translate = translate;
     this.beforeSubmitionCustomOperationsHandler = this.prepareClientRepresentativeCreationModel;
-    this.clientRepresentativeAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.Email, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PhoneNumber, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_2__.addressFormFields.StreetNumber];
+    this.clientRepresentativeAddressRequiredFields = [src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.City, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.Country, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.Email, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.PhoneNumber, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.PostalCode, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetName, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_8__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.createForm({
       FirstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required],
       LastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_9__.Validators.required]
@@ -3726,11 +4132,11 @@ ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS = {
   width: '50vw'
 };
 ClientRepresentativeCreationComponent.ctorParameters = () => [{
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__.ConsoleMessageService
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
 }, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
 }, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_5__.ErrorService
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__.ErrorService
 }, {
   type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
 }, {
@@ -3756,16 +4162,16 @@ ClientRepresentativeCreationComponent.propDecorators = {
 };
 ClientRepresentativeCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_15__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_14__.Component)({
   selector: "client-representative-create",
-  template: _client_representative_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_representative_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientRepresentativeCreationComponent);
 
 
 /***/ }),
 
-/***/ 3291:
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-details.ts ***!
-  \*****************************************************************************/
+/***/ 1126:
+/*!**********************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/details/client-representative-details.component.ts ***!
+  \**********************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3773,25 +4179,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ClientRepresentativeDetailsComponent": () => (/* binding */ ClientRepresentativeDetailsComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_representative_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-details.html?ngResource */ 5685);
+/* harmony import */ var _client_representative_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-details.component.html?ngResource */ 1342);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
-/* harmony import */ var src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/interfaces/address */ 2047);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _abstract_forms_access_control_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../abstract/forms/access-control-openable-as-dialog-form */ 4562);
-/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var _abstract_forms_access_control_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../abstract/forms/access-control-openable-as-dialog-form */ 4562);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-/* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+/* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
+/* harmony import */ var src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/components/addresses/address/address.constants */ 5164);
 
 
 
@@ -3812,9 +4218,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let ClientRepresentativeDetailsComponent = class ClientRepresentativeDetailsComponent extends _abstract_forms_access_control_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_3__.AccessControlOpenableAsDialogForm {
+let ClientRepresentativeDetailsComponent = class ClientRepresentativeDetailsComponent extends _abstract_forms_access_control_openable_as_dialog_form__WEBPACK_IMPORTED_MODULE_2__.AccessControlOpenableAsDialogForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, openedAsDialogConfig, openedAsDialogRef, router, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteClientRepresentative', src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.clientRepresentative["delete"], dialogMessageService, 'ClientRepresentative', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Edition, openedAsDialogConfig, openedAsDialogRef, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.clientRepresentative.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.ClientRepresentatives_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_2__.Routes.clientRepresentatives.navigations.list);
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteClientRepresentative', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative["delete"], dialogMessageService, 'ClientRepresentative', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__.FormModeEnum.Edition, openedAsDialogConfig, openedAsDialogRef, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_4__.UserPermissionEnum.ClientRepresentatives_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__.Routes.clientRepresentatives.navigations.list);
     this.activatedRoute = activatedRoute;
     this.authorizationService = authorizationService;
     this.confirmationService = confirmationService;
@@ -3830,7 +4236,7 @@ let ClientRepresentativeDetailsComponent = class ClientRepresentativeDetailsComp
     this.beforeSubmitionCustomOperationsHandler = this.prepareClientRepresentativeDetailsModel;
     this.afterSubmitionCustomOperationsHandler = undefined;
     this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
-    this.clientRepresentativeAddressRequiredFields = [src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.City, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.Country, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.Email, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.PhoneNumber, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.PostalCode, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.StreetName, src_app_interfaces_address__WEBPACK_IMPORTED_MODULE_1__.addressFormFields.StreetNumber];
+    this.clientRepresentativeAddressRequiredFields = [src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.City, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.Country, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.Email, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.PhoneNumber, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.PostalCode, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetName, src_app_components_addresses_address_address_constants__WEBPACK_IMPORTED_MODULE_11__.ADDRESS_CONTROL_NAMES.StreetNumber];
     this.createForm({
       FirstName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required],
       LastName: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_12__.Validators.required]
@@ -3843,11 +4249,11 @@ let ClientRepresentativeDetailsComponent = class ClientRepresentativeDetailsComp
   }
   ngOnInit() {}
   getEntityInstanceName() {
-    return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_11__.StringBuilder(this.clientRepresentative.LastName).append(' ').append(this.clientRepresentative.FirstName).toString();
+    return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_10__.StringBuilder(this.clientRepresentative.LastName).append(' ').append(this.clientRepresentative.FirstName).toString();
   }
   loadClientRepresentative() {
     if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_6__.ApiRoutes.clientRepresentative.getById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative.getById(this.entityId)).subscribe(result => {
       this.clientRepresentative = result;
       this.updateForm({
         FirstName: this.clientRepresentative.FirstName,
@@ -3892,15 +4298,15 @@ ClientRepresentativeDetailsComponent.OPEN_AS_DIALOG_SETTINGS = {
 ClientRepresentativeDetailsComponent.ctorParameters = () => [{
   type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.ActivatedRoute
 }, {
-  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_4__.AuthorizationService
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__.AuthorizationService
 }, {
   type: primeng_api__WEBPACK_IMPORTED_MODULE_14__.ConfirmationService
 }, {
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_9__.ConsoleMessageService
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__.ConsoleMessageService
 }, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__.DialogMessageService
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_6__.DialogMessageService
 }, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_8__.ErrorService
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_7__.ErrorService
 }, {
   type: _angular_forms__WEBPACK_IMPORTED_MODULE_12__.FormBuilder
 }, {
@@ -3926,16 +4332,16 @@ ClientRepresentativeDetailsComponent.propDecorators = {
 };
 ClientRepresentativeDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_19__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_18__.Component)({
   selector: "client-representative-details",
-  template: _client_representative_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_representative_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientRepresentativeDetailsComponent);
 
 
 /***/ }),
 
-/***/ 9431:
-/*!**************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-list.ts ***!
-  \**************************************************************************/
+/***/ 4363:
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/list/client-representative-list.component.ts ***!
+  \****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -3943,24 +4349,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ClientRepresentativeListComponent": () => (/* binding */ ClientRepresentativeListComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _client_representative_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-list.html?ngResource */ 6875);
+/* harmony import */ var _client_representative_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client-representative-list.component.html?ngResource */ 1733);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../abstract/access-controls/access-control */ 6378);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
 /* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
 /* harmony import */ var primeng_dynamicdialog__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/dynamicdialog */ 2648);
-/* harmony import */ var _client_representative_create__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./client-representative-create */ 6487);
-/* harmony import */ var _client_representative_details__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./client-representative-details */ 3291);
+/* harmony import */ var _create_client_representative_create_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../create/client-representative-create.component */ 2563);
+/* harmony import */ var _details_client_representative_details_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../details/client-representative-details.component */ 1126);
 
 
 
@@ -3982,7 +4388,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let ClientRepresentativeListComponent = class ClientRepresentativeListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_1__.AccessControlComponent {
   constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, dialogService, errorService, filterService, httpClient, router, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteClientRepresentative', src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative["delete"], dialogMessageService, 'ClientRepresentative', errorService, httpClient, () => {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteClientRepresentative', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative["delete"], dialogMessageService, 'ClientRepresentative', errorService, httpClient, () => {
       this._dataPopulator.clientRepresentatives.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.clientRepresentatives.set(result));
     }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_3__.UserPermissionEnum.ClientRepresentatives_CanModify]);
     this.authorizationService = authorizationService;
@@ -4053,7 +4459,7 @@ let ClientRepresentativeListComponent = class ClientRepresentativeListComponent 
   getClientRepresentatives(event) {
     var _a;
     (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = this.cols[0].field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative.getAll(event, this.cols, this.clientId));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.clientRepresentative.getAll(event, this.cols, this.clientId));
   }
   getEntityInstanceName(clientRepresentative) {
     return `${clientRepresentative.LastName} ${clientRepresentative.FirstName}`;
@@ -4063,9 +4469,9 @@ let ClientRepresentativeListComponent = class ClientRepresentativeListComponent 
       ClientId: this.clientId,
       Id: clientRepresentative ? clientRepresentative.Id : undefined
     };
-    this.clientRepresentativeCreationDialog = this.dialogService.open(clientRepresentative ? _client_representative_details__WEBPACK_IMPORTED_MODULE_11__.ClientRepresentativeDetailsComponent : _client_representative_create__WEBPACK_IMPORTED_MODULE_10__.ClientRepresentativeCreationComponent, clientRepresentative ? Object.assign(Object.assign({}, _client_representative_details__WEBPACK_IMPORTED_MODULE_11__.ClientRepresentativeDetailsComponent.OPEN_AS_DIALOG_SETTINGS), {
+    this.clientRepresentativeCreationDialog = this.dialogService.open(clientRepresentative ? _details_client_representative_details_component__WEBPACK_IMPORTED_MODULE_11__.ClientRepresentativeDetailsComponent : _create_client_representative_create_component__WEBPACK_IMPORTED_MODULE_10__.ClientRepresentativeCreationComponent, clientRepresentative ? Object.assign(Object.assign({}, _details_client_representative_details_component__WEBPACK_IMPORTED_MODULE_11__.ClientRepresentativeDetailsComponent.OPEN_AS_DIALOG_SETTINGS), {
       data: clientRepresentativeDialogConfigData
-    }) : Object.assign(Object.assign({}, _client_representative_create__WEBPACK_IMPORTED_MODULE_10__.ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS), {
+    }) : Object.assign(Object.assign({}, _create_client_representative_create_component__WEBPACK_IMPORTED_MODULE_10__.ClientRepresentativeCreationComponent.OPEN_AS_DIALOG_SETTINGS), {
       data: clientRepresentativeDialogConfigData
     }));
     this.clientRepresentativeCreationDialog.onClose.subscribe(() => {
@@ -4110,8 +4516,432 @@ ClientRepresentativeListComponent.propDecorators = {
 };
 ClientRepresentativeListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
   selector: "client-representative-list",
-  template: _client_representative_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _client_representative_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], ClientRepresentativeListComponent);
+
+
+/***/ }),
+
+/***/ 5587:
+/*!****************************************************************************!*\
+  !*** ./src/app/components/user-roles/create/user-role-create.component.ts ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UserRoleCreationComponent": () => (/* binding */ UserRoleCreationComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _user_role_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-create.component.html?ngResource */ 123);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/interfaces/user-role */ 7940);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let UserRoleCreationComponent = class UserRoleCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_7__.Form {
+  constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
+    super(consoleMessageService, dialogMessageService, 'UserRole', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Creation, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.userRole.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__.Routes.userRoles.navigations.list);
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareUserRoleCreationModel;
+    this._dataPopulator = {
+      userPermissions: {
+        get: () => this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.userRole.getUserRolePermissionsForCreation),
+        set: userPermissions => this.groupedUserPermissions = userPermissions.List
+      }
+    };
+    this.isNameInLanguagesValid = false;
+    this.createForm();
+  }
+  ngOnInit() {
+    this._dataPopulator.userPermissions.get().subscribe(result => this._dataPopulator.userPermissions.set(result));
+  }
+  onBack() {
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_4__.Routes.userRoles.navigations.list]);
+  }
+  onIsNameInLanguagesValid(value) {
+    this.isNameInLanguagesValid = value;
+  }
+  prepareUserRoleCreationModel() {
+    const userRole = new src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_6__.UserRoleCreationModel();
+    userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
+    const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
+    for (const permission of permissionsSubmitted) {
+      if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
+        userRole.PermissionsSelected.push(permission);
+      }
+    }
+    return userRole;
+  }
+};
+UserRoleCreationComponent.ctorParameters = () => [{
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__.TranslateService
+}];
+UserRoleCreationComponent.propDecorators = {
+  nameInLanguages: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    args: ['nameInLanguages']
+  }],
+  userRolePermissions: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
+    args: ['userRolePermissions']
+  }]
+};
+UserRoleCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
+  selector: "user-role-create",
+  template: _user_role_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], UserRoleCreationComponent);
+
+
+/***/ }),
+
+/***/ 1599:
+/*!******************************************************************************!*\
+  !*** ./src/app/components/user-roles/details/user-role-details.component.ts ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UserRoleDetailsComponent": () => (/* binding */ UserRoleDetailsComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _user_role_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-details.component.html?ngResource */ 3469);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 2508);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/interfaces/user-permission */ 7110);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/interfaces/user-role */ 7940);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let UserRoleDetailsComponent = class UserRoleDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__.AccessControlForm {
+  constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteUserRole', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole["delete"], dialogMessageService, 'UserRole', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__.UserPermissionEnum.UserRoles_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_6__.Routes.userRoles.navigations.list);
+    this.activatedRoute = activatedRoute;
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.formBuilder = formBuilder;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.translate = translate;
+    this.beforeSubmitionCustomOperationsHandler = this.prepareUserRoleDetailsModel;
+    this.afterSubmitionCustomOperationsHandler = undefined;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this.isNameInLanguagesValid = false;
+    this.selectedUserPermissions = new src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_5__.SelectedUserPermissionNodeArray();
+    this.userPermissionColumns = [];
+    this.userPermissionGroups = [];
+    this.createForm();
+    this.loadUserRole();
+  }
+  get shouldActionsBeDisabled() {
+    return super.shouldActionsBeDisabled || !this.userRole;
+  }
+  ngOnInit() {}
+  onBack() {
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_6__.Routes.userRoles.navigations.list]);
+  }
+  onIsNameInLanguagesValid(value) {
+    this.isNameInLanguagesValid = value;
+  }
+  getEntityInstanceName() {
+    return this.userRole.Name;
+  }
+  loadUserRole() {
+    if (!this.entityId) return;
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole.getById(this.entityId)).subscribe(result => {
+      this.userRole = result;
+      this.updateForm();
+    });
+  }
+  updateForm() {
+    if (!this.userRole) return;
+    super.updateForm();
+  }
+  prepareUserRoleDetailsModel() {
+    const userRole = new src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_8__.UserRoleDetailsModel();
+    userRole.Id = this.userRole.Id;
+    userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
+    const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
+    for (const permission of permissionsSubmitted) {
+      if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
+        userRole.PermissionsSelected.push(permission);
+      }
+    }
+    return userRole;
+  }
+};
+UserRoleDetailsComponent.ctorParameters = () => [{
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.ActivatedRoute
+}, {
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_9__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_13__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
+}, {
+  type: _angular_forms__WEBPACK_IMPORTED_MODULE_14__.FormBuilder
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_15__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__.TranslateService
+}];
+UserRoleDetailsComponent.propDecorators = {
+  nameInLanguages: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_17__.ViewChild,
+    args: ['nameInLanguages']
+  }],
+  userRolePermissions: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_17__.ViewChild,
+    args: ['userRolePermissions']
+  }]
+};
+UserRoleDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
+  selector: 'user-role-details',
+  template: _user_role_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], UserRoleDetailsComponent);
+
+
+/***/ }),
+
+/***/ 3967:
+/*!************************************************************************!*\
+  !*** ./src/app/components/user-roles/list/user-role-list.component.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UserRoleListComponent": () => (/* binding */ UserRoleListComponent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _user_role_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-list.component.html?ngResource */ 8061);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
+/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
+/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let UserRoleListComponent = class UserRoleListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__.AccessControlComponent {
+  constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionsService, translate) {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteUserRole', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_4__.ApiRoutes.userRole["delete"], dialogMessageService, 'UserRole', errorService, httpClient, () => {
+      this._dataPopulator.userRoles.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.userRoles.set(result));
+    }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__.UserPermissionEnum.UserRoles_CanModify]);
+    this.authorizationService = authorizationService;
+    this.confirmationService = confirmationService;
+    this.consoleMessageService = consoleMessageService;
+    this.dialogMessageService = dialogMessageService;
+    this.errorService = errorService;
+    this.filterService = filterService;
+    this.httpClient = httpClient;
+    this.router = router;
+    this.selectOptionsService = selectOptionsService;
+    this.translate = translate;
+    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
+    this._dataPopulator = {
+      multiSelects: {
+        userRoles: {
+          get: () => this.getUserRoleMultiSelectData(),
+          set: userRoles => this.setUserRoleMultiSelectData(userRoles)
+        }
+      },
+      userRoles: {
+        get: event => this.getUserRoles(event),
+        set: userRoles => this.setUserRoles(userRoles)
+      }
+    };
+  }
+  ngOnInit() {
+    this.cols = [{
+      field: 'Id',
+      header: 'UserRole.Id',
+      width: '10%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__.FilterTypeEnum.Numeric
+    }, {
+      field: 'Name',
+      header: 'UserRole.Name',
+      width: '70%',
+      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__.FilterTypeEnum.Text,
+      applyGlobalFiltering: true,
+      replaceWith: 'Id'
+    }, {
+      field: 'Actions',
+      header: '',
+      width: '20%'
+    }];
+    this._dataPopulator.multiSelects.userRoles.get().subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
+  }
+  loadUserRolesLazy(event) {
+    this.tempLazyLoadEvent = event;
+    this._dataPopulator.userRoles.get(event).subscribe(result => this._dataPopulator.userRoles.set(result));
+  }
+  onCreate() {
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.userRoles.navigations.creation]);
+  }
+  onEdit(userRole) {
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.userRoles.navigations.edition(userRole.Id)]);
+  }
+  getEntityInstanceName(userRole) {
+    return userRole.Name;
+  }
+  getUserRoleMultiSelectData() {
+    return this.selectOptionsService.getUserRoles();
+  }
+  getUserRoles(event) {
+    var _a, _b;
+    (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = (_b = this.cols[0]) === null || _b === void 0 ? void 0 : _b.field;
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_4__.ApiRoutes.userRole.getAll(event, this.cols));
+  }
+  setUserRoleMultiSelectData(userRoles) {
+    this.userRoleOptions = userRoles;
+    const userRoleColumn = this.cols.find(c => c.field === "Name");
+    if (userRoleColumn) {
+      userRoleColumn.options = this.userRoleOptions;
+    }
+  }
+  setUserRoles(userRoles) {
+    this.totalRecords = userRoles.TotalRowsCount;
+    this.userRoles = userRoles.List;
+  }
+};
+UserRoleListComponent.ctorParameters = () => [{
+  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__.AuthorizationService
+}, {
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_12__.ConfirmationService
+}, {
+  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
+}, {
+  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__.DialogMessageService
+}, {
+  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__.ErrorService
+}, {
+  type: src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__.FilterService
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClient
+}, {
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
+}, {
+  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__.SelectOptionsService
+}, {
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
+}];
+UserRoleListComponent.propDecorators = {
+  dataTable: [{
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
+    args: ['dataTable']
+  }]
+};
+UserRoleListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
+  selector: "user-role-list",
+  template: _user_role_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+})], UserRoleListComponent);
 
 
 /***/ }),
@@ -4126,7 +4956,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserRolePermissionsFillerFactory": () => (/* binding */ UserRolePermissionsFillerFactory)
 /* harmony export */ });
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var _user_role_permissions_on_creation_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-on-creation-filler */ 9596);
 /* harmony import */ var _user_role_permissions_on_edition_filler__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user-role-permissions-on-edition-filler */ 5760);
 
@@ -4161,11 +4991,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserRolePermissionsFiller": () => (/* binding */ UserRolePermissionsFiller)
 /* harmony export */ });
-/* harmony import */ var src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/icon-mapper */ 6554);
+/* harmony import */ var src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/constants/icons.constants */ 9250);
 
 class UserRolePermissionsFiller {
   getIconStyleClassNameForPermission(permission) {
-    return permission.Name.endsWith('.CanList') ? src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__.LIST_ICON_NAME : permission.Name.endsWith('.CanModify') ? src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__.MODIFY_ICON_NAME : src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__.Icons[permission.Name];
+    return permission.Name.endsWith('.CanList') ? src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__.LIST_ICON_NAME : permission.Name.endsWith('.CanModify') ? src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__.MODIFY_ICON_NAME : src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__.Icons[permission.Name];
   }
 }
 
@@ -4182,7 +5012,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserRolePermissionsOnCreationFiller": () => (/* binding */ UserRolePermissionsOnCreationFiller)
 /* harmony export */ });
 /* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1692);
-/* harmony import */ var src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/icon-mapper */ 6554);
+/* harmony import */ var src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/constants/icons.constants */ 9250);
 /* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 1128);
 
 
@@ -4207,7 +5037,7 @@ class UserRolePermissionsOnCreationFiller extends _user_role_permissions_filler_
     const result = new _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__.UserPermissionNode();
     result.children = children;
     result.data = {
-      icon: src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_1__.Icons[permissionsGroup.Name],
+      icon: src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_1__.Icons[permissionsGroup.Name],
       id: null,
       name: permissionsGroup.Name,
       linkedPermissionIds: []
@@ -4237,7 +5067,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "UserRolePermissionsOnEditionFiller": () => (/* binding */ UserRolePermissionsOnEditionFiller)
 /* harmony export */ });
-/* harmony import */ var src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/icon-mapper */ 6554);
+/* harmony import */ var src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/constants/icons.constants */ 9250);
 /* harmony import */ var _user_role_permissions_filler__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user-role-permissions-filler */ 1692);
 /* harmony import */ var _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/user-permission-node */ 1128);
 
@@ -4266,7 +5096,7 @@ class UserRolePermissionsOnEditionFiller extends _user_role_permissions_filler__
     const result = new _models_user_permission_node__WEBPACK_IMPORTED_MODULE_2__.UserPermissionNode();
     result.children = children;
     result.data = {
-      icon: src_app_icon_mapper__WEBPACK_IMPORTED_MODULE_0__.Icons[permissionsGroup.Name],
+      icon: src_app_constants_icons_constants__WEBPACK_IMPORTED_MODULE_0__.Icons[permissionsGroup.Name],
       id: null,
       isSelected: children.every(c => c.isSelected()),
       linkedPermissionIds: [],
@@ -4331,10 +5161,10 @@ class UserPermissionNode {
 
 /***/ }),
 
-/***/ 2902:
-/*!****************************************************************************!*\
-  !*** ./src/app/components/user-roles/permissions/user-role-permissions.ts ***!
-  \****************************************************************************/
+/***/ 7083:
+/*!**************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/user-role-permissions.component.ts ***!
+  \**************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4342,10 +5172,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserRolePermissionsComponent": () => (/* binding */ UserRolePermissionsComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions.html?ngResource */ 4353);
+/* harmony import */ var _user_role_permissions_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-permissions.component.html?ngResource */ 6607);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/interfaces/user-permission */ 7110);
 /* harmony import */ var _fillers_user_role_permissions_filler_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fillers/user-role-permissions-filler-factory */ 8690);
 
@@ -4435,440 +5265,16 @@ UserRolePermissionsComponent.propDecorators = {
 };
 UserRolePermissionsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
   selector: 'user-role-permissions',
-  template: _user_role_permissions_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _user_role_permissions_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], UserRolePermissionsComponent);
 
 
 /***/ }),
 
-/***/ 3746:
-/*!***********************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-create.ts ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserRoleCreationComponent": () => (/* binding */ UserRoleCreationComponent)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_role_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-create.html?ngResource */ 4035);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/interfaces/user-role */ 7940);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let UserRoleCreationComponent = class UserRoleCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_7__.FormComponent {
-  constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
-    super(consoleMessageService, dialogMessageService, 'UserRole', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_8__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.userRole.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_4__.Routes.userRoles.navigations.list);
-    this.consoleMessageService = consoleMessageService;
-    this.dialogMessageService = dialogMessageService;
-    this.errorService = errorService;
-    this.formBuilder = formBuilder;
-    this.httpClient = httpClient;
-    this.router = router;
-    this.translate = translate;
-    this.beforeSubmitionCustomOperationsHandler = this.prepareUserRoleCreationModel;
-    this._dataPopulator = {
-      userPermissions: {
-        get: () => this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_5__.ApiRoutes.userRole.getUserRolePermissionsForCreation),
-        set: userPermissions => this.groupedUserPermissions = userPermissions.List
-      }
-    };
-    this.isNameInLanguagesValid = false;
-    this.createForm();
-  }
-  ngOnInit() {
-    this._dataPopulator.userPermissions.get().subscribe(result => this._dataPopulator.userPermissions.set(result));
-  }
-  onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_4__.Routes.userRoles.navigations.list]);
-  }
-  onIsNameInLanguagesValid(value) {
-    this.isNameInLanguagesValid = value;
-  }
-  prepareUserRoleCreationModel() {
-    const userRole = new src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_6__.UserRoleCreationModel();
-    userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
-    const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
-    for (const permission of permissionsSubmitted) {
-      if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
-        userRole.PermissionsSelected.push(permission);
-      }
-    }
-    return userRole;
-  }
-};
-UserRoleCreationComponent.ctorParameters = () => [{
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__.ConsoleMessageService
-}, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_3__.DialogMessageService
-}, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_2__.ErrorService
-}, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_9__.FormBuilder
-}, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_10__.HttpClient
-}, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_11__.Router
-}, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_12__.TranslateService
-}];
-UserRoleCreationComponent.propDecorators = {
-  nameInLanguages: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
-    args: ['nameInLanguages']
-  }],
-  userRolePermissions: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_13__.ViewChild,
-    args: ['userRolePermissions']
-  }]
-};
-UserRoleCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_13__.Component)({
-  selector: "user-role-create",
-  template: _user_role_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
-})], UserRoleCreationComponent);
-
-
-/***/ }),
-
-/***/ 7424:
-/*!************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-details.ts ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserRoleDetailsComponent": () => (/* binding */ UserRoleDetailsComponent)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_role_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-details.html?ngResource */ 2713);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 2508);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/interfaces/user-permission */ 7110);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/interfaces/user-role */ 7940);
-/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let UserRoleDetailsComponent = class UserRoleDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_10__.AccessControlFormComponent {
-  constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteUserRole', src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole["delete"], dialogMessageService, 'UserRole', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_11__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__.UserPermissionEnum.UserRoles_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_6__.Routes.userRoles.navigations.list);
-    this.activatedRoute = activatedRoute;
-    this.authorizationService = authorizationService;
-    this.confirmationService = confirmationService;
-    this.consoleMessageService = consoleMessageService;
-    this.dialogMessageService = dialogMessageService;
-    this.errorService = errorService;
-    this.formBuilder = formBuilder;
-    this.httpClient = httpClient;
-    this.router = router;
-    this.translate = translate;
-    this.beforeSubmitionCustomOperationsHandler = this.prepareUserRoleDetailsModel;
-    this.afterSubmitionCustomOperationsHandler = undefined;
-    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
-    this.isNameInLanguagesValid = false;
-    this.selectedUserPermissions = new src_app_interfaces_user_permission__WEBPACK_IMPORTED_MODULE_5__.SelectedUserPermissionNodeArray();
-    this.userPermissionColumns = [];
-    this.userPermissionGroups = [];
-    this.createForm();
-    this.loadUserRole();
-  }
-  get shouldActionsBeDisabled() {
-    return super.shouldActionsBeDisabled || !this.userRole;
-  }
-  ngOnInit() {}
-  onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_6__.Routes.userRoles.navigations.list]);
-  }
-  onIsNameInLanguagesValid(value) {
-    this.isNameInLanguagesValid = value;
-  }
-  getEntityInstanceName() {
-    return this.userRole.Name;
-  }
-  loadUserRole() {
-    if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.userRole.getById(this.entityId)).subscribe(result => {
-      this.userRole = result;
-      this.updateForm();
-    });
-  }
-  updateForm() {
-    if (!this.userRole) return;
-    super.updateForm();
-  }
-  prepareUserRoleDetailsModel() {
-    const userRole = new src_app_interfaces_user_role__WEBPACK_IMPORTED_MODULE_8__.UserRoleDetailsModel();
-    userRole.Id = this.userRole.Id;
-    userRole.NameInLanguages = this.nameInLanguages.getNameInLanguages();
-    const permissionsSubmitted = this.userRolePermissions.getPermissionsSubmitted();
-    for (const permission of permissionsSubmitted) {
-      if (!userRole.doesPermissionExistWithinSelected(permission.Id)) {
-        userRole.PermissionsSelected.push(permission);
-      }
-    }
-    return userRole;
-  }
-};
-UserRoleDetailsComponent.ctorParameters = () => [{
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.ActivatedRoute
-}, {
-  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_9__.AuthorizationService
-}, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_13__.ConfirmationService
-}, {
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_1__.ConsoleMessageService
-}, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_4__.DialogMessageService
-}, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_3__.ErrorService
-}, {
-  type: _angular_forms__WEBPACK_IMPORTED_MODULE_14__.FormBuilder
-}, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_15__.HttpClient
-}, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
-}, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__.TranslateService
-}];
-UserRoleDetailsComponent.propDecorators = {
-  nameInLanguages: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_17__.ViewChild,
-    args: ['nameInLanguages']
-  }],
-  userRolePermissions: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_17__.ViewChild,
-    args: ['userRolePermissions']
-  }]
-};
-UserRoleDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
-  selector: 'user-role-details',
-  template: _user_role_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
-})], UserRoleDetailsComponent);
-
-
-/***/ }),
-
-/***/ 4609:
-/*!*********************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-list.ts ***!
-  \*********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "UserRoleListComponent": () => (/* binding */ UserRoleListComponent)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_role_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-role-list.html?ngResource */ 3136);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/filters/filter.service */ 9865);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
-/* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
-/* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let UserRoleListComponent = class UserRoleListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__.AccessControlComponent {
-  constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionsService, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteUserRole', src_app_api_routes__WEBPACK_IMPORTED_MODULE_4__.ApiRoutes.userRole["delete"], dialogMessageService, 'UserRole', errorService, httpClient, () => {
-      this._dataPopulator.userRoles.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.userRoles.set(result));
-    }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_8__.UserPermissionEnum.UserRoles_CanModify]);
-    this.authorizationService = authorizationService;
-    this.confirmationService = confirmationService;
-    this.consoleMessageService = consoleMessageService;
-    this.dialogMessageService = dialogMessageService;
-    this.errorService = errorService;
-    this.filterService = filterService;
-    this.httpClient = httpClient;
-    this.router = router;
-    this.selectOptionsService = selectOptionsService;
-    this.translate = translate;
-    this.deletedEntityInstanceIdentificationInitializer = this.getEntityInstanceName;
-    this._dataPopulator = {
-      multiSelects: {
-        userRoles: {
-          get: () => this.getUserRoleMultiSelectData(),
-          set: userRoles => this.setUserRoleMultiSelectData(userRoles)
-        }
-      },
-      userRoles: {
-        get: event => this.getUserRoles(event),
-        set: userRoles => this.setUserRoles(userRoles)
-      }
-    };
-  }
-  ngOnInit() {
-    this.cols = [{
-      field: 'Id',
-      header: 'UserRole.Id',
-      width: '10%',
-      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__.FilterTypeEnum.Numeric
-    }, {
-      field: 'Name',
-      header: 'UserRole.Name',
-      width: '70%',
-      filterType: src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__.FilterTypeEnum.Text,
-      applyGlobalFiltering: true,
-      replaceWith: 'Id'
-    }, {
-      field: 'Actions',
-      header: '',
-      width: '20%'
-    }];
-    this._dataPopulator.multiSelects.userRoles.get().subscribe(userRoles => this._dataPopulator.multiSelects.userRoles.set(userRoles));
-  }
-  loadUserRolesLazy(event) {
-    this.tempLazyLoadEvent = event;
-    this._dataPopulator.userRoles.get(event).subscribe(result => this._dataPopulator.userRoles.set(result));
-  }
-  onCreate() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.userRoles.navigations.creation]);
-  }
-  onEdit(userRole) {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.userRoles.navigations.edition(userRole.Id)]);
-  }
-  getEntityInstanceName(userRole) {
-    return userRole.Name;
-  }
-  getUserRoleMultiSelectData() {
-    return this.selectOptionsService.getUserRoles();
-  }
-  getUserRoles(event) {
-    var _a, _b;
-    (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = (_b = this.cols[0]) === null || _b === void 0 ? void 0 : _b.field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_4__.ApiRoutes.userRole.getAll(event, this.cols));
-  }
-  setUserRoleMultiSelectData(userRoles) {
-    this.userRoleOptions = userRoles;
-    const userRoleColumn = this.cols.find(c => c.field === "Name");
-    if (userRoleColumn) {
-      userRoleColumn.options = this.userRoleOptions;
-    }
-  }
-  setUserRoles(userRoles) {
-    this.totalRecords = userRoles.TotalRowsCount;
-    this.userRoles = userRoles.List;
-  }
-};
-UserRoleListComponent.ctorParameters = () => [{
-  type: src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__.AuthorizationService
-}, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_12__.ConfirmationService
-}, {
-  type: src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_5__.ConsoleMessageService
-}, {
-  type: src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__.DialogMessageService
-}, {
-  type: src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__.ErrorService
-}, {
-  type: src_app_services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__.FilterService
-}, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClient
-}, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
-}, {
-  type: src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__.SelectOptionsService
-}, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__.TranslateService
-}];
-UserRoleListComponent.propDecorators = {
-  dataTable: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_16__.ViewChild,
-    args: ['dataTable']
-  }]
-};
-UserRoleListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_17__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_16__.Component)({
-  selector: "user-role-list",
-  template: _user_role_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
-})], UserRoleListComponent);
-
-
-/***/ }),
-
-/***/ 9068:
-/*!*************************************************!*\
-  !*** ./src/app/components/users/user-create.ts ***!
-  \*************************************************/
+/***/ 9047:
+/*!******************************************************************!*\
+  !*** ./src/app/components/users/create/user-create.component.ts ***!
+  \******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4876,7 +5282,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserCreationComponent": () => (/* binding */ UserCreationComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-create.html?ngResource */ 7828);
+/* harmony import */ var _user_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-create.component.html?ngResource */ 6973);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ 2508);
@@ -4884,13 +5290,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 
 
 
@@ -4907,9 +5313,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let UserCreationComponent = class UserCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__.FormComponent {
+let UserCreationComponent = class UserCreationComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_8__.Form {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
-    super(consoleMessageService, dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__.FormModeEnum.Creation, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user.post, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.users.navigations.list);
+    super(consoleMessageService, dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_9__.FormModeEnum.Creation, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user.post, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.users.navigations.list);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -4934,7 +5340,7 @@ let UserCreationComponent = class UserCreationComponent extends _abstract_forms_
     this.populateDropdowns();
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.users.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.users.navigations.list]);
   }
   populateDropdowns() {
     this.selectOptionsService.getLanguages().subscribe(options => {
@@ -4977,16 +5383,16 @@ UserCreationComponent.ctorParameters = () => [{
 }];
 UserCreationComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_14__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_15__.Component)({
   selector: "user-create",
-  template: _user_create_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _user_create_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], UserCreationComponent);
 
 
 /***/ }),
 
-/***/ 8635:
-/*!**************************************************!*\
-  !*** ./src/app/components/users/user-details.ts ***!
-  \**************************************************/
+/***/ 3839:
+/*!********************************************************************!*\
+  !*** ./src/app/components/users/details/user-details.component.ts ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -4994,25 +5400,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserDetailsComponent": () => (/* binding */ UserDetailsComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-details.html?ngResource */ 3537);
+/* harmony import */ var _user_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-details.component.html?ngResource */ 5902);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! primeng/api */ 4356);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api-routes */ 2061);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var src_app_tools_primeNgHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/primeNgHelper */ 3833);
 /* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/routes */ 1311);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../abstract/forms/access-control-form */ 6739);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../abstract/forms/access-control-form */ 6739);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
 
 
@@ -5035,9 +5441,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let UserDetailsComponent = class UserDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_11__.AccessControlFormComponent {
+let UserDetailsComponent = class UserDetailsComponent extends _abstract_forms_access_control_form__WEBPACK_IMPORTED_MODULE_11__.AccessControlForm {
   constructor(activatedRoute, authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, router, selectOptionsService, translate) {
-    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteUser', src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user["delete"], dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_12__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__.UserPermissionEnum.Users_CanModify], src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.list);
+    super(activatedRoute, authorizationService, confirmationService, consoleMessageService, 'deleteUser', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user["delete"], dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_12__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.put, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_2__.UserPermissionEnum.Users_CanModify], src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.list);
     this.activatedRoute = activatedRoute;
     this.authorizationService = authorizationService;
     this.confirmationService = confirmationService;
@@ -5077,7 +5483,7 @@ let UserDetailsComponent = class UserDetailsComponent extends _abstract_forms_ac
     this.populateDropdowns();
   }
   onBack() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.list]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.list]);
   }
   getEntityInstanceName() {
     return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_13__.StringBuilder(this.user.LastName).append(' ').append(this.user.FirstName).toString();
@@ -5087,7 +5493,7 @@ let UserDetailsComponent = class UserDetailsComponent extends _abstract_forms_ac
   }
   loadUser() {
     if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.getById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.getById(this.entityId)).subscribe(result => {
       var _a;
       this.user = result;
       this.updateForm({
@@ -5146,16 +5552,16 @@ UserDetailsComponent.ctorParameters = () => [{
 }];
 UserDetailsComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_19__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_20__.Component)({
   selector: "user-details",
-  template: _user_details_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _user_details_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], UserDetailsComponent);
 
 
 /***/ }),
 
-/***/ 4760:
-/*!***********************************************!*\
-  !*** ./src/app/components/users/user-list.ts ***!
-  \***********************************************/
+/***/ 3597:
+/*!**************************************************************!*\
+  !*** ./src/app/components/users/list/user-list.component.ts ***!
+  \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5163,24 +5569,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserListComponent": () => (/* binding */ UserListComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-list.html?ngResource */ 4921);
+/* harmony import */ var _user_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-list.component.html?ngResource */ 5324);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/filters/filter.service */ 9865);
+/* harmony import */ var _services_filters_filter_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../services/filters/filter.service */ 9865);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
-/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/enums/user-permission-enum */ 8235);
+/* harmony import */ var src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/enums/user-permission.enum */ 9937);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../abstract/access-controls/access-control */ 6378);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../abstract/access-controls/access-control */ 6378);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
-/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/enums/filter-type-enum */ 3501);
+/* harmony import */ var src_app_enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/enums/filter-type.enum */ 2818);
 
 
 
@@ -5202,7 +5608,7 @@ __webpack_require__.r(__webpack_exports__);
 
 let UserListComponent = class UserListComponent extends _abstract_access_controls_access_control__WEBPACK_IMPORTED_MODULE_10__.AccessControlComponent {
   constructor(authorizationService, confirmationService, consoleMessageService, dialogMessageService, errorService, filterService, httpClient, router, selectOptionsService, translate) {
-    super(authorizationService, confirmationService, consoleMessageService, 'deleteUser', src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user["delete"], dialogMessageService, 'User', errorService, httpClient, () => {
+    super(authorizationService, confirmationService, consoleMessageService, 'deleteUser', src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user["delete"], dialogMessageService, 'User', errorService, httpClient, () => {
       this._dataPopulator.users.get(this.tempLazyLoadEvent).subscribe(result => this._dataPopulator.users.set(result));
     }, router, translate, [src_app_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_5__.UserPermissionEnum.Users_CanModify]);
     this.authorizationService = authorizationService;
@@ -5271,10 +5677,10 @@ let UserListComponent = class UserListComponent extends _abstract_access_control
     this._dataPopulator.users.get(event).subscribe(result => this._dataPopulator.users.set(result));
   }
   onCreate() {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.creation]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.creation]);
   }
   onEdit(user) {
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.edition(user.Id)]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_9__.Routes.users.navigations.edition(user.Id)]);
   }
   getEntityInstanceName(user) {
     return new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_4__.StringBuilder(user.LastName).append(' ').append(user.FirstName).toString();
@@ -5285,7 +5691,7 @@ let UserListComponent = class UserListComponent extends _abstract_access_control
   getUsers(event) {
     var _a, _b;
     (_a = event.sortField) !== null && _a !== void 0 ? _a : event.sortField = (_b = this.cols[0]) === null || _b === void 0 ? void 0 : _b.field;
-    return this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user.getAll(event, this.cols));
+    return this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_3__.ApiRoutes.user.getAll(event, this.cols));
   }
   setUserRoleMultiSelectData(userRoles) {
     this.userRoleOptions = userRoles;
@@ -5328,16 +5734,16 @@ UserListComponent.propDecorators = {
 };
 UserListComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_18__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
   selector: "user-list",
-  template: _user_list_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _user_list_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], UserListComponent);
 
 
 /***/ }),
 
-/***/ 3466:
-/*!**************************************************!*\
-  !*** ./src/app/components/users/user-profile.ts ***!
-  \**************************************************/
+/***/ 4710:
+/*!********************************************************************!*\
+  !*** ./src/app/components/users/profile/user-profile.component.ts ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -5345,22 +5751,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "UserProfileComponent": () => (/* binding */ UserProfileComponent)
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _user_profile_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-profile.html?ngResource */ 3130);
+/* harmony import */ var _user_profile_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./user-profile.component.html?ngResource */ 1543);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ 2508);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
-/* harmony import */ var src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/api-routes */ 2061);
+/* harmony import */ var src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/constants/api-routes.constants */ 3205);
 /* harmony import */ var src_app_services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/select-options/select-options.service */ 712);
 /* harmony import */ var src_app_tools_regexPatterns__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/tools/regexPatterns */ 6132);
 /* harmony import */ var src_app_services_errors_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/errors/error.service */ 8813);
 /* harmony import */ var src_app_services_messages_dialog_message_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/messages/dialog-message.service */ 1323);
 /* harmony import */ var src_app_services_messages_console_message_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/messages/console-message.service */ 5289);
-/* harmony import */ var src_app_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/routes */ 1311);
-/* harmony import */ var src_app_services_layout_menu_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/layout/menu.service */ 6308);
-/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../abstract/forms/form */ 1151);
-/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode-enum */ 7673);
+/* harmony import */ var src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/routes.constants */ 398);
+/* harmony import */ var src_app_layout_services_menu_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/layout/services/menu.service */ 6403);
+/* harmony import */ var _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../abstract/forms/form */ 1151);
+/* harmony import */ var src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/enums/form-mode.enum */ 9231);
 /* harmony import */ var src_app_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/authorization/authorization.service */ 6079);
 
 
@@ -5380,9 +5786,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let UserProfileComponent = class UserProfileComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__.FormComponent {
+let UserProfileComponent = class UserProfileComponent extends _abstract_forms_form__WEBPACK_IMPORTED_MODULE_9__.Form {
   constructor(consoleMessageService, dialogMessageService, errorService, formBuilder, httpClient, menuService, router, selectOptionsService, translate) {
-    super(consoleMessageService, dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Edition, router, src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.saveProfile, translate, src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]);
+    super(consoleMessageService, dialogMessageService, 'User', errorService, formBuilder, httpClient, src_app_enums_form_mode_enum__WEBPACK_IMPORTED_MODULE_10__.FormModeEnum.Edition, router, src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.saveProfile, translate, src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]);
     this.consoleMessageService = consoleMessageService;
     this.dialogMessageService = dialogMessageService;
     this.errorService = errorService;
@@ -5413,14 +5819,14 @@ let UserProfileComponent = class UserProfileComponent extends _abstract_forms_fo
   }
   onBack() {
     const firstMenuItemUserIsAuthorizedFor = this.menuService.getFirstMenuItemUserIsAuthorizedFor();
-    this.router.navigate([src_app_routes__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]]);
+    this.router.navigate([src_app_constants_routes_constants__WEBPACK_IMPORTED_MODULE_7__.Routes.home.navigations["default"]]);
   }
   isPasswordFieldFilled() {
     return this.form.value.Password.length > 0;
   }
   loadUser() {
     if (!this.entityId) return;
-    this.httpClient.get(src_app_api_routes__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.getProfileById(this.entityId)).subscribe(result => {
+    this.httpClient.get(src_app_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_1__.ApiRoutes.user.getProfileById(this.entityId)).subscribe(result => {
       this.user = result;
       this.updateForm({
         Email: this.user.Email,
@@ -5460,7 +5866,7 @@ UserProfileComponent.ctorParameters = () => [{
 }, {
   type: _angular_common_http__WEBPACK_IMPORTED_MODULE_13__.HttpClient
 }, {
-  type: src_app_services_layout_menu_service__WEBPACK_IMPORTED_MODULE_8__.MenuService
+  type: src_app_layout_services_menu_service__WEBPACK_IMPORTED_MODULE_8__.MenuService
 }, {
   type: _angular_router__WEBPACK_IMPORTED_MODULE_14__.Router
 }, {
@@ -5470,15 +5876,318 @@ UserProfileComponent.ctorParameters = () => [{
 }];
 UserProfileComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_16__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_17__.Component)({
   selector: "user-profile",
-  template: _user_profile_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
+  template: _user_profile_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], UserProfileComponent);
 
 
 /***/ }),
 
-/***/ 6793:
+/***/ 3205:
+/*!***************************************************!*\
+  !*** ./src/app/constants/api-routes.constants.ts ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ApiRoutes": () => (/* binding */ ApiRoutes)
+/* harmony export */ });
+/* harmony import */ var _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tools/png-table-search-query-builder */ 3061);
+
+const ApiRoutes = {
+  audit: {
+    getObjectHistory: (event, columns, entityId, entityTableName) => `audit${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
+    getFieldNames: "audit/getFieldNames"
+  },
+  client: {
+    delete: clientId => `client/${clientId}`,
+    getAll: (event, columns) => `client${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: clientId => `client/${clientId}`,
+    post: "client",
+    put: "client"
+  },
+  clientRepresentative: {
+    delete: clientRepresentativeId => `client/representative/${clientRepresentativeId}`,
+    getAll: (event, columns, clientId) => `client/representative${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&clientId=${clientId}`,
+    getById: clientRepresentativeId => `client/representative/${clientRepresentativeId}`,
+    post: "client/representative",
+    put: "client/representative"
+  },
+  equipment: {
+    delete: equipmentId => `equipment/${equipmentId}`,
+    getAll: (event, columns) => `equipment${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    file: {
+      photo: {
+        download: photoId => `equipment/file/photo/download/${photoId}`,
+        makeThumbnailForFile: `equipment/file/photo/makeThumbnailForFile`,
+        upload: {
+          multiple: `equipment/file/photo/upload/multiple`
+        }
+      }
+    },
+    getById: equipmentId => `equipment/${equipmentId}`,
+    post: "equipment",
+    put: "equipment"
+  },
+  identity: {
+    authenticate: "identity/authenticate",
+    refreshToken: "identity/refreshToken"
+  },
+  manufacturer: {
+    delete: manufacturerId => `manufacturer/${manufacturerId}`,
+    getAll: (event, columns) => `manufacturer${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: manufacturerId => `manufacturer/${manufacturerId}`,
+    post: "manufacturer",
+    put: "manufacturer"
+  },
+  selectOptions: {
+    audits: (event, columns, entityId, entityTableName) => `audit/getFieldNames${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
+    clientTypes: "selectoptions/clientTypes",
+    countries: "selectoptions/countries",
+    equipmentTypes: "selectoptions/equipmentTypes",
+    languages: "selectoptions/languages",
+    manufacturers: "selectoptions/manufacturers",
+    userRoles: "selectoptions/userRoles",
+    yesNoOptions: "selectoptions/yesNo"
+  },
+  user: {
+    changeLanguage: "user/changeLanguage",
+    changeRole: "user/changeRole",
+    changeTheme: "user/changeTheme",
+    delete: userId => `user/${userId}`,
+    getAll: (event, columns) => `user${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: userId => `user/${userId}`,
+    getLanguage: userId => `user/getLanguage/${userId}`,
+    getProfileById: userId => `user/profile/${userId}`,
+    getTheme: userId => `user/getTheme/${userId}`,
+    post: "user",
+    put: "user",
+    saveProfile: "user/profile"
+  },
+  userRole: {
+    delete: userRoleId => `userRole/${userRoleId}`,
+    getAll: (event, columns) => `userRole${new _tools_png_table_search_query_builder__WEBPACK_IMPORTED_MODULE_0__.PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: userRoleId => `userRole/${userRoleId}`,
+    getUserRolePermissionsForCreation: "userRole/getUserRolePermissionsForCreation",
+    post: "userRole",
+    put: "userRole"
+  }
+};
+
+/***/ }),
+
+/***/ 8252:
+/*!***********************************************!*\
+  !*** ./src/app/constants/assets.constants.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Assets": () => (/* binding */ Assets)
+/* harmony export */ });
+const Assets = {
+  images: {
+    notFound: {
+      path: '/assets/images/not-found.png'
+    }
+  }
+};
+
+/***/ }),
+
+/***/ 9250:
+/*!**********************************************!*\
+  !*** ./src/app/constants/icons.constants.ts ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Icons": () => (/* binding */ Icons),
+/* harmony export */   "LIST_ICON_NAME": () => (/* binding */ LIST_ICON_NAME),
+/* harmony export */   "MODIFY_ICON_NAME": () => (/* binding */ MODIFY_ICON_NAME)
+/* harmony export */ });
+const LIST_ICON_NAME = 'pi pi-list';
+const MODIFY_ICON_NAME = 'pi pi-pencil';
+const Icons = {
+  'Permissions.Clients': 'fa fa-solid fa-face-smile',
+  'Permissions.ClientRepresentatives': 'fa fa-solid fa-circle-user',
+  'Permissions.UserRoles': 'pi pi-users',
+  'Permissions.Users': 'pi pi-user'
+};
+
+/***/ }),
+
+/***/ 9454:
+/*!******************************************************!*\
+  !*** ./src/app/constants/local-storage.constants.ts ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LOCAL_STORAGE_PROPERTIES": () => (/* binding */ LOCAL_STORAGE_PROPERTIES)
+/* harmony export */ });
+const LOCAL_STORAGE_PROPERTIES = {
+  LanguageId: 'languageId'
+};
+
+/***/ }),
+
+/***/ 398:
+/*!***********************************************!*\
+  !*** ./src/app/constants/routes.constants.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Routes": () => (/* binding */ Routes)
+/* harmony export */ });
+const Routes = {
+  home: {
+    breadcrumbs: {
+      default: 'General.Dashboard'
+    },
+    navigations: {
+      default: 'home'
+    },
+    paths: {
+      default: 'home'
+    }
+  },
+  login: {
+    navigations: {
+      default: 'login'
+    },
+    paths: {
+      default: 'login'
+    }
+  },
+  clientRepresentatives: {
+    breadcrumbs: {
+      creation: 'ClientRepresentative.Create',
+      edition: 'ClientRepresentative.Edit',
+      list: 'ClientRepresentative.List'
+    },
+    navigations: {
+      creation: 'home/client-representatives/create',
+      edition: id => `home/client-representatives/edit/${id}`,
+      list: 'home/client-representatives'
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'client-representatives'
+    }
+  },
+  clients: {
+    breadcrumbs: {
+      creation: 'Client.Create',
+      edition: 'Client.Edit',
+      list: 'Client.List'
+    },
+    navigations: {
+      creation: 'home/clients/create',
+      edition: id => `home/clients/edit/${id}`,
+      list: 'home/clients'
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'clients'
+    },
+    tabs: {
+      general: {
+        index: 0
+      },
+      representatives: {
+        index: 1
+      },
+      audits: {
+        index: 2
+      }
+    }
+  },
+  equipments: {
+    breadcrumbs: {
+      creation: 'Equipment.Create',
+      edition: 'Equipment.Edit',
+      list: 'Equipment.List'
+    },
+    navigations: {
+      creation: 'home/equipments/create',
+      edition: id => `home/equipments/edit/${id}`,
+      list: `home/equipments`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'equipments'
+    }
+  },
+  manufacturers: {
+    breadcrumbs: {
+      creation: 'Manufacturer.Create',
+      edition: 'Manufacturer.Edit',
+      list: 'Manufacturer.List'
+    },
+    navigations: {
+      creation: 'home/manufacturers/create',
+      edition: id => `home/manufacturers/edit/${id}`,
+      list: `home/manufacturers`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'manufacturers'
+    }
+  },
+  userRoles: {
+    breadcrumbs: {
+      creation: 'UserRole.Create',
+      edition: 'UserRole.Edit',
+      list: 'UserRole.List'
+    },
+    navigations: {
+      creation: 'home/user-roles/create',
+      edition: id => `home/user-roles/edit/${id}`,
+      list: 'home/user-roles'
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'user-roles'
+    }
+  },
+  users: {
+    breadcrumbs: {
+      creation: 'User.Create',
+      edition: 'User.Edit',
+      list: 'User.List',
+      profile: 'User.Profile'
+    },
+    navigations: {
+      creation: 'home/users/create',
+      edition: id => `home/users/edit/${id}`,
+      list: 'home/users',
+      profile: 'home/profile'
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'users',
+      profile: 'profile'
+    }
+  }
+};
+
+/***/ }),
+
+/***/ 4236:
 /*!******************************************!*\
-  !*** ./src/app/enums/api-result-enum.ts ***!
+  !*** ./src/app/enums/api-result.enum.ts ***!
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5512,9 +6221,9 @@ var ApiResultEnum;
 
 /***/ }),
 
-/***/ 379:
+/***/ 2900:
 /*!*******************************************!*\
-  !*** ./src/app/enums/client-type-enum.ts ***!
+  !*** ./src/app/enums/client-type.enum.ts ***!
   \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5530,9 +6239,9 @@ var ClientTypeEnum;
 
 /***/ }),
 
-/***/ 8822:
+/***/ 4797:
 /*!*************************************************!*\
-  !*** ./src/app/enums/error-messag-type-enum.ts ***!
+  !*** ./src/app/enums/error-messag-type.enum.ts ***!
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5551,9 +6260,9 @@ var ErrorMessageTypeEnum;
 
 /***/ }),
 
-/***/ 3501:
+/***/ 2818:
 /*!*******************************************!*\
-  !*** ./src/app/enums/filter-type-enum.ts ***!
+  !*** ./src/app/enums/filter-type.enum.ts ***!
   \*******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5571,9 +6280,9 @@ var FilterTypeEnum;
 
 /***/ }),
 
-/***/ 7673:
+/***/ 9231:
 /*!*****************************************!*\
-  !*** ./src/app/enums/form-mode-enum.ts ***!
+  !*** ./src/app/enums/form-mode.enum.ts ***!
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5589,9 +6298,9 @@ var FormModeEnum;
 
 /***/ }),
 
-/***/ 1072:
+/***/ 8194:
 /*!*********************************************!*\
-  !*** ./src/app/enums/language-code-enum.ts ***!
+  !*** ./src/app/enums/language-code.enum.ts ***!
   \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5607,9 +6316,9 @@ var LanguageCodeEnum;
 
 /***/ }),
 
-/***/ 3778:
+/***/ 318:
 /*!************************************************!*\
-  !*** ./src/app/enums/message-lifetime-enum.ts ***!
+  !*** ./src/app/enums/message-lifetime.enum.ts ***!
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5627,9 +6336,9 @@ var MessageLifeTimeEnum;
 
 /***/ }),
 
-/***/ 7908:
+/***/ 4691:
 /*!********************************************!*\
-  !*** ./src/app/enums/message-type-enum.ts ***!
+  !*** ./src/app/enums/message-type.enum.ts ***!
   \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5647,9 +6356,9 @@ var MessageTypeEnum;
 
 /***/ }),
 
-/***/ 8144:
+/***/ 5053:
 /*!***********************************************!*\
-  !*** ./src/app/enums/search-operator-enum.ts ***!
+  !*** ./src/app/enums/search-operator.enum.ts ***!
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5665,9 +6374,9 @@ var SearchOperatorEnum;
 
 /***/ }),
 
-/***/ 8235:
+/***/ 9937:
 /*!***********************************************!*\
-  !*** ./src/app/enums/user-permission-enum.ts ***!
+  !*** ./src/app/enums/user-permission.enum.ts ***!
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -5691,52 +6400,6 @@ var UserPermissionEnum;
   UserPermissionEnum[UserPermissionEnum["Manufacturers_CanList"] = 11] = "Manufacturers_CanList";
   UserPermissionEnum[UserPermissionEnum["Manufacturers_CanModify"] = 12] = "Manufacturers_CanModify";
 })(UserPermissionEnum || (UserPermissionEnum = {}));
-
-/***/ }),
-
-/***/ 6554:
-/*!********************************!*\
-  !*** ./src/app/icon-mapper.ts ***!
-  \********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Icons": () => (/* binding */ Icons),
-/* harmony export */   "LIST_ICON_NAME": () => (/* binding */ LIST_ICON_NAME),
-/* harmony export */   "MODIFY_ICON_NAME": () => (/* binding */ MODIFY_ICON_NAME)
-/* harmony export */ });
-const LIST_ICON_NAME = 'pi pi-list';
-const MODIFY_ICON_NAME = 'pi pi-pencil';
-const Icons = {
-  'Permissions.Clients': 'fa fa-solid fa-face-smile',
-  'Permissions.ClientRepresentatives': 'fa fa-solid fa-circle-user',
-  'Permissions.UserRoles': 'pi pi-users',
-  'Permissions.Users': 'pi pi-user'
-};
-
-/***/ }),
-
-/***/ 2047:
-/*!***************************************!*\
-  !*** ./src/app/interfaces/address.ts ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addressFormFields": () => (/* binding */ addressFormFields)
-/* harmony export */ });
-const addressFormFields = {
-  ApartmentNumber: 'ApartmentNumber',
-  City: 'City',
-  Country: 'CountryId',
-  Email: 'Email',
-  PhoneNumber: 'PhoneNumber',
-  PostalCode: 'PostalCode',
-  StreetName: 'StreetName',
-  StreetNumber: 'StreetNumber'
-};
 
 /***/ }),
 
@@ -5768,7 +6431,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "PngTableColumn": () => (/* binding */ PngTableColumn),
 /* harmony export */   "PngTreeColumn": () => (/* binding */ PngTreeColumn)
 /* harmony export */ });
-/* harmony import */ var _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums/filter-type-enum */ 3501);
+/* harmony import */ var _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums/filter-type.enum */ 2818);
 
 class PngTable {
   constructor(cols) {
@@ -5889,9 +6552,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ 8987);
 /* harmony import */ var _services_app_layout_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/app.layout.service */ 9139);
-/* harmony import */ var _api_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api-routes */ 2061);
+/* harmony import */ var _constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/api-routes.constants */ 3205);
 /* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/authorization/authorization.service */ 6079);
-/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../enums/api-result-enum */ 6793);
+/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../enums/api-result.enum */ 4236);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 
 
@@ -5912,7 +6575,7 @@ let AppFooterComponent = class AppFooterComponent {
     if (isDarkModeThemeSelectedFromStorage) {
       this.isDarkModeThemeSelected = Boolean(isDarkModeThemeSelectedFromStorage);
     }
-    this.httpClient.get(_api_routes__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.user.getTheme(_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__.AuthorizationService.currentUserId)).subscribe({
+    this.httpClient.get(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.user.getTheme(_services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__.AuthorizationService.currentUserId)).subscribe({
       next: result => {
         this.isDarkModeThemeSelected = result;
         this.changeTheme();
@@ -5924,7 +6587,7 @@ let AppFooterComponent = class AppFooterComponent {
     const model = {
       Id: _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_3__.AuthorizationService.currentUserId
     };
-    this.httpClient.post(_api_routes__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.user.changeTheme, model).subscribe({
+    this.httpClient.post(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.user.changeTheme, model).subscribe({
       next: result => {
         if (result === _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_4__.ApiResultEnum[_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_4__.ApiResultEnum.OK]) {
           this.changeTheme();
@@ -5992,8 +6655,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_sidebar_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app.sidebar.component */ 6762);
 /* harmony import */ var _app_topbar_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.topbar.component */ 1242);
 /* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/authentication/authentication.service */ 7020);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../routes */ 1311);
-/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/layout/menu.service */ 6308);
+/* harmony import */ var _constants_routes_constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../constants/routes.constants */ 398);
+/* harmony import */ var _services_menu_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/menu.service */ 6403);
 
 
 
@@ -6015,7 +6678,7 @@ let AppLayoutComponent = class AppLayoutComponent {
     this.router = router;
     this.isUserLoggedIn = this.authenticationService.isLoggedIn();
     if (!this.isUserLoggedIn) {
-      this.router.navigate([_routes__WEBPACK_IMPORTED_MODULE_5__.Routes.login.navigations["default"]]);
+      this.router.navigate([_constants_routes_constants__WEBPACK_IMPORTED_MODULE_5__.Routes.login.navigations["default"]]);
     } else {
       this.overlayMenuOpenSubscription = this.layoutService.overlayOpen$.subscribe(() => {
         if (!this.menuOutsideClickListener) {
@@ -6109,7 +6772,7 @@ AppLayoutComponent.ctorParameters = () => [{
 }, {
   type: _services_app_layout_service__WEBPACK_IMPORTED_MODULE_1__.LayoutService
 }, {
-  type: _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_6__.MenuService
+  type: _services_menu_service__WEBPACK_IMPORTED_MODULE_6__.MenuService
 }, {
   type: _angular_core__WEBPACK_IMPORTED_MODULE_9__.Renderer2
 }, {
@@ -6221,7 +6884,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _services_app_layout_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./services/app.layout.service */ 9139);
 /* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/authorization/authorization.service */ 6079);
-/* harmony import */ var _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/layout/menu.service */ 6308);
+/* harmony import */ var _services_menu_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/menu.service */ 6403);
 
 
 
@@ -6274,7 +6937,7 @@ AppMenuComponent.ctorParameters = () => [{
 }, {
   type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.Router
 }, {
-  type: _services_layout_menu_service__WEBPACK_IMPORTED_MODULE_3__.MenuService
+  type: _services_menu_service__WEBPACK_IMPORTED_MODULE_3__.MenuService
 }, {
   type: _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__.AuthorizationService
 }, {
@@ -6555,26 +7218,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "AppTopBarComponent": () => (/* binding */ AppTopBarComponent)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! tslib */ 2321);
 /* harmony import */ var _app_topbar_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.topbar.component.html?ngResource */ 4951);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! primeng/api */ 4356);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../app.component */ 5041);
 /* harmony import */ var _services_app_layout_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/app.layout.service */ 9139);
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/authentication/authentication.service */ 7020);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/router */ 124);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/router */ 124);
 /* harmony import */ var _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/select-options/select-options.service */ 712);
-/* harmony import */ var _enums_language_code_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../enums/language-code-enum */ 1072);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var _enums_language_code_enum__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../enums/language-code.enum */ 8194);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
 /* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/authorization/authorization.service */ 6079);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @angular/common/http */ 8987);
-/* harmony import */ var _api_routes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../api-routes */ 2061);
-/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../enums/api-result-enum */ 6793);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! rxjs */ 116);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! rxjs */ 3853);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../constants/api-routes.constants */ 3205);
+/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../enums/api-result.enum */ 4236);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! rxjs */ 116);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! rxjs */ 3853);
 /* harmony import */ var _tools_stringBuilder__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../tools/stringBuilder */ 6856);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../routes */ 1311);
+/* harmony import */ var _constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../constants/routes.constants */ 398);
+/* harmony import */ var _constants_local_storage_constants__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../constants/local-storage.constants */ 9454);
+
 
 
 
@@ -6615,7 +7280,7 @@ let AppTopBarComponent = class AppTopBarComponent {
     this.updateWithLanguageOnInit();
   }
   onProfileButtonClick() {
-    this.router.navigate([_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.users.navigations.profile]);
+    this.router.navigate([_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.users.navigations.profile]);
   }
   setTheme(withDarkMode) {
     const theme = withDarkMode ? 'arya-blue' : 'saga-orange';
@@ -6680,19 +7345,19 @@ let AppTopBarComponent = class AppTopBarComponent {
   }
   logout() {
     if (this.authenticationService.logout()) {
-      this.router.navigate([_routes__WEBPACK_IMPORTED_MODULE_10__.Routes.login.navigations["default"]]);
+      this.router.navigate([_constants_routes_constants__WEBPACK_IMPORTED_MODULE_10__.Routes.login.navigations["default"]]);
     }
   }
   onLanguageChange(id) {
     const currentUserId = _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_6__.AuthorizationService.currentUserId;
     if (!currentUserId) return;
     this.languageId = Number(id);
-    localStorage.setItem('languageId', this.languageId.toString());
+    localStorage.setItem(_constants_local_storage_constants__WEBPACK_IMPORTED_MODULE_11__.LOCAL_STORAGE_PROPERTIES.LanguageId, this.languageId.toString());
     const model = {
       Id: currentUserId,
       LanguageId: this.languageId
     };
-    this.httpClient.put(_api_routes__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.user.changeLanguage, model).subscribe(result => {
+    this.httpClient.put(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_7__.ApiRoutes.user.changeLanguage, model).subscribe(result => {
       if (result === _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_8__.ApiResultEnum[_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_8__.ApiResultEnum.OK]) {
         this.updateWithLanguageOnLanguageChange();
       }
@@ -6708,20 +7373,20 @@ let AppTopBarComponent = class AppTopBarComponent {
     if (userLanguageId) {
       this.languageId = Number(userLanguageId);
     } else {
-      const languageIdFromStorage = localStorage.getItem('languageId');
+      const languageIdFromStorage = localStorage.getItem(_constants_local_storage_constants__WEBPACK_IMPORTED_MODULE_11__.LOCAL_STORAGE_PROPERTIES.LanguageId);
       if (languageIdFromStorage) {
         this.languageId = Number(languageIdFromStorage);
       }
     }
     if (this.languageId) {
       const language = this.getLanguageCodeById(this.languageId);
-      this.router.events.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_11__.filter)(event => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_12__.Scroll || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_12__.NavigationEnd)).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_13__.concatMap)(() => {
+      this.router.events.pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_12__.filter)(event => event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_13__.Scroll || event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_13__.NavigationEnd)).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_14__.concatMap)(() => {
         this.breadcrumbItems = this.createBreadcrumbs(this.activatedRoute.root);
         return this.translate.use(language);
-      }), (0,rxjs__WEBPACK_IMPORTED_MODULE_13__.concatMap)(() => {
+      }), (0,rxjs__WEBPACK_IMPORTED_MODULE_14__.concatMap)(() => {
         this.initializeLayout();
         return this.translate.get('primeng');
-      }), (0,rxjs__WEBPACK_IMPORTED_MODULE_13__.concatMap)(translation => {
+      }), (0,rxjs__WEBPACK_IMPORTED_MODULE_14__.concatMap)(translation => {
         this.config.setTranslation(translation);
         return this.selectOptionsService.getLanguages();
       })).subscribe(languages => {
@@ -6732,10 +7397,10 @@ let AppTopBarComponent = class AppTopBarComponent {
   }
   updateWithLanguageOnLanguageChange() {
     const language = this.getLanguageCodeById(this.languageId);
-    this.translate.use(language).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_13__.concatMap)(() => {
+    this.translate.use(language).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_14__.concatMap)(() => {
       this.initializeLayout();
       return this.translate.get('primeng');
-    }), (0,rxjs__WEBPACK_IMPORTED_MODULE_13__.concatMap)(translation => {
+    }), (0,rxjs__WEBPACK_IMPORTED_MODULE_14__.concatMap)(translation => {
       this.config.setTranslation(translation);
       return this.selectOptionsService.getLanguages();
     })).subscribe(languages => {
@@ -6758,45 +7423,45 @@ let AppTopBarComponent = class AppTopBarComponent {
   }
 };
 AppTopBarComponent.ctorParameters = () => [{
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.ActivatedRoute
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.ActivatedRoute
 }, {
   type: _app_component__WEBPACK_IMPORTED_MODULE_1__.AppComponent
 }, {
   type: _services_authentication_authentication_service__WEBPACK_IMPORTED_MODULE_3__.AuthenticationService
 }, {
-  type: primeng_api__WEBPACK_IMPORTED_MODULE_14__.PrimeNGConfig
+  type: primeng_api__WEBPACK_IMPORTED_MODULE_15__.PrimeNGConfig
 }, {
-  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_15__.HttpClient
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_16__.HttpClient
 }, {
   type: _services_app_layout_service__WEBPACK_IMPORTED_MODULE_2__.LayoutService
 }, {
-  type: _angular_router__WEBPACK_IMPORTED_MODULE_12__.Router
+  type: _angular_router__WEBPACK_IMPORTED_MODULE_13__.Router
 }, {
   type: _services_select_options_select_options_service__WEBPACK_IMPORTED_MODULE_4__.SelectOptionsService
 }, {
-  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_16__.Title
+  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_17__.Title
 }, {
-  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_17__.TranslateService
+  type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_18__.TranslateService
 }];
 AppTopBarComponent.propDecorators = {
   appSidebar: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.Input,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.Input,
     args: ['appSidebar']
   }],
   menuButton: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['menubutton']
   }],
   topbarMenuButton: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['topbarmenubutton']
   }],
   menu: [{
-    type: _angular_core__WEBPACK_IMPORTED_MODULE_18__.ViewChild,
+    type: _angular_core__WEBPACK_IMPORTED_MODULE_19__.ViewChild,
     args: ['topbarmenu']
   }]
 };
-AppTopBarComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_19__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_18__.Component)({
+AppTopBarComponent = (0,tslib__WEBPACK_IMPORTED_MODULE_20__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_19__.Component)({
   selector: 'app-topbar',
   template: _app_topbar_component_html_ngResource__WEBPACK_IMPORTED_MODULE_0__
 })], AppTopBarComponent);
@@ -7039,153 +7704,200 @@ LayoutService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0,_angular_c
 
 /***/ }),
 
-/***/ 1311:
-/*!***************************!*\
-  !*** ./src/app/routes.ts ***!
-  \***************************/
+/***/ 6403:
+/*!*************************************************!*\
+  !*** ./src/app/layout/services/menu.service.ts ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Routes": () => (/* binding */ Routes)
+/* harmony export */   "MenuService": () => (/* binding */ MenuService)
 /* harmony export */ });
-const Routes = {
-  home: {
-    breadcrumbs: {
-      default: 'General.Dashboard'
-    },
-    navigations: {
-      default: 'home'
-    },
-    paths: {
-      default: 'home'
-    }
-  },
-  login: {
-    navigations: {
-      default: 'login'
-    },
-    paths: {
-      default: 'login'
-    }
-  },
-  clientRepresentatives: {
-    breadcrumbs: {
-      creation: 'ClientRepresentative.Create',
-      edition: 'ClientRepresentative.Edit',
-      list: 'ClientRepresentative.List'
-    },
-    navigations: {
-      creation: 'home/client-representatives/create',
-      edition: id => `home/client-representatives/edit/${id}`,
-      list: 'home/client-representatives'
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'client-representatives'
-    }
-  },
-  clients: {
-    breadcrumbs: {
-      creation: 'Client.Create',
-      edition: 'Client.Edit',
-      list: 'Client.List'
-    },
-    navigations: {
-      creation: 'home/clients/create',
-      edition: id => `home/clients/edit/${id}`,
-      list: 'home/clients'
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'clients'
-    },
-    tabs: {
-      general: {
-        index: 0
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/interfaces/ui-models */ 3246);
+/* harmony import */ var _enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../enums/user-permission.enum */ 9937);
+/* harmony import */ var _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/authorization/authorization.service */ 6079);
+/* harmony import */ var _constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../constants/routes.constants */ 398);
+/* harmony import */ var _menus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menus */ 1793);
+
+
+
+
+
+
+
+let MenuService = class MenuService {
+  constructor(authorizationService) {
+    this.authorizationService = authorizationService;
+    this.menu = new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray();
+    this.initializeMenu();
+    this.initializeMenuItems();
+  }
+  getMenu() {
+    return this.menu;
+  }
+  getFirstMenuItemUserIsAuthorizedFor() {
+    const firstMenuUserIsAuthorizedFor = this.menu.find(menu => (menu.Items || []).some(menuItem => this.authorizationService.isAuthorized(menuItem.Permissions)));
+    return firstMenuUserIsAuthorizedFor;
+  }
+  getAdministrationItems() {
+    return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.label);
+  }
+  getMainMenuItems() {
+    return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.label);
+  }
+  initializeMenu() {
+    //MENU
+    this.menu.push({
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.label,
+      Items: new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray()
+    });
+    //ADMINISTRATION
+    this.menu.push({
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.label,
+      Items: new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray()
+    });
+  }
+  initializeMenuItems() {
+    const mainMenuItems = this.getMainMenuItems();
+    //CLIENTS
+    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Clients_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.icon,
+      RouterLink: [`/${_constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__.Routes.clients.navigations.list}`]
+    });
+    //EQUIPMENTS
+    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Equipments_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.icon,
+      RouterLink: [`/${_constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__.Routes.equipments.navigations.list}`]
+    });
+    //MANUFACTURERS
+    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Manufacturers_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.icon,
+      RouterLink: [`/${_constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__.Routes.manufacturers.navigations.list}`]
+    });
+    const administrationItems = this.getAdministrationItems();
+    //USERS
+    administrationItems === null || administrationItems === void 0 ? void 0 : administrationItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Users_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.users.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.users.icon,
+      RouterLink: [`/${_constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__.Routes.users.navigations.list}`]
+    });
+    //USER ROLES
+    administrationItems === null || administrationItems === void 0 ? void 0 : administrationItems.push({
+      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.UserRoles_CanList],
+      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.userRoles.label,
+      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.userRoles.icon,
+      RouterLink: [`/${_constants_routes_constants__WEBPACK_IMPORTED_MODULE_3__.Routes.userRoles.navigations.list}`]
+    });
+  }
+};
+MenuService.ctorParameters = () => [{
+  type: _services_authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__.AuthorizationService
+}];
+MenuService = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Injectable)({
+  providedIn: 'root'
+})], MenuService);
+
+
+/***/ }),
+
+/***/ 1793:
+/*!******************************************!*\
+  !*** ./src/app/layout/services/menus.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Menus": () => (/* binding */ Menus)
+/* harmony export */ });
+const Menus = {
+  administration: {
+    label: 'Menu.Administration',
+    items: {
+      userRoles: {
+        label: 'Menu.UserRoles',
+        icon: 'fa fa-solid fa-users'
       },
-      representatives: {
-        index: 1
-      },
-      audits: {
-        index: 2
+      users: {
+        label: 'Menu.Users',
+        icon: 'fa fa-solid fa-user'
       }
     }
   },
-  equipments: {
-    breadcrumbs: {
-      creation: 'Equipment.Create',
-      edition: 'Equipment.Edit',
-      list: 'Equipment.List'
-    },
-    navigations: {
-      creation: 'home/equipments/create',
-      edition: id => `home/equipments/edit/${id}`,
-      list: `home/equipments`
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'equipments'
-    }
-  },
-  manufacturers: {
-    breadcrumbs: {
-      creation: 'Manufacturer.Create',
-      edition: 'Manufacturer.Edit',
-      list: 'Manufacturer.List'
-    },
-    navigations: {
-      creation: 'home/manufacturers/create',
-      edition: id => `home/manufacturers/edit/${id}`,
-      list: `home/manufacturers`
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'manufacturers'
-    }
-  },
-  userRoles: {
-    breadcrumbs: {
-      creation: 'UserRole.Create',
-      edition: 'UserRole.Edit',
-      list: 'UserRole.List'
-    },
-    navigations: {
-      creation: 'home/user-roles/create',
-      edition: id => `home/user-roles/edit/${id}`,
-      list: 'home/user-roles'
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'user-roles'
-    }
-  },
-  users: {
-    breadcrumbs: {
-      creation: 'User.Create',
-      edition: 'User.Edit',
-      list: 'User.List',
-      profile: 'User.Profile'
-    },
-    navigations: {
-      creation: 'home/users/create',
-      edition: id => `home/users/edit/${id}`,
-      list: 'home/users',
-      profile: 'home/profile'
-    },
-    paths: {
-      create: 'create',
-      edit: 'edit/:id',
-      list: 'users',
-      profile: 'profile'
+  main: {
+    label: 'Menu.Title',
+    items: {
+      clients: {
+        label: 'Menu.Clients',
+        icon: 'fa fa-solid fa-face-smile'
+      },
+      equipments: {
+        label: 'Menu.Equipments',
+        icon: 'fa fa-solid fa-dumbbell'
+      },
+      manufacturers: {
+        label: 'Menu.Manufacturers',
+        icon: 'fa fa-solid fa-industry'
+      }
     }
   }
 };
+
+/***/ }),
+
+/***/ 7918:
+/*!**************************************************!*\
+  !*** ./src/app/services/assets/asset.service.ts ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AssetService": () => (/* binding */ AssetService)
+/* harmony export */ });
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 8611);
+
+
+
+
+
+let AssetService = class AssetService {
+  constructor(httpClient) {
+    this.httpClient = httpClient;
+  }
+  doesAssetExistAsync(assetUrl) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      try {
+        yield (0,rxjs__WEBPACK_IMPORTED_MODULE_1__.lastValueFrom)(_this.httpClient.head(assetUrl, {
+          observe: 'response'
+        }));
+        return true;
+      } catch (error) {
+        return false;
+      }
+    })();
+  }
+};
+AssetService.ctorParameters = () => [{
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__.HttpClient
+}];
+AssetService = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_4__.Injectable)()], AssetService);
+
 
 /***/ }),
 
@@ -7203,7 +7915,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _authorization_authorization_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../authorization/authorization.service */ 6079);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ 124);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../routes */ 1311);
+/* harmony import */ var _constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../constants/routes.constants */ 398);
 
 
 
@@ -7225,7 +7937,7 @@ let AuthGuard = class AuthGuard {
     const isAuthorized = this.authorizationService.isAuthorized(allowedPermissions);
     if (!isAuthorized) {
       if (checkForChild) this.authorizationService.resetAllData();else this.authorizationService.decodeTokenAndSetData();
-      this.router.navigate([_routes__WEBPACK_IMPORTED_MODULE_1__.Routes.login.navigations["default"]]);
+      this.router.navigate([_constants_routes_constants__WEBPACK_IMPORTED_MODULE_1__.Routes.login.navigations["default"]]);
     }
     this.authorizationService.decodeTokenAndSetData();
     return isAuthorized;
@@ -7261,8 +7973,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ 635);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ 3158);
 /* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../environments/environment */ 2340);
-/* harmony import */ var _api_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../api-routes */ 2061);
-/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../enums/api-result-enum */ 6793);
+/* harmony import */ var _constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../constants/api-routes.constants */ 3205);
+/* harmony import */ var _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../enums/api-result.enum */ 4236);
 
 
 
@@ -7302,7 +8014,7 @@ let AuthenticationService = class AuthenticationService {
       // space-separated list of scopes for which the token is issued
       Scope: "offline_access profile email"
     };
-    return this.httpClient.post(_api_routes__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.identity.authenticate, data).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(res => {
+    return this.httpClient.post(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.identity.authenticate, data).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(res => {
       const token = res && res.Token;
       if (res.Code == 165) {
         return _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__.ApiResultEnum[_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__.ApiResultEnum.NotActive];
@@ -7332,7 +8044,7 @@ let AuthenticationService = class AuthenticationService {
       Token: tokenData.Token,
       RefreshToken: tokenData.RefreshToken
     };
-    return this.httpClient.post(_api_routes__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.identity.refreshToken, data).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(res => {
+    return this.httpClient.post(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_2__.ApiRoutes.identity.refreshToken, data).pipe((0,rxjs_operators__WEBPACK_IMPORTED_MODULE_5__.map)(res => {
       this.setAuth(res);
       this.authorizationService.decodeTokenAndSetData();
       return _enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__.ApiResultEnum[_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_3__.ApiResultEnum.OK];
@@ -7486,7 +8198,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/core */ 2560);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ngx-translate/core */ 8699);
 /* harmony import */ var _tools_stringBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../tools/stringBuilder */ 6856);
-/* harmony import */ var _enums_error_messag_type_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../enums/error-messag-type-enum */ 8822);
+/* harmony import */ var _enums_error_messag_type_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../enums/error-messag-type.enum */ 4797);
 var ErrorService_1;
 
 
@@ -7629,6 +8341,62 @@ class ErrorMessageBuilder {
 
 /***/ }),
 
+/***/ 1184:
+/*!************************************************!*\
+  !*** ./src/app/services/files/file.service.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FileService": () => (/* binding */ FileService)
+/* harmony export */ });
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/tools/stringBuilder */ 6856);
+
+
+
+
+let FileService = class FileService {
+  constructor() {}
+  convertFileToBase64String(file) {
+    const bytes = new Uint8Array(file);
+    const dataBuilder = new src_app_tools_stringBuilder__WEBPACK_IMPORTED_MODULE_1__.StringBuilder();
+    for (let i = 0; i < bytes.length; i++) {
+      dataBuilder.append(String.fromCharCode(bytes[i]));
+    }
+    return btoa(dataBuilder.toString());
+  }
+  getArrayBuffer(file) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      const arrayBuffer = yield _this.getFixedArrayBuffer(file);
+      if (!arrayBuffer || arrayBuffer && arrayBuffer.byteLength == 0) {
+        return undefined;
+      }
+      return arrayBuffer;
+    })();
+  }
+  getFixedArrayBuffer(file) {
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return new Promise(function (resolve) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          resolve(reader.result);
+        };
+        reader.readAsArrayBuffer(file);
+      });
+    })();
+  }
+};
+FileService.ctorParameters = () => [];
+FileService = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)()], FileService);
+
+
+/***/ }),
+
 /***/ 9865:
 /*!****************************************************!*\
   !*** ./src/app/services/filters/filter.service.ts ***!
@@ -7693,24 +8461,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ImageService": () => (/* binding */ ImageService)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js */ 1670);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 8987);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/platform-browser */ 4497);
+/* harmony import */ var _assets_asset_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/asset.service */ 7918);
+/* harmony import */ var src_app_constants_assets_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/assets.constants */ 8252);
+
+
+
+
 
 
 
 let ImageService = class ImageService {
-  constructor(sanitizer) {
+  constructor(assetService, httpClient, sanitizer) {
+    this.assetService = assetService;
+    this.httpClient = httpClient;
     this.sanitizer = sanitizer;
   }
-  getImageSourceForFile(file) {
+  getImageUrlForEncodedFile(file) {
     return file ? this.sanitizer.bypassSecurityTrustUrl(`data:image/jpg;base64, ${file}`) : undefined;
+  }
+  getImageUrlWithAssetImageAsync(assetImageFilePath) {
+    var _this = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      if (yield _this.assetService.doesAssetExistAsync(assetImageFilePath)) {
+        return _this.sanitizer.bypassSecurityTrustUrl(assetImageFilePath);
+      }
+      return undefined;
+    })();
+  }
+  getNotFoundImageUrlAsync() {
+    var _this2 = this;
+    return (0,C_Alec_Projects_Equiprent_EquiprentCapp_node_modules_babel_runtime_helpers_esm_asyncToGenerator_js__WEBPACK_IMPORTED_MODULE_0__["default"])(function* () {
+      return yield _this2.getImageUrlWithAssetImageAsync(src_app_constants_assets_constants__WEBPACK_IMPORTED_MODULE_2__.Assets.images.notFound.path);
+    })();
   }
 };
 ImageService.ctorParameters = () => [{
-  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__.DomSanitizer
+  type: _assets_asset_service__WEBPACK_IMPORTED_MODULE_1__.AssetService
+}, {
+  type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient
+}, {
+  type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_4__.DomSanitizer
 }];
-ImageService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)()], ImageService);
+ImageService = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Injectable)()], ImageService);
 
 
 /***/ }),
@@ -7761,7 +8558,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ 5474);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ 3158);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ 9337);
-/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/api-result-enum */ 6793);
+/* harmony import */ var src_app_enums_api_result_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/enums/api-result.enum */ 4236);
 
 
 
@@ -7809,157 +8606,6 @@ AuthInterceptor.ctorParameters = () => [{
 }];
 AuthInterceptor = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Injectable)()], AuthInterceptor);
 
-
-/***/ }),
-
-/***/ 6308:
-/*!*************************************************!*\
-  !*** ./src/app/services/layout/menu.service.ts ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "MenuService": () => (/* binding */ MenuService)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 2321);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 2560);
-/* harmony import */ var src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! src/app/interfaces/ui-models */ 3246);
-/* harmony import */ var _enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../enums/user-permission-enum */ 8235);
-/* harmony import */ var _authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../authorization/authorization.service */ 6079);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routes */ 1311);
-/* harmony import */ var _menus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menus */ 2836);
-
-
-
-
-
-
-
-let MenuService = class MenuService {
-  constructor(authorizationService) {
-    this.authorizationService = authorizationService;
-    this.menu = new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray();
-    this.initializeMenu();
-    this.initializeMenuItems();
-  }
-  getMenu() {
-    return this.menu;
-  }
-  getFirstMenuItemUserIsAuthorizedFor() {
-    const firstMenuUserIsAuthorizedFor = this.menu.find(menu => (menu.Items || []).some(menuItem => this.authorizationService.isAuthorized(menuItem.Permissions)));
-    return firstMenuUserIsAuthorizedFor;
-  }
-  getAdministrationItems() {
-    return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.label);
-  }
-  getMainMenuItems() {
-    return this.menu.getItemsForLabel(_menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.label);
-  }
-  initializeMenu() {
-    //MENU
-    this.menu.push({
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.label,
-      Items: new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray()
-    });
-    //ADMINISTRATION
-    this.menu.push({
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.label,
-      Items: new src_app_interfaces_ui_models__WEBPACK_IMPORTED_MODULE_0__.MenuArray()
-    });
-  }
-  initializeMenuItems() {
-    const mainMenuItems = this.getMainMenuItems();
-    //CLIENTS
-    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
-      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Clients_CanList],
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.label,
-      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.clients.icon,
-      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.clients.navigations.list}`]
-    });
-    //EQUIPMENTS
-    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
-      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Equipments_CanList],
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.label,
-      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.equipments.icon,
-      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.equipments.navigations.list}`]
-    });
-    //MANUFACTURERS
-    mainMenuItems === null || mainMenuItems === void 0 ? void 0 : mainMenuItems.push({
-      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Manufacturers_CanList],
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.label,
-      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.main.items.manufacturers.icon,
-      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.manufacturers.navigations.list}`]
-    });
-    const administrationItems = this.getAdministrationItems();
-    //USERS
-    administrationItems === null || administrationItems === void 0 ? void 0 : administrationItems.push({
-      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.Users_CanList],
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.users.label,
-      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.users.icon,
-      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.users.navigations.list}`]
-    });
-    //USER ROLES
-    administrationItems === null || administrationItems === void 0 ? void 0 : administrationItems.push({
-      Permissions: [_enums_user_permission_enum__WEBPACK_IMPORTED_MODULE_1__.UserPermissionEnum.UserRoles_CanList],
-      Label: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.userRoles.label,
-      Icon: _menus__WEBPACK_IMPORTED_MODULE_4__.Menus.administration.items.userRoles.icon,
-      RouterLink: [`/${_routes__WEBPACK_IMPORTED_MODULE_3__.Routes.userRoles.navigations.list}`]
-    });
-  }
-};
-MenuService.ctorParameters = () => [{
-  type: _authorization_authorization_service__WEBPACK_IMPORTED_MODULE_2__.AuthorizationService
-}];
-MenuService = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Injectable)({
-  providedIn: 'root'
-})], MenuService);
-
-
-/***/ }),
-
-/***/ 2836:
-/*!******************************************!*\
-  !*** ./src/app/services/layout/menus.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Menus": () => (/* binding */ Menus)
-/* harmony export */ });
-const Menus = {
-  administration: {
-    label: 'Menu.Administration',
-    items: {
-      userRoles: {
-        label: 'Menu.UserRoles',
-        icon: 'fa fa-solid fa-users'
-      },
-      users: {
-        label: 'Menu.Users',
-        icon: 'fa fa-solid fa-user'
-      }
-    }
-  },
-  main: {
-    label: 'Menu.Title',
-    items: {
-      clients: {
-        label: 'Menu.Clients',
-        icon: 'fa fa-solid fa-face-smile'
-      },
-      equipments: {
-        label: 'Menu.Equipments',
-        icon: 'fa fa-solid fa-dumbbell'
-      },
-      manufacturers: {
-        label: 'Menu.Manufacturers',
-        icon: 'fa fa-solid fa-industry'
-      }
-    }
-  }
-};
 
 /***/ }),
 
@@ -8067,7 +8713,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ 635);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ 3158);
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ 833);
-/* harmony import */ var _api_routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../api-routes */ 2061);
+/* harmony import */ var _constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../constants/api-routes.constants */ 3205);
 
 
 
@@ -8080,28 +8726,28 @@ let SelectOptionsService = class SelectOptionsService {
     this.translate = translate;
   }
   getClientTypes() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.clientTypes);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.clientTypes);
   }
   getCountries() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.countries);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.countries);
   }
   getFieldNamesForObjectHistory(event, columns, entityId, entityTableName) {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.audits(event, columns, entityId, entityTableName), true);
   }
   getEquipmentTypes() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.equipmentTypes);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.equipmentTypes);
   }
   getLanguages() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.languages);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.languages);
   }
   getManufacturers() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.manufacturers);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.manufacturers);
   }
   getUserRoles() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.userRoles);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.userRoles);
   }
   getYesNoOptions() {
-    return this.getOptions(_api_routes__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.yesNoOptions, true);
+    return this.getOptions(_constants_api_routes_constants__WEBPACK_IMPORTED_MODULE_0__.ApiRoutes.selectOptions.yesNoOptions, true);
   }
   getOptions(url, insertAllOption = false) {
     return this.httpClient.get(url).pipe((0,rxjs__WEBPACK_IMPORTED_MODULE_1__.map)(result => {
@@ -8195,8 +8841,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "MessageTypes": () => (/* binding */ MessageTypes)
 /* harmony export */ });
-/* harmony import */ var _enums_message_lifetime_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums/message-lifetime-enum */ 3778);
-/* harmony import */ var _enums_message_type_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../enums/message-type-enum */ 7908);
+/* harmony import */ var _enums_message_lifetime_enum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../enums/message-lifetime.enum */ 318);
+/* harmony import */ var _enums_message_type_enum__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../enums/message-type.enum */ 4691);
 
 
 const MessageTypes = {
@@ -8233,8 +8879,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primeng_api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! primeng/api */ 4356);
 /* harmony import */ var _stringBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stringBuilder */ 6856);
 /* harmony import */ var _primeNgHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./primeNgHelper */ 3833);
-/* harmony import */ var _enums_search_operator_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../enums/search-operator-enum */ 8144);
-/* harmony import */ var _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../enums/filter-type-enum */ 3501);
+/* harmony import */ var _enums_search_operator_enum__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../enums/search-operator.enum */ 5053);
+/* harmony import */ var _enums_filter_type_enum__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../enums/filter-type.enum */ 2818);
 
 
 
@@ -8544,310 +9190,310 @@ module.exports = "<router-outlet></router-outlet>\r\n";
 
 /***/ }),
 
-/***/ 9633:
-/*!**************************************************************!*\
-  !*** ./src/app/components/addresses/address.html?ngResource ***!
-  \**************************************************************/
+/***/ 8580:
+/*!********************************************************************************!*\
+  !*** ./src/app/components/addresses/address/address.component.html?ngResource ***!
+  \********************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div *ngIf=\"showTitle\" class=\"field col-12 m-0\">\r\n      <h5>Address</h5>\r\n    </div>\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('StreetName') ? ' text-900' : ''\">\r\n            {{ 'Address.StreetName' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"StreetName\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('StreetName')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('StreetNumber') ? ' text-900' : ''\">\r\n            {{ 'Address.StreetNumber' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"StreetNumber\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('StreetNumber')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('ApartmentNumber') ? ' text-900' : ''\">\r\n            {{ 'Address.ApartmentNumber' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"ApartmentNumber\" type=\"text\" />\r\n        </div>\r\n      </div>\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-4\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('CountryId') ? ' text-900' : ''\">{{\r\n            'Address.Country' | translate }}</label>\r\n          <p-dropdown class=\"mb-2\" [options]=\"countries\" formControlName=\"CountryId\"\r\n            [placeholder]=\"translate.instant('Address.SelectCountry')\" [showClear]=\"false\">\r\n            <ng-template let-role pTemplate=\"selectedItem\">\r\n              <div>{{ role.label | translate }}</div>\r\n            </ng-template>\r\n            <ng-template let-role pTemplate=\"item\">\r\n              <div>{{ role.label | translate }}</div>\r\n            </ng-template>\r\n          </p-dropdown>\r\n        </div>\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('PostalCode') ? ' text-900' : ''\">\r\n            {{ 'Address.PostalCode' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"PostalCode\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('PostalCode')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('City') ? ' text-900' : ''\">\r\n            {{ 'Address.City' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"City\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('City')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('Email') ? ' text-900' : ''\">\r\n            {{ 'Address.Email' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"Email\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label [class]=\"'block font-medium mb-2' + requiredFields.includes('PhoneNumber') ? ' text-900' : ''\">\r\n            {{ 'Address.PhoneNumber' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"PhoneNumber\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('PhoneNumber')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 9618:
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/addresses/company-client-address.html?ngResource ***!
-  \*****************************************************************************/
+/***/ 9956:
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/components/addresses/company-client-address/company-client-address.component.html?ngResource ***!
+  \**************************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">\r\n            {{ 'CompanyClientAddress.NationalCompanyId' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"NationalCompanyId\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('NationalCompanyId')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 9800:
-/*!***************************************************************************!*\
-  !*** ./src/app/components/addresses/manufacturer-address.html?ngResource ***!
-  \***************************************************************************/
+/***/ 8493:
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/components/addresses/manufacturer-address/manufacturer-address.component.html?ngResource ***!
+  \**********************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">\r\n            {{ 'ManufacturerAddress.NationalId' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"NationalId\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('NationalId')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 1231:
-/*!*****************************************************************************!*\
-  !*** ./src/app/components/addresses/private-client-address.html?ngResource ***!
-  \*****************************************************************************/
+/***/ 9715:
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/components/addresses/private-client-address/private-client-address.component.html?ngResource ***!
+  \**************************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">\r\n            {{ 'PrivateClientAddress.NationalCitizenId' | translate }}\r\n          </label>\r\n          <input pInputText class=\"p-inputtext mb-2\" formControlName=\"NationalCitizenId\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('NationalCitizenId')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 7944:
-/*!*************************************************************************!*\
-  !*** ./src/app/components/audits/audit-list-for-entity.html?ngResource ***!
-  \*************************************************************************/
+/***/ 3414:
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/components/audits/audit-list-for-entity/audit-list-for-entity.component.html?ngResource ***!
+  \*********************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"audits\" [columns]=\"table.cols\" sortField=\"CreatedOn\" [sortOrder]=\"-1\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadAuditsLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'UserName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"UserName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'CreatedOn'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"CreatedOn\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FieldName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FieldName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Audit.FieldNamePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"fieldNameOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'OldValue'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"OldValue\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'NewValue'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"NewValue\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-audit let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{audit.UserName}}\r\n              </td>\r\n              <td>\r\n                {{audit.CreatedOn | date:'yyyy-MM-dd HH:mm:ss' }}\r\n              </td>\r\n              <td>\r\n                {{audit.Translation}}\r\n              </td>\r\n              <td>\r\n                {{audit.OldValue}}\r\n              </td>\r\n              <td>\r\n                {{audit.NewValue}}\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 229:
-/*!******************************************************************!*\
-  !*** ./src/app/components/clients/client-create.html?ngResource ***!
-  \******************************************************************/
+/***/ 6504:
+/*!***********************************************************************************!*\
+  !*** ./src/app/components/clients/create/client-create.component.html?ngResource ***!
+  \***********************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div\r\n                    [class]=\"'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Client.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div\r\n                    [class]=\"'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Client.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"clientTypes\" formControlName=\"ClientTypeId\"\r\n                        [placeholder]=\"translate.instant('Client.SelectType')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                  <div *ngIf=\"form.value.ClientTypeId === clientType.Private.toString()\" class=\"field col-12 px-0 py-0\">\r\n                    <private-client #privateClientForm>\r\n                    </private-client>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [requiredFields]=\"clientAddressRequiredFields\" [showTitle]=\"true\"></address>\r\n                  </div>\r\n                  <div *ngIf=\"form.value.ClientTypeId === clientType.Private.toString()\" class=\"field col-12 px-0 py-0\">\r\n                    <private-client-address #privateClientAddressForm>\r\n                    </private-client-address>\r\n                  </div>\r\n                  <div *ngIf=\"form.value.ClientTypeId === clientType.Company.toString()\" class=\"field col-12 px-0 py-0\">\r\n                    <company-client-address #companyClientAddressForm>\r\n                    </company-client-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 255:
-/*!*******************************************************************!*\
-  !*** ./src/app/components/clients/client-details.html?ngResource ***!
-  \*******************************************************************/
+/***/ 9262:
+/*!*************************************************************************************!*\
+  !*** ./src/app/components/clients/details/client-details.component.html?ngResource ***!
+  \*************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div [class]=\"'grid' + (activeTab === routes.clients.tabs.general.index ? ' form-grid' : '')\">\r\n  <div class=\" col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView (onChange)=\"switchActiveTab($event.index)\">\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\"\r\n          [selected]=\"activeTab === routes.clients.tabs.general.index\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div\r\n                    [class]=\"'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Client.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div\r\n                    [class]=\"'field col-12 md:col-6' + (form && form.value.ClientTypeId !== undefined ? ' mb-0 pb-0' : '')\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Client.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"clientTypes\" formControlName=\"ClientTypeId\"\r\n                        [placeholder]=\"translate.instant('Client.SelectType')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                  <div *ngIf=\"client && form.value.ClientTypeId === clientType.Private.toString()\"\r\n                    class=\"field col-12 px-0 py-0\">\r\n                    <private-client #privateClientForm [client]=\"client\">\r\n                    </private-client>\r\n                  </div>\r\n                  <div *ngIf=\"client\" class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [entityAddress]=\"client.Addresses[0]\"\r\n                      [requiredFields]=\"clientAddressRequiredFields\" [showTitle]=\"true\"></address>\r\n                  </div>\r\n                  <div *ngIf=\"client && form.value.ClientTypeId === clientType.Private.toString()\"\r\n                    class=\"field col-12 px-0 py-0\">\r\n                    <private-client-address #privateClientAddressForm [clientAddress]=\"client.Addresses[0]\">\r\n                    </private-client-address>\r\n                  </div>\r\n                  <div *ngIf=\"client && form.value.ClientTypeId === clientType.Company.toString()\"\r\n                    class=\"field col-12 px-0 py-0\">\r\n                    <company-client-address #companyClientAddressForm [clientAddress]=\"client.Addresses[0]\">\r\n                    </company-client-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel *ngIf=\"client && form.value.ClientTypeId === clientType.Company.toString()\"\r\n          header=\"{{ 'Client.RepresentativesTab' | translate }}\"\r\n          [selected]=\"activeTab === routes.clients.tabs.representatives.index\">\r\n          <client-representative-list [clientId]=\"client.Id\"></client-representative-list>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\"\r\n          [selected]=\"activeTab === routes.clients.tabs.audits.index\">\r\n          <audit-list-for-entity #audits *ngIf=\"client\" [entityId]=\"client.Id\"\r\n            [entityTableName]=\"form.value.ClientTypeId === clientType.Company.toString() ? 'CompanyClients' : 'PrivateClients'\"\r\n            translation=\"Client\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 93:
-/*!****************************************************************!*\
-  !*** ./src/app/components/clients/client-list.html?ngResource ***!
-  \****************************************************************/
+/***/ 3193:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/clients/list/client-list.component.html?ngResource ***!
+  \*******************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clients\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadClientsLazy($event)\" [rows]=\"25\" [rowsPerPageOptions]=\"[25, 50, 100]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'TypeName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"TypeName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Client.ClientTypePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"clientTypeOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-client let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{client.Name}}\r\n              </td>\r\n              <td>\r\n                {{client.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{client.LastName}}\r\n              </td>\r\n              <td>\r\n                {{client.TypeName}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(client)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(client)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
-/***/ 8340:
-/*!*******************************************************************!*\
-  !*** ./src/app/components/clients/private-client.html?ngResource ***!
-  \*******************************************************************/
+/***/ 7931:
+/*!********************************************************************************************!*\
+  !*** ./src/app/components/clients/private-client/private-client.component.html?ngResource ***!
+  \********************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div class=\"p-fluid p-formgrid grid px-0 py-0 m-0\">\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{ 'Client.FirstName' | translate }}</label>\r\n          <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n      <div class=\"field col-12 md:col-6 py-0 mb-0\">\r\n        <div class=\"flex-wrap mb-3\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{ 'Client.LastName' | translate }}</label>\r\n          <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n          <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n            [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 6514:
-/*!********************************************************************!*\
-  !*** ./src/app/components/dialogs/deletion-dialog.html?ngResource ***!
-  \********************************************************************/
+/***/ 2455:
+/*!***************************************************************************************!*\
+  !*** ./src/app/components/dialogs/deletion/deletion-dialog.component.html?ngResource ***!
+  \***************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<p-confirmDialog *ngIf=\"deletionKey\" [header]=\"translate.instant('ClientRepresentative.Deletion')\" [key]=\"deletionKey\"\r\n  icon=\"pi pi-exclamation-triangle\" [style]=\"{width: '350px'}\" acceptButtonStyleClass=\"p-button-text\"\r\n  rejectButtonStyleClass=\"p-button-text\" [acceptLabel]=\"translate.instant('General.Yes')\"\r\n  [rejectLabel]=\"translate.instant('General.No')\">\r\n</p-confirmDialog>";
 
 /***/ }),
 
-/***/ 9138:
-/*!************************************************************************!*\
-  !*** ./src/app/components/equipments/equipment-create.html?ngResource ***!
-  \************************************************************************/
+/***/ 2095:
+/*!*****************************************************************************************!*\
+  !*** ./src/app/components/equipments/create/equipment-create.component.html?ngResource ***!
+  \*****************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-formgrid grid\">\r\n                  <h5>{{ translate.instant('Equipment.Photos.Title') }}</h5>\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <equipment-photos></equipment-photos>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 8650:
-/*!*************************************************************************!*\
-  !*** ./src/app/components/equipments/equipment-details.html?ngResource ***!
-  \*************************************************************************/
+/***/ 8095:
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/equipments/details/equipment-details.component.html?ngResource ***!
+  \*******************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div *ngIf=\"equipment && equipment.Photos\" class=\"p-formgrid grid\">\r\n                  <h5>{{ translate.instant('Equipment.Photos.Title') }}</h5>\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <equipment-photos [equipmentId]=\"equipment.Id\" [sourcePhotos]=\"equipment.Photos\"></equipment-photos>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\">\r\n          <audit-list-for-entity #audits *ngIf=\"equipment\" [entityId]=\"equipment.Id\" entityTableName=\"Equipments\"\r\n            translation=\"Equipment\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
+module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div *ngIf=\"equipment && equipment.Photos\" class=\"p-formgrid grid\">\r\n                  <h5>{{ translate.instant('Equipment.Photos.Title') }}</h5>\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <equipment-photos [equipmentId]=\"equipment.Id\" [sourcePhotos]=\"equipment.Photos\"></equipment-photos>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'Equipment.SerialNumber' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"serialNumber\" formControlName=\"SerialNumber\"\r\n                        type=\"text\" readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('SerialNumber')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.MarketValue' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"marketValue\" formControlName=\"MarketValue\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('MarketValue')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Manufacturer' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"manufacturers\" formControlName=\"ManufacturerId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectManufacturer')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.Type' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"types\" formControlName=\"TypeId\"\r\n                        [placeholder]=\"translate.instant('Equipment.SelectType')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Equipment.PricePerDay' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"pricePerDay\" formControlName=\"PricePerDay\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('PricePerDay')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.NotANumber')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\">\r\n          <audit-list-for-entity #audits *ngIf=\"equipment\" [entityId]=\"equipment.Id\" entityTableName=\"Equipments\"\r\n            translation=\"Equipment\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 8777:
-/*!**********************************************************************!*\
-  !*** ./src/app/components/equipments/equipment-list.html?ngResource ***!
-  \**********************************************************************/
+/***/ 9021:
+/*!*************************************************************************************!*\
+  !*** ./src/app/components/equipments/list/equipment-list.component.html?ngResource ***!
+  \*************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"equipments\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadEquipmentsLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'ManufacturerName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"ManufacturerName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Equipment.ManufacturerPicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"manufacturerOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'SerialNumber'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"SerialNumber\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'TypeName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"TypeName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('Equipment.TypePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"typeOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-equipment let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{equipment.Name}}\r\n              </td>\r\n              <td>\r\n                {{equipment.ManufacturerName}}\r\n              </td>\r\n              <td>\r\n                {{equipment.SerialNumber}}\r\n              </td>\r\n              <td>\r\n                {{equipment.TypeName}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(equipment)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(equipment)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
-/***/ 1928:
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/equipments/photos/equipment-photos.html?ngResource ***!
-  \*******************************************************************************/
+/***/ 7990:
+/*!*****************************************************************************************!*\
+  !*** ./src/app/components/equipments/photos/equipment-photos.component.html?ngResource ***!
+  \*****************************************************************************************/
 /***/ ((module) => {
 
-module.exports = "<p-galleria [value]=\"equipmentPhotos\" [(activeIndex)]=\"activeIndex\" [responsiveOptions]=\"galleriaResponsiveOptions\"\r\n  [containerStyle]=\"{ 'max-width': '540px' }\" [numVisible]=\"5\">\r\n  <ng-template pTemplate=\"item\" let-item>\r\n    <img [src]=\"item.Source ? item.Source : getEquipmentPhotoSource(item.Id)\"\r\n      style=\"width: 100%; max-height: 420px; min-height: 420px; min-width: 450px; max-width: 450px; display: block;\" />\r\n  </ng-template>\r\n  <ng-template pTemplate=\"thumbnail\" let-item>\r\n    <div class=\"grid grid-nogutter justify-content-center\">\r\n      <img [src]=\"item.Thumbnail\" />\r\n    </div>\r\n  </ng-template>\r\n</p-galleria>";
+module.exports = "<p-galleria *ngIf=\"equipmentPhotos && equipmentPhotos.length > 0\" [value]=\"equipmentPhotos\"\r\n  [(activeIndex)]=\"activeIndex\" [responsiveOptions]=\"galleriaResponsiveOptions\"\r\n  [containerStyle]=\"{ 'max-width': '540px' }\" [numVisible]=\"5\" [circular]=\"true\">\r\n  <ng-template pTemplate=\"item\" let-item>\r\n    <img *ngIf=\"!item.IsBeingDownloaded\" [src]=\"item.SourceUrl ? item.SourceUrl : getEquipmentPhotoSource(item)\"\r\n      style=\"width: 100%; max-height: 420px; min-height: 420px; min-width: 450px; max-width: 450px; display: block;\" />\r\n    <p-progressSpinner *ngIf=\"item.IsBeingDownloaded\" styleClass=\"w-4rem h-4rem\" strokeWidth=\"8\"\r\n      fill=\"var(--surface-ground)\" animationDuration=\".5s\"></p-progressSpinner>\r\n  </ng-template>\r\n  <ng-template pTemplate=\"thumbnail\" let-item>\r\n    <div class=\"grid grid-nogutter justify-content-center\">\r\n      <img [src]=\"item.ThumbnailUrl\" />\r\n    </div>\r\n  </ng-template>\r\n</p-galleria>\r\n<p-fileUpload #equipmentPhotoUpload name=\"equipmentPhotoFile[]\" [multiple]=\"true\" accept=\"image/*\"\r\n  (uploadHandler)=\"equipmentPhotoUploadAsync($event)\" [chooseLabel]=\"translate.instant('Equipment.Photos.Add')\"\r\n  [customUpload]=\"true\" [maxFileSize]=\"20000000\">\r\n</p-fileUpload>";
 
 /***/ }),
 
-/***/ 8089:
-/*!***********************************************************************!*\
-  !*** ./src/app/components/login/login-reset-password.html?ngResource ***!
-  \***********************************************************************/
-/***/ ((module) => {
-
-module.exports = "<div\r\n  class=\"surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden login-body\">\r\n  <div class=\"flex flex-column align-items-center justify-content-center\">\r\n    <div class=\"login-panel\">\r\n      <div class=\"w-full surface-card py-8 px-5 sm:px-8\" style=\"border-radius:53px\">\r\n        <div class=\"text-center mb-5\">\r\n          <div class=\"text-900 text-3xl font-medium mb-3\">{{ 'User.PasswordChange' | translate }}</div>\r\n        </div>\r\n\r\n        <form [formGroup]=\"form\">\r\n          <div>\r\n            <label for=\"email\" class=\"block text-900 text-xl font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n            <input pInputText id=\"email\" formControlName=\"Email\" type=\"email\" class=\"p-inputtext w-full mb-5\"\r\n              style=\"padding:1rem\" autocomplete=\"off\">\r\n            <button pButton pRipple label=\"{{ 'General.Send' | translate }}\" class=\"w-full p-3 text-xl\"\r\n              (click)=\"onSubmit()\"></button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<p-toast key=\"tst\"></p-toast>";
-
-/***/ }),
-
-/***/ 1320:
-/*!********************************************************!*\
-  !*** ./src/app/components/login/login.html?ngResource ***!
-  \********************************************************/
+/***/ 4690:
+/*!************************************************************************!*\
+  !*** ./src/app/components/login/login/login.component.html?ngResource ***!
+  \************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div\r\n  class=\"surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden login-body\">\r\n  <div class=\"flex flex-column align-items-center justify-content-center\">\r\n    <div class=\"login-panel\">\r\n      <div class=\"w-full surface-card py-8 px-5 sm:px-8\" style=\"border-radius:53px\">\r\n        <div class=\"text-center mb-5\">\r\n          <div class=\"text-900 text-3xl font-medium mb-3\">{{ 'General.Welcome' | translate }}</div>\r\n          <span class=\"text-600 font-medium\">{{ 'General.SignInToContinue' | translate }}</span>\r\n        </div>\r\n\r\n        <form [formGroup]=\"form\">\r\n          <div>\r\n            <label for=\"login\" class=\"block text-900 text-xl font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n            <input pInputText id=\"login\" formControlName=\"Login\" type=\"text\" class=\"p-inputtext w-full md:w-30rem mb-5\"\r\n              style=\"padding:1rem\" autocomplete=\"off\">\r\n            <label for=\"password\" class=\"block text-900 font-medium text-xl mb-2\">{{ 'User.Password' | translate\r\n              }}</label>\r\n            <p-password id=\"password\" formControlName=\"Password\" [toggleMask]=\"true\" styleClass=\"mb-5\"\r\n              [feedback]=\"false\" inputStyleClass=\"w-full p-3 md:w-30rem\"></p-password>\r\n\r\n            <div class=\"flex align-items-center justify-content-between mb-5 gap-5\">\r\n              <!-- [TODO] Forgot password -->\r\n              <!-- <a class=\"font-medium no-underline ml-2 text-right cursor-pointer\" style=\"color: var(--primary-color)\"\r\n                [routerLink]=\"\" (click)=\"resetPassword()\">{{\r\n                'General.ForgotPassword' | translate }}?</a> -->\r\n            </div>\r\n            <button pButton pRipple label=\"{{ 'General.SignIn' | translate }}\" class=\"w-full p-3 text-xl\"\r\n              (click)=\"onSubmit()\"></button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<p-toast key=\"tst\"></p-toast>";
 
 /***/ }),
 
-/***/ 5063:
-/*!******************************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-create.html?ngResource ***!
-  \******************************************************************************/
+/***/ 1096:
+/*!************************************************************************************************!*\
+  !*** ./src/app/components/login/reset-password/login-reset-password.component.html?ngResource ***!
+  \************************************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div\r\n  class=\"surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden login-body\">\r\n  <div class=\"flex flex-column align-items-center justify-content-center\">\r\n    <div class=\"login-panel\">\r\n      <div class=\"w-full surface-card py-8 px-5 sm:px-8\" style=\"border-radius:53px\">\r\n        <div class=\"text-center mb-5\">\r\n          <div class=\"text-900 text-3xl font-medium mb-3\">{{ 'User.PasswordChange' | translate }}</div>\r\n        </div>\r\n\r\n        <form [formGroup]=\"form\">\r\n          <div>\r\n            <label for=\"email\" class=\"block text-900 text-xl font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n            <input pInputText id=\"email\" formControlName=\"Email\" type=\"email\" class=\"p-inputtext w-full mb-5\"\r\n              style=\"padding:1rem\" autocomplete=\"off\">\r\n            <button pButton pRipple label=\"{{ 'General.Send' | translate }}\" class=\"w-full p-3 text-xl\"\r\n              (click)=\"onSubmit()\"></button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n<p-toast key=\"tst\"></p-toast>";
+
+/***/ }),
+
+/***/ 8986:
+/*!***********************************************************************************************!*\
+  !*** ./src/app/components/manufacturers/create/manufacturer-create.component.html?ngResource ***!
+  \***********************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Manufacturer.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"grid formgrid\">\r\n                      <div class=\"field col-12 md:col-2\"></div>\r\n                      <div class=\"field col-12 md:col-10\">\r\n                        <div class=\"flex-wrap mb-3\">\r\n                          <div class=\"field-checkbox mt-6\">\r\n                            <p-checkbox name=\"isOperational\" formControlName=\"IsOperational\" id=\"isOperational\"\r\n                              [binary]=\"true\"></p-checkbox>\r\n                            <label for=\"isOperational\">{{ 'Manufacturer.IsOperational' | translate }}</label>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [requiredFields]=\"manufacturerAddressRequiredFields\" [showTitle]=\"true\">\r\n                    </address>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <manufacturer-address #manufacturerAddressForm>\r\n                    </manufacturer-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 8495:
-/*!*******************************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-details.html?ngResource ***!
-  \*******************************************************************************/
+/***/ 2532:
+/*!*************************************************************************************************!*\
+  !*** ./src/app/components/manufacturers/details/manufacturer-details.component.html?ngResource ***!
+  \*************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'Manufacturer.Name' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"name\" formControlName=\"Name\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Name')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"grid formgrid\">\r\n                      <div class=\"field col-12 md:col-2\"></div>\r\n                      <div class=\"field col-12 md:col-10\">\r\n                        <div class=\"flex-wrap mb-3\">\r\n                          <div class=\"field-checkbox mt-6\">\r\n                            <p-checkbox name=\"isOperational\" formControlName=\"IsOperational\" id=\"isOperational\"\r\n                              [binary]=\"true\"></p-checkbox>\r\n                            <label for=\"isOperational\">{{ 'Manufacturer.IsOperational' | translate }}</label>\r\n                          </div>\r\n                        </div>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div *ngIf=\"manufacturer\" class=\"p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <address #addressForm [entityAddress]=\"manufacturer.Address\"\r\n                      [requiredFields]=\"manufacturerAddressRequiredFields\" [showTitle]=\"true\"></address>\r\n                  </div>\r\n                  <div class=\"field col-12 px-0 py-0\">\r\n                    <manufacturer-address #manufacturerAddressForm [manufacturerAddress]=\"manufacturer.Address\">\r\n                    </manufacturer-address>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 7406:
-/*!****************************************************************************!*\
-  !*** ./src/app/components/manufacturers/manufacturer-list.html?ngResource ***!
-  \****************************************************************************/
+/***/ 1868:
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/manufacturers/list/manufacturer-list.component.html?ngResource ***!
+  \*******************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"manufacturers\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Name\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadManufacturersLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'IsOperational'\" type=\"boolean\" display=\"menu\" field=\"IsOperational\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-manufacturer let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{manufacturer.Name}}\r\n              </td>\r\n              <td>\r\n                <input type=\"checkbox\" [checked]=\"manufacturer.IsOperational\" disabled />\r\n              </td>\r\n              <td>\r\n                {{manufacturer.NationalId}}\r\n              </td>\r\n              <td>\r\n                {{manufacturer.AddressSummary}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\"\r\n                  (click)=\"onEdit(manufacturer)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  [disabled]=\"manufacturer.IsDeleted\" (click)=\"onDelete(manufacturer)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
-/***/ 6520:
-/*!********************************************************************************!*\
-  !*** ./src/app/components/name-in-languages/name-in-languages.html?ngResource ***!
-  \********************************************************************************/
+/***/ 5900:
+/*!******************************************************************************************!*\
+  !*** ./src/app/components/name-in-languages/name-in-languages.component.html?ngResource ***!
+  \******************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div *ngIf=\"form\">\r\n  <form [formGroup]=\"form\">\r\n    <div *ngFor=\"let language of languages\">\r\n      <label [class]=\"!disabled ? 'block text-900 font-medium mb-2' : 'block font-medium mb-2'\">{{ 'General.Name' |\r\n        translate }} ({{ language.label }})</label>\r\n      <input pInputText class=\"p-inputtext mb-2\" [formControlName]=\"language.label!\" type=\"text\"\r\n        (onChange)=\"onChangeInput()\" />\r\n      <p-message *ngIf=\"formValidator.hasError(language.label!)\" severity=\"error\"\r\n        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n    </div>\r\n  </form>\r\n</div>";
 
 /***/ }),
 
-/***/ 5730:
-/*!*****************************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-create.html?ngResource ***!
-  \*****************************************************************************************/
+/***/ 9568:
+/*!*********************************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/create/client-representative-create.component.html?ngResource ***!
+  \*********************************************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <form [formGroup]=\"form\">\r\n        <div class=\"col-12 pb-0 px-0\">\r\n          <div class=\"card no-border p-0\">\r\n            <div class=\"p-fluid p-formgrid grid mb-3\">\r\n              <div class=\"field col-12 md:col-6 mb-0 pb-0\">\r\n                <div class=\"flex-wrap mb-3\">\r\n                  <label class=\"block text-900 font-medium mb-2\">{{ 'ClientRepresentative.LastName' | translate\r\n                    }}</label>\r\n                  <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                  <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                    [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                </div>\r\n              </div>\r\n              <div class=\"field col-12 md:col-6 mb-0 pb-0\">\r\n                <div class=\"flex-wrap mb-3\">\r\n                  <label class=\"block text-900 font-medium mb-2\">{{ 'ClientRepresentative.FirstName' | translate\r\n                    }}</label>\r\n                  <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\" type=\"text\" />\r\n                  <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                    [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                </div>\r\n              </div>\r\n              <div class=\"field col-12 px-0 py-0\">\r\n                <address #addressForm [requiredFields]=\"clientRepresentativeAddressRequiredFields\" [showTitle]=\"true\">\r\n                </address>\r\n              </div>\r\n            </div>\r\n            <div class=\"p-formgrid grid\">\r\n              <div class=\"field col-12 items-centered mb-0\">\r\n                <button pButton pRipple type=\"button\" icon=\"pi pi-save\" [label]=\"translate.instant('General.Create')\"\r\n                  class=\"p-button-raised p-button-success mr-2\"\r\n                  [disabled]=\"form.invalid || addressForm.form.invalid || isExecuting\" (click)=\"onSubmit()\"></button>\r\n                <button pButton pRipple type=\"button\" icon=\"pi pi-undo\" [label]=\"translate.instant('General.Cancel')\"\r\n                  class=\"p-button-raised\" [disabled]=\"isExecuting\" (click)=\"onBack()\"></button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 5685:
-/*!******************************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-details.html?ngResource ***!
-  \******************************************************************************************/
+/***/ 1342:
+/*!***********************************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/details/client-representative-details.component.html?ngResource ***!
+  \***********************************************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <form [formGroup]=\"form\">\r\n        <div class=\"col-12 pb-0 px-0\">\r\n          <div class=\"card no-border p-0\">\r\n            <div class=\"p-fluid p-formgrid grid mb-3\">\r\n              <div class=\"field col-12 md:col-6 mb-0 pb-0\">\r\n                <div class=\"flex-wrap mb-3\">\r\n                  <label class=\"block text-900 font-medium mb-2\">{{ 'ClientRepresentative.LastName' | translate\r\n                    }}</label>\r\n                  <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                  <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                    [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                </div>\r\n              </div>\r\n              <div class=\"field col-12 md:col-6 mb-0 pb-0\">\r\n                <div class=\"flex-wrap mb-3\">\r\n                  <label class=\"block text-900 font-medium mb-2\">{{ 'ClientRepresentative.FirstName' | translate\r\n                    }}</label>\r\n                  <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\" type=\"text\" />\r\n                  <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                    [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                </div>\r\n              </div>\r\n              <div *ngIf=\"clientRepresentative\" class=\"field col-12 px-0 py-0\">\r\n                <address #addressForm [entityAddress]=\"clientRepresentative.Address\"\r\n                  [requiredFields]=\"clientRepresentativeAddressRequiredFields\" [showTitle]=\"true\">\r\n                </address>\r\n              </div>\r\n            </div>\r\n            <div class=\"p-formgrid grid\">\r\n              <div class=\"field col-12 items-centered mb-0\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                  [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                  [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                  [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                <button pButton pRipple type=\"button\" icon=\"pi pi-undo\" [label]=\"translate.instant('General.Cancel')\"\r\n                  class=\"p-button-raised\" [disabled]=\"isExecuting\" (click)=\"onBack()\"></button>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 6875:
-/*!***************************************************************************************!*\
-  !*** ./src/app/components/representatives/client-representative-list.html?ngResource ***!
-  \***************************************************************************************/
+/***/ 1733:
+/*!*****************************************************************************************************************************!*\
+  !*** ./src/app/components/representatives/client-representatives/list/client-representative-list.component.html?ngResource ***!
+  \*****************************************************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons && clientId\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"clientRepresentatives\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"LastName\"\r\n          [lazy]=\"true\" (onLazyLoad)=\"loadClientRepresentativesLazy($event)\" [rows]=\"10\"\r\n          [rowsPerPageOptions]=\"[10, 25, 50]\" [totalRecords]=\"totalRecords\" [rowHover]=\"true\"\r\n          styleClass=\"p-datatable-gridlines\" [paginator]=\"true\" responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Email'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Email\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'PhoneNumber'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"PhoneNumber\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-clientRepresentative let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{clientRepresentative.LastName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.Email}}\r\n              </td>\r\n              <td>\r\n                {{clientRepresentative.PhoneNumber}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\"\r\n                  (click)=\"onEdit(clientRepresentative)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons && clientId\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(clientRepresentative)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n      <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 4353:
+/***/ 123:
 /*!*****************************************************************************************!*\
-  !*** ./src/app/components/user-roles/permissions/user-role-permissions.html?ngResource ***!
+  !*** ./src/app/components/user-roles/create/user-role-create.component.html?ngResource ***!
   \*****************************************************************************************/
-/***/ ((module) => {
-
-module.exports = "<div class=\"p-fluid p-formgrid grid mb-3\">\r\n  <p-treeTable [value]=\"userPermissionNodes\" [columns]=\"userRolePermissionColumns\" selectionMode=\"checkbox\"\r\n    [(selection)]=\"selectedUserPermissionNodes\" (onNodeSelect)=\"onPermissionSelected($event.node)\">\r\n    <ng-template pTemplate=\"header\" let-columns>\r\n      <tr>\r\n        <th *ngFor=\"let col of columns\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{col.header | translate}}</label>\r\n        </th>\r\n      </tr>\r\n    </ng-template>\r\n    <ng-template pTemplate=\"body\" let-rowNode let-rowData=\"rowData\" let-columns=\"columns\">\r\n      <tr>\r\n        <td *ngFor=\"let col of columns; let i = index\">\r\n          <p-treeTableToggler [rowNode]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableToggler>\r\n          <p-treeTableCheckbox [value]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableCheckbox>\r\n          <i [class]=\"rowData[col.icon] + ' px-2'\"></i>\r\n          {{rowData[col.field] | translate}}\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n  </p-treeTable>\r\n</div>";
-
-/***/ }),
-
-/***/ 4035:
-/*!************************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-create.html?ngResource ***!
-  \************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <name-in-languages #nameInLanguages [disabled]=\"false\"\r\n                      (isValid)=\"onIsNameInLanguagesValid($event)\"></name-in-languages>\r\n                  </div>\r\n                </div>\r\n                <user-role-permissions *ngIf=\"groupedUserPermissions\" #userRolePermissions\r\n                  [formMode]=\"formMode.Creation\"\r\n                  [groupedUserPermissions]=\"groupedUserPermissions\"></user-role-permissions>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 2713:
-/*!*************************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-details.html?ngResource ***!
-  \*************************************************************************/
+/***/ 3469:
+/*!*******************************************************************************************!*\
+  !*** ./src/app/components/user-roles/details/user-role-details.component.html?ngResource ***!
+  \*******************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <name-in-languages *ngIf=\"userRole\" #nameInLanguages [disabled]=\"!hasAccessToButtons\"\r\n                      [nameInLanguages]=\"userRole.NameInLanguages\"\r\n                      (isValid)=\"onIsNameInLanguagesValid($event)\"></name-in-languages>\r\n                  </div>\r\n                </div>\r\n                <user-role-permissions *ngIf=\"userRole\" #userRolePermissions [formMode]=\"formMode.Edition\"\r\n                  [groupedUserPermissions]=\"userRole.GroupedPermissions\"></user-role-permissions>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons && !isDisabled\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\">\r\n          <audit-list-for-entity #audits *ngIf=\"userRole\" [entityId]=\"userRole.Id.toString()\"\r\n            entityTableName=\"UserRoles\" translation=\"UserRole\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 3136:
-/*!**********************************************************************!*\
-  !*** ./src/app/components/user-roles/user-role-list.html?ngResource ***!
-  \**********************************************************************/
+/***/ 8061:
+/*!*************************************************************************************!*\
+  !*** ./src/app/components/user-roles/list/user-role-list.component.html?ngResource ***!
+  \*************************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"userRoles\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Id\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUserRolesLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Id'\" pInputText type=\"numeric\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Id\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'Name'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Name\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\" [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('UserRole.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-userRole let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{userRole.Id}}\r\n              </td>\r\n              <td>\r\n                {{userRole.Name}}\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(userRole)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(userRole)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
-/***/ 7828:
-/*!**************************************************************!*\
-  !*** ./src/app/components/users/user-create.html?ngResource ***!
-  \**************************************************************/
+/***/ 6607:
+/*!***************************************************************************************************!*\
+  !*** ./src/app/components/user-roles/permissions/user-role-permissions.component.html?ngResource ***!
+  \***************************************************************************************************/
+/***/ ((module) => {
+
+module.exports = "<div class=\"p-fluid p-formgrid grid mb-3\">\r\n  <p-treeTable [value]=\"userPermissionNodes\" [columns]=\"userRolePermissionColumns\" selectionMode=\"checkbox\"\r\n    [(selection)]=\"selectedUserPermissionNodes\" (onNodeSelect)=\"onPermissionSelected($event.node)\">\r\n    <ng-template pTemplate=\"header\" let-columns>\r\n      <tr>\r\n        <th *ngFor=\"let col of columns\">\r\n          <label class=\"block text-900 font-medium mb-2\">{{col.header | translate}}</label>\r\n        </th>\r\n      </tr>\r\n    </ng-template>\r\n    <ng-template pTemplate=\"body\" let-rowNode let-rowData=\"rowData\" let-columns=\"columns\">\r\n      <tr>\r\n        <td *ngFor=\"let col of columns; let i = index\">\r\n          <p-treeTableToggler [rowNode]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableToggler>\r\n          <p-treeTableCheckbox [value]=\"rowNode\" *ngIf=\"i === 0\"></p-treeTableCheckbox>\r\n          <i [class]=\"rowData[col.icon] + ' px-2'\"></i>\r\n          {{rowData[col.field] | translate}}\r\n        </td>\r\n      </tr>\r\n    </ng-template>\r\n  </p-treeTable>\r\n</div>";
+
+/***/ }),
+
+/***/ 6973:
+/*!*******************************************************************************!*\
+  !*** ./src/app/components/users/create/user-create.component.html?ngResource ***!
+  \*******************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <div class=\"field-checkbox\">\r\n                        <p-checkbox name=\"isActive\" formControlName=\"IsActive\" id=\"isActive\"\r\n                          [binary]=\"true\"></p-checkbox>\r\n                        <label for=\"isActive\">{{ 'User.IsActive' | translate }}</label>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Language' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"languages\" formControlName=\"LanguageId\"\r\n                        [placeholder]=\"translate.instant('User.SelectLanguage')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"false\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Create')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 3537:
-/*!***************************************************************!*\
-  !*** ./src/app/components/users/user-details.html?ngResource ***!
-  \***************************************************************/
+/***/ 5902:
+/*!*********************************************************************************!*\
+  !*** ./src/app/components/users/details/user-details.component.html?ngResource ***!
+  \*********************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div *ngIf=\"hasAccessToButtons\" class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <div class=\"field-checkbox\">\r\n                        <p-checkbox name=\"isActive\" formControlName=\"IsActive\" id=\"isActive\"\r\n                          [binary]=\"true\"></p-checkbox>\r\n                        <label for=\"isActive\">{{ 'User.IsActive' | translate }}</label>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'User.CreatedOn' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"createdOn\" formControlName=\"CreatedOn\" type=\"text\"\r\n                        readonly />\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-save\"\r\n                      [label]=\"translate.instant('General.Save')\" class=\"p-button-raised p-button-success mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onSubmit()\"></button>\r\n                    <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                      [label]=\"translate.instant('General.Delete')\" class=\"p-button-raised p-button-danger mr-2\"\r\n                      [disabled]=\"shouldActionsBeDisabled\" (click)=\"onDelete()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n        <p-tabPanel header=\"{{ 'Audit.History' | translate}}\">\r\n          <audit-list-for-entity #audits *ngIf=\"user\" [entityId]=\"user.Id\" entityTableName=\"Users\"\r\n            translation=\"User\"></audit-list-for-entity>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>";
 
 /***/ }),
 
-/***/ 4921:
-/*!************************************************************!*\
-  !*** ./src/app/components/users/user-list.html?ngResource ***!
-  \************************************************************/
+/***/ 5324:
+/*!***************************************************************************!*\
+  !*** ./src/app/components/users/list/user-list.component.html?ngResource ***!
+  \***************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card\">\r\n      <div class=\"col-12\">\r\n        <div class=\"flex flex-column md:flex-row\">\r\n          <button *ngIf=\"hasAccessToButtons\" pButton [label]=\"translate.instant('General.Create')\"\r\n            class=\"p-button-outlined ml-auto\" icon=\"pi pi-plus\" (click)=\"onCreate()\"></button>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-12\">\r\n        <p-table #dataTable [value]=\"users\" [columns]=\"cols\" dataKey=\"Id\" sortField=\"Login\" [lazy]=\"true\"\r\n          (onLazyLoad)=\"loadUsersLazy($event)\" [rows]=\"10\" [rowsPerPageOptions]=\"[10, 25, 50]\"\r\n          [totalRecords]=\"totalRecords\" [rowHover]=\"true\" styleClass=\"p-datatable-gridlines\" [paginator]=\"true\"\r\n          responsiveLayout=\"scroll\">\r\n          <ng-template pTemplate=\"caption\">\r\n            <div class=\"flex flex-column md:flex-row md:justify-content-between gap-2\">\r\n              <button pButton [label]=\"translate.instant('General.Clear')\" class=\"p-button-outlined mb-2\"\r\n                icon=\"pi pi-filter-slash\" (click)=\"filterService.onClearFilters(dataTable)\"></button>\r\n              <div class=\"grid formgrid\">\r\n                <div class=\"col-12 mb-2 lg:col-4 lg:mb-0 mt-2\">\r\n                  <span class=\"p-input-icon-right\">\r\n                    <i *ngIf=\"filter.value && !filterService.shouldHideIcon(filter.value)\" class=\"pi pi-search\"></i>\r\n                    <input type=\"text\" pInputText #filter id=\"filter\"\r\n                      (input)=\"filterService.onFilterGlobal(dataTable, filter.value)\"\r\n                      [placeholder]=\"translate.instant('General.SearchKeyword')\" />\r\n                  </span>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"header\" let-columns>\r\n            <tr>\r\n              <th *ngFor=\"let col of columns\" style=\"min-width: 12rem\" [ngSwitch]=\"col.field\">\r\n                <div class=\"flex justify-content-between align-items-center\">\r\n                  {{ col.header | translate }}\r\n                  <p-columnFilter *ngSwitchCase=\"'Login'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"Login\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'FirstName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"FirstName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'LastName'\" pInputText type=\"text\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"LastName\">\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'UserRoleName'\"\r\n                    [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\" display=\"menu\"\r\n                    field=\"UserRoleName\" matchMode=\"in\" [showMatchModes]=\"false\" [showOperator]=\"false\"\r\n                    [showAddButton]=\"false\">\r\n                    <ng-template pTemplate=\"header\">\r\n                      <div>\r\n                        <span class=\"font-bold\">{{translate.instant('User.UserRolePicker')}}</span>\r\n                      </div>\r\n                    </ng-template>\r\n                    <ng-template pTemplate=\"filter\" let-value let-filter=\"filterCallback\">\r\n                      <p-multiSelect [ngModel]=\"value\" [options]=\"userRoleOptions\"\r\n                        [placeholder]=\"filterService.getPlaceholder(translate.instant(col.header))\"\r\n                        (onChange)=\"filter($event.value)\" optionLabel=\"label\">\r\n                        <ng-template let-option pTemplate=\"item\">\r\n                          <div class=\"p-multiselect-representative-option\">\r\n                            <span class=\"ml-1\">{{option.label}}</span>\r\n                          </div>\r\n                        </ng-template>\r\n                      </p-multiSelect>\r\n                    </ng-template>\r\n                  </p-columnFilter>\r\n                  <p-columnFilter *ngSwitchCase=\"'IsActive'\" type=\"boolean\" display=\"menu\" field=\"IsActive\">\r\n                  </p-columnFilter>\r\n                </div>\r\n              </th>\r\n            </tr>\r\n          </ng-template>\r\n          <ng-template pTemplate=\"body\" let-user let-columns=\"columns\">\r\n            <tr>\r\n              <td>\r\n                {{user.Login}}\r\n              </td>\r\n              <td>\r\n                {{user.FirstName}}\r\n              </td>\r\n              <td>\r\n                {{user.LastName}}\r\n              </td>\r\n              <td>\r\n                {{user.UserRoleName}}\r\n              </td>\r\n              <td>\r\n                <input type=\"checkbox\" [checked]=\"user.IsActive\" disabled />\r\n              </td>\r\n              <td class=\"items-centered gap-2\">\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple class=\"p-button-raised\" type=\"button\"\r\n                  [class]=\"hasAccessToButtons ? 'p-button-raised' : 'p-button-raised p-button-warning'\"\r\n                  icon=\"pi pi-pencil\" [label]=\"translate.instant(onEditLabelId)\" (click)=\"onEdit(user)\"></button>\r\n                <button *ngIf=\"hasAccessToButtons\" pButton pRipple type=\"button\" icon=\"pi pi-trash\"\r\n                  [label]=\"translate.instant(onDeleteLabelId)\" class=\"p-button-raised p-button-danger\"\r\n                  (click)=\"onDelete(user)\"></button>\r\n              </td>\r\n            </tr>\r\n          </ng-template>\r\n        </p-table>\r\n      </div>\r\n    </div>\r\n    <deletion-dialog [deletionKey]=\"deletionKey\"></deletion-dialog>\r\n  </div>\r\n</div>\r\n<router-outlet></router-outlet>";
 
 /***/ }),
 
-/***/ 3130:
-/*!***************************************************************!*\
-  !*** ./src/app/components/users/user-profile.html?ngResource ***!
-  \***************************************************************/
+/***/ 1543:
+/*!*********************************************************************************!*\
+  !*** ./src/app/components/users/profile/user-profile.component.html?ngResource ***!
+  \*********************************************************************************/
 /***/ ((module) => {
 
 module.exports = "<div class=\"grid form-grid\">\r\n  <div class=\"col-12\">\r\n    <div class=\"card pb-0\">\r\n      <p-tabView>\r\n        <p-tabPanel header=\"{{ 'General.GeneralTab' | translate }}\">\r\n          <form [formGroup]=\"form\">\r\n            <div class=\"col-12 pb-0 px-0\">\r\n              <div class=\"card no-border p-0\">\r\n                <div class=\"p-fluid p-formgrid grid mb-3\">\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block font-medium mb-2\">{{ 'User.Login' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"login\" formControlName=\"Login\" type=\"text\"\r\n                        readonly />\r\n                      <p-message *ngIf=\"formValidator.hasError('Login')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.FirstName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"firstName\" formControlName=\"FirstName\"\r\n                        type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('FirstName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Password' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"password\" formControlName=\"Password\"\r\n                        type=\"password\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Password')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldMustContainCharacters', { numberOfCharacters: '8-20' })\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                  <div class=\"field col-12 md:col-6\">\r\n                    <div class=\"flex-wrap mb-4\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.UserRole' | translate }}</label>\r\n                      <p-dropdown class=\"mb-2\" [options]=\"userRoles\" formControlName=\"UserRoleId\"\r\n                        [placeholder]=\"translate.instant('User.SelectUserRole')\" [showClear]=\"false\" [readonly]=\"true\">\r\n                        <ng-template let-role pTemplate=\"selectedItem\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                        <ng-template let-role pTemplate=\"item\">\r\n                          <div>{{ role.label | translate }}</div>\r\n                        </ng-template>\r\n                      </p-dropdown>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.LastName' | translate\r\n                        }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"lastName\" formControlName=\"LastName\" type=\"text\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('LastName')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldRequired')\"></p-message>\r\n                    </div>\r\n                    <div class=\"flex-wrap mb-3\">\r\n                      <label class=\"block text-900 font-medium mb-2\">{{ 'User.Email' | translate }}</label>\r\n                      <input pInputText class=\"p-inputtext mb-2\" id=\"email\" formControlName=\"Email\" type=\"email\"\r\n                        maxlength=\"100\" />\r\n                      <p-message *ngIf=\"formValidator.hasError('Email')\" severity=\"error\"\r\n                        [text]=\"translate.instant('Messages.FieldInvalid')\"></p-message>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"p-formgrid grid\">\r\n                  <div class=\"field col-12 items-centered mb-0\">\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-save\" [label]=\"translate.instant('General.Save')\"\r\n                      class=\"p-button-raised p-button-success mr-2\" [disabled]=\"shouldActionsBeDisabled\"\r\n                      (click)=\"onSubmit()\"></button>\r\n                    <button pButton pRipple type=\"button\" icon=\"pi pi-undo\"\r\n                      [label]=\"translate.instant('General.Cancel')\" class=\"p-button-raised\" [disabled]=\"isExecuting\"\r\n                      (click)=\"onBack()\"></button>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </form>\r\n        </p-tabPanel>\r\n      </p-tabView>\r\n    </div>\r\n  </div>\r\n</div>";

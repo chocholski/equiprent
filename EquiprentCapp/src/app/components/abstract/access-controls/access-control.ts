@@ -3,7 +3,7 @@ import { AuthorizationService } from "src/app/services/authorization/authorizati
 import { Confirmation, ConfirmationService } from "primeng/api";
 import { TranslateService } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { ApiResultEnum } from "src/app/enums/api-result.enum";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { Router } from "@angular/router";
 import { ErrorService } from "src/app/services/errors/error.service";

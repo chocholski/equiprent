@@ -6,17 +6,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterEvent, Scroll } from '@angular/router';
 import { SelectOptionsService } from '../services/select-options/select-options.service';
-import { LanguageCodeEnum } from '../enums/language-code-enum';
+import { LanguageCodeEnum } from '../enums/language-code.enum';
 import { Title } from "@angular/platform-browser";
 import { AppSidebarComponent } from './app.sidebar.component';
 import { AuthorizationService } from '../services/authorization/authorization.service';
 import { UserChangeLanguageModel } from '../interfaces/user';
 import { HttpClient } from '@angular/common/http';
-import { ApiRoutes } from '../api-routes';
-import { ApiResultEnum } from '../enums/api-result-enum';
+import { API_ROUTES } from '../constants/api-routes.constants';
+import { ApiResultEnum } from '../enums/api-result.enum';
 import { concatMap, filter } from 'rxjs';
 import { StringBuilder } from '../tools/stringBuilder';
-import { Routes } from '../routes';
+import { ROUTES } from '../constants/routes.constants';
+import { LOCAL_STORAGE_PROPERTIES } from '../constants/local-storage.constants';
 
 @Component({
     selector: 'app-topbar',
@@ -53,7 +54,7 @@ export class AppTopBarComponent {
     }
 
     public onProfileButtonClick() {
-        this.router.navigate([Routes.users.navigations.profile]);
+        this.router.navigate([ROUTES.users.navigations.profile]);
     }
 
     public setTheme(withDarkMode: boolean) {
@@ -124,7 +125,7 @@ export class AppTopBarComponent {
 
     private logout(): void {
         if (this.authenticationService.logout()) {
-            this.router.navigate([Routes.login.navigations.default]);
+            this.router.navigate([ROUTES.login.navigations.default]);
         }
     }
 
@@ -135,8 +136,7 @@ export class AppTopBarComponent {
             return;
 
         this.languageId = Number(id);
-
-        localStorage.setItem('languageId', this.languageId.toString());
+        localStorage.setItem(LOCAL_STORAGE_PROPERTIES.LanguageId, this.languageId.toString());
 
         const model = <UserChangeLanguageModel>{
             Id: currentUserId,
@@ -144,7 +144,7 @@ export class AppTopBarComponent {
         };
 
         this.httpClient
-            .put<string>(ApiRoutes.user.changeLanguage, model)
+            .put<string>(API_ROUTES.user.changeLanguage, model)
             .subscribe(
                 result => {
                     if (result === ApiResultEnum[ApiResultEnum.OK]) {
@@ -165,7 +165,7 @@ export class AppTopBarComponent {
             this.languageId = Number(userLanguageId);
         }
         else {
-            const languageIdFromStorage = localStorage.getItem('languageId');
+            const languageIdFromStorage = localStorage.getItem(LOCAL_STORAGE_PROPERTIES.LanguageId);
 
             if (languageIdFromStorage) {
                 this.languageId = Number(languageIdFromStorage);

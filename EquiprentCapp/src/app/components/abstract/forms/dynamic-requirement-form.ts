@@ -1,12 +1,12 @@
 import { Directive, Input, OnInit } from "@angular/core";
-import { SimpleFormComponent } from "./simple-form";
+import { SimpleFormComponent as SimpleForm } from "./simple-form";
 import { FormBuilder, Validators } from "@angular/forms";
 
 @Directive({
   selector: "dynamic-requirement-form"
 })
-export abstract class DynamicRequirementFormComponent
-  extends SimpleFormComponent {
+export abstract class DynamicRequirementForm
+  extends SimpleForm {
 
   @Input('requiredFields') requiredFields: string[] = [];
 

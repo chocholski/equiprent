@@ -1,16 +1,16 @@
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 import { FormValidator } from "src/app/ui-controls/form-validator";
 import { FormSubmitionActionFactory as FormSubmitionActionFactory } from "./form-factories/form-submition-action-factory";
 import { HttpClient } from "@angular/common/http";
-import { ApiResultEnum } from "src/app/enums/api-result-enum";
+import { ApiResultEnum } from "src/app/enums/api-result.enum";
 import { Router } from "@angular/router";
 import { DialogMessageService } from "src/app/services/messages/dialog-message.service";
 import { TranslateService } from "@ngx-translate/core";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
 import { ErrorService } from "src/app/services/errors/error.service";
 
-export abstract class FormComponent<T> {
+export abstract class Form<T> {
 
   public readonly beforeSubmitionCustomOperationsHandler: (...args: any[]) => T;
   public readonly formMode: typeof FormModeEnum = FormModeEnum;

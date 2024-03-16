@@ -5,7 +5,7 @@ import { ImageService } from "src/app/services/images/image.service";
 import { HttpClient } from "@angular/common/http";
 import { lastValueFrom } from "rxjs";
 import { SimpleFileModel } from "src/app/interfaces/file";
-import { ApiRoutes } from "src/app/api-routes";
+import { API_ROUTES } from "src/app/constants/api-routes.constants";
 
 export class EquipmentPhotoOnCreationUploader extends EquipmentPhotoUploader {
 
@@ -26,7 +26,7 @@ export class EquipmentPhotoOnCreationUploader extends EquipmentPhotoUploader {
 
       const encodedFile = this.fileService.convertFileToBase64String(fileArrayBuffer);
       const thumbnail = await lastValueFrom(this.httpClient.post<SimpleFileModel>(
-        ApiRoutes.equipment.file.photo.makeThumbnailForFile,
+        API_ROUTES.equipment.file.photo.makeThumbnailForFile,
         <SimpleFileModel>{
           File: encodedFile,
           FileName: file.name,

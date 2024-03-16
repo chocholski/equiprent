@@ -1,52 +1,52 @@
 import { Data, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from './layout/app.layout.component';
-import { UserListComponent } from './components/users/user-list';
-import { UserRoleListComponent } from './components/user-roles/user-role-list';
-import { LoginComponent } from './components/login/login';
+import { UserListComponent } from './components/users/list/user-list.component';
+import { UserRoleListComponent } from './components/user-roles/list/user-role-list.component';
+import { LoginComponent } from './components/login/login/login.component';
 import { AuthGuard } from './services/auth-guard/auth-guard.service';
-import { UserPermissionEnum } from './enums/user-permission-enum';
-import { UserDetailsComponent } from './components/users/user-details';
-import { UserCreationComponent } from './components/users/user-create';
+import { UserPermissionEnum } from './enums/user-permission.enum';
+import { UserDetailsComponent } from './components/users/details/user-details.component';
+import { UserCreationComponent } from './components/users/create/user-create.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Routes } from './routes';
-import { UserRoleCreationComponent } from './components/user-roles/user-role-create';
-import { UserRoleDetailsComponent } from './components/user-roles/user-role-details';
-import { ClientListComponent } from './components/clients/client-list';
-import { ClientCreationComponent } from './components/clients/client-create';
-import { ClientDetailsComponent } from './components/clients/client-details';
-import { ManufacturerListComponent } from './components/manufacturers/manufacturer-list';
-import { ManufacturerCreationComponent } from './components/manufacturers/manufacturer-create';
-import { ManufacturerDetailsComponent } from './components/manufacturers/manufacturer-details';
-import { EquipmentListComponent } from './components/equipments/equipment-list';
-import { EquipmentCreationComponent } from './components/equipments/equipment-create';
-import { EquipmentDetailsComponent } from './components/equipments/equipment-details';
-import { UserProfileComponent } from './components/users/user-profile';
+import { ROUTES } from './constants/routes.constants';
+import { UserRoleCreationComponent } from './components/user-roles/create/user-role-create.component';
+import { UserRoleDetailsComponent } from './components/user-roles/details/user-role-details.component';
+import { ClientListComponent } from './components/clients/list/client-list.component';
+import { ClientCreationComponent } from './components/clients/create/client-create.component';
+import { ClientDetailsComponent } from './components/clients/details/client-details.component';
+import { ManufacturerListComponent } from './components/manufacturers/list/manufacturer-list.component';
+import { ManufacturerCreationComponent } from './components/manufacturers/create/manufacturer-create.component';
+import { ManufacturerDetailsComponent } from './components/manufacturers/details/manufacturer-details.component';
+import { EquipmentListComponent } from './components/equipments/list/equipment-list.component';
+import { EquipmentCreationComponent } from './components/equipments/create/equipment-create.component';
+import { EquipmentDetailsComponent } from './components/equipments/details/equipment-details.component';
+import { UserProfileComponent } from './components/users/profile/user-profile.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
-                path: Routes.home.paths.default, component: AppLayoutComponent,
+                path: ROUTES.home.paths.default, component: AppLayoutComponent,
                 data: {
-                    breadcrumb: Routes.home.breadcrumbs.default
+                    breadcrumb: ROUTES.home.breadcrumbs.default
                 },
                 children: [
                     {
-                        path: Routes.users.paths.profile,
+                        path: ROUTES.users.paths.profile,
                         component: UserProfileComponent,
                         canActivate: [AuthGuard],
                         data: {
                             allowedPermissions: [UserPermissionEnum.ForAll],
-                            breadcrumb: Routes.users.breadcrumbs.profile
+                            breadcrumb: ROUTES.users.breadcrumbs.profile
                         }
                     },
                     {
-                        path: Routes.clients.paths.list,
+                        path: ROUTES.clients.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.Clients_CanList],
-                            breadcrumb: Routes.clients.breadcrumbs.list
+                            breadcrumb: ROUTES.clients.breadcrumbs.list
                         },
                         children: [
                             {
@@ -59,31 +59,31 @@ import { UserProfileComponent } from './components/users/user-profile';
                                 }
                             },
                             {
-                                path: Routes.clients.paths.create,
+                                path: ROUTES.clients.paths.create,
                                 component: ClientCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Clients_CanModify],
-                                    breadcrumb: Routes.clients.breadcrumbs.creation
+                                    breadcrumb: ROUTES.clients.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: Routes.clients.paths.edit,
+                                path: ROUTES.clients.paths.edit,
                                 component: ClientDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Clients_CanModify],
-                                    breadcrumb: Routes.clients.breadcrumbs.edition
+                                    breadcrumb: ROUTES.clients.breadcrumbs.edition
                                 }
                             }
                         ]
                     },
                     {
-                        path: Routes.equipments.paths.list,
+                        path: ROUTES.equipments.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.Equipments_CanList],
-                            breadcrumb: Routes.equipments.breadcrumbs.list
+                            breadcrumb: ROUTES.equipments.breadcrumbs.list
                         },
                         children: [
                             {
@@ -96,31 +96,31 @@ import { UserProfileComponent } from './components/users/user-profile';
                                 }
                             },
                             {
-                                path: Routes.equipments.paths.create,
+                                path: ROUTES.equipments.paths.create,
                                 component: EquipmentCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Equipments_CanModify],
-                                    breadcrumb: Routes.equipments.breadcrumbs.creation
+                                    breadcrumb: ROUTES.equipments.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: Routes.equipments.paths.edit,
+                                path: ROUTES.equipments.paths.edit,
                                 component: EquipmentDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Equipments_CanModify],
-                                    breadcrumb: Routes.equipments.breadcrumbs.edition
+                                    breadcrumb: ROUTES.equipments.breadcrumbs.edition
                                 }
                             }
                         ]
                     },
                     {
-                        path: Routes.manufacturers.paths.list,
+                        path: ROUTES.manufacturers.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.Manufacturers_CanList],
-                            breadcrumb: Routes.manufacturers.breadcrumbs.list
+                            breadcrumb: ROUTES.manufacturers.breadcrumbs.list
                         },
                         children: [
                             {
@@ -133,31 +133,31 @@ import { UserProfileComponent } from './components/users/user-profile';
                                 }
                             },
                             {
-                                path: Routes.manufacturers.paths.create,
+                                path: ROUTES.manufacturers.paths.create,
                                 component: ManufacturerCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Manufacturers_CanModify],
-                                    breadcrumb: Routes.manufacturers.breadcrumbs.creation
+                                    breadcrumb: ROUTES.manufacturers.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: Routes.manufacturers.paths.edit,
+                                path: ROUTES.manufacturers.paths.edit,
                                 component: ManufacturerDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Manufacturers_CanModify],
-                                    breadcrumb: Routes.manufacturers.breadcrumbs.edition
+                                    breadcrumb: ROUTES.manufacturers.breadcrumbs.edition
                                 }
                             }
                         ]
                     },
                     {
-                        path: Routes.users.paths.list,
+                        path: ROUTES.users.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.Users_CanList],
-                            breadcrumb: Routes.users.breadcrumbs.list
+                            breadcrumb: ROUTES.users.breadcrumbs.list
                         },
                         children: [
                             {
@@ -170,31 +170,31 @@ import { UserProfileComponent } from './components/users/user-profile';
                                 }
                             },
                             {
-                                path: Routes.users.paths.create,
+                                path: ROUTES.users.paths.create,
                                 component: UserCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Users_CanModify],
-                                    breadcrumb: Routes.users.breadcrumbs.creation
+                                    breadcrumb: ROUTES.users.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: Routes.users.paths.edit,
+                                path: ROUTES.users.paths.edit,
                                 component: UserDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.Users_CanList],
-                                    breadcrumb: Routes.users.breadcrumbs.edition
+                                    breadcrumb: ROUTES.users.breadcrumbs.edition
                                 }
                             }
                         ]
                     },
                     {
-                        path: Routes.userRoles.paths.list,
+                        path: ROUTES.userRoles.paths.list,
                         canActivate: [AuthGuard],
                         data: <Data>{
                             allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
-                            breadcrumb: Routes.userRoles.breadcrumbs.list
+                            breadcrumb: ROUTES.userRoles.breadcrumbs.list
                         },
                         children: [
                             {
@@ -207,21 +207,21 @@ import { UserProfileComponent } from './components/users/user-profile';
                                 }
                             },
                             {
-                                path: Routes.userRoles.paths.create,
+                                path: ROUTES.userRoles.paths.create,
                                 component: UserRoleCreationComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.UserRoles_CanModify],
-                                    breadcrumb: Routes.userRoles.breadcrumbs.creation
+                                    breadcrumb: ROUTES.userRoles.breadcrumbs.creation
                                 }
                             },
                             {
-                                path: Routes.userRoles.paths.edit,
+                                path: ROUTES.userRoles.paths.edit,
                                 component: UserRoleDetailsComponent,
                                 canActivate: [AuthGuard],
                                 data: <Data>{
                                     allowedPermissions: [UserPermissionEnum.UserRoles_CanList],
-                                    breadcrumb: Routes.userRoles.breadcrumbs.edition
+                                    breadcrumb: ROUTES.userRoles.breadcrumbs.edition
                                 }
                             }
                         ]
@@ -229,7 +229,7 @@ import { UserProfileComponent } from './components/users/user-profile';
                 ]
             },
             {
-                path: Routes.login.paths.default,
+                path: ROUTES.login.paths.default,
                 component: LoginComponent,
                 data: {
                     breadcrumb: null
@@ -237,11 +237,11 @@ import { UserProfileComponent } from './components/users/user-profile';
             },
             {
                 path: '**',
-                redirectTo: Routes.home.paths.default
+                redirectTo: ROUTES.home.paths.default
             },
             {
                 path: '',
-                redirectTo: Routes.home.paths.default,
+                redirectTo: ROUTES.home.paths.default,
                 pathMatch: 'full'
             },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload', useHash: false })

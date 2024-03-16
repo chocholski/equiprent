@@ -1,4 +1,4 @@
-import { Icons } from "src/app/icon-mapper";
+import { ICONS } from "src/app/constants/icons.constants";
 import { PermissionGroupItemModel, PermissionItemModel, UserPermissionNodeData } from "src/app/interfaces/user-permission";
 import { UserRolePermissionsDestinations } from "src/app/interfaces/user-role";
 import { UserRolePermissionsFiller } from "./user-role-permissions-filler";
@@ -33,7 +33,7 @@ export class UserRolePermissionsOnEditionFiller extends UserRolePermissionsFille
 
     result.children = children;
     result.data = <UserPermissionNodeData>{
-      icon: Icons[permissionsGroup.Name],
+      icon: ICONS[permissionsGroup.Name],
       id: null,
       isSelected: children.every(c => c.isSelected()),
       linkedPermissionIds: [],

@@ -1,4 +1,4 @@
-import { Icons, LIST_ICON_NAME, MODIFY_ICON_NAME } from "src/app/icon-mapper";
+import { ICONS, LIST_ICON_NAME, MODIFY_ICON_NAME } from "src/app/constants/icons.constants";
 import { PermissionGroupItemModel, PermissionItemModel } from "src/app/interfaces/user-permission";
 import { UserPermissionNode } from "../models/user-permission-node";
 
@@ -13,6 +13,6 @@ export abstract class UserRolePermissionsFiller {
       ? LIST_ICON_NAME
       : permission.Name.endsWith('.CanModify')
         ? MODIFY_ICON_NAME
-        : Icons[permission.Name]
+        : ICONS[permission.Name]
   }
 }

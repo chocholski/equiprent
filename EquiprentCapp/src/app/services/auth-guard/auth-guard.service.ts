@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Router } from '@angular/router';
-import { Routes } from '../../routes';
+import { ROUTES } from '../../constants/routes.constants';
 
 @Injectable()
 export class AuthGuard {
@@ -31,7 +31,7 @@ export class AuthGuard {
       else
         this.authorizationService.decodeTokenAndSetData();
 
-      this.router.navigate([Routes.login.navigations.default]);
+      this.router.navigate([ROUTES.login.navigations.default]);
     }
 
     this.authorizationService.decodeTokenAndSetData();

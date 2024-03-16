@@ -175,6 +175,7 @@
         },
         "Name": "Nazwa",
         "Photos": {
+            "Add": "Dodaj",
             "Title": "Zdjęcia"
         },
         "Plural": "Sprzęty",

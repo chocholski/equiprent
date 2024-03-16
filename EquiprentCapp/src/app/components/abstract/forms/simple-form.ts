@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 import { FormValidator } from "src/app/ui-controls/form-validator";
 
 export abstract class SimpleFormComponent {

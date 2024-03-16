@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { FormSubmitionAction } from "./form-submition-action";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
-import { FormComponent } from "../form";
+import { Form } from "../form";
 import { HttpClient } from "@angular/common/http";
 
 export class PostAction<T>
@@ -16,7 +16,7 @@ export class PostAction<T>
     return this.consoleMessageService.getConsoleMessageWithResultForEntityAfterCreation(entity, result);
   }
 
-  execute(formComponent: FormComponent<T>): Observable<string> {
+  execute(formComponent: Form<T>): Observable<string> {
     const entity = formComponent.beforeSubmitionCustomOperationsHandler();
     return this.httpClient.post<string>(formComponent.submitionLink, entity);
   }

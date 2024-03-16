@@ -1,4 +1,4 @@
-import { FormModeEnum } from "src/app/enums/form-mode-enum";
+import { FormModeEnum } from "src/app/enums/form-mode.enum";
 import { EquipmentPhotoUploader } from "./equipment-photo-uploader";
 import { EquipmentPhotoOnCreationUploader } from "./equipment-photo-on-creation-uploader";
 import { EquipmentPhotoOnEditionUploader } from "./equipment-photo-on-edition-uploader";

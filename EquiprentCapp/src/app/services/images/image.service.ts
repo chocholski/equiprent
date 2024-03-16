@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AssetService } from '../assets/asset.service';
-import { Assets } from 'src/app/assets';
+import { ASSETS } from 'src/app/constants/assets.constants';
 
 @Injectable()
 export class ImageService {
@@ -28,6 +28,6 @@ export class ImageService {
   }
 
   public async getNotFoundImageUrlAsync() {
-    return await this.getImageUrlWithAssetImageAsync(Assets.images.notFound.path);
+    return await this.getImageUrlWithAssetImageAsync(ASSETS.images.notFound.path);
   }
 }
