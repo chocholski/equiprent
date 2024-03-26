@@ -2,6 +2,7 @@
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Application.Users;
+using Equiprent.Extensions;
 using Equiprent.Logic.Queries.Users.Requests;
 using Equiprent.Logic.Queries.Users.Responses.PagedUsersSelectionList;
 using MediatR;
@@ -49,7 +50,10 @@ namespace Equiprent.Logic.Queries.Users.Handlers.PagedUsersSelectionList
         {
             return _dbContext.Users
                 .Include(u => u.UserRole)
-                .Where(u => !u.IsDeleted && u.IsActive);
+                .Where(u =>
+                    !u.IsDeleted &&
+                    u.IsActive &&
+                    (request.IgnoredIds.IsNullOrEmpty() || !request.IgnoredIds!.Contains(u.Id)));
         }
     }
 }

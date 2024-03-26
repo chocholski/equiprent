@@ -1,6 +1,6 @@
 import { AccessControl } from "src/app/tools/access-control";
 import { AuthorizationService } from "src/app/services/authorization/authorization.service";
-import { Directive, EventEmitter, Output } from "@angular/core";
+import { Directive, EventEmitter, Input, Output } from "@angular/core";
 import { SelectResult } from "src/app/interfaces/selection";
 
 @Directive({
@@ -17,12 +17,14 @@ export abstract class AccessControlSelectListComponent<T> {
 
   public readonly onSelectLabelId = 'General.Select';
 
+  @Input('ignoredIds') ignoredIds?: string[] | number[];
+
   @Output('onSelected') onSelected = new EventEmitter<SelectResult>();
 
   constructor(
     protected readonly authorizationService: AuthorizationService,
-    protected readonly userPermissions: number[]) {
-
+    protected readonly userPermissions: number[]
+  ) {
     this.accessControl = new AccessControl(this.authorizationService, this.userPermissions);
   }
 

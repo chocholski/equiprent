@@ -2,6 +2,7 @@
 using Equiprent.Data.DbContext;
 using Equiprent.Entities.Business.Clients;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
+using Equiprent.Extensions;
 using Equiprent.Logic.Queries.Clients.Requests;
 using Equiprent.Logic.Queries.Clients.Responses.PagedClientsSelectionList;
 using MediatR;
@@ -29,7 +30,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers.PagedClientsSelectionList
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedClientsSelectionListResponse, Client, Client, ClientSelectionListItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: GetClientsSelectionListQuery(),
+                query: GetClientsSelectionListQueryWithRequest(request),
                 _serviceProvider,
                 cancellationToken);
 
@@ -45,11 +46,13 @@ namespace Equiprent.Logic.Queries.Clients.Handlers.PagedClientsSelectionList
             return response;
         }
 
-        private IQueryable<Client> GetClientsSelectionListQuery()
+        private IQueryable<Client> GetClientsSelectionListQueryWithRequest(GetPagedClientsSelectionListRequest request)
         {
             return _dbContext.Clients
                 .Include(c => c.ClientType)
-                .Where(c => !c.IsDeleted);
+                .Where(c =>
+                    !c.IsDeleted &&
+                    (request.IgnoredIds.IsNullOrEmpty() || !request.IgnoredIds!.Contains(c.Id)));
         }
     }
 }

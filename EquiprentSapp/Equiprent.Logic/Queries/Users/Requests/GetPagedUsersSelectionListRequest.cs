@@ -7,9 +7,12 @@ namespace Equiprent.Logic.Queries.Users.Requests
     {
         public RequestParameters RequestParameters { get; set; }
 
-        public GetPagedUsersSelectionListRequest(RequestParameters requestParameters)
+        public IEnumerable<Guid>? IgnoredIds { get; set; }
+
+        public GetPagedUsersSelectionListRequest(RequestParameters requestParameters, IEnumerable<Guid>? ignoredIds = null)
         {
             RequestParameters = requestParameters.GetWithDefaultSortColumnNameIfSortColumnNameIsNullOrEmptyBasedOn(typeof(UserSelectionListItemModel));
+            IgnoredIds = ignoredIds;
         }
     }
 }

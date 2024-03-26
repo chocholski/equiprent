@@ -11,12 +11,13 @@
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'Rental.UserResponsibleForHandling' | translate
                         }}</label>
-                      <span class="p-input-icon-right">
-                        <i [class]="Menus.administration.items.users.icon"></i>
+                      <selectable-input [form]="form" [formFieldWithId]="'UserResponsibleForHandlingId'"
+                        [formFieldWithName]="'UserResponsibleForHandlingName'"
+                        [initialIconClass]="Menus.administration.items.users.icon">
                         <input pInputText class="p-inputtext mb-2" id="userResponsibleForHandlingName"
                           formControlName="UserResponsibleForHandlingName" type="text"
                           (click)="displayUserSelectionDialog = true" readonly />
-                      </span>
+                      </selectable-input>
                       <p-message *ngIf="formValidator.hasError('UserResponsibleForHandlingName')" severity="error"
                         [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
@@ -41,19 +42,23 @@
                     </div>
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'Rental.Renter' | translate }}</label>
-                      <span class="p-input-icon-right">
-                        <i [class]="Menus.main.items.clients.icon"></i>
-                        <input pInputText class="p-inputtext mb-2" id="renterName" formControlName="RenterName"
+                      <selectable-input [form]="form" [formFieldWithId]="'RenterId'" [formFieldWithName]="'RenterName'"
+                        [initialIconClass]="Menus.main.items.clients.icon">
+                        <input pInputText class=" p-inputtext mb-2" id="renterName" formControlName="RenterName"
                           type="text" (click)="displayRenterSelectionDialog = true" readonly />
-                      </span>
+                      </selectable-input>
+                      <p-message *ngIf="formValidator.hasError('RenterName')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'Rental.Rentier' | translate }}</label>
-                      <span class="p-input-icon-right">
-                        <i [class]="Menus.main.items.clients.icon"></i>
-                        <input pInputText class="p-inputtext mb-2" id="rentierName" formControlName="RentierName"
+                      <selectable-input [form]="form" [formFieldWithId]="'RentierId'"
+                        [formFieldWithName]="'RentierName'" [initialIconClass]="Menus.main.items.clients.icon">
+                        <input pInputText class=" p-inputtext mb-2" id="rentierName" formControlName="RentierName"
                           type="text" (click)="displayRentierSelectionDialog = true" readonly />
-                      </span>
+                      </selectable-input>
+                      <p-message *ngIf="formValidator.hasError('RentierName')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
                     </div>
                   </div>
                 </div>
@@ -80,12 +85,12 @@
     </p-dialog>
     <p-dialog [header]="translate.instant('Client.Select')" [(visible)]="displayRenterSelectionDialog" [modal]="true"
       [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-      <client-select-list *ngIf="displayRenterSelectionDialog"
+      <client-select-list *ngIf="displayRenterSelectionDialog" [ignoredIds]="[form.value.RentierId]"
         (onSelected)="onSelectedRenter($event)"></client-select-list>
     </p-dialog>
     <p-dialog [header]="translate.instant('Client.Select')" [(visible)]="displayRentierSelectionDialog" [modal]="true"
       [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-      <client-select-list *ngIf="displayRentierSelectionDialog"
+      <client-select-list *ngIf="displayRentierSelectionDialog" [ignoredIds]="[form.value.RenterId]"
         (onSelected)="onSelectedRentier($event)"></client-select-list>
     </p-dialog>
   </div>

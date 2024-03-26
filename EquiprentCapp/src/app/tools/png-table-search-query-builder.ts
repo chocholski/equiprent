@@ -28,8 +28,7 @@ export class PngTableSearchQueryBuilder {
     }
 
     private addFilters() {
-        let whereBuilder = new StringBuilder();
-
+        const whereBuilder = new StringBuilder();
         this.addGlobalFilters(whereBuilder);
         this.addLocalFilters(whereBuilder);
 
@@ -43,7 +42,6 @@ export class PngTableSearchQueryBuilder {
     private addGlobalFilters(whereBuilder: StringBuilder) {
         if (this.event.globalFilter) {
             const globalFilterColumns = this.columns.filter(c => c.applyGlobalFiltering === true);
-
             for (const column of globalFilterColumns) {
                 const replaceWith = column.replaceWith ?? column.field;
 

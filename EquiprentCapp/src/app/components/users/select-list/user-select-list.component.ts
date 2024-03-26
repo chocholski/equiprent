@@ -116,7 +116,7 @@ export class UserSelectListComponent
   private getUsers(event: LazyLoadEvent) {
     event.sortField ??= this.cols[0]?.field;
     return this.httpClient
-      .get<UserSelectListModel>(API_ROUTES.user.select(event, this.cols));
+      .get<UserSelectListModel>(API_ROUTES.user.select(event, this.cols, this.ignoredIds as string[]));
   }
 
   private userSelectionHandler(user: UserSelectListItemModel): SelectResult {

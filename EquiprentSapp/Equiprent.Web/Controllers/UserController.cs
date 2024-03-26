@@ -33,9 +33,9 @@ namespace Equiprent.Web.Controllers
         }
 
         [HttpGet(ApiRoutes.User.Selection)]
-        public async Task<ActionResult<PagedUsersSelectionListResponse?>> GetPagedUsersSelectionListAsync([FromQuery] RequestParameters requestParameters)
+        public async Task<ActionResult<PagedUsersSelectionListResponse?>> GetPagedUsersSelectionListAsync([FromQuery] RequestParameters requestParameters, [FromQuery] IEnumerable<Guid>? ignoredIds = null)
         {
-            var request = new GetPagedUsersSelectionListRequest(requestParameters);
+            var request = new GetPagedUsersSelectionListRequest(requestParameters, ignoredIds);
             var result = await _mediator.Send(request);
             return new JsonResult(result);
         }

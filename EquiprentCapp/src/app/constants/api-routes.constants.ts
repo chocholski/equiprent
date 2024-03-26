@@ -1,6 +1,7 @@
 import { LazyLoadEvent } from "primeng/api";
 import { PngTableColumn } from "../interfaces/png";
 import { PngTableSearchQueryBuilder } from "../tools/png-table-search-query-builder";
+import { StringBuilder } from "../tools/stringBuilder";
 
 export const API_ROUTES = {
   audit: {
@@ -13,7 +14,15 @@ export const API_ROUTES = {
     getById: (clientId: string) => `client/${clientId}`,
     post: "client",
     put: "client",
-    select: (event: LazyLoadEvent, columns: PngTableColumn[]) => `client/selection${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    select: (event: LazyLoadEvent, columns: PngTableColumn[], ignoredIds?: string[]) => {
+      const ignoredIdsBuilder = new StringBuilder();
+      if (ignoredIds && ignoredIds.length > 0) {
+        for (let item of ignoredIds.filter(id => id !== null && id !== undefined && id !== '')) {
+          ignoredIdsBuilder.append(`&ignoredIds=${item}`);
+        }
+      }
+      return `client/selection${new PngTableSearchQueryBuilder(event, columns).create()}${ignoredIdsBuilder.toString()}`
+    },
   },
   clientRepresentative: {
     delete: (clientRepresentativeId: string) => `client/representative/${clientRepresentativeId}`,
@@ -86,7 +95,15 @@ export const API_ROUTES = {
     post: "user",
     put: "user",
     saveProfile: "user/profile",
-    select: (event: LazyLoadEvent, columns: PngTableColumn[]) => `user/selection${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    select: (event: LazyLoadEvent, columns: PngTableColumn[], ignoredIds?: string[]) => {
+      const ignoredIdsBuilder = new StringBuilder();
+      if (ignoredIds && ignoredIds.length > 0) {
+        for (let item of ignoredIds.filter(id => id !== null && id !== undefined && id !== '')) {
+          ignoredIdsBuilder.append(`&ignoredIds=${item}`);
+        }
+      }
+      return `user/selection${new PngTableSearchQueryBuilder(event, columns).create()}${ignoredIdsBuilder.toString()}`
+    },
   },
   userRole: {
     delete: (userRoleId: number) => `userRole/${userRoleId}`,

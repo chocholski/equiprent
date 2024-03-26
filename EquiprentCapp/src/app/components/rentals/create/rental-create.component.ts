@@ -17,6 +17,7 @@ import { SelectItem } from "primeng/api";
 import { DateService } from "src/app/services/dates/date.service";
 import { SelectResult } from "src/app/interfaces/selection";
 import { Menus } from "src/app/layout/services/menus";
+import { IconsService } from "src/app/services/icons/icons.service";
 
 @Component({
   selector: "rental-create",
@@ -48,6 +49,7 @@ export class RentalCreationComponent
     protected override readonly errorService: ErrorService,
     protected override readonly formBuilder: FormBuilder,
     protected override readonly httpClient: HttpClient,
+    public readonly iconsService: IconsService,
     protected override readonly router: Router,
     private readonly selectOptionsService: SelectOptionsService,
     public override readonly translate: TranslateService

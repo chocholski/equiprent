@@ -29,6 +29,7 @@ import { ErrorService } from './services/errors/error.service';
 import { FileService } from './services/files/file.service';
 import { FilterService } from './services/filters/filter.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IconsService } from './services/icons/icons.service';
 import { ImageService } from './services/images/image.service';
 import { MenuService } from './layout/services/menu.service';
 import { SelectOptionsService } from './services/select-options/select-options.service';
@@ -60,6 +61,7 @@ import { PrivateClientAddressComponent } from './components/addresses/private-cl
 import { PrivateClientComponent } from './components/clients/private-client/private-client.component';
 import { RentalCreationComponent } from './components/rentals/create/rental-create.component';
 import { RentalListComponent } from './components/rentals/list/rental-list.component';
+import { SelectableFieldIconComponent } from './components/abstract/forms/fields/selectable-input.component';
 import { UserCreationComponent } from './components/users/create/user-create.component';
 import { UserDetailsComponent } from './components/users/details/user-details.component';
 import { UserListComponent } from './components/users/list/user-list.component';
@@ -132,6 +134,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         PrivateClientComponent,
         RentalCreationComponent,
         RentalListComponent,
+        SelectableFieldIconComponent,
         UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,
@@ -215,6 +218,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ErrorService,
         FileService,
         FilterService,
+        IconsService,
         ImageService,
         MessageService,
         MenuService,

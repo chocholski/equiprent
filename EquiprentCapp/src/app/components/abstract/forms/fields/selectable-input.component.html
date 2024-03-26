@@ -1,0 +1,5 @@
+<span class="p-input-icon-right">
+  <i [ngClass]="iconsService.getIconForSelectableFormField(initialIconClass, form, formFieldWithName)"
+    (click)="onClick()"></i>
+  <ng-content></ng-content>
+</span>

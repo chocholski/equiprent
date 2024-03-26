@@ -118,7 +118,7 @@ export class ClientSelectListComponent
   private getClients(event: LazyLoadEvent) {
     event.sortField ??= this.cols[0].field;
     return this.httpClient
-      .get<ClientSelectListModel>(API_ROUTES.client.select(event, this.cols));
+      .get<ClientSelectListModel>(API_ROUTES.client.select(event, this.cols, this.ignoredIds as string[]));
   }
 
   private getClientTypeMultiSelectData() {
