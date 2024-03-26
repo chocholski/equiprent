@@ -42,5 +42,8 @@
 
         //EquipmentPhotos
         EquipmentPhoto_AlreadyExists,
+
+        //Rentals
+        Rental_OverlappingDateRanges,
     }
 }

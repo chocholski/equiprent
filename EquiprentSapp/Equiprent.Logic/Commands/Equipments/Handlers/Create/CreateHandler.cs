@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.Equipment;
+using Equiprent.Entities.Business.Equipments;
 using Equiprent.Logic.Commands.Equipments.Requests.Create;
 using MediatR;
 using System.Threading;

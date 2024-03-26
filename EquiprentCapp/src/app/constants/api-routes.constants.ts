@@ -12,7 +12,8 @@ export const API_ROUTES = {
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `client${new PngTableSearchQueryBuilder(event, columns).create()}`,
     getById: (clientId: string) => `client/${clientId}`,
     post: "client",
-    put: "client"
+    put: "client",
+    select: (event: LazyLoadEvent, columns: PngTableColumn[]) => `client/selection${new PngTableSearchQueryBuilder(event, columns).create()}`,
   },
   clientRepresentative: {
     delete: (clientRepresentativeId: string) => `client/representative/${clientRepresentativeId}`,
@@ -48,14 +49,28 @@ export const API_ROUTES = {
     post: "manufacturer",
     put: "manufacturer"
   },
+  rental: {
+    delete: (rentalId: string) => `rental/${rentalId}`,
+    getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `rental${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    getById: (rentalId: string) => `rental/${rentalId}`,
+    post: "rental",
+    put: "rental"
+  },
   selectOptions: {
     audits: (event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string) => `audit/getFieldNames${new PngTableSearchQueryBuilder(event, columns).create()}&entityId=${entityId}&entityTableName=${entityTableName}`,
+    clients: "selectoptions/clients",
     clientTypes: "selectoptions/clientTypes",
     countries: "selectoptions/countries",
+    equipments: "selectoptions/equipments",
     equipmentTypes: "selectoptions/equipmentTypes",
     languages: "selectoptions/languages",
     manufacturers: "selectoptions/manufacturers",
+    rentalCategories: "selectoptions/rentalCategories",
+    renters: "selectoptions/renters",
+    rentiers: "selectoptions/rentiers",
     userRoles: "selectoptions/userRoles",
+    users: "selectoptions/users",
+    usersResponsibleForHandlingRentals: "selectoptions/usersResponsibleForHandlingRentals",
     yesNoOptions: "selectoptions/yesNo"
   },
   user: {
@@ -70,7 +85,8 @@ export const API_ROUTES = {
     getTheme: (userId: string) => `user/getTheme/${userId}`,
     post: "user",
     put: "user",
-    saveProfile: "user/profile"
+    saveProfile: "user/profile",
+    select: (event: LazyLoadEvent, columns: PngTableColumn[]) => `user/selection${new PngTableSearchQueryBuilder(event, columns).create()}`,
   },
   userRole: {
     delete: (userRoleId: number) => `userRole/${userRoleId}`,

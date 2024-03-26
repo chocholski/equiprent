@@ -66,3 +66,18 @@ export interface ClientRepresentativeListItemModel {
   LastName: string,
   PhoneNumber: string
 }
+
+export interface ClientSelectListItemModel {
+  FirstName?: string,
+  Id: string,
+  LastName?: string,
+  Name: string,
+  NationalId: string,
+  TypeId: number,
+  TypeName: string,
+}
+
+export interface ClientSelectListModel {
+  List: ClientSelectListItemModel[];
+  TotalRowsCount: number;
+}

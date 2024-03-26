@@ -55,3 +55,17 @@ export class UserProfileModel {
   Password: string;
   UserRoleId: number;
 }
+
+export interface UserSelectListItemModel {
+  FirstName: string;
+  Id: string;
+  LastName: string;
+  Login: string;
+  UserRoleId: number;
+  UserRoleName: string;
+}
+
+export interface UserSelectListModel {
+  List: UserSelectListItemModel[];
+  TotalRowsCount: number;
+}

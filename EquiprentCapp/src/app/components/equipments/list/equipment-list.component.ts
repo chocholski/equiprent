@@ -72,7 +72,7 @@ export class EquipmentListComponent
       authorizationService,
       confirmationService,
       consoleMessageService,
-      'deleteManufacturer',
+      'deleteEquipment',
       API_ROUTES.equipment.delete,
       dialogMessageService,
       'Equipment',

@@ -23,6 +23,7 @@ import { AuthGuard } from './services/auth-guard/auth-guard.service';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AuthorizationService } from './services/authorization/authorization.service';
 import { ConsoleMessageService } from './services/messages/console-message.service';
+import { DateService } from './services/dates/date.service';
 import { DialogMessageService } from './services/messages/dialog-message.service';
 import { ErrorService } from './services/errors/error.service';
 import { FileService } from './services/files/file.service';
@@ -41,6 +42,7 @@ import { ClientListComponent } from './components/clients/list/client-list.compo
 import { ClientRepresentativeCreationComponent } from './components/representatives/client-representatives/create/client-representative-create.component';
 import { ClientRepresentativeDetailsComponent } from './components/representatives/client-representatives/details/client-representative-details.component';
 import { ClientRepresentativeListComponent } from './components/representatives/client-representatives/list/client-representative-list.component';
+import { ClientSelectListComponent } from './components/clients/select-list/client-select-list.component';
 import { CompanyClientAddressComponent } from './components/addresses/company-client-address/company-client-address.component';
 import { DeletionDialogComponent } from './components/dialogs/deletion/deletion-dialog.component';
 import { EquipmentCreationComponent } from './components/equipments/create/equipment-create.component';
@@ -56,6 +58,8 @@ import { ManufacturerListComponent } from './components/manufacturers/list/manuf
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages.component';
 import { PrivateClientAddressComponent } from './components/addresses/private-client-address/private-client-address.component';
 import { PrivateClientComponent } from './components/clients/private-client/private-client.component';
+import { RentalCreationComponent } from './components/rentals/create/rental-create.component';
+import { RentalListComponent } from './components/rentals/list/rental-list.component';
 import { UserCreationComponent } from './components/users/create/user-create.component';
 import { UserDetailsComponent } from './components/users/details/user-details.component';
 import { UserListComponent } from './components/users/list/user-list.component';
@@ -64,14 +68,17 @@ import { UserRoleCreationComponent } from './components/user-roles/create/user-r
 import { UserRoleDetailsComponent } from './components/user-roles/details/user-role-details.component';
 import { UserRoleListComponent } from './components/user-roles/list/user-role-list.component';
 import { UserRolePermissionsComponent } from './components/user-roles/permissions/user-role-permissions.component';
+import { UserSelectListComponent } from './components/users/select-list/user-select-list.component';
 
 //PrimeNG
 import { ApiUrlInterceptor } from './services/interceptors/api-url-interceptor';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
@@ -107,6 +114,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ClientRepresentativeCreationComponent,
         ClientRepresentativeDetailsComponent,
         ClientRepresentativeListComponent,
+        ClientSelectListComponent,
         CompanyClientAddressComponent,
         DeletionDialogComponent,
         EquipmentCreationComponent,
@@ -122,6 +130,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         NameInLanguagesComponent,
         PrivateClientAddressComponent,
         PrivateClientComponent,
+        RentalCreationComponent,
+        RentalListComponent,
         UserCreationComponent,
         UserDetailsComponent,
         UserListComponent,
@@ -130,6 +140,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         UserRoleDetailsComponent,
         UserRoleListComponent,
         UserRolePermissionsComponent,
+        UserSelectListComponent,
         //[end] custom components
     ],
     imports: [
@@ -158,8 +169,10 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         //[start] primeng Modules
         BreadcrumbModule,
         ButtonModule,
+        CalendarModule,
         CheckboxModule,
         ConfirmDialogModule,
+        DialogModule,
         DropdownModule,
         DynamicDialogModule,
         FileUploadModule,
@@ -196,6 +209,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         AuthorizationService,
         ConfirmationService,
         ConsoleMessageService,
+        DateService,
         DialogMessageService,
         DialogService,
         ErrorService,

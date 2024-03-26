@@ -3,15 +3,16 @@ using Equiprent.Entities.Business.Clients.Addresses;
 using Equiprent.Entities.Business.Clients.Representatives;
 using Equiprent.Entities.Business.ClientTypes;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
-using Equiprent.Entities.Business.Equipment;
-using Equiprent.Entities.Business.Equipment.Photos;
-using Equiprent.Entities.Business.EquipmentTypes;
-using Equiprent.Entities.Business.EquipmentTypeToLanguages;
+using Equiprent.Entities.Business.Equipments;
+using Equiprent.Entities.Business.Equipments.Photos;
+using Equiprent.Entities.Business.Equipments.Types;
+using Equiprent.Entities.Business.Equipments.Types.TypeToLanguages;
 using Equiprent.Entities.Business.Manufacturers;
 using Equiprent.Entities.Business.Manufacturers.Addresses;
 using Equiprent.Entities.Business.RentalCategories;
 using Equiprent.Entities.Business.RentalCategoryToLanguages;
 using Equiprent.Entities.Business.Rentals;
+using Equiprent.Entities.Business.Rentals.Sublettings;
 using Equiprent.Entities.Business.Representatives;
 
 namespace Equiprent.Data.DbContext
@@ -40,5 +41,6 @@ namespace Equiprent.Data.DbContext
         public DbSet<RentToOwnRental> RentToOwnRentals { get; set; } = null!;
         public DbSet<Representative> Representatives { get; set; } = null!;
         public DbSet<SubleaseRental> SubleaseRentals { get; set; } = null!;
+        public DbSet<Subletting> Sublettings { get; set; } = null!;
     }
 }

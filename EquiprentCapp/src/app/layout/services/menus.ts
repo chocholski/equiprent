@@ -26,6 +26,13 @@ export const Menus = {
       manufacturers: {
         label: 'Menu.Manufacturers',
         icon: 'fa fa-solid fa-industry'
+      },
+      rentals: {
+        categories: {
+          icon: 'fa fa-solid fa-layer-group',
+        },
+        label: 'Menu.Rentals',
+        icon: 'fa fa-solid fa-truck-ramp-box'
       }
     }
   }

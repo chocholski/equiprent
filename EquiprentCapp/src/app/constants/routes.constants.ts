@@ -97,6 +97,23 @@ export const ROUTES = {
       list: 'manufacturers'
     }
   },
+  rentals: {
+    breadcrumbs: {
+      creation: 'Rental.Create',
+      edition: 'Rental.Edit',
+      list: 'Rental.List'
+    },
+    navigations: {
+      creation: 'home/rentals/create',
+      edition: (id: string) => `home/rentals/edit/${id}`,
+      list: `home/rentals`
+    },
+    paths: {
+      create: 'create',
+      edit: 'edit/:id',
+      list: 'rentals'
+    }
+  },
   userRoles: {
     breadcrumbs: {
       creation: 'UserRole.Create',

@@ -4,6 +4,6 @@
     {
         public Guid? CreatedById { get; set; }
 
-        public DateTime CreatedOn { get; set; }
+        public required DateTime CreatedOn { get; set; }
     }
 }

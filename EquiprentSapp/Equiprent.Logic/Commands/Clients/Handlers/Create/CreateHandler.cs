@@ -18,16 +18,12 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create
 
         public async Task<CommandResult?> Handle(CreateRequest request, CancellationToken cancellationToken)
         {
-            var clientCreator = new ClientCreatorFactory(_dbContext).GetClientCreator(request);
+            var clientCreator = new ClientCreatorFactory(_dbContext, request).GetClientCreator();
             if (clientCreator is null)
                 return CommandResult.BadRequest;
 
-            var client = clientCreator.CreateClientWithRequest(request);
-
-            if (client is null)
-                return CommandResult.BadRequest;
-
-            clientCreator.CreateClientAddressesWithRequest(client, request);
+            var client = clientCreator.CreateClient();
+            clientCreator.CreateClientAddresses(client);
             await _dbContext.Clients.AddAndSaveAsync(client, cancellationToken);
 
             return CommandResult.OK;

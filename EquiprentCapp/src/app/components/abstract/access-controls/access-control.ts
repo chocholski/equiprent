@@ -25,6 +25,7 @@ export abstract class AccessControlComponent<T extends Identifiable> {
   }
 
   public readonly onDeleteLabelId = 'General.Delete';
+  public readonly onSelectLabelId = 'General.Select';
 
   constructor(
     protected readonly authorizationService: AuthorizationService,

@@ -1,6 +1,6 @@
 ﻿namespace Equiprent.Logic.Infrastructure.FluentValidation
 {
-    public class FluentValidationMessageCreator<T>
+    public static class FluentValidationMessageCreator<T>
     {
         private static readonly string MessageSeparator = "|";
 
@@ -9,6 +9,8 @@
         public static string CreateMessageForExceedingTheRangeOfLengths(string propertyName, Range possibleLengthsRange) =>
             $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}MIN:{possibleLengthsRange.Start.Value}{MessageSeparator}MAX:{possibleLengthsRange.End.Value}TYPE:{FluentValidationMessageTypeEnum.Length}";
 
+        public static string CreateMessageForIncorrectDate(string propertyName) => CreateMessage(propertyName, FluentValidationMessageTypeEnum.Date);
+        
         public static string CreateMessageForNegativeNumber(string propertyName) =>
             $"ID:{CreateClientTranslationId(propertyName)}{MessageSeparator}TYPE:{FluentValidationMessageTypeEnum.NegativeNumber}";
 

@@ -84,6 +84,16 @@ export class MenuService {
       RouterLink: [`/${ROUTES.manufacturers.navigations.list}`]
     });
 
+    //RENTALS
+    mainMenuItems?.push(<Menu>{
+      Permissions: [
+        UserPermissionEnum.Rentals_CanList
+      ],
+      Label: Menus.main.items.rentals.label,
+      Icon: Menus.main.items.rentals.icon,
+      RouterLink: [`/${ROUTES.rentals.navigations.list}`]
+    });
+
     const administrationItems = this.getAdministrationItems();
 
     //USERS

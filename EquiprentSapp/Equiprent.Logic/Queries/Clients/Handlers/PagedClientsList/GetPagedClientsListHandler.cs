@@ -29,7 +29,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers.PagedClientsList
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedClientsListResponse, Client, Client, ClientListItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: GetClientListQuery(),
+                query: GetClientsListQuery(),
                 _serviceProvider,
                 cancellationToken);
 
@@ -45,7 +45,7 @@ namespace Equiprent.Logic.Queries.Clients.Handlers.PagedClientsList
             return response;
         }
 
-        private IQueryable<Client> GetClientListQuery()
+        private IQueryable<Client> GetClientsListQuery()
         {
             return _dbContext.Clients
                 .Include(c => c.ClientType)

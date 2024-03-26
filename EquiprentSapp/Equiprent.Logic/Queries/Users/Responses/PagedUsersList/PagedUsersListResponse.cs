@@ -10,12 +10,12 @@ namespace Equiprent.Logic.Queries.Users.Responses.PagedUsersList
     {
         private static new readonly Expression<Func<User, UserDto>> _selector = entity => new UserDto
         {
-            Id = entity.Id,
             FirstName = entity.FirstName,
+            Id = entity.Id,
+            IsActive = entity.IsActive,
             LastName = entity.LastName,
             Login = entity.Login,
             UserRoleId = entity.UserRoleId,
-            IsActive = entity.IsActive
         };
 
         public PagedUsersListResponse(

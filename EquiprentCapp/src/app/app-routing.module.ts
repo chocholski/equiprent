@@ -22,6 +22,8 @@ import { EquipmentListComponent } from './components/equipments/list/equipment-l
 import { EquipmentCreationComponent } from './components/equipments/create/equipment-create.component';
 import { EquipmentDetailsComponent } from './components/equipments/details/equipment-details.component';
 import { UserProfileComponent } from './components/users/profile/user-profile.component';
+import { RentalListComponent } from './components/rentals/list/rental-list.component';
+import { RentalCreationComponent } from './components/rentals/create/rental-create.component';
 
 @NgModule({
     imports: [
@@ -37,7 +39,7 @@ import { UserProfileComponent } from './components/users/profile/user-profile.co
                         component: UserProfileComponent,
                         canActivate: [AuthGuard],
                         data: {
-                            allowedPermissions: [UserPermissionEnum.ForAll],
+                            allowedPermissions: [UserPermissionEnum.ForAllLoggedIn],
                             breadcrumb: ROUTES.users.breadcrumbs.profile
                         }
                     },
@@ -150,6 +152,43 @@ import { UserProfileComponent } from './components/users/profile/user-profile.co
                                     breadcrumb: ROUTES.manufacturers.breadcrumbs.edition
                                 }
                             }
+                        ]
+                    },
+                    {
+                        path: ROUTES.rentals.paths.list,
+                        canActivate: [AuthGuard],
+                        data: <Data>{
+                            allowedPermissions: [UserPermissionEnum.Rentals_CanList],
+                            breadcrumb: ROUTES.rentals.breadcrumbs.list
+                        },
+                        children: [
+                            {
+                                path: '',
+                                component: RentalListComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Rentals_CanList],
+                                    breadcrumb: null
+                                }
+                            },
+                            {
+                                path: ROUTES.rentals.paths.create,
+                                component: RentalCreationComponent,
+                                canActivate: [AuthGuard],
+                                data: <Data>{
+                                    allowedPermissions: [UserPermissionEnum.Rentals_CanModify],
+                                    breadcrumb: ROUTES.rentals.breadcrumbs.creation
+                                }
+                            },
+                            // {
+                            //     path: ROUTES.rentals.paths.edit,
+                            //     component: RentalDetailsComponent,
+                            //     canActivate: [AuthGuard],
+                            //     data: <Data>{
+                            //         allowedPermissions: [UserPermissionEnum.Rentals_CanModify],
+                            //         breadcrumb: ROUTES.rentals.breadcrumbs.edition
+                            //     }
+                            // }
                         ]
                     },
                     {

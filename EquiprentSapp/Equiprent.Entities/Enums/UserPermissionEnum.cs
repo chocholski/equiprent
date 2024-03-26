@@ -54,5 +54,13 @@
         /// Manufacturers - modifying
         /// </summary>
         Manufacturers_CanModify = 12,
+        /// <summary>
+        /// Rentals - listing
+        /// </summary>
+        Rentals_CanList = 13,
+        /// <summary>
+        /// Rentals - modifying
+        /// </summary>
+        Rentals_CanModify = 14,
     }
 }

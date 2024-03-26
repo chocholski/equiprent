@@ -8,27 +8,29 @@ namespace Equiprent.Logic.Commands.Clients.Handlers.Create.Creators.ClientCreato
     internal class PrivateClientCreator : IClientCreator
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly CreateRequest _request;
 
-        public PrivateClientCreator(ApplicationDbContext dbContext)
+        public PrivateClientCreator(ApplicationDbContext dbContext, CreateRequest request)
         {
             _dbContext = dbContext;
+            _request = request;
         }
 
-        public void CreateClientAddressesWithRequest(Client client, CreateRequest creatingRequest)
+        public void CreateClientAddresses(Client client)
         {
-            new PrivateClientAddressesCreator(_dbContext).CreateClientAddressesWithRequest(client, creatingRequest);
+            new PrivateClientAddressesCreator(_dbContext).CreateClientAddressesWithRequest(client, _request);
         }
 
-        public Client? CreateClientWithRequest(CreateRequest creatingRequest)
+        public Client CreateClient()
         {
             return new PrivateClient
             {
-                ClientTypeId = creatingRequest.TypeId,
-                CreatedById = creatingRequest.CreatedById,
+                ClientTypeId = _request.TypeId,
+                CreatedById = _request.CreatedById,
                 CreatedOn = DateTime.Now,
-                FirstName = creatingRequest.FirstName!,
-                LastName = creatingRequest.LastName!,
-                Name = creatingRequest.Name,
+                FirstName = _request.FirstName!,
+                LastName = _request.LastName!,
+                Name = _request.Name,
             };
         }
     }

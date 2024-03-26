@@ -11,6 +11,7 @@ using Equiprent.Logic.Queries.Users.Responses.PagedUsersList;
 using Equiprent.Web.Contracts;
 using Equiprent.Logic.Commands.Users.Requests.ChangeTheme;
 using Equiprent.Logic.Commands.Users.Requests.SaveProfile;
+using Equiprent.Logic.Queries.Users.Responses.PagedUsersSelectionList;
 
 namespace Equiprent.Web.Controllers
 {
@@ -27,6 +28,14 @@ namespace Equiprent.Web.Controllers
         public async Task<ActionResult<PagedUsersListResponse?>> GetPagedUsersListAsync([FromQuery] RequestParameters requestParameters, [FromQuery] int? userRoleId)
         {
             var request = new GetPagedUsersListRequest(requestParameters, userRoleId);
+            var result = await _mediator.Send(request);
+            return new JsonResult(result);
+        }
+
+        [HttpGet(ApiRoutes.User.Selection)]
+        public async Task<ActionResult<PagedUsersSelectionListResponse?>> GetPagedUsersSelectionListAsync([FromQuery] RequestParameters requestParameters)
+        {
+            var request = new GetPagedUsersSelectionListRequest(requestParameters);
             var result = await _mediator.Send(request);
             return new JsonResult(result);
         }

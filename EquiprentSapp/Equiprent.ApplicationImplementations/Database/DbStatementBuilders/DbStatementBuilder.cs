@@ -123,7 +123,7 @@ namespace Equiprent.ApplicationImplementations.Database.DbStatementBuilders
 
         private static string GetDateIsNotCondition(IWhereClauseCriteria criteria) =>
             DateTime.TryParse(criteria.FieldValue, out var date)
-                ? $"({criteria.FieldName} < \"{GetDateAsText(date, withStartOfDay: true)}\" && {criteria.FieldName} > \"{GetDateAsText(date, withStartOfDay: false)}\")"
+                ? $"({criteria.FieldName} < \"{GetDateAsText(date, withStartOfDay: true)}\" || {criteria.FieldName} > \"{GetDateAsText(date, withStartOfDay: false)}\")"
                 : string.Empty;
 
         private static string GetNumberGreaterThanCondition(IWhereClauseCriteria criteria) =>

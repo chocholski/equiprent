@@ -15,6 +15,10 @@ export class SelectOptionsService {
     public readonly translate: TranslateService) {
   }
 
+  getClients(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.clients);
+  }
+
   getClientTypes(): Observable<SelectItem[]> {
     return this.getOptions(API_ROUTES.selectOptions.clientTypes);
   }
@@ -25,6 +29,10 @@ export class SelectOptionsService {
 
   getFieldNamesForObjectHistory(event: LazyLoadEvent, columns: PngTableColumn[], entityId: string, entityTableName: string): Observable<SelectItem[]> {
     return this.getOptions(API_ROUTES.selectOptions.audits(event, columns, entityId, entityTableName), true);
+  }
+
+  getEquipments(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.equipments);
   }
 
   getEquipmentTypes(): Observable<SelectItem[]> {
@@ -39,8 +47,28 @@ export class SelectOptionsService {
     return this.getOptions(API_ROUTES.selectOptions.manufacturers);
   }
 
+  getRentalCategories(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.rentalCategories)
+  }
+
+  getRenters(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.renters);
+  }
+
+  getRentiers(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.rentiers);
+  }
+
   getUserRoles(): Observable<SelectItem[]> {
     return this.getOptions(API_ROUTES.selectOptions.userRoles);
+  }
+
+  getUsers(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.users);
+  }
+
+  getUsersResponsibleForHandlingRentals(): Observable<SelectItem[]> {
+    return this.getOptions(API_ROUTES.selectOptions.usersResponsibleForHandlingRentals);
   }
 
   getYesNoOptions(): Observable<SelectItem[]> {

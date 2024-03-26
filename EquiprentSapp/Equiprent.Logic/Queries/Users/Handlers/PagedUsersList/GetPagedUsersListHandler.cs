@@ -29,7 +29,7 @@ namespace Equiprent.Logic.Queries.Users.Handlers.PagedUsersList
         {
             var response = await ListViewResponseBuilder.GetListViewResponseAsync<PagedUsersListResponse, User, UserDto, UserListItemViewModel>(
                 requestParameters: request.RequestParameters,
-                query: GetUserListQueryUsingRequest(request),
+                query: GetUsersListQueryWithRequest(request),
                 _serviceProvider,
                 cancellationToken);
 
@@ -45,7 +45,7 @@ namespace Equiprent.Logic.Queries.Users.Handlers.PagedUsersList
             return response;
         }
 
-        private IQueryable<User> GetUserListQueryUsingRequest(GetPagedUsersListRequest request)
+        private IQueryable<User> GetUsersListQueryWithRequest(GetPagedUsersListRequest request)
         {
             return _dbContext.Users
                 .Include(u => u.UserRole)

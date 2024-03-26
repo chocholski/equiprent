@@ -5,8 +5,9 @@ using Equiprent.Web.Contracts;
 using Equiprent.Entities.Application.UserRoleToLanguages;
 using Equiprent.Entities.Business.ClientTypeToLanguages;
 using Equiprent.Entities.Business.CountryToLanguages;
-using Equiprent.Entities.Business.EquipmentTypeToLanguages;
 using Equiprent.Logic.GeneralModels;
+using Equiprent.Entities.Business.RentalCategoryToLanguages;
+using Equiprent.Entities.Business.Equipments.Types.TypeToLanguages;
 
 namespace Equiprent.Web.Controllers
 {
@@ -20,6 +21,22 @@ namespace Equiprent.Web.Controllers
             ILanguageableService languageableService) : base(context, serviceProvider)
         {
             _languageableService = languageableService;
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
+        [HttpGet(ApiRoutes.SelectOptions.Clients)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetClientsSelectOptionsAsync()
+        {
+            var model = await _dbContext!.Clients
+                .Where(c => !c.IsDeleted)
+                .Select(c => new SelectListItemModel
+                {
+                    Value = c.Id.ToString(),
+                    Name = c.Name!
+                })
+                .ToListAsync();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
         }
 
         [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
@@ -49,6 +66,22 @@ namespace Equiprent.Web.Controllers
                     Name = c.Name
                 })
                 .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [HttpGet(ApiRoutes.SelectOptions.Equipments)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetEquipmentsSelectOptionsAsync()
+        {
+            var model = await _dbContext.Equipments
+                .Where(e =>
+                    !e.IsDeleted)
+                .Select(e => new SelectListItemModel
+                {
+                    Value = e.Id.ToString(),
+                    Name = e.SerialNumber + " " + e.Name
+                })
+                .ToListAsync();
 
             return new JsonResult(model, new JsonSerializerSettings { });
         }
@@ -97,6 +130,64 @@ namespace Equiprent.Web.Controllers
             return new JsonResult(model, new JsonSerializerSettings { });
         }
 
+        [PermissionRequirement((int)UserPermissionEnum.Rentals_CanList)]
+        [HttpGet(ApiRoutes.SelectOptions.RentalCategories)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetRentalCategoryOptionsAsync()
+        {
+            var rentalCategoryTranslations = await _languageableService.GetEntityTranslationsInCurrentUserLanguageAsync<RentalCategoryToLanguage>();
+            var model = rentalCategoryTranslations
+                .Select(categoryIdWithName => new SelectListItemModel
+                {
+                    Value = categoryIdWithName.Id.ToString(),
+                    Name = categoryIdWithName.Name,
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.Rentals_CanList)]
+        [HttpGet(ApiRoutes.SelectOptions.Renters)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetRenterOptionsAsync()
+        {
+            var renterIds = await _dbContext!.Rentals
+                .Select(r => r.RenterId)
+                .Distinct()
+                .ToListAsync();
+
+            var model = await _dbContext!.Clients
+                .Where(c => renterIds.Contains(c.Id))
+                .Select(c => new SelectListItemModel
+                {
+                    Value = c.Id.ToString(),
+                    Name = c.Name!,
+                })
+                .ToListAsync();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.Rentals_CanList)]
+        [HttpGet(ApiRoutes.SelectOptions.Rentiers)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetRentierOptionsAsync()
+        {
+            var rentierIds = await _dbContext!.Rentals
+                .Select(r => r.RentierId)
+                .Distinct()
+                .ToListAsync();
+
+            var model = await _dbContext!.Clients
+                .Where(c => rentierIds.Contains(c.Id))
+                .Select(c => new SelectListItemModel
+                {
+                    Value = c.Id.ToString(),
+                    Name = c.Name!,
+                })
+                .ToListAsync();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
         [PermissionRequirement((int)UserPermissionEnum.Users_CanList)]
         [HttpGet(ApiRoutes.SelectOptions.UserRoles)]
         public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUserRolesSelectOptionsAsync()
@@ -109,6 +200,43 @@ namespace Equiprent.Web.Controllers
                     Name = userRoleIdWithName.Name
                 })
                 .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.ForAllLoggedIn)]
+        [HttpGet(ApiRoutes.SelectOptions.Users)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUsersSelectOptionsAsync()
+        {
+            var model = _dbContext!.Users
+                .Where(u => !u.IsDeleted && u.IsActive)
+                .Select(u => new SelectListItemModel
+                {
+                    Value = u.Id.ToString(),
+                    Name = u.LastName + " " + u.FirstName
+                })
+                .ToList();
+
+            return new JsonResult(model, new JsonSerializerSettings { });
+        }
+
+        [PermissionRequirement((int)UserPermissionEnum.Rentals_CanList)]
+        [HttpGet(ApiRoutes.SelectOptions.UsersResponsibleForHandlingRentals)]
+        public async Task<ActionResult<IEnumerable<SelectListItemModel>>> GetUsersResponsibleForHandlingRentalsOptionsAsync()
+        {
+            var usersResponsibleForHandlingRentalsIds = await _dbContext!.Rentals
+                .Select(r => r.UserResponsibleForHandlingId)
+                .Distinct()
+                .ToListAsync();
+
+            var model = await _dbContext!.Users
+                .Where(u => usersResponsibleForHandlingRentalsIds.Contains(u.Id))
+                .Select(u => new SelectListItemModel
+                {
+                    Value = u.Id.ToString(),
+                    Name = u.LastName + " " + u.FirstName,
+                })
+                .ToListAsync();
 
             return new JsonResult(model, new JsonSerializerSettings { });
         }

@@ -78,6 +78,53 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("EquipmentListItems");
                 });
 
+            modelBuilder.Entity("Equiprent.Data.CustomQueryTypes.Rentals.RentalListQueryModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("RenterId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RenterName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("RentierId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("RentierName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserResponsibleForHandlingFirstName")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid?>("UserResponsibleForHandlingId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("UserResponsibleForHandlingLastName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RentalListItems");
+                });
+
             modelBuilder.Entity("Equiprent.Entities.Application.Addresses.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -3574,7 +3621,7 @@ namespace Equiprent.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.Equipment.Equipment", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Equipment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -3624,7 +3671,7 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("Equipments");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.Equipment.Photos.EquipmentPhoto", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Photos.EquipmentPhoto", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -3665,7 +3712,24 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("EquipmentPhotos");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.EquipmentTypeToLanguages.EquipmentTypeToLanguage", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Types.EquipmentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EquipmentTypes");
+                });
+
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Types.TypeToLanguages.EquipmentTypeToLanguage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3689,23 +3753,6 @@ namespace Equiprent.Data.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("EquipmentTypeToLanguages");
-                });
-
-            modelBuilder.Entity("Equiprent.Entities.Business.EquipmentTypes.EquipmentType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("EquipmentTypes");
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Business.Manufacturers.Manufacturer", b =>
@@ -3807,6 +3854,9 @@ namespace Equiprent.Data.Migrations
                     b.Property<DateTime>("End")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("EquipmentId")
+                        .HasColumnType("char(36)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("tinyint(1)");
 
@@ -3830,6 +3880,8 @@ namespace Equiprent.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EquipmentId");
+
                     b.HasIndex("RenterId");
 
                     b.HasIndex("RentierId");
@@ -3839,6 +3891,42 @@ namespace Equiprent.Data.Migrations
                     b.ToTable("Rentals");
 
                     b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("Equiprent.Entities.Business.Rentals.Sublettings.Subletting", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal?>("PricePerDay")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("RentalId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("RentierId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RentalId");
+
+                    b.HasIndex("RentierId");
+
+                    b.ToTable("Sublettings");
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Business.Representatives.Representative", b =>
@@ -4160,7 +4248,7 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.Equipment.Equipment", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Equipment", b =>
                 {
                     b.HasOne("Equiprent.Entities.Business.Manufacturers.Manufacturer", "Manufacturer")
                         .WithMany()
@@ -4168,7 +4256,7 @@ namespace Equiprent.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Equiprent.Entities.Business.EquipmentTypes.EquipmentType", "Type")
+                    b.HasOne("Equiprent.Entities.Business.Equipments.Types.EquipmentType", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -4179,14 +4267,14 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.Equipment.Photos.EquipmentPhoto", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Photos.EquipmentPhoto", b =>
                 {
                     b.HasOne("Equiprent.Entities.Application.Users.User", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Equiprent.Entities.Business.Equipment.Equipment", "Equipment")
+                    b.HasOne("Equiprent.Entities.Business.Equipments.Equipment", "Equipment")
                         .WithMany()
                         .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -4197,9 +4285,9 @@ namespace Equiprent.Data.Migrations
                     b.Navigation("Equipment");
                 });
 
-            modelBuilder.Entity("Equiprent.Entities.Business.EquipmentTypeToLanguages.EquipmentTypeToLanguage", b =>
+            modelBuilder.Entity("Equiprent.Entities.Business.Equipments.Types.TypeToLanguages.EquipmentTypeToLanguage", b =>
                 {
-                    b.HasOne("Equiprent.Entities.Business.EquipmentTypes.EquipmentType", "EquipmentType")
+                    b.HasOne("Equiprent.Entities.Business.Equipments.Types.EquipmentType", "EquipmentType")
                         .WithMany()
                         .HasForeignKey("EquipmentTypeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -4254,6 +4342,12 @@ namespace Equiprent.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Equiprent.Entities.Business.Equipments.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Equiprent.Entities.Business.Clients.Client", "Renter")
                         .WithMany()
                         .HasForeignKey("RenterId")
@@ -4273,11 +4367,32 @@ namespace Equiprent.Data.Migrations
 
                     b.Navigation("Category");
 
+                    b.Navigation("Equipment");
+
                     b.Navigation("Renter");
 
                     b.Navigation("Rentier");
 
                     b.Navigation("UserResponsibleForHandling");
+                });
+
+            modelBuilder.Entity("Equiprent.Entities.Business.Rentals.Sublettings.Subletting", b =>
+                {
+                    b.HasOne("Equiprent.Entities.Business.Rentals.SubleaseRental", "Rental")
+                        .WithMany("Sublettings")
+                        .HasForeignKey("RentalId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Equiprent.Entities.Business.Clients.Client", "Rentier")
+                        .WithMany()
+                        .HasForeignKey("RentierId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Rental");
+
+                    b.Navigation("Rentier");
                 });
 
             modelBuilder.Entity("Equiprent.Entities.Business.Representatives.Representative", b =>
@@ -4413,6 +4528,11 @@ namespace Equiprent.Data.Migrations
             modelBuilder.Entity("Equiprent.Entities.Business.Clients.PrivateClient", b =>
                 {
                     b.Navigation("CitizenAddresses");
+                });
+
+            modelBuilder.Entity("Equiprent.Entities.Business.Rentals.SubleaseRental", b =>
+                {
+                    b.Navigation("Sublettings");
                 });
 #pragma warning restore 612, 618
         }

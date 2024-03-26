@@ -1,5 +1,6 @@
 ﻿using Equiprent.Entities.Application.Users;
 using Equiprent.Entities.Business.Clients;
+using Equiprent.Entities.Business.Equipments;
 using Equiprent.Entities.Business.RentalCategories;
 
 namespace Equiprent.Entities.Business.Rentals
@@ -9,6 +10,10 @@ namespace Equiprent.Entities.Business.Rentals
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual RentalCategory Category { get; set; } = null!;
+
+        [ForeignKey(nameof(Equipment))]
+        public Guid EquipmentId { get; set; }
+        public virtual Equipment Equipment { get; set; } = null!;
 
         [Key]
         public Guid Id { get; set; }

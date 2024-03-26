@@ -4,10 +4,10 @@ using Equiprent.Data.CustomQueries.Builders;
 using Equiprent.Data.CustomQueries.Queries.Equipments.Requests;
 using Equiprent.Data.CustomQueryTypes.Equipments;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.Equipment;
 using Equiprent.Entities.Business.Manufacturers;
 using MediatR;
 using System.Threading;
+using Equiprent.Entities.Business.Equipments;
 
 namespace Equiprent.Data.CustomQueries.Queries.Equipments.Handlers
 {
@@ -24,13 +24,13 @@ namespace Equiprent.Data.CustomQueries.Queries.Equipments.Handlers
                 JoinedForeignKey = nameof(Equipment.ManufacturerId),
                 JoinedTable = new JoinedTable(
                     Name: manufacturerTableName,
-                ColumnKey: nameof(Manufacturer.Id),
+                    ColumnKey: nameof(Manufacturer.Id),
                     ColumnName: nameof(Manufacturer.Id),
                     JoinType: JoinTypeEnum.Inner)
                 with
                 {
                     ColumnAlias = nameof(EquipmentListQueryModel.ManufacturerId),
-                    TableAlias = "m"
+                    TableAlias = "m",
                 }
             };
 

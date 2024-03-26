@@ -2,6 +2,7 @@
 {
     public enum FluentValidationMessageTypeEnum
     {
+        Date,
         Email,
         Empty,
         Length,

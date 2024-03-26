@@ -3,9 +3,9 @@ using MediatR;
 
 namespace Equiprent.Data.CustomQueries.Queries.Equipments.Requests
 {
-    public class GetEquipmentListQueryRequest : IRequest<string>
+    public record GetEquipmentListQueryRequest : IRequest<string>
     {
-        public readonly ApplicationDbContext DbContext;
+        public ApplicationDbContext DbContext { get; init; }
 
         public GetEquipmentListQueryRequest(ApplicationDbContext dbContext)
         {

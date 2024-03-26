@@ -4,6 +4,8 @@
     {
         public static class Client
         {
+            public const string Selection = "selection";
+
             public static class Representative
             {
                 public const string Delete = "representative/{id}";

@@ -1,6 +1,6 @@
 ﻿using Equiprent.ApplicationInterfaces.CommandResults;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.Equipment;
+using Equiprent.Entities.Business.Equipments;
 using Equiprent.Logic.Abstractions;
 using Equiprent.Logic.Infrastructure.FluentValidation;
 using FluentValidation;

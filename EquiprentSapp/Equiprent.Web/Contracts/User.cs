@@ -11,6 +11,7 @@
             public const string GetProfile = "profile";
             public const string GetTheme = "getTheme";
             public const string SaveProfile = "profile";
+            public const string Selection = "selection";
         }
     }
 }

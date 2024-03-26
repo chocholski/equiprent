@@ -1,10 +1,8 @@
 ﻿using Equiprent.ApplicationInterfaces.Languageables;
-using Equiprent.Data.CustomQueries;
-using Equiprent.Data.CustomQueries.Queries.Equipments;
 using Equiprent.Data.CustomQueries.Queries.Equipments.Requests;
 using Equiprent.Data.CustomQueryTypes.Equipments;
 using Equiprent.Data.DbContext;
-using Equiprent.Entities.Business.EquipmentTypeToLanguages;
+using Equiprent.Entities.Business.Equipments.Types.TypeToLanguages;
 using Equiprent.Logic.Queries.Equipments.Requests;
 using Equiprent.Logic.Queries.Equipments.Responses.PagedEquipmentsList;
 using MediatR;

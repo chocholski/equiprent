@@ -1,5 +1,5 @@
 export enum UserPermissionEnum {
-  ForAll = 0,
+  ForAllLoggedIn = 0,
   Users_CanList = 1,
   Users_CanModify = 2,
   UserRoles_CanList = 3,
@@ -12,4 +12,6 @@ export enum UserPermissionEnum {
   Equipments_CanModify = 10,
   Manufacturers_CanList = 11,
   Manufacturers_CanModify = 12,
+  Rentals_CanList = 13,
+  Rentals_CanModify = 14,
 }

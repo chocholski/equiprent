@@ -1,0 +1,93 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card">
+      <div class="col-12">
+        <p-table #dataTable [value]="clients" [columns]="cols" dataKey="Id" sortField="Name" [lazy]="true"
+          (onLazyLoad)="loadClientsLazy($event)" [rows]="25" [rowsPerPageOptions]="[25, 50, 100]"
+          [totalRecords]="totalRecords" [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
+          responsiveLayout="scroll">
+          <ng-template pTemplate="caption">
+            <div class="flex flex-column md:flex-row md:justify-content-between gap-2">
+              <button pButton [label]="translate.instant('General.Clear')" class="p-button-outlined mb-2"
+                icon="pi pi-filter-slash" (click)="filterService.onClearFilters(dataTable)"></button>
+              <div class="grid formgrid">
+                <div class="col-12 mb-2 lg:col-4 lg:mb-0 mt-2">
+                  <span class="p-input-icon-right">
+                    <i *ngIf="filter.value && !filterService.shouldHideIcon(filter.value)" class="pi pi-search"></i>
+                    <input type="text" pInputText #filter id="filter"
+                      (input)="filterService.onFilterGlobal(dataTable, filter.value)"
+                      [placeholder]="translate.instant('General.SearchKeyword')" />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="min-width: 12rem" [ngSwitch]="col.field">
+                <div class="flex justify-content-between align-items-center">
+                  {{ col.header | translate }}
+                  <p-columnFilter *ngSwitchCase="'Name'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="Name">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'FirstName'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="FirstName">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'LastName'" pInputText type="text"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="LastName">
+                  </p-columnFilter>
+                  <p-columnFilter *ngSwitchCase="'TypeName'"
+                    [placeholder]="filterService.getPlaceholder(translate.instant(col.header))" display="menu"
+                    field="TypeName" matchMode="in" [showMatchModes]="false" [showOperator]="false"
+                    [showAddButton]="false">
+                    <ng-template pTemplate="header">
+                      <div>
+                        <span class="font-bold">{{translate.instant('Client.ClientTypePicker')}}</span>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                      <p-multiSelect [ngModel]="value" [options]="clientTypes"
+                        [placeholder]="filterService.getPlaceholder(translate.instant(col.header))"
+                        (onChange)="filter($event.value)" optionLabel="label">
+                        <ng-template let-option pTemplate="item">
+                          <div class="p-multiselect-representative-option">
+                            <span class="ml-1">{{option.label}}</span>
+                          </div>
+                        </ng-template>
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-client let-columns="columns">
+            <tr>
+              <td>
+                {{client.Name}}
+              </td>
+              <td>
+                {{client.FirstName}}
+              </td>
+              <td>
+                {{client.LastName}}
+              </td>
+              <td>
+                {{client.TypeName}}
+              </td>
+              <td class="items-centered gap-2">
+                <button *ngIf="hasAccessToButtons" pButton pRipple class="p-button-raised" type="button"
+                  class="p-button-raised" icon="pi pi-pencil" [label]="translate.instant(onSelectLabelId)"
+                  (click)="onSelect(client)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
