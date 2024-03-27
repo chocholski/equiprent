@@ -8,6 +8,17 @@ export interface RentalCreationModel {
   UserResponsibleForHandlingId?: string;
 }
 
+export interface RentalEventListModel {
+  List: RentalEventListItemModel[];
+  TotalRowsCount: number;
+}
+
+export interface RentalEventListItemModel {
+  End: string;
+  Id: string;
+  Start: string;
+}
+
 export interface RentalListItemModel {
   CategoryId: number;
   CategoryName: string;

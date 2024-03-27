@@ -23,6 +23,22 @@ export interface EquipmentDetailsModel {
   TypeId: number,
 }
 
+export interface EquipmentListItemModel {
+  Id: string,
+  ManufacturerId: string,
+  ManufacturerName: string,
+  Name: string,
+  PricePerDay: number,
+  SerialNumber: string,
+  TypeId: number,
+  TypeName: string,
+}
+
+export interface EquipmentListModel {
+  List: EquipmentListItemModel[];
+  TotalRowsCount: number;
+}
+
 export class EquipmentPhotoBase implements SimpleFileModel {
   EquipmentId?: string;
   File?: string;
@@ -47,18 +63,17 @@ export interface EquipmentPhotosUploadResponse {
   UploadedPhotos: EquipmentPhotoBase[];
 }
 
-export interface EquipmentListItemModel {
+export interface EquipmentSelectListItemModel {
   Id: string,
   ManufacturerId: string,
   ManufacturerName: string,
   Name: string,
-  PricePerDay: number,
   SerialNumber: string,
   TypeId: number,
   TypeName: string,
 }
 
-export interface EquipmentListModel {
+export interface EquipmentSelectListModel {
   List: EquipmentListItemModel[];
   TotalRowsCount: number;
 }

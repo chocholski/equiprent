@@ -8,6 +8,7 @@ namespace Equiprent.Data.DbContext
     {
         public DbSet<AuditListQueryModel> AuditListItems { get; set; } = null!;
         public DbSet<EquipmentListQueryModel> EquipmentListItems { get; set; } = null!;
+        public DbSet<EquipmentSelectionListQueryModel> EquipmentSelectionListItems { get; set; } = null!;
         public DbSet<RentalListQueryModel> RentalListItems { get; set; } = null!;
     }
 }

@@ -302,6 +302,9 @@
         "NationalCitizenId": "National citizen identification"
     },
     "Rental": {
+        "Calendar": {
+            "Rented": "RENTED"
+        },
         "Category": "Category",
         "CategoryId": "Category",
         "CategoryName": "Category",

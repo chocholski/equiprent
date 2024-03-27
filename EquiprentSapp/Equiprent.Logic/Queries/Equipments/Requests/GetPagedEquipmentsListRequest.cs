@@ -5,7 +5,7 @@ namespace Equiprent.Logic.Queries.Equipments.Requests
 {
     public record GetPagedEquipmentsListRequest : IRequest<PagedEquipmentsListResponse?>
     {
-        public RequestParameters RequestParameters { get; set; }
+        public RequestParameters RequestParameters { get; init; }
 
         public GetPagedEquipmentsListRequest(RequestParameters requestParameters)
         {

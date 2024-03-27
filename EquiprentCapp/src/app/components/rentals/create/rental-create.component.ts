@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Form } from "../../abstract/forms/form";
 import { RentalCreationModel } from "src/app/interfaces/rental";
 import { ConsoleMessageService } from "src/app/services/messages/console-message.service";
@@ -18,6 +18,7 @@ import { DateService } from "src/app/services/dates/date.service";
 import { SelectResult } from "src/app/interfaces/selection";
 import { Menus } from "src/app/layout/services/menus";
 import { IconsService } from "src/app/services/icons/icons.service";
+import { RentalCreationCalendarComponent } from "./calendar/rental-create-calendar.component";
 
 @Component({
   selector: "rental-create",
@@ -32,15 +33,15 @@ export class RentalCreationComponent
   public readonly Menus: typeof Menus = Menus;
 
   categories: SelectItem[];
+  displayEquipmentSelectionDialog = false;
   displayRenterSelectionDialog = false;
   displayRentierSelectionDialog = false;
   displayUserSelectionDialog = false;
-  equipments: SelectItem[];
-  renters: SelectItem[];
-  rentiers: SelectItem[];
 
   private readonly _startDateIndex = 0;
   private readonly _endDateIndex = 1;
+
+  @ViewChild('calendar') calendar: RentalCreationCalendarComponent;
 
   constructor(
     protected override readonly consoleMessageService: ConsoleMessageService,
@@ -71,6 +72,7 @@ export class RentalCreationComponent
     this.createForm({
       [RENTAL_CREATE_CONTROL_NAMES.Category]: null,
       [RENTAL_CREATE_CONTROL_NAMES.Equipment]: null,
+      [RENTAL_CREATE_CONTROL_NAMES.EquipmentName]: ['', Validators.required],
       [RENTAL_CREATE_CONTROL_NAMES.Renter]: null,
       [RENTAL_CREATE_CONTROL_NAMES.RenterName]: ['', Validators.required],
       [RENTAL_CREATE_CONTROL_NAMES.Rentier]: null,
@@ -89,7 +91,22 @@ export class RentalCreationComponent
     this.router.navigate([ROUTES.rentals.navigations.list]);
   }
 
+  public onSelectedEquipment(equipment: SelectResult) {
+    if (!equipment.Id)
+      return;
+
+    this.displayEquipmentSelectionDialog = false;
+    this.form.patchValue({
+      [RENTAL_CREATE_CONTROL_NAMES.Equipment]: equipment.Id,
+      [RENTAL_CREATE_CONTROL_NAMES.EquipmentName]: equipment.Name,
+    });
+    this.calendar.onSelectedEquipment(equipment.Id as string);
+  }
+
   public onSelectedRenter(renter: SelectResult) {
+    if (!renter.Id)
+      return;
+
     this.displayRenterSelectionDialog = false;
     this.form.patchValue({
       [RENTAL_CREATE_CONTROL_NAMES.Renter]: renter.Id,
@@ -98,6 +115,9 @@ export class RentalCreationComponent
   }
 
   public onSelectedRentier(rentier: SelectResult) {
+    if (!rentier.Id)
+      return;
+
     this.displayRentierSelectionDialog = false;
     this.form.patchValue({
       [RENTAL_CREATE_CONTROL_NAMES.Rentier]: rentier.Id,
@@ -106,6 +126,9 @@ export class RentalCreationComponent
   }
 
   public onSelectedUserResponsibleForHandling(user: SelectResult) {
+    if (!user.Id)
+      return;
+
     this.displayUserSelectionDialog = false;
     this.form.patchValue({
       [RENTAL_CREATE_CONTROL_NAMES.UserResponsibleForHandling]: user.Id,
@@ -117,17 +140,6 @@ export class RentalCreationComponent
     this.selectOptionsService
       .getRentalCategories()
       .subscribe(result => this.categories = result);
-
-    this.selectOptionsService
-      .getClients()
-      .subscribe(result => {
-        this.renters = result;
-        this.rentiers = result;
-      });
-
-    this.selectOptionsService
-      .getEquipments()
-      .subscribe(result => this.equipments = result);
   }
 
   private prepareRentalCreationModel(): RentalCreationModel {

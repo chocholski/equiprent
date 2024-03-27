@@ -45,7 +45,16 @@ export const API_ROUTES = {
     },
     getById: (equipmentId: string) => `equipment/${equipmentId}`,
     post: "equipment",
-    put: "equipment"
+    put: "equipment",
+    select: (event: LazyLoadEvent, columns: PngTableColumn[], ignoredIds?: string[]) => {
+      const ignoredIdsBuilder = new StringBuilder();
+      if (ignoredIds && ignoredIds.length > 0) {
+        for (let item of ignoredIds.filter(id => id !== null && id !== undefined && id !== '')) {
+          ignoredIdsBuilder.append(`&ignoredIds=${item}`);
+        }
+      }
+      return `equipment/selection${new PngTableSearchQueryBuilder(event, columns).create()}${ignoredIdsBuilder.toString()}`
+    },
   },
   identity: {
     authenticate: "identity/authenticate",
@@ -61,6 +70,7 @@ export const API_ROUTES = {
   rental: {
     delete: (rentalId: string) => `rental/${rentalId}`,
     getAll: (event: LazyLoadEvent, columns: PngTableColumn[]) => `rental${new PngTableSearchQueryBuilder(event, columns).create()}`,
+    getAsEvents: (equipmentId: string, year: number, month: number) => `rental/events?equipmentId=${equipmentId}&year=${year}&month=${month}`,
     getById: (rentalId: string) => `rental/${rentalId}`,
     post: "rental",
     put: "rental"

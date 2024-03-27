@@ -72,11 +72,15 @@ namespace Equiprent.Logic.Abstractions
             if (dbStatementBuilder is null)
                 return null;
 
-            return await _query
+            var resultQuery = _query
                 .Where(await dbStatementBuilder.BuildWhereClauseAsync(_requestParameters.SearchCriteria, cancellationToken))
                 .OrderBy(dbStatementBuilder.BuildOrderClause(sortColumnName, _requestParameters.SortOrder))
-                .Skip(_requestParameters.StartRow)
-                .Take(_requestParameters.PageCount)
+                .Skip(_requestParameters.StartRow);
+
+            if (_requestParameters.PageCount > 0)
+                resultQuery = resultQuery.Take(_requestParameters.PageCount);
+
+            return await resultQuery
                 .Select(_selector)
                 .ToListAsync(cancellationToken);
         }

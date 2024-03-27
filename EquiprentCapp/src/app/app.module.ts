@@ -50,6 +50,7 @@ import { EquipmentCreationComponent } from './components/equipments/create/equip
 import { EquipmentDetailsComponent } from './components/equipments/details/equipment-details.component';
 import { EquipmentListComponent } from './components/equipments/list/equipment-list.component';
 import { EquipmentPhotosComponent } from './components/equipments/photos/equipment-photos.component';
+import { EquipmentSelectListComponent } from './components/equipments/select-list/equipment-select-list.component';
 import { LoginComponent } from './components/login/login/login.component';
 import { LoginResetPasswordComponent } from './components/login/reset-password/login-reset-password.component';
 import { ManufacturerAddressComponent } from './components/addresses/manufacturer-address/manufacturer-address.component';
@@ -59,6 +60,7 @@ import { ManufacturerListComponent } from './components/manufacturers/list/manuf
 import { NameInLanguagesComponent } from './components/name-in-languages/name-in-languages.component';
 import { PrivateClientAddressComponent } from './components/addresses/private-client-address/private-client-address.component';
 import { PrivateClientComponent } from './components/clients/private-client/private-client.component';
+import { RentalCreationCalendarComponent } from './components/rentals/create/calendar/rental-create-calendar.component';
 import { RentalCreationComponent } from './components/rentals/create/rental-create.component';
 import { RentalListComponent } from './components/rentals/list/rental-list.component';
 import { SelectableFieldIconComponent } from './components/abstract/forms/fields/selectable-input.component';
@@ -99,6 +101,9 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { TreeTableModule } from 'primeng/treetable';
 
+//Other
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 registerLocaleData(localePl, 'pl');
 export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
 
@@ -123,6 +128,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         EquipmentDetailsComponent,
         EquipmentListComponent,
         EquipmentPhotosComponent,
+        EquipmentSelectListComponent,
         LoginComponent,
         LoginResetPasswordComponent,
         ManufacturerAddressComponent,
@@ -132,6 +138,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         NameInLanguagesComponent,
         PrivateClientAddressComponent,
         PrivateClientComponent,
+        RentalCreationCalendarComponent,
         RentalCreationComponent,
         RentalListComponent,
         SelectableFieldIconComponent,
@@ -192,6 +199,9 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
         ToastModule,
         TreeTableModule,
         //[end] primeng Modules
+        //[start] other modules
+        FullCalendarModule,
+        //[end] other modules
     ],
     providers: [
         //[start] app services

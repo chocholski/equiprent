@@ -301,6 +301,9 @@
         "NationalCitizenId": "Narodowy identyfikator obywatela"
     },
     "Rental": {
+        "Calendar": {
+            "Rented": "WYPOŻYCZONE"
+        },
         "Category": "Kategoria",
         "CategoryId": "Kategoria",
         "CategoryName": "Kategoria",

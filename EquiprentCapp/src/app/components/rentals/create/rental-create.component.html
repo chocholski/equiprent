@@ -23,11 +23,19 @@
                     </div>
                   </div>
                   <div class="field col-12 md:col-6">
-                    <p-calendar class="max-w-full" formControlName="StartEndRange" dateFormat="dd.mm.yy"
-                      [readonlyInput]="true" selectionMode="range" [showIcon]="true" [showButtonBar]="true"
-                      [inline]="true" [showWeek]="true" [readonlyInput]="true"></p-calendar>
+                    <rental-create-calendar #calendar></rental-create-calendar>
                   </div>
                   <div class="field col-12 md:col-6">
+                    <div class="flex-wrap mb-4">
+                      <label class="block text-900 font-medium mb-2">{{ 'Rental.Equipment' | translate }}</label>
+                      <selectable-input [form]="form" [formFieldWithId]="'EquipmentId'"
+                        [formFieldWithName]="'EquipmentName'" [initialIconClass]="Menus.main.items.equipments.icon">
+                        <input pInputText class=" p-inputtext mb-2" id="equipmentName" formControlName="EquipmentName"
+                          type="text" (click)="displayEquipmentSelectionDialog = true" readonly />
+                      </selectable-input>
+                      <p-message *ngIf="formValidator.hasError('EquipmentName')" severity="error"
+                        [text]="translate.instant('Messages.FieldRequired')"></p-message>
+                    </div>
                     <div class="flex-wrap mb-4">
                       <label class="block text-900 font-medium mb-2">{{ 'Rental.Category' | translate }}</label>
                       <p-dropdown class="mb-2" [options]="categories" formControlName="CategoryId"
@@ -78,11 +86,6 @@
         </p-tabPanel>
       </p-tabView>
     </div>
-    <p-dialog [header]="translate.instant('User.Select')" [(visible)]="displayUserSelectionDialog" [modal]="true"
-      [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-      <user-select-list *ngIf="displayUserSelectionDialog"
-        (onSelected)="onSelectedUserResponsibleForHandling($event)"></user-select-list>
-    </p-dialog>
     <p-dialog [header]="translate.instant('Client.Select')" [(visible)]="displayRenterSelectionDialog" [modal]="true"
       [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
       <client-select-list *ngIf="displayRenterSelectionDialog" [ignoredIds]="[form.value.RentierId]"
@@ -92,6 +95,16 @@
       [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
       <client-select-list *ngIf="displayRentierSelectionDialog" [ignoredIds]="[form.value.RenterId]"
         (onSelected)="onSelectedRentier($event)"></client-select-list>
+    </p-dialog>
+    <p-dialog [header]="translate.instant('Equipment.Select')" [(visible)]="displayEquipmentSelectionDialog"
+      [modal]="true" [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+      <equipment-select-list *ngIf="displayEquipmentSelectionDialog" [ignoredIds]="[form.value.EquipmentId]"
+        (onSelected)="onSelectedEquipment($event)"></equipment-select-list>
+    </p-dialog>
+    <p-dialog [header]="translate.instant('User.Select')" [(visible)]="displayUserSelectionDialog" [modal]="true"
+      [style]="{width: '80vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+      <user-select-list *ngIf="displayUserSelectionDialog"
+        (onSelected)="onSelectedUserResponsibleForHandling($event)"></user-select-list>
     </p-dialog>
   </div>
 </div>

@@ -4,6 +4,8 @@
     {
         public static class Equipment
         {
+            public const string Selection = "selection";
+
             public static class File
             {
                 public static class Photo
